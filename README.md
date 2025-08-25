@@ -13,22 +13,18 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-08-25:
+Package versions that are available here but not yet on the main CCI repo as of 2025-08-31:
 
-- abseil/20250512.1
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
-- angelscript/2.35.0
-- angelscript/2.35.1
-- angelscript/2.36.0
-- angelscript/2.36.1
-- angelscript/2.37.0
 - antlr4/4.13.2
 - apr-util/1.6.3
 - apr/1.7.6
 - arbiter/cci.20231122
+- argtable3/3.2.0
+- argtable3/3.2.1
 - arm-compute-library/52.2.0
 - armadillo/12.6.7
 - armadillo/12.8.1
@@ -60,7 +56,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - clang/19.1.7
 - clang/20.1.7
 - cloudini/0.3.0
-- cmaes/0.10.0
 - cmake/3.19.8
 - cmake/3.20.6
 - cmake/3.21.7
@@ -74,6 +69,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/3.29.7
 - cmake/3.30.5
 - cmake/4.0.3
+- cmake/4.1.0
 - coal/3.0.1
 - coin-buildtools/0.8.11
 - coin-cbc/2.10.11
@@ -86,6 +82,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - colmap/3.10
 - conan-gnu-triplet/latest
 - conan-utils/latest
+- concurrencpp/0.1.4
+- concurrencpp/0.1.5
+- concurrencpp/0.1.6
 - cose-c/cci.20200603
 - cpp-validator/2.1.1
 - cppad/20250000.2
@@ -100,24 +99,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cpython/3.9.23
 - crashpad/cci.20231107
 - criterion/2.4.2
-- crossdb/0.10.0
-- crossdb/0.11.0
-- crossdb/0.9.0
 - crow/1.1.0
 - crow/1.2.0
 - crow/1.2.1
-- ctre/2.10
-- ctre/3.1
-- ctre/3.2
-- ctre/3.3.4
-- ctre/3.4.1
-- ctre/3.5
-- ctre/3.6
-- ctre/3.7
-- ctre/3.7.1
-- ctre/3.7.2
-- ctre/3.8
-- ctre/3.8.1
 - cub/2.7.0
 - cuda-samples/12.5
 - daggy/2.1.3
@@ -129,19 +113,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - directx-headers/1.602.0
 - directx-headers/1.615.0
 - directx-shader-compiler/1.8.2502
-- doctest/2.3.5
-- doctest/2.3.6
-- doctest/2.3.7
-- doctest/2.3.8
-- doctest/2.4.0
-- doctest/2.4.1
-- doctest/2.4.10
-- doctest/2.4.3
-- doctest/2.4.4
-- doctest/2.4.5
-- doctest/2.4.6
-- doctest/2.4.8
-- doctest/2.4.9
 - dotconf/1.4.1
 - dpdk/24.07
 - egl-headers/20220525
@@ -159,7 +130,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - emsdk/4.0.6
 - f2c/20240312
 - faiss/1.8.0
-- fastgltf/0.7.2
+- fast-cdr/2.1.0
+- fast-cdr/2.2.5
 - fbgemm/1.1.0
 - fenster/0.1.0
 - ffmpeg/4.4.5
@@ -211,7 +183,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - glib-gir/2.82.4
 - glib-gir/2.84.1
 - glib/2.84.3
-- glib/2.85.1
 - glibmm/2.84.0
 - glim/1.0.4
 - glim_ext/1.0.0
@@ -223,7 +194,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - glslang/1.3.296.0
 - glslang/1.4.309.0
 - gm2calc/2.3.1
-- gmp/6.2.0
 - gn/qt-6.9.0
 - gnsstk/14.3.0
 - gnu-getopt/2.40
@@ -255,12 +225,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gst-plugins-ugly/1.26.0
 - gstreamer/1.24.12
 - gstreamer/1.26.0
-- gtest/1.10.0
 - gtest/1.12.1
 - gtest/1.13.0
 - gtest/1.14.0
 - gtest/1.15.0
-- gtest/1.8.1
 - gtk/3.24.49
 - gtk/4.18.6
 - gtkmm/3.24.9
@@ -296,6 +264,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - imagemagick/7.1.1.38
 - imgui/1.91.9
 - imgui/1.91.9b
+- imgui/1.92.0
 - imlib2/1.12.3
 - intel-oneapi-dpcpp-cpp/2025.1.1
 - ios-cmake/4.4.1
@@ -342,14 +311,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libmng/2.0.3
 - libmount/2.41
 - libmysqlclient/8.2.0
-- libnghttp2/1.53.0
-- libnghttp2/1.54.0
-- libnghttp2/1.55.1
-- libnghttp2/1.56.0
-- libnghttp2/1.57.0
-- libnghttp2/1.58.0
-- libnghttp2/1.59.0
-- libnghttp2/1.60.0
+- libnghttp2/1.61.0
 - libosmium/2.20.0
 - libpng/1.6.49
 - libpq/17.0
@@ -363,6 +325,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libsm/1.2.4
 - libsolv/0.7.29
 - libsoup/3.6.1
+- libssh/0.11.1
 - libstudxml/1.1.0
 - libsysfs/2.1.1
 - libsystemd/255.18
@@ -391,7 +354,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libxi/1.8.2
 - libxinerama/1.1.5
 - libxkbfile/1.1.3
-- libxml2/2.14.4
 - libxmu/1.2.1
 - libxrandr/1.5.4
 - libxrender/0.9.11
@@ -414,16 +376,17 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - llvm-openmp/10.1.6
 - llvm-openmp/18.1.8
 - llvm-openmp/19.1.7
+- log4cxx/1.2.0
+- log4cxx/1.3.1
+- log4cxx/1.4.0
 - lttng-ust/2.13.9
 - m4/1.4.20
-- manifold/3.0.1
 - matplotlib-cpp/cci.20210423
 - matplotplusplus/1.2.0
 - mavlink/1.0.12.cci.20240530
 - mavlink/1.0.12.cci.20241205
 - mavsdk/2.13.0
 - meson/1.6.1
-- meson/1.8.1
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
 - minizip-ng/4.0.10
@@ -518,23 +481,21 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - protobuf/4.31.1
 - protobuf/5.29.5
 - protobuf/6.31.1
+- pybind11/2.11.1
+- pybind11/2.12.0
+- pybind11/2.13.1
+- pybind11/2.13.2
+- pybind11/2.13.4
+- pybind11/2.13.5
 - qcoro/0.10.0
 - qhull/8.1.alpha4
 - qscintilla/2.14.1
+- qtawesome/6.4.0
 - qtawesome/6.5.1
 - qtkeychain/0.15.0
 - rapidjson/cci.20250205
 - re2/20220601
 - readline/8.0
-- redis-plus-plus/1.2.3
-- redis-plus-plus/1.3.10
-- redis-plus-plus/1.3.11
-- redis-plus-plus/1.3.12
-- redis-plus-plus/1.3.13
-- redis-plus-plus/1.3.2
-- redis-plus-plus/1.3.3
-- redis-plus-plus/1.3.7
-- redis-plus-plus/1.3.8
 - reduct-cpp/1.14.0
 - renderdoc/1.37
 - rmlui/5.1
@@ -546,10 +507,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rust/1.81.0
 - rust/1.84.0
 - rust/1.85.1
-- sbgecom/5.2.590
-- sdl/3.2.14
-- sdl/3.2.18
-- sdl/3.2.6
 - sdl_ttf/2.0.15
 - sdl_ttf/2.0.18
 - sdl_ttf/2.20.1
@@ -561,11 +518,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
 - shaderc/2025.2
-- simdjson/3.10.1
-- simdjson/3.11.5
-- simdjson/3.12.2
-- simdjson/3.12.3
-- simdjson/3.9.3
 - skia/132
 - sleef/3.6.1
 - small_gicp/0.1.2
@@ -649,6 +601,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - tk/8.6.16
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
+- tracy/0.11.1
+- tracy/0.12.1
 - tsid/1.8.0
 - tz/2024b
 - ufbx/0.18.2
@@ -716,9 +670,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - xorg-macros/1.20.2
 - xorg/1.8.10
 - xpack/1.0.6
-- xtensor/0.21.5
-- xtensor/0.23.10
-- xtensor/0.24.6
 - xtrans/1.5.0
 - zenoh-c/1.2.0
 - zenoh-c/1.3.2
@@ -727,6 +678,5 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - zint/2.13.0
 - zlib-ng/2.0.7
 - zlib-ng/2.1.7
-- zlib-ng/2.2.4
 - zlib-rs/0.5.0
 
