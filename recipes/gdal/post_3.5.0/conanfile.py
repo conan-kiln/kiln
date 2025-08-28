@@ -625,10 +625,6 @@ class GdalConan(ConanFile):
         deps.generate()
 
     def _patch_sources(self):
-        # Fix Deflate::Deflate not being correctly propagated internally.
-        replace_in_file(self, os.path.join(self.source_folder, "port", "CMakeLists.txt"),
-                        "PRIVATE Deflate::Deflate",
-                        "PUBLIC Deflate::Deflate")
         # Workaround for JXL_THREADS being provided by the JXL package on CCI.
         replace_in_file(self, os.path.join(self.source_folder, "cmake", "helpers", "CheckDependentLibraries.cmake"),
                         "JXL_THREADS", "JXL", strict=False)
