@@ -1,7 +1,5 @@
 versions:
-  "2.0.0-rc10":
+  "2.0.0-rc13":
     folder: all
   "1.0.7":
-    folder: all
-  "1.0.6":
     folder: all

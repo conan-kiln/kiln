@@ -1,25 +1,12 @@
 sources:
-  "2.0.0-rc10":
-    url: "https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v2.0.0rc10.tar.gz"
-    sha256: "e1bc2e5547b562d33ca4a90b581717984a70d58113d83208dbc97c82e137b9fe"
+  "2.0.0-rc13":
+    url: "https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v2.0.0rc13.tar.gz"
+    sha256: "0feb92b838f8ce4aa6eb0ccc32dff30cb64a891e0ec3bde837fca49c78d44334"
   "1.0.7":
     url: "https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v1.0.7.tar.gz"
     sha256: "b9d08b675ba54b9cb00ffc99eaba7616d0f7e6f6b8947a7e118474e97d942129"
-  "1.0.6":
-    url: "https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v1.0.6.tar.gz"
-    sha256: "19ee82cd201761954dd833de551edb570e33b320d6027e0d91455faf7cd4c341"
 patches:
-  "2.0.0-rc10":
-    - patch_file: "patches/2.0.0-rc10-0001-cmake-minimum-required.patch"
-      patch_description: "CMake: move cmake_minimum_required() before project()"
-      patch_type: "backport"
-      patch_source: "https://github.com/tinyobjloader/tinyobjloader/pull/347"
   "1.0.7":
-    - patch_file: "patches/1.0.x-0001-cmake-minimum-required.patch"
-      patch_description: "CMake: move cmake_minimum_required() before project()"
-      patch_type: "backport"
-      patch_source: "https://github.com/tinyobjloader/tinyobjloader/pull/347"
-  "1.0.6":
     - patch_file: "patches/1.0.x-0001-cmake-minimum-required.patch"
       patch_description: "CMake: move cmake_minimum_required() before project()"
       patch_type: "backport"
