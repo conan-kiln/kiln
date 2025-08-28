@@ -13,7 +13,7 @@
  message("Initial SAN=${SAN}")
  
 -if (NOT MSVC)
-+if (WITH_OPENCL)
++if (OPENCL)
  	# With MSVC builds we use the Khronos lib/include files in the project's "OpenCL" directory, to completely avoid requiring fiddly to install vendor SDK's.
  	# Otherwise we use the system's (if any).
 -	find_package( OpenCL )
@@ -74,7 +74,7 @@
 +if (TRUE)
  	# For Non-Windows builds, let cmake try and find the system OpenCL headers/libs for us.
 -	if (OPENCL_FOUND)
-+	if (WITH_OPENCL)
++	if (OPENCL)
  		set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -DBASISU_SUPPORT_OPENCL=1")
  		set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DBASISU_SUPPORT_OPENCL=1")	
  		

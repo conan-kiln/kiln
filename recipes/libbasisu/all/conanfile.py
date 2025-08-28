@@ -24,7 +24,6 @@ class LibBasisUniversalConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "use_sse4": [True, False],
-        "enable_encoder": [True, False],
         "custom_iterator_debug_level": [True, False],
         "with_zstd": [True, False],
         "with_opencl": [True, False],
@@ -33,7 +32,6 @@ class LibBasisUniversalConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "use_sse4": False,
-        "enable_encoder": True,
         "custom_iterator_debug_level": False,
         "with_zstd": True,
         "with_opencl": True,
@@ -50,9 +48,7 @@ class LibBasisUniversalConan(ConanFile):
         if self.settings.os == "Windows":
             del self.options.fPIC
         if not is_msvc(self):
-            self.options.rm_safe("custom_iterator_debug_level")
-        if Version(self.version) < "1.16":
-            del self.options.with_opencl
+            del self.options.custom_iterator_debug_level
 
     def configure(self):
         if self.options.shared:
@@ -60,15 +56,17 @@ class LibBasisUniversalConan(ConanFile):
 
     def requirements(self):
         if self.options.with_zstd:
-            self.requires("zstd/[~1.5]")
-        if self.options.get_safe("with_opencl"):
-            self.requires("opencl-icd-loader/2023.12.14")
+            transitive = Version(self.version) >= "1.60"
+            self.requires("zstd/[~1.5]", transitive_headers=transitive, transitive_libs=transitive)
+        if self.options.with_opencl:
+            self.requires("opencl-icd-loader/[*]")
+        # v1.50 and newer also vendors a customized version of TinyEXR, which can't be replaced
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def validate(self):
-        check_min_cppstd(self, 11)
+        check_min_cppstd(self, 17 if Version(self.version) >= "1.60" else 11)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -78,8 +76,8 @@ class LibBasisUniversalConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["SSE4"] = self.options.use_sse4
         tc.variables["ZSTD"] = self.options.with_zstd
-        tc.variables["WITH_OPENCL"] = self.options.get_safe("with_opencl", False)
-        tc.variables["ENABLE_ENCODER"] = self.options.enable_encoder
+        tc.variables["WITH_OPENCL"] = self.options.with_opencl
+        tc.variables["ENABLE_ENCODER"] = True
         tc.variables["NO_ITERATOR_DEBUG_LEVEL"] = not self._use_custom_iterator_debug_level()
         tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
         tc.generate()
@@ -101,10 +99,9 @@ class LibBasisUniversalConan(ConanFile):
         copy(self, "*.h",
              src=os.path.join(self.source_folder, "transcoder"),
              dst=os.path.join(self.package_folder, "include", self.name, "transcoder"))
-        if self.options.enable_encoder:
-            copy(self,"*.h",
-                 src=os.path.join(self.source_folder, "encoder"),
-                 dst=os.path.join(self.package_folder, "include", self.name, "encoder"))
+        copy(self,"*.h",
+             src=os.path.join(self.source_folder, "encoder"),
+             dst=os.path.join(self.package_folder, "include", self.name, "encoder"))
 
     def package_info(self):
         self.cpp_info.libs = ["basisu"]
