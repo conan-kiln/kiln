@@ -97,9 +97,7 @@ class GlfwConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
         # Fix X11 transitive deps not being propagated via specific include dirs vars
-        cmakelists = os.path.join(self.source_folder, "src", "CMakeLists.txt")
-        if Version(self.version) < "3.4":
-            cmakelists = os.path.join(self.source_folder, "CMakeLists.txt")
+        cmakelists = "CMakeLists.txt" if Version(self.version) < "3.4" else "src/CMakeLists.txt"
         replace_in_file(self, cmakelists, "${X11_X11_INCLUDE_PATH}", "${X11_INCLUDE_DIR}")
 
     def generate(self):

@@ -13,13 +13,13 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 35835833..964c12aa 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -249,12 +249,13 @@ endif()
+@@ -252,12 +252,12 @@
  # Use Wayland for window creation
  #--------------------------------------------------------------------
  if (_GLFW_WAYLAND)
 -    find_package(ECM REQUIRED NO_MODULE)
 -    list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}")
- 
+-
 -    find_package(Wayland REQUIRED Client Cursor Egl)
 -    find_package(WaylandScanner REQUIRED)
 -    find_package(WaylandProtocols 1.15 REQUIRED)
