@@ -1,4 +1,7 @@
 sources:
+  "1.4.321.0":
+    url: "https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/vulkan-sdk-1.4.321.0.tar.gz"
+    sha256: "80f929ac4e9a1810401064fcd3a789a98006c7916b73b215c235a5f538daa5e9"
   "1.4.313.0":
     url: "https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/vulkan-sdk-1.4.313.0.tar.gz"
     sha256: "49b8ee6c2352157b12b1c87eb1165bc0f82a885bc2135ad97041ac84f79aacd0"
@@ -18,6 +21,8 @@ sources:
     url: "https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/sdk-1.3.250.1.tar.gz"
     sha256: "b5b87a3293347ca2f8ee85cee0b342ae78347337c6d00b1bbccde22839e27c0d"
 patches:
+  "1.4.321.0":
+    - patch_file: "patches/001-actually-link-deps.patch"
   "1.4.313.0":
     - patch_file: "patches/001-actually-link-deps.patch"
   "1.4.309.0":
