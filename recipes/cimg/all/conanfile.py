@@ -171,7 +171,7 @@ class CImgConan(ConanFile):
         if self.options.enable_curl:
             self.requires("libcurl/[>=7.78.0 <9]")
         if self.options.enable_tinyexr:
-            self.requires("tinyexr/1.0.7")
+            self.requires("tinyexr/[^1.0]")
 
     def package_id(self):
         self.info.clear()
