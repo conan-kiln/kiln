@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.15)
+project(tinyexr LANGUAGES CXX)
+
+add_library(tinyexr src/tinyexr.cc)
+
+if(USE_MINIZ)
+    find_package(miniz REQUIRED)
+    target_link_libraries(tinyexr PRIVATE miniz::miniz)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_MINIZ)
+endif()
+if(USE_ZLIB)
+    find_package(ZLIB REQUIRED)
+    target_link_libraries(tinyexr PRIVATE ZLIB::ZLIB)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_ZLIB)
+endif()
+if(USE_PIZ)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_PIZ)
+endif()
+if(USE_ZFP)
+    find_package(zfp REQUIRED)
+    target_link_libraries(tinyexr PRIVATE zfp::zfp)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_ZFP)
+endif()
+if(USE_THREAD)
+    find_package(Threads REQUIRED)
+    target_link_libraries(tinyexr PRIVATE Threads::Threads)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_THREAD)
+endif()
+if(USE_OPENMP)
+    find_package(OpenMP REQUIRED)
+    target_link_libraries(tinyexr PRIVATE OpenMP::OpenMP_CXX)
+    target_compile_definitions(tinyexr PRIVATE TINYEXR_USE_OPENMP)
+endif()
+
+install(TARGETS tinyexr
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+install(FILES src/tinyexr.h DESTINATION include)
