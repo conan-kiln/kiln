@@ -1,23 +1,13 @@
 cmake_minimum_required(VERSION 3.15)
 project(cgltf C)
 
-set(SOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
+add_library(cgltf cgltf.c cgltf_write.c)
+set_property(TARGET cgltf PROPERTY C_STANDARD 99)
+set_property(TARGET cgltf PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(SRC_FILES
-  ${SOURCES_DIR}/cgltf.c
-  ${SOURCES_DIR}/cgltf_write.c
+install(TARGETS cgltf
+    RUNTIME DESTINATION bin
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )
-set(HEADER_FILES
-  ${SOURCES_DIR}/cgltf.h
-  ${SOURCES_DIR}/cgltf_write.h
-)
-
-add_library(${PROJECT_NAME} ${SRC_FILES})
-set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 99)
-if(MSVC AND BUILD_SHARED_LIBS)
-  set_property(TARGET ${PROJECT_NAME} PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
-endif()
-
-include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME})
-install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES cgltf.h cgltf_write.h DESTINATION include)

@@ -12,10 +12,8 @@ class CgltfConan(ConanFile):
     name = "cgltf"
     description = "Single-file glTF 2.0 loader and writer written in C99."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jkuhlmann/cgltf"
-    topics = ("gltf", "header-only")
-
+    topics = ("gltf",)
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -30,7 +28,7 @@ class CgltfConan(ConanFile):
     languages = ["C"]
 
     def export_sources(self):
-        copy(self, "CMakeLists.txt", src=self.recipe_folder, dst=self.export_sources_folder)
+        copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
         export_conandata_patches(self)
 
     def layout(self):
@@ -38,21 +36,22 @@ class CgltfConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
-    def _create_source_files(self):
-        cgltf_c = '#define CGLTF_IMPLEMENTATION\n#include "cgltf.h"\n'
-        cgltf_write_c = '#define CGLTF_WRITE_IMPLEMENTATION\n#include "cgltf_write.h"\n'
-        save(self, os.path.join(self.build_folder, self.source_folder, "cgltf.c"), cgltf_c)
-        save(self, os.path.join(self.build_folder, self.source_folder, "cgltf_write.c"), cgltf_write_c)
+        save(self, "cgltf.c", (
+            '#define CGLTF_IMPLEMENTATION\n'
+            '#include "cgltf.h"\n'
+        ))
+        save(self, "cgltf_write.c", (
+            '#define CGLTF_WRITE_IMPLEMENTATION\n'
+            '#include "cgltf_write.h"\n'
+        ))
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.generate()
 
     def build(self):
-        self._create_source_files()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=Path(self.source_folder).parent)
+        cmake.configure()
         cmake.build()
 
     def _remove_implementation(self, header_fullpath):
@@ -60,15 +59,11 @@ class CgltfConan(ConanFile):
         begin = header_content.find("/*\n *\n * Stop now, if you are only interested in the API.")
         end = header_content.find("/* cgltf is distributed under MIT license:", begin)
         implementation = header_content[begin:end]
-        replace_in_file(
-            self,
-            header_fullpath,
-            implementation,
-            "/**\n * Implementation removed by conan during packaging.\n * Don't forget to link libs provided in this package.\n */\n\n",
-        )
+        replace_in_file(self, header_fullpath, implementation,
+                        "/**\n * Implementation removed by conan during packaging.\n * Don't forget to link libs provided in this package.\n */\n\n",)
 
     def package(self):
-        copy(self, "LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
         for header_file in ["cgltf.h", "cgltf_write.h"]:
