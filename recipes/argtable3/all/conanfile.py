@@ -1,7 +1,6 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanException
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.scm import Version
@@ -39,18 +38,19 @@ class Argtable3Conan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        # Newer versions do not expect a fourth digit in the version tag
+        build_suffix = ".0" if Version(self.version) < "3.3.0" else ""
+        save(self, "version.tag", f"v{self.version}{build_suffix}")
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["ARGTABLE3_ENABLE_TESTS"] = False
-        tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
-        if Version(self.version) > "3.2.2":
-            raise ConanException("CMAKE_POLICY_VERSION_MINIMUM hardcoded to 3.5, check if new version supports CMake 4")
+        tc.cache_variables["ARGTABLE3_ENABLE_TESTS"] = False
+        tc.cache_variables["ARGTABLE3_ENABLE_EXAMPLES"] = False
+        if Version(self.version) < "3.3.1":
+            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
 
     def build(self):
-        # The initial space is important (the cmake script does OFFSET 0)
-        save(self, os.path.join(self.build_folder, "version.tag"), f" {self.version}.0\n")
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -62,13 +62,17 @@ class Argtable3Conan(ConanFile):
 
         rmdir(self, os.path.join(self.package_folder, "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         suffix = ""
-        if not self.options.shared:
-            suffix += "_static"
+        if Version(self.version) < "3.3.0":
+            if not self.options.shared:
+                suffix += "_static"
+
         if Version(self.version) >= "3.2.1" and self.settings.build_type == "Debug":
             suffix += "d"
+
         self.cpp_info.libs = [f"argtable3{suffix}"]
         if self.settings.os in ("FreeBSD", "Linux"):
             self.cpp_info.system_libs.append("m")
