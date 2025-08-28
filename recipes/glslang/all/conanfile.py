@@ -30,6 +30,7 @@ class GlslangConan(ConanFile):
         "spv_remapper": [True, False],
         "hlsl": [True, False],
         "enable_optimizer": [True, False],
+        "install_internal_headers": [True, False],
     }
     default_options = {
         "shared": False,
@@ -38,6 +39,7 @@ class GlslangConan(ConanFile):
         "spv_remapper": True,
         "hlsl": True,
         "enable_optimizer": True,
+        "install_internal_headers": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -129,6 +131,10 @@ class GlslangConan(ConanFile):
         copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+        if self.options.install_internal_headers:
+            copy(self, "*.h",
+                 os.path.join(self.source_folder, "glslang"),
+                 os.path.join(self.package_folder, "include", "glslang-internal"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         save(self, self._version_file, self._extract_version())
