@@ -43,6 +43,7 @@ class ImathConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.cache_variables["BUILD_TESTING"] = False
         if is_msvc(self):
             # when msvc is working with a C++ standard level higher
             # than the default, we need the __cplusplus macro to be correct
