@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-08-31:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-04:
 
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
@@ -49,6 +49,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - casadi/3.6.6
 - casadi/3.7.0
 - catalyst/2.0.0
+- cgltf/1.15
 - cgns/4.4.0
 - cilantro/cci.20230816
 - cimg/2.9.9
@@ -180,6 +181,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gfortran/13.2.0
 - gici/cci.20250127
 - gl2ps/1.4.2
+- glfw/3.3.10
 - glib-gir/2.82.4
 - glib-gir/2.84.1
 - glib/2.84.3
@@ -193,6 +195,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - glslang/1.3.290.0
 - glslang/1.3.296.0
 - glslang/1.4.309.0
+- glslang/1.4.321.0
 - gm2calc/2.3.1
 - gn/qt-6.9.0
 - gnsstk/14.3.0
@@ -386,6 +389,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mavlink/1.0.12.cci.20240530
 - mavlink/1.0.12.cci.20241205
 - mavsdk/2.13.0
+- meshoptimizer/0.25
 - meson/1.6.1
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
@@ -488,6 +492,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pybind11/2.13.4
 - pybind11/2.13.5
 - qcoro/0.10.0
+- qcustomplot/2.1.0
 - qhull/8.1.alpha4
 - qscintilla/2.14.1
 - qtawesome/6.4.0
@@ -518,15 +523,18 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
 - shaderc/2025.2
+- shaderc/2025.3
 - skia/132
 - sleef/3.6.1
 - small_gicp/0.1.2
+- smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
 - spectra/1.1.0
 - speech-dispatcher/0.12
 - spirv-cross/1.3.290.0
 - spirv-headers/1.3.250.1
 - spirv-headers/1.3.290.0
+- spirv-headers/1.4.321.0
 - spirv-llvm-translator/19.1.6
 - spirv-llvm-translator/20.1.1
 - spirv-reflect/1.3.239.0
@@ -536,9 +544,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - spirv-reflect/1.3.290.0
 - spirv-reflect/1.3.296.0
 - spirv-reflect/1.4.309.0
+- spirv-reflect/1.4.321.0
 - spirv-tools/1.3.250.1
 - spirv-tools/1.3.290.0
 - spirv-tools/1.3.296.0
+- spirv-tools/1.4.321.0
 - splinter/3.0
 - stablehlo/1.10.0
 - stablehlo/1.6.3
@@ -598,6 +608,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - tcl/8.6.16
 - tcl/9.0.1
 - thrust/2.7.0
+- tinyexr/1.0.12
+- tinyobjloader/2.0.0-rc13
 - tk/8.6.16
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
@@ -620,6 +632,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - volk/1.3.250.1
 - volk/1.3.290.0
 - volk/1.4.309.0
+- volk/1.4.321.0
 - vswhere/3.1.7
 - vtk-m/2.2.0
 - vtk/9.3.1
@@ -627,27 +640,34 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - vulkan-extensionlayer/1.3.296.0
 - vulkan-extensionlayer/1.4.309.0
 - vulkan-extensionlayer/1.4.313.0
+- vulkan-extensionlayer/1.4.321.0
 - vulkan-headers/1.3.250.1
+- vulkan-headers/1.4.321.0
 - vulkan-loader/1.3.250.1
 - vulkan-loader/1.3.296.0
+- vulkan-loader/1.4.321.0
 - vulkan-memory-allocator/3.1.0
 - vulkan-memory-allocator/3.2.1
+- vulkan-memory-allocator/3.3.0
 - vulkan-profiles/1.3.290.0
 - vulkan-profiles/1.3.296.0
 - vulkan-profiles/1.4.309.0
 - vulkan-profiles/1.4.313.0
+- vulkan-profiles/1.4.321.0
 - vulkan-utility-libraries/1.3.261.1
 - vulkan-utility-libraries/1.3.268.0
 - vulkan-utility-libraries/1.3.290.0
 - vulkan-utility-libraries/1.3.296.0
 - vulkan-utility-libraries/1.4.309.0
 - vulkan-utility-libraries/1.4.313.0
+- vulkan-utility-libraries/1.4.321.0
 - vulkan-validationlayers/1.3.250.1
 - vulkan-validationlayers/1.3.268.0
 - vulkan-validationlayers/1.3.290.0
 - vulkan-validationlayers/1.3.296.0
 - vulkan-validationlayers/1.4.309.0
 - vulkan-validationlayers/1.4.313.0
+- vulkan-validationlayers/1.4.321.0
 - wuffs/0.3.4
 - x86simdsortcpp/7.0
 - xbyak/7.26
