@@ -5,7 +5,6 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import stdcpp_library, check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
 from conan.tools.scm import Version
@@ -192,9 +191,13 @@ class AssimpConan(ConanFile):
             self.requires("openddl-parser/0.5.1")
 
     def validate(self):
-        check_min_cppstd(self, 17 if Version(self.version) >= "5.2.0" else 11)
+        check_min_cppstd(self, 11)
         if Version(self.version) < "5.3.0" and self._depends_on_clipper and Version(self.dependencies["clipper"].ref.version).major != "4":
             raise ConanInvalidConfiguration("Only 'clipper/4.x' is supported")
+
+    def validate_build(self):
+        if Version(self.version) >= "5.2.0":
+            check_min_cppstd(self, 17)
 
     def build_requirements(self):
         if Version(self.version) >= "5.4.0":
@@ -255,8 +258,6 @@ class AssimpConan(ConanFile):
         cd.set_property("utfcpp", "cmake_target_name", "utf8cpp::utf8cpp")
         cd.generate()
 
-        venv = VirtualBuildEnv(self)
-        venv.generate()
 
     def _patch_sources(self):
         # Don't force several compiler and linker flags
