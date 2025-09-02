@@ -162,24 +162,11 @@ class FreetypeConan(ConanFile):
         copy(self, "LICENSE.TXT", doc_folder, license_folder)
 
         rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
-
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_vars_rel_path))
+        rmdir(self, os.path.join(self.package_folder, "share"))
+        save(self, os.path.join(self.package_folder, self._module_vars_rel_path), "set(FREETYPE_FOUND TRUE)\n")
         fix_apple_shared_install_name(self)
         self.python_requires["conan-utils"].module.fix_msvc_libnames(self)
-
-    def _create_cmake_module_variables(self, module_file):
-        content = textwrap.dedent(f"""\
-            set(FREETYPE_FOUND TRUE)
-            if(DEFINED Freetype_INCLUDE_DIRS)
-                set(FREETYPE_INCLUDE_DIRS ${{Freetype_INCLUDE_DIRS}})
-            endif()
-            if(DEFINED Freetype_LIBRARIES)
-                set(FREETYPE_LIBRARIES ${{Freetype_LIBRARIES}})
-            endif()
-            set(FREETYPE_VERSION_STRING "{self.version}")
-        """)
-        save(self, module_file, content)
 
     @property
     def _module_vars_rel_path(self):
@@ -195,6 +182,7 @@ class FreetypeConan(ConanFile):
         self.cpp_info.set_property("cmake_module_file_name", "Freetype")
         self.cpp_info.set_property("cmake_file_name", "freetype")
         self.cpp_info.set_property("cmake_target_name", "Freetype::Freetype")
+        self.cpp_info.set_property("cmake_additional_variables_prefixes", ["FREETYPE"])
         self.cpp_info.set_property("cmake_target_aliases", ["freetype"]) # other possible target name in upstream config file
         self.cpp_info.set_property("cmake_build_modules", [self._module_vars_rel_path])
         self.cpp_info.set_property("pkg_config_name", "freetype2")
@@ -204,5 +192,7 @@ class FreetypeConan(ConanFile):
         self.cpp_info.includedirs.append(os.path.join("include", "freetype2"))
 
         soversion = load(self, self._soversion_txt).strip()
-        self.conf_info.define("user.freetype:soversion", soversion)
         self.cpp_info.set_property("system_package_version", soversion)
+
+        freetype_config = os.path.join(self.package_folder, "bin", "freetype-config")
+        self._chmod_plus_x(freetype_config)
