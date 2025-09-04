@@ -155,7 +155,7 @@ class Libxml2Conan(ConanFile):
         if self.options.lzma:
             self.cpp_info.requires.append("xz_utils::xz_utils")
         if self.options.zlib:
-            self.cpp_info.requires.append("zlib::zlib")
+            self.cpp_info.requires.append("zlib-ng::zlib-ng")
         if self.settings.os == "Windows":
             self.cpp_info.system_libs.append("Bcrypt")
             self.cpp_info.system_libs.append("ws2_32") # http
