@@ -413,12 +413,7 @@ class FFMpegConan(ConanFile):
 
     def build_requirements(self):
         if self.settings.arch in ("x86", "x86_64"):
-            if Version(self.version) >= "7.0":
-                # INFO: FFmpeg 7.0+ added avcodec vvc_mc.asm which fails to assemble with yasm 1.3.0
-                # src/libavcodec/x86/vvc/vvc_mc.asm:55: error: operand 1: expression is not simple or relocatable
-                self.tool_requires("nasm/[^2.16]")
-            else:
-                self.tool_requires("yasm/1.3.0")
+            self.tool_requires("nasm/[^2.16]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.1 <3]")
         if self.settings_build.os == "Windows":
