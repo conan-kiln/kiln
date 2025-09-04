@@ -1,18 +1,18 @@
 import os
 
 from conan import ConanFile
+from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc_static_runtime, is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
+
 
 class QtAwesomeConan(ConanFile):
     name = "qtawesome"
     description = "Font Awesome for Qt Applications"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gamecreature/QtAwesome"
     topics = ("font", "icons", "qt")
     package_type = "library"
@@ -27,9 +27,6 @@ class QtAwesomeConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -40,9 +37,11 @@ class QtAwesomeConan(ConanFile):
         self.tool_requires("cmake/[>=3.27 <5]")
         self.tool_requires("qt/<host_version>")
 
+    def validate(self):
+        check_min_cppstd(self, 17)
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -66,5 +65,4 @@ class QtAwesomeConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["QtAwesome"]
-        if Version(self.version) >= "6.5":
-            self.cpp_info.includedirs.append(os.path.join("include", "QtAwesome"))
+        self.cpp_info.includedirs.append(os.path.join("include", "QtAwesome"))
