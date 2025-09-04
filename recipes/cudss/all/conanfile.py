@@ -28,7 +28,7 @@ class CuDssConan(ConanFile):
         "cmake_alias": True,
         "commlayer_nccl": False,
         "commlayer_mpi": False,
-        "mtlayer_omp": True,
+        "mtlayer_omp": False,
     }
 
     python_requires = "conan-cuda/latest"
