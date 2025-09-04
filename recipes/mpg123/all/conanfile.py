@@ -5,14 +5,13 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os, fix_apple_shared_install_name
 from conan.tools.build import cross_building
 from conan.tools.cmake import cmake_layout, CMake, CMakeDeps, CMakeToolchain
-from conan.tools.env import VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsDeps, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class Mpg123Conan(ConanFile):
@@ -53,25 +52,14 @@ class Mpg123Conan(ConanFile):
         "seektable": "1000",
         "module": "dummy",
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     @property
     def _audio_module(self):
         return {
             "libalsa": "alsa",
         }.get(str(self.options.module), str(self.options.module))
-
-    def export_sources(self):
-        export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            self.options.rm_safe("fPIC")
-
-    def configure(self):
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
 
     def layout(self):
         if is_msvc(self):
@@ -91,10 +79,7 @@ class Mpg123Conan(ConanFile):
         if self.settings.os != "Windows" and self.options.module == "win32":
             raise ConanInvalidConfiguration(f"The option -o {self.ref.name}:module should not use 'win32' for non-Windows OS")
 
-
     def build_requirements(self):
-        if self.settings.arch in ["x86", "x86_64"]:
-            self.tool_requires("yasm/1.3.0")
         if self.settings_build.os == "Windows" and not is_msvc(self):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", default=False, check_type=str):
@@ -102,11 +87,8 @@ class Mpg123Conan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
         if not cross_building(self):
             env = VirtualRunEnv(self)
             env.generate(scope="build")
@@ -124,6 +106,7 @@ class Mpg123Conan(ConanFile):
             tc.variables["USE_MODULES"] = False
             tc.variables["CHECK_MODULES"] = self._audio_module
             tc.variables["WITH_SEEKTABLE"] = self.options.seektable
+            tc.variables["YASM_ASSEMBLER"] = False
             tc.generate()
             tc = CMakeDeps(self)
             tc.generate()
@@ -146,6 +129,7 @@ class Mpg123Conan(ConanFile):
                 f"--enable-modules=no",
                 f"--enable-shared={yes_no(self.options.shared)}",
                 f"--enable-static={yes_no(not self.options.shared)}",
+                "--enable-yasm=no",
             ])
             if is_apple_os(self):
                 # Needed for fix_apple_shared_install_name invocation in package method
@@ -163,12 +147,6 @@ class Mpg123Conan(ConanFile):
             cmake.configure(build_script_folder=os.path.join(self.source_folder, "ports", "cmake"))
             cmake.build()
         else:
-            if Version(self.version) < "1.33.0" and self.settings.compiler == "apple-clang" and cross_building(self):
-                # when testing if the assembler supports avx - propagate cflags (CFLAGS) to the assembler
-                # (which should contain "-arch x86_64" when crossbuilding with appleclang)
-                replace_in_file(self, os.path.join(self.source_folder, "configure"),
-                                    "$CCAS -c -o conftest.o",
-                                    "$CCAS $CFLAGS -c -o conftest.o")
             autotools = Autotools(self)
             autotools.configure()
             autotools.make()
