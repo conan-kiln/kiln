@@ -198,7 +198,7 @@ class OpenmvgConan(ConanFile):
         for dll_file in glob.glob(os.path.join(self.package_folder, "lib", "*.dll")):
             rename(self, src=dll_file, dst=os.path.join(self.package_folder, "bin", os.path.basename(dll_file)))
         rm(self, "*.cmake", os.path.join(self.package_folder, "lib"))
-        rmdir(self, os.path.join(share_dir, "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "share", "cmake"))
 
     @property
     def _openmvg_components(self):
@@ -340,13 +340,13 @@ class OpenmvgConan(ConanFile):
             self.cpp_info.components[component].set_property("cmake_target_name", f"OpenMVG::{target}")
             if libs:
                 self.cpp_info.components[component].libs = libs
+            self.cpp_info.components[component].includedirs.append("include/openMVG_dependencies")
+            if values.get("add_library_name_prefix_to_include_dirs"):
+                self.cpp_info.components[component].includedirs.append("include/openMVG")
             self.cpp_info.components[component].defines = defines
             self.cpp_info.components[component].requires = values.get("requires", [])
             self.cpp_info.components[component].system_libs = values.get("system_libs", [])
             self.cpp_info.components[component].resdirs = [self._share_dir]
-
-            if values.get("add_library_name_prefix_to_include_dirs", False):
-                self.cpp_info.components[component].includedirs.append(os.path.join("include", "openMVG"))
 
         if self.options.with_openmp:
             for component_name in ["cameras", "features", "image", "matching", "matching_image_collection", "robust_estimation", "sfm", "vlsift"]:
