@@ -65,7 +65,7 @@ class EigenConan(ConanFile):
             self.output.info("Patching DisableStupidWarnings.h to the latest version to avoid warnings from newer compiler versions")
             path = "Eigen/src/Core/util/DisableStupidWarnings.h"
             assert os.path.isfile(path)
-            download(self, **self.conan_data["disable_stupid_warnings_h"], filename=path)
+            download(self, **self.conan_data["disable_stupid_warnings_h"][0], filename=path)
 
     def generate(self):
         tc = CMakeToolchain(self)
