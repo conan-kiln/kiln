@@ -18,9 +18,8 @@ required_conan_version = ">=2.4"
 class FreetypeConan(ConanFile):
     name = "freetype"
     description = "FreeType is a freely available software library to render fonts."
-    url = "https://github.com/conan-io/conan-center-index"
-    homepage = "https://www.freetype.org"
     license = "FTL"
+    homepage = "https://www.freetype.org"
     topics = ("freetype", "fonts")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
@@ -163,7 +162,6 @@ class FreetypeConan(ConanFile):
 
         rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        rmdir(self, os.path.join(self.package_folder, "share"))
         save(self, os.path.join(self.package_folder, self._module_vars_rel_path), "set(FREETYPE_FOUND TRUE)\n")
         fix_apple_shared_install_name(self)
         self.python_requires["conan-utils"].module.fix_msvc_libnames(self)
