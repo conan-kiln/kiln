@@ -1,30 +1,16 @@
 sources:
+  "0.193":
+    url: "https://sourceware.org/elfutils/ftp/0.193/elfutils-0.193.tar.bz2"
+    sha256: "7857f44b624f4d8d421df851aaae7b1402cfe6bcdd2d8049f15fc07d3dde7635"
   "0.192":
     url: "https://sourceware.org/elfutils/ftp/0.192/elfutils-0.192.tar.bz2"
     sha256: "616099beae24aba11f9b63d86ca6cc8d566d968b802391334c91df54eab416b4"
-  "0.191":
-    url: "https://sourceware.org/elfutils/ftp/0.191/elfutils-0.191.tar.bz2"
-    sha256: "df76db71366d1d708365fc7a6c60ca48398f14367eb2b8954efc8897147ad871"
-  "0.190":
-    url: "https://sourceware.org/elfutils/ftp/0.190/elfutils-0.190.tar.bz2"
-    sha256: "8e00a3a9b5f04bc1dc273ae86281d2d26ed412020b391ffcc23198f10231d692"
-  "0.189":
-    url: "https://sourceware.org/elfutils/ftp/0.189/elfutils-0.189.tar.bz2"
-    sha256: "39bd8f1a338e2b7cd4abc3ff11a0eddc6e690f69578a57478d8179b4148708c8"
 patches:
+  "0.193":
+    - patch_file: "patches/0.193-0002-add-enable-static-option-to-configure.patch"
+      patch_description: "Enable static library building."
+      patch_type: "conan"
   "0.192":
     - patch_file: "patches/0.192-0002-add-enable-static-option-to-configure.patch"
-      patch_description: "Enable static library building."
-      patch_type: "conan"
-  "0.191":
-    - patch_file: "patches/0.189-0002-add-enable-static-option-to-configure.patch"
-      patch_description: "Enable static library building."
-      patch_type: "conan"
-  "0.190":
-    - patch_file: "patches/0.189-0002-add-enable-static-option-to-configure.patch"
-      patch_description: "Enable static library building."
-      patch_type: "conan"
-  "0.189":
-    - patch_file: "patches/0.189-0002-add-enable-static-option-to-configure.patch"
       patch_description: "Enable static library building."
       patch_type: "conan"
