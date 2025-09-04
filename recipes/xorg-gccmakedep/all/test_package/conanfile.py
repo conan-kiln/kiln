@@ -1,8 +1,9 @@
+import os
+
 from conan import ConanFile
 from conan.errors import ConanException
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
-import os
 
 
 class TestPackageConan(ConanFile):

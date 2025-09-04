@@ -4,7 +4,6 @@ from functools import cached_property
 from conan import ConanFile
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 

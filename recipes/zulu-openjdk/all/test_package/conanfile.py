@@ -1,7 +1,7 @@
-from conan import ConanFile
-from conan.tools.build import cross_building
 from io import StringIO
 
+from conan import ConanFile
+from conan.tools.build import cross_building
 from conan.tools.layout import basic_layout
 
 

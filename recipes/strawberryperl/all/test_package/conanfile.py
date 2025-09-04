@@ -1,6 +1,6 @@
-from conan import ConanFile
 import os
 
+from conan import ConanFile
 from conan.tools.layout import basic_layout
 
 

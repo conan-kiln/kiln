@@ -1,7 +1,8 @@
+import os
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import *
-import os
 
 required_conan_version = ">=2.1"
 
@@ -30,7 +31,7 @@ class StrawberryPerlConan(ConanFile):
     def validate(self):
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration(f"{self.ref} is only intended to be used on Windows.")
-        
+
     def compatibility(self):
         if self.settings.arch == "armv8":
             return [{"settings": [("arch", "x86_64")]}]
