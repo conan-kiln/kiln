@@ -99,9 +99,6 @@ class SDLConan(ConanFile):
         env = env.vars(self, scope="build")
         env.save_script("sdl_env")
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def config_options(self):
         # Don't depend on iconv on Apple by default
         # SDL2 depends on many system freamworks,
@@ -168,7 +165,7 @@ class SDLConan(ConanFile):
     def validate(self):
         # SDL>=2.0.18 requires xcode 12 or higher because it uses CoreHaptics.
         if is_apple_os(self) and Version(self.settings.compiler.version) < "12":
-            raise ConanInvalidConfiguration("{}/{} requires xcode 12 or higher".format(self.name, self.version))
+            raise ConanInvalidConfiguration(f"{self.name}/{self.version} requires xcode 12 or higher")
 
         if self.settings.os == "Linux":
             if self.options.sndio:
@@ -177,10 +174,6 @@ class SDLConan(ConanFile):
                 raise ConanInvalidConfiguration("Package for 'jack' is not available (yet)")
             if self.options.esd:
                 raise ConanInvalidConfiguration("Package for 'esd' is not available (yet)")
-
-    def package_id(self):
-        if Version(self.version) < "2.0.22":
-            del self.info.options.sdl2main
 
     def build_requirements(self):
         self.tool_requires("cmake/[>3.27 <5]")
@@ -191,7 +184,6 @@ class SDLConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def _patch_sources(self):
         if Version(self.version) < "2.30.0":
@@ -318,8 +310,7 @@ class SDLConan(ConanFile):
         elif self.settings.os == "Windows":
             tc.variables["SDL_DIRECTX"] = self.options.directx
 
-        if Version(self.version) >= "2.0.22":
-            tc.variables["SDL2_DISABLE_SDL2MAIN"] = not self.options.sdl2main
+        tc.variables["SDL2_DISABLE_SDL2MAIN"] = not self.options.sdl2main
         if Version(self.version) >= "2.30.0":
             tc.variables["SDL_LIBICONV"] = self.options.get_safe("iconv", False)
             tc.variables["SDL_SYSTEM_ICONV"] = False
@@ -367,7 +358,7 @@ class SDLConan(ConanFile):
 
         # SDL2
         lib_postfix = postfix
-        if self.version >= "2.0.24" and (is_msvc(self) or self._is_clang_cl) and not self.options.shared:
+        if (is_msvc(self) or self._is_clang_cl) and not self.options.shared:
             lib_postfix = "-static" + postfix
 
         self.cpp_info.components["libsdl2"].set_property("cmake_target_name", "SDL2::SDL2")
