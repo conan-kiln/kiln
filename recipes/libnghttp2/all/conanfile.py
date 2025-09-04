@@ -193,7 +193,7 @@ class Nghttp2Conan(ConanFile):
                 self.cpp_info.components["nghttp2_app"].system_libs.append("pthread")
 
         if self.options.with_hpack:
-            self.cpp_info.components["nghttp2_hpack"].requires = ["jansson::jansson", "openssl::openssl", "zlib::zlib"]
+            self.cpp_info.components["nghttp2_hpack"].requires = ["jansson::jansson", "openssl::openssl", "zlib-ng::zlib-ng"]
 
         if self.options.with_app or self.options.with_hpack:
             self.runenv_info.append_path("PATH", os.path.join(self.package_folder, "bin"))
