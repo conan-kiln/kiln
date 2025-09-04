@@ -3,7 +3,8 @@ import os
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import Environment
+from conan.tools.build import can_run
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -36,6 +37,7 @@ class PackageConan(ConanFile):
         "with_wayland": True,
         "with_win32": True,
     }
+    languages = ["C"]
 
     python_requires = "conan-utils/latest"
 
@@ -45,18 +47,12 @@ class PackageConan(ConanFile):
     def config_options(self):
         if self.settings.os != "Windows":
             del self.options.with_win32
-
         if self.settings.os not in ["Linux", "FreeBSD"]:
             del self.options.with_x11
             del self.options.with_glx
             del self.options.with_drm
-
         if self.settings.os != "Linux":
             del self.options.with_wayland
-
-    def configure(self):
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -89,6 +85,10 @@ class PackageConan(ConanFile):
         apply_conandata_patches(self)
 
     def generate(self):
+        if self.options.get_safe("with_wayland") and can_run(self):
+            # Workaround for libxml2.so not being found by wayland-scanner
+            VirtualRunEnv(self).generate(scope="build")
+
         tc = MesonToolchain(self)
         tc.project_options["auto_features"] = "enabled"
         tc.project_options["disable_drm"] = not self.options.get_safe("with_drm")
