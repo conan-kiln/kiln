@@ -8,7 +8,7 @@ from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
 
-required_conan_version = ">=2.4"
+required_conan_version = ">=2.18"
 
 
 class GmpConan(ConanFile):
@@ -20,23 +20,20 @@ class GmpConan(ConanFile):
     license = ("LGPL-3.0", "GPL-2.0")
     homepage = "https://gmplib.org"
     topics = ("math", "arbitrary", "precision", "integer")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "disable_assembly": [True, False],
+        "enable_assembly": [True, False],
         "enable_fat": [True, False],
-        "run_checks": [True, False],
         "enable_cxx": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "disable_assembly": True,
+        "enable_assembly": False,
         "enable_fat": False,
-        "run_checks": False,
         "enable_cxx": True,
     }
 
@@ -50,21 +47,19 @@ class GmpConan(ConanFile):
             del self.options.fPIC
             self.package_type = "static-library"
         if self.settings.arch not in ["x86", "x86_64"]:
+            del self.options.enable_assembly
             del self.options.enable_fat
 
     def configure(self):
         if self.options.get_safe("shared"):
             self.options.rm_safe("fPIC")
         if self.options.get_safe("enable_fat"):
-            del self.options.disable_assembly
+            self.options.enable_assembly.value = True
         if not self.options.enable_cxx:
             self.languages = ["C"]
 
     def layout(self):
         basic_layout(self, src_folder="src")
-
-    def package_id(self):
-        del self.info.options.run_checks  # run_checks doesn't affect package's ID
 
     def build_requirements(self):
         self.tool_requires("m4/[^1.4.20]")
@@ -84,10 +79,10 @@ class GmpConan(ConanFile):
         yes_no = lambda v: "yes" if v else "no"
         tc.configure_args.extend([
             f'--with-pic={yes_no(self.options.get_safe("fPIC", True))}',
-            f'--enable-assembly={yes_no(not self.options.get_safe("disable_assembly", False))}',
-            f'--enable-fat={yes_no(self.options.get_safe("enable_fat", False))}',
+            f'--enable-assembly={yes_no(not self.options.get_safe("enable_assembly"))}',
+            f'--enable-fat={yes_no(self.options.get_safe("enable_fat"))}',
             f'--enable-cxx={yes_no(self.options.enable_cxx)}',
-            f'--srcdir={"../src"}', # Use relative path to avoid issues with #include "$srcdir/gmp-h.in" on Windows
+            '--srcdir=../src', # Use relative path to avoid issues with #include "$srcdir/gmp-h.in" on Windows
         ])
         if is_msvc(self):
             tc.configure_args.extend([
@@ -104,13 +99,11 @@ class GmpConan(ConanFile):
                 "x86_64": "amd64",
             }[str(self.settings.arch)]
             ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
-            dumpbin_nm = unix_path(self, os.path.join(self.source_folder, "dumpbin_nm.py"))
             env.define("CC", "cl -nologo")
             env.define("CCAS", f"{yasm_wrapper} -a x86 -m {yasm_machine} -p gas -r raw -f win32 -g null -X gnu")
             env.define("CXX", "cl -nologo")
             env.define("LD", "link -nologo")
             env.define("AR", f'{ar_wrapper} "lib -nologo"')
-            env.define("NM", f"python {dumpbin_nm}")
         tc.generate(env)
 
     def _patch_sources(self):
@@ -135,9 +128,6 @@ class GmpConan(ConanFile):
         autotools = Autotools(self)
         autotools.configure()
         autotools.make()
-        # INFO: According to the gmp readme file, make check should not be omitted, but it causes timeouts on the CI server.
-        if self.options.run_checks:
-            autotools.make(target="check")
 
     def package(self):
         copy(self, "COPYINGv2", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
@@ -150,14 +140,14 @@ class GmpConan(ConanFile):
         fix_apple_shared_install_name(self)
 
     def package_info(self):
-        # Workaround to always provide a pkgconfig file depending on all components
-        self.cpp_info.set_property("pkg_config_name", "gmp-all-do-not-use")
+        self.cpp_info.set_property("pkg_config_name", "none")
 
         self.cpp_info.components["libgmp"].set_property("pkg_config_name", "gmp")
         self.cpp_info.components["libgmp"].libs = ["gmp"]
+        if self.settings.os != "Windows":
+            self.cpp_info.components["libgmp"].system_libs = ["m"]
+
         if self.options.enable_cxx:
             self.cpp_info.components["gmpxx"].set_property("pkg_config_name", "gmpxx")
             self.cpp_info.components["gmpxx"].libs = ["gmpxx"]
             self.cpp_info.components["gmpxx"].requires = ["libgmp"]
-            if self.settings.os != "Windows":
-                self.cpp_info.components["gmpxx"].system_libs = ["m"]

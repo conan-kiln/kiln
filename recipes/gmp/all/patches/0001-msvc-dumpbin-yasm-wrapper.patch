@@ -1,35 +1,4 @@
 --- /dev/null
-+++ dumpbin_nm.py
-@@ -0,0 +1,28 @@
-+#!/usr/bin/env python3
-+
-+import re
-+import subprocess
-+import sys
-+#print(open(sys.argv[1], "rb").read())
-+#output = subprocess.check_output(["dumpbin", "-nologo", "-symbols"] + sys.argv[1:], stderr=subprocess.STDOUT, text=True, shell=True)
-+output = subprocess.check_output("dumpbin -nologo -symbols {}".format(sys.argv[1]), stderr=subprocess.STDOUT, shell=True)
-+output = output.decode()
-+for line in output.splitlines():
-+    d = re.split("[ |]+", line.strip())
-+    if len(d) == 6:
-+        try:
-+            int(d[0])
-+        except ValueError:
-+            continue
-+
-+        section = d[-1]
-+        if section == ".file":
-+            continue
-+        elif section == ".data":
-+            stype = "d"
-+        elif section == ".text":
-+            stype = "t"
-+        else:
-+            stype = "D"
-+        offset = d[1]
-+        print("{} {} {}".format(offset, stype, section))
---- /dev/null
 +++ yasm_wrapper.sh
 @@ -0,0 +1,38 @@
 +#!/bin/sh
