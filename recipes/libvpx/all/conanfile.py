@@ -5,7 +5,7 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os, fix_apple_shared_install_name
 from conan.tools.build import stdcpp_library
-from conan.tools.env import Environment, VirtualBuildEnv
+from conan.tools.env import Environment
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
@@ -33,20 +33,20 @@ class LibVPXConan(ConanFile):
         "fPIC": True,
     }
 
-    _arch_options = ['mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse4_1', 'avx', 'avx2', 'avx512']
+    _arch_options = ["mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "avx", "avx2", "avx512"]
 
     options.update({name: [True, False] for name in _arch_options})
-    default_options.update({name: 'avx' not in name for name in _arch_options})
+    default_options.update({name: "avx" not in name for name in _arch_options})
 
     def export_sources(self):
         export_conandata_patches(self)
 
     def config_options(self):
-        if self.settings.os == 'Windows':
+        if self.settings.os == "Windows":
             del self.options.fPIC
-        if str(self.settings.arch) not in ['x86', 'x86_64']:
+        if str(self.settings.arch) not in ["x86", "x86_64"]:
             for name in self._arch_options:
-                delattr(self.options, name)
+                self.options.rm_safe(name)
 
     def configure(self):
         if self.settings.os == "Windows":
@@ -68,7 +68,7 @@ class LibVPXConan(ConanFile):
             raise ConanInvalidConfiguration("iOS platform with x86/x86_64 architectures only supports 'iphonesimulator' SDK option")
 
     def build_requirements(self):
-        self.tool_requires("yasm/1.3.0")
+        self.tool_requires("nasm/[^2.16]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -84,14 +84,14 @@ class LibVPXConan(ConanFile):
 
     @property
     def _target_name(self):
-        arch = {'x86': 'x86',
-                'x86_64': 'x86_64',
-                'armv7': 'armv7',
-                'armv7s': 'armv7s',
-                'armv8': 'arm64',
-                'mips': 'mips32',
-                'mips64': 'mips64',
-                'sparc': 'sparc'}.get(str(self.settings.arch))
+        arch = {"x86": "x86",
+                "x86_64": "x86_64",
+                "armv7": "armv7",
+                "armv7s": "armv7s",
+                "armv8": "arm64",
+                "mips": "mips32",
+                "mips64": "mips64",
+                "sparc": "sparc"}.get(str(self.settings.arch))
         compiler = str(self.settings.compiler)
         os_name = str(self.settings.os)
         if is_msvc(self):
@@ -99,31 +99,29 @@ class LibVPXConan(ConanFile):
             vc_version = {"170": "11", "180": "12", "190": "14", "191": "15", "192": "16", "193": "17", "194": "17"}[vc_version]
             compiler = f"vs{vc_version}"
         elif self.settings.compiler in ["gcc", "clang", "apple-clang"]:
-            compiler = 'gcc'
+            compiler = "gcc"
         host_os = str(self.settings.os)
-        if host_os == 'Windows':
-            os_name = 'win32' if self.settings.arch == 'x86' else 'win64'
+        if host_os == "Windows":
+            os_name = "win32" if self.settings.arch == "x86" else "win64"
         elif is_apple_os(self):
             if self.settings.arch in ["x86", "x86_64"]:
                 if self.settings.os == "Macos":
-                    os_name = f'darwin11'
+                    os_name = f"darwin11"
                 else:
-                    os_name = 'iphonesimulator'
+                    os_name = "iphonesimulator"
             elif self.settings.arch == "armv8":
-                os_name = 'darwin21'
+                os_name = "darwin21"
             else:
-                os_name = 'darwin'
-        elif host_os == 'Linux':
-            os_name = 'linux'
-        elif host_os == 'Solaris':
-            os_name = 'solaris'
-        elif host_os == 'Android':
-            os_name = 'android'
+                os_name = "darwin"
+        elif host_os == "Linux":
+            os_name = "linux"
+        elif host_os == "Solaris":
+            os_name = "solaris"
+        elif host_os == "Android":
+            os_name = "android"
         return f"{arch}-{os_name}-{compiler}"
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
         tc = AutotoolsToolchain(self)
 
         if is_apple_os(self) and self.settings.get_safe("compiler.libcxx") == "libc++":
@@ -136,7 +134,7 @@ class LibVPXConan(ConanFile):
             "--disable-tools",
             "--disable-docs",
             "--enable-vp9-highbitdepth",
-            "--as=yasm",
+            "--as=nasm",
         ])
         # Note for MSVC: release libs are always built, we just avoid keeping the release lib
         # Note2: Can't use --enable-debug_libs (to help install on Windows),
