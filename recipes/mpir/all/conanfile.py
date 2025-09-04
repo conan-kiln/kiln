@@ -2,7 +2,6 @@ import os
 
 from conan import ConanFile
 from conan.tools.apple import XCRun, to_apple_arch
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
@@ -34,13 +33,10 @@ class MpirConan(ConanFile):
         "enable_cxx": True,
         "enable_gmpcompat": True,
     }
+    implements = ["auto_shared_fpic"]
 
     def export_sources(self):
         export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
 
     def configure(self):
         if self.options.shared:
@@ -58,7 +54,7 @@ class MpirConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("libtool/[^2.4.7]")
-        self.tool_requires("yasm/1.3.0")
+        self.tool_requires("yasm/[^1.3.0]")
         if not is_msvc(self):
             self.tool_requires("m4/[^1.4.20]")
             if self.settings_build.os == "Windows":
@@ -71,15 +67,10 @@ class MpirConan(ConanFile):
         apply_conandata_patches(self)
 
     def _generate_msvc(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
         tc = MSBuildToolchain(self)
         tc.generate()
 
     def _generate_autotools(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
         tc = AutotoolsToolchain(self)
         tc.configure_args.append("--disable-silent-rules")
         tc.configure_args.append("--enable-cxx" if self.options.get_safe("enable_cxx") else "--disable-cxx")

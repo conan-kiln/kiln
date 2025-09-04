@@ -39,10 +39,15 @@ class YASMConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/cci.latest")
+        if "+git" in self.version and not is_msvc(self):
+            self.tool_requires("libtool/[^2.4.7]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version][0], strip_root=True)
         apply_conandata_patches(self)
+        # Don't call ./configure automatically
+        if "+git" in self.version:
+            replace_in_file(self, "autogen.sh", "$srcdir/configure", "# $srcdir/configure")
 
     def _generate_autotools(self):
         tc = AutotoolsToolchain(self)
@@ -74,15 +79,24 @@ class YASMConan(ConanFile):
         else:
             self._generate_autotools()
 
+    @staticmethod
+    def _chmod_plus_x(name):
+        os.chmod(name, os.stat(name).st_mode | 0o111)
+
     def build(self):
         if is_msvc(self):
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
         else:
-            autotools = Autotools(self)
-            autotools.configure()
-            autotools.make()
+            with chdir(self, self.source_folder):
+                autotools = Autotools(self)
+                if "+git" in self.version:
+                    self._chmod_plus_x("autogen.sh")
+                    self._chmod_plus_x("YASM-VERSION-GEN.sh")
+                    self.run("./autogen.sh")
+                autotools.configure()
+                autotools.make()
 
     def package(self):
         copy(self, "BSD.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
@@ -91,8 +105,9 @@ class YASMConan(ConanFile):
             cmake = CMake(self)
             cmake.install()
         else:
-            autotools = Autotools(self)
-            autotools.install()
+            with chdir(self, self.source_folder):
+                autotools = Autotools(self)
+                autotools.install()
         rmdir(self, os.path.join(self.package_folder, "include"))
         rmdir(self, os.path.join(self.package_folder, "lib"))
         rmdir(self, os.path.join(self.package_folder, "share", "man"))

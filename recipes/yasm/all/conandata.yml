@@ -1,8 +1,15 @@
 sources:
+  "1.3.0+git.20230922":
+    - url: "https://github.com/yasm/yasm/archive/9defefae9fbcb6958cddbfa778c1ea8605da8b8b.zip"
+      sha256: "3cdcef621265b50d2db6ca8ee9a498411999a9584cad857b1cc20314b03c7664"
   "1.3.0":
     - url: "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz"
       sha256: "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
 patches:
+  "1.3.0+git.20230922":
+    - patch_file: "patches/0001-cmake-updates.patch"
+      patch_description: "CMake 3.0+ compatibility"
+      patch_type: "conan"
   "1.3.0":
     - patch_file: "patches/0001-cmake-updates.patch"
       patch_description: "CMake 3.0+ compatibility"
