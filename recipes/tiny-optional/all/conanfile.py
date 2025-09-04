@@ -5,7 +5,7 @@ from conan.tools.build import check_min_cppstd
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
 
-required_conan_version = ">=2.q"
+required_conan_version = ">=2.1"
 
 
 class TinyOptionalConan(ConanFile):
@@ -16,7 +16,11 @@ class TinyOptionalConan(ConanFile):
     homepage = "https://github.com/Sedeniono/tiny-optional"
     topics = ("optional", "memory-efficiency", "cache-friendly", "header-only")
     package_type = "header-library"
+    settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
+
+    def package_id(self):
+        self.info.clear()
 
     def layout(self):
         basic_layout(self, src_folder="src")
