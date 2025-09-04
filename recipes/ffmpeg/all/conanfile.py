@@ -2,6 +2,7 @@ import io
 import os
 import re
 import shutil
+from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -21,10 +22,9 @@ required_conan_version = ">=2.4"
 
 class FFMpegConan(ConanFile):
     name = "ffmpeg"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A complete, cross-platform solution to record, convert and stream audio and video"
     # https://github.com/FFmpeg/FFmpeg/blob/master/LICENSE.md
-    license = ("LGPL-2.1-or-later", "GPL-2.0-or-later")
+    license = "LGPL-2.1-or-later"
     homepage = "https://ffmpeg.org"
     topics = ("multimedia", "audio", "video", "encoder", "decoder", "encoding", "decoding",
               "transcoding", "multiplexer", "demultiplexer", "streaming")
@@ -148,11 +148,11 @@ class FFMpegConan(ConanFile):
         "with_vorbis": True,
         "with_zeromq": False,
         "with_sdl": False,
-        "with_libx264": True,
-        "with_libx265": True,
+        "with_libx264": True,  # GPL
+        "with_libx265": True,  # GPL
         "with_libvpx": True,
         "with_libmp3lame": True,
-        "with_libfdk_aac": True,
+        "with_libfdk_aac": True,  # non-free
         "with_libwebp": True,
         "with_ssl": "openssl",
         "with_libalsa": True,
@@ -606,7 +606,7 @@ class FFMpegConan(ConanFile):
             # Licenses
             opt_enable_disable("nonfree", self.options.get_safe("with_libfdk_aac") or self.options.with_cuda or
                                (self.options.with_ssl and (self.options.with_libx264 or self.options.with_libx265 or self.options.postproc))),
-            opt_enable_disable("gpl", self.options.with_libx264 or self.options.with_libx265 or self.options.postproc)
+            opt_enable_disable("gpl", self.options.with_libx264 or self.options.with_libx265)
         ]
 
         # Individual Component Options
