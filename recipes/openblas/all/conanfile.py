@@ -71,7 +71,7 @@ class OpenblasConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "ilp64": [True, False],
+        "interface": ["lp64", "ilp64"],
         "build_lapack": [True, False],
         "build_relapack": [True, False],
         "build_bfloat16": [True, False],
@@ -87,7 +87,7 @@ class OpenblasConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "ilp64": False,
+        "interface": "lp64",
         "build_lapack": True,
         "build_relapack": True,
         "build_bfloat16": False,
@@ -101,7 +101,7 @@ class OpenblasConan(ConanFile):
         "use_fortran": True,
     }
     options_description = {
-        "ilp64": "Build with ILP64 interface instead of LP64 (incompatible with the standard API)",
+        "interface": "Optionally build with ILP64 interface instead of LP64 (incompatible with the standard API)",
         "build_lapack": "Build LAPACK and LAPACKE",
         "build_relapack": "Build with ReLAPACK (recursive implementation of several LAPACK functions on top of standard LAPACK)",
         "build_bfloat16": "Build with bfloat16 support",
@@ -211,7 +211,7 @@ class OpenblasConan(ConanFile):
         tc.variables["BUILD_WITHOUT_LAPACK"] = not self.options.build_lapack
         tc.variables["BUILD_RELAPACK"] = self.options.get_safe("build_relapack", False)
         tc.variables["BUILD_BFLOAT16"] = self.options.build_bfloat16
-        tc.variables["INTERFACE64"] = self.options.ilp64
+        tc.variables["INTERFACE64"] = self.options.interface == "ilp64"
         tc.variables["DYNAMIC_ARCH"] = self.options.dynamic_arch
         tc.variables["USE_OPENMP"] = self.options.use_openmp
         tc.variables["USE_THREAD"] = self.options.use_thread
@@ -264,7 +264,7 @@ class OpenblasConan(ConanFile):
     @property
     def _lib_name(self):
         name = "openblas"
-        if self.options.ilp64:
+        if self.options.interface == "ilp64":
             name += "_64"
         if self.options.shared and self.settings.build_type == "Debug" and not is_msvc(self):
             name += "_d"
@@ -272,12 +272,12 @@ class OpenblasConan(ConanFile):
 
     @property
     def _64bit(self):
-        return "64" if self.options.ilp64 else ""
+        return "64" if self.options.interface == "ilp64" else ""
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", f"OpenBLAS{self._64bit}")
         self.cpp_info.set_property("cmake_target_name", "OpenBLAS::OpenBLAS")
-        if self.options.ilp64:
+        if self.options.interface == "ilp64":
             self.cpp_info.set_property("cmake_target_aliases", ["OpenBLAS64::OpenBLAS"])
         self.cpp_info.set_property("pkg_config_name", f"openblas{self._64bit}")
         self.cpp_info.components["openblas_component"].set_property("pkg_config_name", f"openblas{self._64bit}")
