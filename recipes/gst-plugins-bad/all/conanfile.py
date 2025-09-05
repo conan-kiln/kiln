@@ -259,7 +259,7 @@ class GStPluginsBadConan(ConanFile):
         if "libmodplug" in reqs:
             self.requires("libmodplug/0.8.9.0")
         if self.options.webrtc:
-            self.requires("libnice/0.1.21")
+            self.requires("libnice/[>=0.1.21 <1]")
         if "nvcomp" in reqs:
             self.requires("nvcomp/[^4]")
         if "onnxruntime" in reqs:

@@ -9,13 +9,14 @@ from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
 from conan.tools.microsoft import is_msvc_static_runtime
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
+
 
 class LibniceConan(ConanFile):
     name = "libnice"
-    homepage = "https://libnice.freedesktop.org/"
-    license = "LGPL-2.1-or-later OR MPL-1.1"
     description = "a GLib ICE implementation"
+    license = "LGPL-2.1-or-later OR MPL-1.1"
+    homepage = "https://libnice.freedesktop.org/"
     topics = ("ice", "stun", "turn")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
@@ -34,6 +35,8 @@ class LibniceConan(ConanFile):
         "with_gtk_doc": False,
         "with_introspection": False,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     python_requires = "conan-utils/latest"
 
@@ -44,14 +47,17 @@ class LibniceConan(ConanFile):
         else:
             self.options.crypto_library = "openssl"
 
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
-
     def layout(self):
         basic_layout(self, src_folder="src")
+
+    def requirements(self):
+        self.requires("glib/[^2.70.0]", transitive_headers=True, transitive_libs=True)
+        if self.options.crypto_library == "openssl":
+            self.requires("openssl/[>=1.1 <4]")
+        if self.options.with_gstreamer:
+            self.requires("gstreamer/[^1.24]")
+        if self.options.with_introspection:
+            self.requires("glib-gir/[^2.82]")
 
     def validate(self):
         if self.settings.os != "Windows" and self.options.crypto_library == "win32":
@@ -64,15 +70,6 @@ class LibniceConan(ConanFile):
             raise ConanInvalidConfiguration(
                 "-o glib/*:shared=True with static runtime is not supported")
 
-    def requirements(self):
-        self.requires("glib/[^2.70.0]", transitive_headers=True, transitive_libs=True)
-        if self.options.crypto_library == "openssl":
-            self.requires("openssl/[>=1.1 <4]")
-        if self.options.with_gstreamer:
-            self.requires("gstreamer/[^1.24]")
-        if self.options.with_introspection:
-            self.requires("glib-gir/[^2.82]")
-
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.3 <2]")
         self.tool_requires("pkgconf/[>=2.2 <3]")
@@ -84,8 +81,6 @@ class LibniceConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        tc = PkgConfigDeps(self)
-        tc.generate()
         tc = MesonToolchain(self)
         tc.project_options["auto_features"] = "enabled"
         tc.project_options["gupnp"] = "disabled"
@@ -95,6 +90,9 @@ class LibniceConan(ConanFile):
         tc.project_options["tests"] = "disabled"
         tc.project_options["gtk_doc"] = "disabled" if self.options.with_gtk_doc else "disabled"
         tc.project_options["introspection"] = "enabled" if self.options.with_introspection else "disabled"
+        tc.generate()
+
+        tc = PkgConfigDeps(self)
         tc.generate()
 
     def build(self):
@@ -118,24 +116,24 @@ class LibniceConan(ConanFile):
         self.python_requires["conan-utils"].module.fix_msvc_libnames(self)
 
     def package_info(self):
-        self.cpp_info.components["libnice"].set_property("pkg_config_name", "nice")
-        self.cpp_info.components["libnice"].set_property("pkg_config_custom_content", "upnp_enabled=false")
-        self.cpp_info.components["libnice"].libs = ["nice"]
-        self.cpp_info.components["libnice"].includedirs.append(os.path.join("include", "nice"))
-        self.cpp_info.components["libnice"].requires = ["glib::glib-2.0", "glib::gobject-2.0", "glib::gio-2.0", "glib::gthread-2.0"]
+        self.cpp_info.components["libnice_"].set_property("pkg_config_name", "nice")
+        self.cpp_info.components["libnice_"].set_property("pkg_config_custom_content", "upnp_enabled=false")
+        self.cpp_info.components["libnice_"].libs = ["nice"]
+        self.cpp_info.components["libnice_"].includedirs.append("include/nice")
+        self.cpp_info.components["libnice_"].requires = ["glib::glib-2.0", "glib::gobject-2.0", "glib::gio-2.0", "glib::gthread-2.0"]
         if self.options.crypto_library == "openssl":
-            self.cpp_info.components["libnice"].requires.append("openssl::openssl")
+            self.cpp_info.components["libnice_"].requires.append("openssl::openssl")
         if self.settings.os == "Windows":
-            self.cpp_info.components["libnice"].system_libs.append("advapi32")
+            self.cpp_info.components["libnice_"].system_libs.append("advapi32")
 
         if self.options.with_gstreamer:
             self.cpp_info.components["gstnice"].set_property("pkg_config_name", "gstnice")
             self.cpp_info.components["gstnice"].libs = ["gstnice"]
-            self.cpp_info.components["gstnice"].libdirs = [os.path.join("lib", "gstreamer-1.0")]
-            self.cpp_info.components["gstnice"].requires = ["libnice", "gstreamer::gstreamer-base-1.0"]
+            self.cpp_info.components["gstnice"].libdirs = ["lib/gstreamer-1.0"]
+            self.cpp_info.components["gstnice"].requires = ["libnice_", "gstreamer::gstreamer-base-1.0"]
 
         if self.options.with_introspection:
-            self.cpp_info.components["libnice"].resdirs = ["share"]
-            self.cpp_info.components["libnice"].requires.append("glib-gir::glib-gir")
+            self.cpp_info.components["libnice_"].resdirs = ["share"]
+            self.cpp_info.components["libnice_"].requires.append("glib-gir::glib-gir")
             self.buildenv_info.append_path("GI_GIR_PATH", os.path.join(self.package_folder, "share", "gir-1.0"))
             self.runenv_info.append_path("GI_TYPELIB_PATH", os.path.join(self.package_folder, "lib", "girepository-1.0"))
