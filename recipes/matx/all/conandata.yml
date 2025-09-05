@@ -1,0 +1,4 @@
+sources:
+  "0.9.2":
+    url: "https://github.com/NVIDIA/MatX/archive/refs/tags/v0.9.2.tar.gz"
+    sha256: "5bfe28c3dee1ab70e9a1819d6cb35fbec1cc0a1b611058d7dae0ff5d07938459"
