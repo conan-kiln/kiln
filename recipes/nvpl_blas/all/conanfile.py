@@ -18,6 +18,14 @@ class NvplBlasConan(ConanFile):
     topics = ("cuda", "nvpl", "blas", "linear-algebra")
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
+    options = {
+        "interface": ["lp64", "ilp64"],
+        "threading": ["seq", "omp"],
+    }
+    default_options = {
+        "interface": "lp64",
+        "threading": "omp",
+    }
 
     python_requires = "conan-cuda/latest"
 
@@ -41,13 +49,25 @@ class NvplBlasConan(ConanFile):
     def build(self):
         self.cuda.download_package("nvpl_blas", platform_id="linux-sbsa")
 
+    @property
+    def _backend_name(self):
+        name = f"nvpl_blas_{self.options.interface}"
+        if self.options.threading == "omp":
+            name += "_gomp"
+        else:
+            name += "_seq"
+        return name
+
     def package(self):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
-        copy(self, "*.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        copy(self, f"*_core.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        copy(self, f"*{self._backend_name}*.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "nvpl_blas")
+        # Unofficial target
+        self.cpp_info.set_property("cmake_target_name", "nvpl::nvpl_blas")
 
         def _add_component(name):
             component = self.cpp_info.components[name]
@@ -60,9 +80,4 @@ class NvplBlasConan(ConanFile):
                 component.requires = ["nvpl_blas_core"]
 
         _add_component("nvpl_blas_core")
-        _add_component("nvpl_blas_lp64_seq")
-        _add_component("nvpl_blas_ilp64_seq")
-        _add_component("nvpl_blas_lp64_gomp")
-        _add_component("nvpl_blas_ilp64_gomp")
-
-        self.cpp_info.components["_prohibit_aggregate_target_"].cflags = ["_dont_use_aggregate_nvpl_blas_target_"]
+        _add_component(self._backend_name)

@@ -4,4 +4,4 @@ project(test_package LANGUAGES C)
 find_package(nvpl_blas REQUIRED)
 
 add_executable(${PROJECT_NAME} test_package.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE nvpl::blas_lp64_seq)
+target_link_libraries(${PROJECT_NAME} PRIVATE nvpl::nvpl_blas)
