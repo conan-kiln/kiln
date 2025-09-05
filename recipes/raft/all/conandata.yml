@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/raft/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "032dce57b297e121352a1556bd9021410be30fcf319e158592f615e1990b2e58"
