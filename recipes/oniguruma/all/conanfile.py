@@ -3,7 +3,6 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
 
@@ -12,9 +11,8 @@ class OnigurumaConan(ConanFile):
     name = "oniguruma"
     description = "Oniguruma is a modern and flexible regular expressions library."
     license = "BSD-2-Clause"
-    topics = ("oniguruma", "regex")
+    topics = ("regex",)
     homepage = "https://github.com/kkos/oniguruma"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -40,9 +38,8 @@ class OnigurumaConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["ENABLE_POSIX_API"] = self.options.posix_api
         tc.variables["ENABLE_BINARY_COMPATIBLE_POSIX_API"] = self.options.posix_api
-        if Version(self.version) >= "6.9.8":
-            tc.variables["INSTALL_DOCUMENTATION"] = False
-            tc.variables["INSTALL_EXAMPLES"] = False
+        tc.variables["INSTALL_DOCUMENTATION"] = False
+        tc.variables["INSTALL_EXAMPLES"] = False
         tc.generate()
 
     def build(self):
@@ -56,13 +53,10 @@ class OnigurumaConan(ConanFile):
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        if Version(self.version) < "6.9.8":
-            rmdir(self, os.path.join(self.package_folder, "share"))
+        if self.settings.os == "Windows" and self.options.shared:
+            rm(self, "onig-config", os.path.join(self.package_folder, "bin"))
         else:
-            if self.settings.os == "Windows" and self.options.shared:
-                rm(self, "onig-config", os.path.join(self.package_folder, "bin"))
-            else:
-                rmdir(self, os.path.join(self.package_folder, "bin"))
+            rmdir(self, os.path.join(self.package_folder, "bin"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "oniguruma")
