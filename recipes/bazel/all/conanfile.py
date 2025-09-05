@@ -75,7 +75,5 @@ class BazelConan(ConanFile):
         self._chmod_plus_x(new_target_filename)
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []

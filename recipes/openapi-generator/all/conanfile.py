@@ -68,9 +68,7 @@ class OpenApiGeneratorConan(ConanFile):
 
     def package_info(self):
         # folders not used for pre-built binaries
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []
         jar = os.path.join(self.package_folder, "res", "openapi-generator.jar")
         self.runenv_info.prepend_path("CLASSPATH", jar)

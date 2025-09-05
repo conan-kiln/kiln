@@ -107,7 +107,6 @@ class FortranConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.includedirs = []
         if self._fortran_compiler:
             fortran_id = self._get_fortran_compiler_id()

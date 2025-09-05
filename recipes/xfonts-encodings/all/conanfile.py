@@ -53,7 +53,6 @@ class XFontsEncodingsConan(ConanFile):
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.resdirs = ["share"]
 
         encodings_dir = os.path.join(self.package_folder, "share", "fonts", "X11", "encodings")

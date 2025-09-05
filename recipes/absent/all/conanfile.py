@@ -77,6 +77,4 @@ class AbsentConan(ConanFile):
         self.cpp_info.components["absentlib"].set_property("cmake_target_name", "rvarago::absent")
 
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []

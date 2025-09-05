@@ -55,6 +55,5 @@ class NvprofConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.includedirs = []
-        self.cpp_info.resdirs = []
         if self.settings.os != "Linux":
             self.cpp_info.libdirs = []

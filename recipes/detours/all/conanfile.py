@@ -93,8 +93,6 @@ class DetoursConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.libs = ["detours"]
         if self.settings.compiler == "gcc":
             self.cpp_info.system_libs = [stdcpp_library(self)]

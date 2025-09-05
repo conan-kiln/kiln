@@ -34,7 +34,5 @@ class MavenConan(ConanFile):
             copy(self, pattern="*", dst=os.path.join(self.package_folder, target), src=os.path.join(self.source_folder, target))
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []

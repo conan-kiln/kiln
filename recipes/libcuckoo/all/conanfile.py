@@ -63,6 +63,5 @@ class LibCuckooConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "libcuckoo::libcuckoo")
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         if self.settings.os == "Linux":
             self.cpp_info.system_libs = ["pthread"]

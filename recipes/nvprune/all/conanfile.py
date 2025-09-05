@@ -45,4 +45,3 @@ class NvpruneConan(ConanFile):
     def package_info(self):
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
-        self.cpp_info.resdirs = []

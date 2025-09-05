@@ -175,4 +175,4 @@ class PackageConan(ConanFile):
 
         # If they are needed on Linux, m, pthread and dl are usually needed on FreeBSD too
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["dl", "m", "pthread"])
+            self.cpp_info.system_libs = ["dl", "m", "pthread"]

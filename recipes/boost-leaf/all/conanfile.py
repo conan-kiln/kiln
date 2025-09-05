@@ -84,6 +84,4 @@ class BoostLEAFConan(ConanFile):
         self.cpp_info.components["leaf"].names["cmake_find_package_multi"] = "leaf"
 
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []

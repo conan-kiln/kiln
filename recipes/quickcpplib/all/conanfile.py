@@ -84,7 +84,6 @@ class QuickcpplibCodeConan(ConanFile):
 
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         if self._needs_span_lite:
             self.cpp_info.requires = ["span-lite::span-lite"]

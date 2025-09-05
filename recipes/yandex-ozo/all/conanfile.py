@@ -59,9 +59,7 @@ class YandexOzoConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         main_comp = self.cpp_info.components["_ozo"]
         main_comp.requires = ["boost::boost", "boost::system", "boost::thread", "boost::coroutine", "resource_pool::resource_pool", "libpq::pq"]

@@ -93,9 +93,7 @@ class DepotToolsConan(ConanFile):
         self._fix_permissions()
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []
 
         self.runenv_info.define("DEPOT_TOOLS_UPDATE", "0")

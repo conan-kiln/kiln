@@ -68,9 +68,7 @@ class BearConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []
 
         # Bear is not really relocatable at the moment due to relying on hard-coded CMake install paths.

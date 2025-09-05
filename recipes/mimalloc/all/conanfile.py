@@ -202,7 +202,6 @@ class MimallocConan(ConanFile):
         if self.options.get_safe("inject"):
             self.cpp_info.includedirs = []
             self.cpp_info.libdirs = []
-            self.cpp_info.resdirs = []
             return
 
         if self.options.get_safe("single_object"):

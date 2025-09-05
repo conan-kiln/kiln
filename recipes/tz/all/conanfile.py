@@ -111,7 +111,6 @@ class TzConan(ConanFile):
     def package_info(self):
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.resdirs = ["share"]
         self.buildenv_info.define("TZDATA", os.path.join(self.package_folder, "share", "tzdata"))
         self.runenv_info.define("TZDATA", os.path.join(self.package_folder, "share", "tzdata"))

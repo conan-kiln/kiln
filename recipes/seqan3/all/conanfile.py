@@ -66,6 +66,4 @@ class Seqan3Conan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "seqan3")
         self.cpp_info.set_property("cmake_target_name", "seqan3::seqan3")
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []

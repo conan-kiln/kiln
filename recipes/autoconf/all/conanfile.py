@@ -91,7 +91,6 @@ class AutoconfConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "share", "man"))
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
         self.cpp_info.resdirs = ["share"]

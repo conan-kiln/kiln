@@ -46,8 +46,6 @@ class LibjpegMetaConan(ConanFile):
             cpp_info.includedirs = []
             cpp_info.libdirs = []
             cpp_info.bindirs = []
-            cpp_info.resdirs = []
-            cpp_info.frameworkdirs = []
 
         _clear_dirs(self.cpp_info)
         _clear_dirs(self.cpp_info.components["jpeg"])

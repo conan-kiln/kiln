@@ -147,9 +147,7 @@ class VerilatorConan(ConanFile):
         rmdir(self, os.path.join(share_verilator_dir, "bin"))
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         verilator_bin = "verilator_bin_dbg" if self.settings.build_type == "Debug" else "verilator_bin"
         self.conf_info.define("user.verilator:verilator", verilator_bin)

@@ -125,7 +125,5 @@ class XorgConan(ConanFile):
             component = self.cpp_info.components[component]
             component.requires = [require]
             component.bindirs = []
-            component.frameworkdirs = []
             component.includedirs = []
             component.libdirs = []
-            component.resdirs = []

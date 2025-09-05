@@ -120,10 +120,10 @@ class PackageConan(ConanFile):
         self.python_requires["conan-utils"].module.fix_msvc_libnames(self)
 
     def package_info(self):
-        # if package provides a pkgconfig file (package.pc, usually installed in <prefix>/lib/pkgconfig/)
+        # if the package provides a pkgconfig file (package.pc, usually installed in <prefix>/lib/pkgconfig/)
         self.cpp_info.set_property("pkg_config_name", "package")
         # avoid collect_libs(), prefer explicit library name instead
         self.cpp_info.libs = ["package_lib"]
         # If they are needed on Linux, m, pthread and dl are usually needed on FreeBSD too
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["m", "pthread", "dl"])
+            self.cpp_info.system_libs = ["m", "pthread", "dl"]

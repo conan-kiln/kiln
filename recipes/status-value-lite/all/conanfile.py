@@ -40,6 +40,4 @@ class StatusValueLiteConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "status-value-lite")
         self.cpp_info.set_property("cmake_target_name", "nonstd::status-value-lite")
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []

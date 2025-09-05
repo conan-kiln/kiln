@@ -38,5 +38,4 @@ class UaNodeSetConan(ConanFile):
         self.conf_info.define("user.ua-nodeset:nodeset_dir", os.path.join(self.package_folder, "share", self.name))
         self.cpp_info.resdirs = ["share"]
         self.cpp_info.libdirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.includedirs = []

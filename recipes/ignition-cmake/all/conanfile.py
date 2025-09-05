@@ -84,7 +84,6 @@ class IgnitionCmakeConan(ConanFile):
     def package_info(self):
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.frameworkdirs = []
 
         version_major = Version(self.version).major
         ign_cmake_component = f"ignition-cmake{version_major}"

@@ -124,7 +124,6 @@ class PackageConan(ConanFile):
 
     def package_info(self):
         # self.cpp_info.bindirs.append("bin/compiler")
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = ["lib"]
         self.cpp_info.resdirs = ["share", "opt"]
 

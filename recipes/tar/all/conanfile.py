@@ -107,9 +107,7 @@ class TarConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "libexec"))
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []
 
         tar_bin = os.path.join(self.package_folder, "bin", "tar")

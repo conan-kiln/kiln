@@ -81,7 +81,6 @@ class Asn1cConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.resdirs = ["share"]
 
         # asn1c cannot use environment variables to specify support files path

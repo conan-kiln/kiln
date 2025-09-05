@@ -71,7 +71,5 @@ class MkfontscaleConan(ConanFile):
         autotools.install()
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.includedirs = []

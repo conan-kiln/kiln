@@ -78,7 +78,6 @@ class WinflexbisonConan(ConanFile):
         self.cpp_info.set_property("cmake_find_mode", "none")
 
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         lex_path = os.path.join(self.package_folder, "bin", "win_flex").replace("\\", "/")
         self.output.info("Setting LEX environment variable: {}".format(lex_path))

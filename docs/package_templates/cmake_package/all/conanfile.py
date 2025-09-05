@@ -94,7 +94,7 @@ class PackageConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
 
-        # Some files extensions and folders are not allowed. Please, read the FAQs to get informed.
+        # Some file extensions and folders are not allowed. Please read the FAQs to get informed.
         # Consider disabling these at first to verify that the package_info() output matches the info exported by the project.
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
@@ -112,7 +112,7 @@ class PackageConan(ConanFile):
 
         # If they are needed on Linux, m, pthread and dl are usually needed on FreeBSD too
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["m", "pthread", "dl"])
+            self.cpp_info.system_libs = ["m", "pthread", "dl"]
 
         # To export additional CMake variables, such as upper-case variables otherwise set by the project's *-config.cmake,
         # you can copy or save a .cmake file under <prefix>/lib/cmake/ with content like
@@ -120,6 +120,5 @@ class PackageConan(ConanFile):
         #     set(XYZ_INCLUDE_DIRS ${${CMAKE_FIND_PACKAGE_NAME}_INCLUDE_DIRS})
         #     ...
         # and set the following fields:
-        self.cpp_info.builddirs.append(os.path.join("lib", "cmake"))
-        cmake_module = os.path.join("lib", "cmake", "conan-official-variables.cmake")
-        self.cpp_info.set_property("cmake_build_modules", [cmake_module])
+        self.cpp_info.builddirs = ["lib/cmake"]
+        self.cpp_info.set_property("cmake_build_modules", ["lib/cmake/conan-official-variables.cmake"])

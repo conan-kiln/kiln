@@ -51,7 +51,6 @@ class Antlr4Conan(ConanFile):
             os.chmod(bin_path, st.st_mode | stat.S_IEXEC)
 
     def package_info(self):
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
         self.cpp_info.resdirs = ["share"]

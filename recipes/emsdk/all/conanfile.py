@@ -126,7 +126,6 @@ class EmSDKConan(ConanFile):
         self.cpp_info.bindirs = self._relative_paths
         self.cpp_info.includedirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         # If we are not building for Emscripten, probably we don't want to inject following environment variables,
         #   but it might be legit use cases... until we find them, let's be conservative.

@@ -63,9 +63,7 @@ class LibcudacxxConan(ConanFile):
         self.cpp_info.set_property("cmake_build_modules", ["lib/cmake/libcudacxx-config-official.cmake"])
 
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
         self.cpp_info.builddirs = ["lib/cmake"]
 
         if self.settings.build_type == "Debug" and Version(self.version) >= "2.8.0":

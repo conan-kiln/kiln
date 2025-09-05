@@ -59,7 +59,7 @@ class PackageConan(ConanFile):
         copy(self, "*.h", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
-        # Set these to the appropriate values if package provides a CMake config file
+        # Set these to the appropriate values if the package provides a CMake config file
         # (package-config.cmake or packageConfig.cmake, with package::package target, usually installed in <prefix>/lib/cmake/<package>/)
         self.cpp_info.set_property("cmake_file_name", "package")
         self.cpp_info.set_property("cmake_target_name", "package::package")
@@ -73,4 +73,4 @@ class PackageConan(ConanFile):
 
         # Add m, pthread and dl if needed in Linux/FreeBSD
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["dl", "m", "pthread"])
+            self.cpp_info.system_libs = ["dl", "m", "pthread"]

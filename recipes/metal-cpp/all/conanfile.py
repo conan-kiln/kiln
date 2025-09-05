@@ -80,9 +80,7 @@ class MetalcppConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "metal-cpp::metal-cpp")
         self.cpp_info.set_property("pkg_config_name", "metal-cpp")
         self.cpp_info.bindirs = []
-        self.cpp_info.frameworkdirs = []
         self.cpp_info.libdirs = []
-        self.cpp_info.resdirs = []
 
         self.cpp_info.frameworks = ["Foundation", "Metal", "MetalKit", "QuartzCore"]
         if self.version >= Version('14'):
