@@ -8,15 +8,15 @@ from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsDeps, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibgcryptConan(ConanFile):
     name = "libgcrypt"
-    homepage = "https://www.gnupg.org/download/index.html#libgcrypt"
     description = "Libgcrypt is a general purpose cryptographic library originally based on code from GnuPG"
-    topics = ("gcrypt", "gnupg", "gpg", "crypto", "cryptography")
+    homepage = "https://www.gnupg.org/download/index.html#libgcrypt"
     license = "LGPL-2.1-or-later"
+    topics = ("gcrypt", "gnupg", "gpg", "crypto", "cryptography")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -27,19 +27,15 @@ class LibgcryptConan(ConanFile):
         "shared": False,
         "fPIC": True,
     }
-
-    def configure(self):
-        if self.options.shared:
-            del self.options.fPIC
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
         self.requires("libcap/[^2.69]")
-        self.requires("libgpg-error/[^1.36]", transitive_headers=True)
+        self.requires("libgpg-error/[^1.49]", transitive_headers=True)
 
     def validate(self):
         if self.settings.os != "Linux":
@@ -47,6 +43,10 @@ class LibgcryptConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        save(self, "tests/Makefile.in", "all:;\ninstall:;\n")
+        replace_in_file(self, "configure",
+                        "NEED_GPG_ERROR_VERSION=",
+                        "NEED_GPG_ERROR_VERSION=1 #")
 
     def generate(self):
         if not cross_building(self):
@@ -63,18 +63,13 @@ class LibgcryptConan(ConanFile):
         deps = AutotoolsDeps(self)
         deps.generate()
 
-    def _patch_sources(self):
-        # Disable the tests subdir
-        save(self, os.path.join(self.source_folder, "tests", "Makefile.in"), "all:\ninstall:\n")
-
     def build(self):
-        self._patch_sources()
         autotools = Autotools(self)
         autotools.configure()
         autotools.make()
 
     def package(self):
-        copy(self, "COPYING*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         autotools = Autotools(self)
         autotools.install()
         rm(self, "*la", os.path.join(self.package_folder, "lib"))
