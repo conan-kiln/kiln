@@ -35,7 +35,7 @@ class LibbpfConan(ConanFile):
 
     def requirements(self):
         self.requires("linux-headers-generic/[^6.5]", transitive_headers=True)
-        self.requires("elfutils/0.191", transitive_headers=True, transitive_libs=True)
+        self.requires("elfutils/[>=0.191 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("zlib-ng/[^2.0]")
 
     def validate(self):
