@@ -5,6 +5,8 @@ include(GNUInstallDirs)
 
 # LMDB library:
 
+set(LMDB_SRC_DIR libraries/liblmdb)
+
 add_library(lmdb
     ${LMDB_SRC_DIR}/lmdb.h
     ${LMDB_SRC_DIR}/mdb.c
