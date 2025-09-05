@@ -29,9 +29,6 @@ class Libde265Conan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
@@ -44,14 +41,15 @@ class Libde265Conan(ConanFile):
     def validate(self):
         check_min_cppstd(self, 11)
 
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.16]")
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_POSITION_INDEPENDENT_CODE ON)", "")
-        # CMake v4 support
-        replace_in_file(self, "CMakeLists.txt",
-                        "cmake_minimum_required (VERSION 3.3.2)",
-                        "cmake_minimum_required (VERSION 3.5)")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 11)", "")
+        # Too spammy
+        replace_in_file(self, "CMakeLists.txt", "add_definitions(-Wall)", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -77,14 +75,11 @@ class Libde265Conan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "de265")
         self.cpp_info.set_property("cmake_target_aliases", ["libde265"]) # official imported target before 1.0.10
         self.cpp_info.set_property("pkg_config_name", "libde265")
-        version = Version(self.version)
-        prefix = "lib" if (version < "1.0.10" or (version > "1.0.11" and self.settings.os == "Windows" and not self.options.shared)) else ""
+        prefix = "lib" if self.settings.os == "Windows" and not self.options.shared else ""
         self.cpp_info.libs = [f"{prefix}de265"]
         if not self.options.shared:
             self.cpp_info.defines = ["LIBDE265_STATIC_BUILD"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m", "pthread"]
-        if not self.options.shared:
-            libcxx = stdcpp_library(self)
-            if libcxx:
-                self.cpp_info.system_libs.append(libcxx)
+        if not self.options.shared and stdcpp_library(self):
+            self.cpp_info.system_libs.append(stdcpp_library(self))
