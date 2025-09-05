@@ -36,7 +36,7 @@ class FliteConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("libalsa/[~1.2.10]")
+        self.requires("libalsa/[^1.2.10]")
 
     def build_requirements(self):
         if self.settings_build.os == "Windows":

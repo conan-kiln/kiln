@@ -53,7 +53,7 @@ class SpeechDispatcherConan(ConanFile):
         self.requires("libsystemd/[^255]")
 
         if self.options.with_alsa:
-            self.requires("libalsa/[~1.2.10]")
+            self.requires("libalsa/[^1.2.10]")
         if self.options.with_pulseaudio:
             self.requires("pulseaudio/[^17.0]")
         if self.options.with_pipewire:

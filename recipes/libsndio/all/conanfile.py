@@ -40,7 +40,7 @@ class LibsndioConan(ConanFile):
 
     def requirements(self):
         if self.options.get_safe("with_alsa"):
-            self.requires("libalsa/[~1.2.10]", options={"shared": True})
+            self.requires("libalsa/[^1.2.10]", options={"shared": True})
 
     def build_requirements(self):
         self.tool_requires("libtool/[^2.4.7]")

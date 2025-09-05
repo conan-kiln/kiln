@@ -2,13 +2,11 @@ import os
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibalsaConan(ConanFile):
@@ -30,34 +28,23 @@ class LibalsaConan(ConanFile):
         "fPIC": True,
         "disable_python": True,
     }
-
-    def export_sources(self):
-        export_conandata_patches(self)
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def validate(self):
         if self.settings.os != "Linux":
-            raise ConanInvalidConfiguration(f"{self.ref} only supports Linux")
+            raise ConanInvalidConfiguration(f"{self.name} only supports Linux")
 
     def build_requirements(self):
         self.tool_requires("libtool/[^2.4.7]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        virtual_build_env = VirtualBuildEnv(self)
-        virtual_build_env.generate()
-
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
         tc.configure_args.extend([
@@ -67,25 +54,14 @@ class LibalsaConan(ConanFile):
 
     def build(self):
         autotools = Autotools(self)
-        if Version(self.version) > "1.2.4":
-            autotools.autoreconf()
-            autotools.configure()
-            autotools.make()
-        else:
-            with chdir(self, self.source_folder):
-                autotools.autoreconf()
-                autotools.configure()
-                autotools.make()
+        autotools.autoreconf()
+        autotools.configure()
+        autotools.make()
 
     def package(self):
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        if Version(self.version) > "1.2.4":
-            autotools = Autotools(self)
-            autotools.install()
-        else:
-            with chdir(self, self.source_folder):
-                autotools = Autotools(self)
-                autotools.install()
+        autotools = Autotools(self)
+        autotools.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
 

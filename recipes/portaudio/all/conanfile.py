@@ -43,7 +43,7 @@ class PortAudioRecipe(ConanFile):
 
     def requirements(self):
         if self.options.get_safe("with_alsa", False):
-            self.requires("libalsa/[~1.2.10]")
+            self.requires("libalsa/[^1.2.10]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

@@ -44,7 +44,7 @@ class StkConan(ConanFile):
 
     def requirements(self):
         if self.options.get_safe("with_alsa"):
-            self.requires("libalsa/[~1.2.10]")
+            self.requires("libalsa/[^1.2.10]")
 
     def validate(self):
         check_min_cppstd(self, 11)
