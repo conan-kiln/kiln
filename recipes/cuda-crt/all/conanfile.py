@@ -21,7 +21,7 @@ class CudaCrtConan(ConanFile):
     python_requires = "conan-cuda/latest"
 
     @cached_property
-    def _cuda(self):
+    def cuda(self):
         return self.python_requires["conan-cuda"].module.Interface(self, enable_private=True)
 
     @property
@@ -38,10 +38,10 @@ class CudaCrtConan(ConanFile):
         self.info.settings.cuda.version = self.cuda.major
 
     def validate(self):
-        self._cuda.validate_package(self._package)
+        self.cuda.validate_package(self._package)
 
     def build(self):
-        self._cuda.download_package(self._package)
+        self.cuda.download_package(self._package)
 
     def package(self):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))

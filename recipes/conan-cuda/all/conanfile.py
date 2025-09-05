@@ -6,11 +6,11 @@ You can use them by adding
   python_requires = "conan-cuda/latest"
 
   @cached_property
-  def _cuda(self):
+  def cuda(self):
       return self.python_requires["conan-cuda"].module.Interface(self)
 
   def requires(self):
-        self._cuda.requires("cudart")
+        self.cuda.requires("cudart")
         # etc.
 ```
 """
