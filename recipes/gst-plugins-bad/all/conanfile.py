@@ -263,7 +263,7 @@ class GStPluginsBadConan(ConanFile):
         if "nvcomp" in reqs:
             self.requires("nvcomp/[^4]")
         if "onnxruntime" in reqs:
-            self.requires("onnxruntime/1.18.1")
+            self.requires("onnxruntime/[~1.18.2]")
         if "openal-soft" in reqs:
             self.requires("openal-soft/1.22.2")
         if "opencv" in reqs:
