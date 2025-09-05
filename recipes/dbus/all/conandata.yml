@@ -1,10 +1,10 @@
 sources:
+  "1.16.2":
+    url: "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz"
+    sha256: "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
   "1.15.8":
     url: "https://dbus.freedesktop.org/releases/dbus/dbus-1.15.8.tar.xz"
     sha256: "84fc597e6ec82f05dc18a7d12c17046f95bad7be99fc03c15bc254c4701ed204"
-  "1.15.6":
-    url: "https://dbus.freedesktop.org/releases/dbus/dbus-1.15.6.tar.xz"
-    sha256: "f97f5845f9c4a5a1fb3df67dfa9e16b5a3fd545d348d6dc850cb7ccc9942bd8c"
 patches:
   "1.15.8":
     - patch_file: "patches/0001-meson-Use-check_header-to-confirm-headers-work.patch"
