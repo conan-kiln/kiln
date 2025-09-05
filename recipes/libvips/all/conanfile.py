@@ -143,7 +143,7 @@ class LibvipsConan(ConanFile):
         if self.options.with_cgif:
             self.requires("cgif/0.3.2")
         if self.options.with_exif:
-            self.requires("libexif/0.6.24")
+            self.requires("libexif/[>=0.6.24 <0.7]")
         if self.options.with_fftw:
             self.requires("fftw/[^3.3.10]")
         if self.options.with_fontconfig:
