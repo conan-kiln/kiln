@@ -1,0 +1,4 @@
+sources:
+  "0.45.01":
+    url: "https://github.com/rapidsai/ucxx/archive/refs/tags/v0.45.01.tar.gz"
+    sha256: "e603bf66a1232c4fabb666d1b4860a8ad45eda53ec92d92e830ce126eac9f912"
