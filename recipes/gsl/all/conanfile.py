@@ -2,7 +2,6 @@ import os
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
@@ -14,10 +13,9 @@ required_conan_version = ">=2.4"
 class GslConan(ConanFile):
     name = "gsl"
     description = "GNU Scientific Library"
+    license = "GPL-3.0-or-later"
     homepage = "https://www.gnu.org/software/gsl"
     topics = ("numerical", "math", "random", "scientific")
-    license = "GPL-3.0-or-later"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -50,9 +48,6 @@ class GslConan(ConanFile):
         apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
         tc = AutotoolsToolchain(self)
         if self.settings.os == "Windows":
             tc.extra_defines.extend(["HAVE_WIN_IEEE_INTERFACE", "WIN32"])
