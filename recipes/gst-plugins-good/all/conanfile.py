@@ -219,7 +219,7 @@ class GStPluginsGoodConan(ConanFile):
         if "libmp3lame" in reqs:
             self.requires("libmp3lame/3.100")
         if "mpg123" in reqs:
-            self.requires("mpg123/1.31.2")
+            self.requires("mpg123/[^1.31.2]")
         if "libpng" in reqs:
             self.requires("libpng/[~1.6]")
         if "opengl" in reqs:

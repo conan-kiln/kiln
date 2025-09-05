@@ -76,7 +76,7 @@ class SDLMixerConan(ConanFile):
         if self.options.flac:
             self.requires("flac/[^1.4.2]")
         if self.options.mpg123:
-            self.requires("mpg123/1.31.2")
+            self.requires("mpg123/[^1.31.2]")
         if self.options.mad:
             self.requires("libmad/0.15.1b")
         if self.options.ogg:
