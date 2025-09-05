@@ -4,7 +4,6 @@ from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
 
@@ -12,10 +11,10 @@ required_conan_version = ">=2.4"
 class LibwebpConan(ConanFile):
     name = "libwebp"
     description = "Library to encode and decode images in WebP format"
+    license = "BSD-3-Clause"
     homepage = "https://chromium.googlesource.com/webm/libwebp"
     topics = ("image", "libwebp", "webp", "decoding", "encoding")
-    license = "BSD-3-Clause"
-
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
@@ -43,6 +42,7 @@ class LibwebpConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_POSITION_INDEPENDENT_CODE ON)", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -63,8 +63,7 @@ class LibwebpConan(ConanFile):
         tc.variables["WEBP_BUILD_VWEBP"] = False
         tc.variables["WEBP_BUILD_EXTRAS"] = False
         tc.variables["WEBP_BUILD_WEBPINFO"] = False
-        if Version(self.version) >= "1.2.1":
-            tc.variables["WEBP_BUILD_LIBWEBPMUX"] = True
+        tc.variables["WEBP_BUILD_LIBWEBPMUX"] = True
         tc.variables["WEBP_BUILD_WEBPMUX"] = False
         if self.options.shared and is_msvc(self):
             # Building a dll (see fix-dll-export patch)
@@ -106,17 +105,16 @@ class LibwebpConan(ConanFile):
         if self.settings.os == "Android":
             self.cpp_info.components["webp"].system_libs = ["m"]
 
-        if Version(self.version) >= "1.3.0":
-            # sharpyuv
-            self.cpp_info.components["sharpyuv"].set_property("cmake_target_name", "WebP::sharpyuv")
-            self.cpp_info.components["sharpyuv"].set_property("pkg_config_name", "libsharpyuv")
-            self.cpp_info.components["sharpyuv"].libs = ["sharpyuv"]
-            if self.settings.os in ["Linux", "FreeBSD"]:
-                self.cpp_info.components["sharpyuv"].system_libs = ["m", "pthread"]
-            if self.settings.os == "Android":
-                self.cpp_info.components["sharpyuv"].system_libs = ["m"]
-            # note: webp now depends on sharpyuv
-            self.cpp_info.components["webp"].requires = ["sharpyuv"]
+        # sharpyuv
+        self.cpp_info.components["sharpyuv"].set_property("cmake_target_name", "WebP::sharpyuv")
+        self.cpp_info.components["sharpyuv"].set_property("pkg_config_name", "libsharpyuv")
+        self.cpp_info.components["sharpyuv"].libs = ["sharpyuv"]
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.components["sharpyuv"].system_libs = ["m", "pthread"]
+        if self.settings.os == "Android":
+            self.cpp_info.components["sharpyuv"].system_libs = ["m"]
+        # note: webp now depends on sharpyuv
+        self.cpp_info.components["webp"].requires = ["sharpyuv"]
 
         # webpdemux
         self.cpp_info.components["webpdemux"].set_property("cmake_target_name", "WebP::webpdemux")

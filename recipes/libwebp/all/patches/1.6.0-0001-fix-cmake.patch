@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -155,7 +154,7 @@ endif()
+@@ -161,7 +161,7 @@ endif()
  set(PTHREAD_LIBS ${CMAKE_THREAD_LIBS_INIT})
  set(INSTALLED_LIBRARIES)
  
