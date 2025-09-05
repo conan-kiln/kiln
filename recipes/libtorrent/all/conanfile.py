@@ -47,6 +47,7 @@ class LibtorrentConan(ConanFile):
         "enable_iconv": False,
         "enable_logging": True,
         "enable_mutable_torrents": True,
+        "boost/*:with_system": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -61,7 +62,10 @@ class LibtorrentConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("boost/[^1.71.0]", transitive_headers=True, options={"with_system": True})
+        if Version(self.version) >= "2.0.0":
+            self.requires("boost/[^1.71.0]", transitive_headers=True)
+        else:
+            self.requires("boost/[^1.71.0 <1.87]", transitive_headers=True)
         if self.options.enable_encryption:
             self.requires("openssl/[>=1.1 <4]", transitive_headers=True, transitive_libs=True)
         if self.options.enable_iconv:
@@ -93,8 +97,7 @@ class LibtorrentConan(ConanFile):
         tc.variables["build_tools"] = False
         tc.variables["python-bindings"] = False
         tc.variables["python-bindings"] = False
-        if is_msvc(self):
-            tc.variables["static_runtime"] = is_msvc_static_runtime(self)
+        tc.variables["static_runtime"] = is_msvc_static_runtime(self)
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -110,11 +113,6 @@ class LibtorrentConan(ConanFile):
             replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
                                   "find_public_dependency(Iconv)",
                                   replace)
-            if self.settings.compiler == "clang" and self.settings.compiler.libcxx == "libstdc++":
-                # https://github.com/arvidn/libtorrent/issues/3557
-                replace_in_file(self, os.path.join(self.source_folder, "include", "libtorrent", "file_storage.hpp"),
-                                      "file_entry& operator=(file_entry&&) & noexcept = default;",
-                                      "file_entry& operator=(file_entry&&) & = default;")
 
     def build(self):
         self._patch_sources()
