@@ -3,7 +3,6 @@
 # You can find SDK version in https://github.com/nmap/npcap/blob/{GIT_TAG}/version.h
 
 sources:
-  # Newer versions at the top
   "1.70":
     sdk:
       url: https://npcap.com/dist/npcap-sdk-1.13.zip

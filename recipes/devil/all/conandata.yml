@@ -1,5 +1,4 @@
 sources:
-  # Newer versions at the top
   "1.8.0":
     url:
     - "https://github.com/DentonW/DevIL/archive/refs/tags/v1.8.0.tar.gz"
