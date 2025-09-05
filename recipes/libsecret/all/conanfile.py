@@ -7,7 +7,6 @@ from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
 
@@ -15,10 +14,9 @@ required_conan_version = ">=2.4"
 class LibsecretConan(ConanFile):
     name = "libsecret"
     description = "A library for storing and retrieving passwords and other secrets"
-    topics = ("gobject", "password", "secret")
-    homepage = "https://wiki.gnome.org/Projects/Libsecret"
     license = "LGPL-2.1-or-later"
-
+    homepage = "https://wiki.gnome.org/Projects/Libsecret"
+    topics = ("gobject", "password", "secret")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -60,8 +58,6 @@ class LibsecretConan(ConanFile):
     def validate(self):
         if self.settings.os == "Windows":
             raise ConanInvalidConfiguration(f"{self.ref} recipe is not yet compatible with Windows.")
-        if self.options.crypto == "gnutls" and Version(self.version) < "0.21.2":
-            raise ConanInvalidConfiguration(f"{self.ref} does not support GnuTLS before version 0.21.2. Use -o '&:crypto=libgcrypt' instead.")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.3 <2]")
@@ -83,10 +79,8 @@ class LibsecretConan(ConanFile):
         tc.project_options["vapi"] = "false"
         tc.project_options["manpage"] = "false"
         tc.project_options["gtk_doc"] = "false"
-        if Version(self.version) >= "0.21.2":
-            tc.project_options["crypto"] = str(self.options.crypto) if self.options.crypto else "disabled"
-        else:
-            tc.project_options["gcrypt"] = "true" if self.options.crypto == "libgcrypt" else "false"
+        tc.project_options["bash_completion"] = "disabled"
+        tc.project_options["crypto"] = str(self.options.crypto) if self.options.crypto else "disabled"
         tc.generate()
         deps = PkgConfigDeps(self)
         deps.generate()
