@@ -6,18 +6,16 @@ from conan.tools.build import cross_building
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.4.0"
+required_conan_version = ">=2.4"
 
 
 class FriBiDiCOnan(ConanFile):
     name = "fribidi"
     description = "The Free Implementation of the Unicode Bidirectional Algorithm"
-    topics = ("unicode", "bidirectional", "text")
     license = "LGPL-2.1"
     homepage = "https://github.com/fribidi/fribidi"
-
+    topics = ("unicode", "bidirectional", "text")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -35,9 +33,6 @@ class FriBiDiCOnan(ConanFile):
 
     python_requires = "conan-utils/latest"
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -46,16 +41,13 @@ class FriBiDiCOnan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
-
     def generate(self):
         tc = MesonToolchain(self)
         tc.project_options["auto_features"] = "enabled"
         tc.project_options["deprecated"] = self.options.with_deprecated
         tc.project_options["docs"] = False
-        if Version(self.version) >= "1.0.10":
-            tc.project_options["bin"] = False
-            tc.project_options["tests"] = False
+        tc.project_options["bin"] = False
+        tc.project_options["tests"] = False
         tc.generate()
         if cross_building(self):
             # required for gen-unicode-version build tool
@@ -67,7 +59,7 @@ class FriBiDiCOnan(ConanFile):
         meson.build()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
         meson = Meson(self)
         meson.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
@@ -80,7 +72,4 @@ class FriBiDiCOnan(ConanFile):
         self.cpp_info.libs = ["fribidi"]
         self.cpp_info.includedirs.append(os.path.join("include", "fribidi"))
         if not self.options.shared:
-            if Version(self.version) >= "1.0.10":
-                self.cpp_info.defines.append("FRIBIDI_LIB_STATIC")
-            else:
-                self.cpp_info.defines.append("FRIBIDI_STATIC")
+            self.cpp_info.defines.append("FRIBIDI_LIB_STATIC")
