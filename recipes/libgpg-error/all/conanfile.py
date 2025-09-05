@@ -11,11 +11,10 @@ required_conan_version = ">=2.4"
 
 class GPGErrorConan(ConanFile):
     name = "libgpg-error"
+    description = "Libgpg-error is a small library that originally defined common error values for all GnuPG components."
+    license = "GPL-2.0-or-later"
     homepage = "https://gnupg.org/software/libgpg-error/index.html"
     topics = ("gpg", "gnupg", "encrypt", "pgp", "openpgp")
-    description = "Libgpg-error is a small library that originally defined common error values for all GnuPG " \
-                  "components."
-    license = "GPL-2.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -31,9 +30,6 @@ class GPGErrorConan(ConanFile):
     implements = ["auto_shared_fpic"]
     languages = ["C"]
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -47,7 +43,6 @@ class GPGErrorConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         tc = AutotoolsToolchain(self)
