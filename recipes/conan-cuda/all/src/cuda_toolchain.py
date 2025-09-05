@@ -135,11 +135,13 @@ class CudaToolchain:
             # There's a weird edge case where CMAKE_CUDA_FLAGS is not yet initialized from CUDAFLAGS,
             # but CUDA CompilerID detection looks for '-cudart shared` in CMAKE_CUDA_FLAGS.
             # Set CMAKE_CUDA_FLAGS via the toolchain as well to work around this.
-            save(self._conanfile, "conan_toolchain.cmake",
-                 textwrap.dedent("""
-                    # Injected by CudaToolchain
-                    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} $ENV{CUDAFLAGS}")
-                """), append=True)
+            extra = textwrap.dedent("""
+                # Injected by CudaToolchain
+                set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} $ENV{CUDAFLAGS}")
+            """)
+            if "cudart" in self._conanfile.dependencies.host:
+                cudart = "Shared" if self._conanfile.dependencies.host["cudart"].options.shared else "Static"
+                extra += f"\nset(CMAKE_CUDA_RUNTIME_LIBRARY {cudart})\n"
             if self._is_visual_studio_generator:
                 # Help MSVC find visual_studio_integration by extending CMAKE_GENERATOR_TOOLSET
                 cmake_tc = CMakeToolchain(self._conanfile)
@@ -150,13 +152,12 @@ class CudaToolchain:
                                 f'set(CMAKE_GENERATOR_TOOLSET "{vs_toolset},{cuda_toolset}"')
                 # https://github.com/conan-io/conan/issues/17289#issuecomment-3001221611
                 build_type = self._conanfile.settings.get_safe("build_type", "Release")
-                save(self._conanfile, "conan_toolchain.cmake",
-                     textwrap.dedent(f"""
-                        if (NOT DEFINED CMAKE_TRY_COMPILE_CONFIGURATION)
-                            set(CMAKE_TRY_COMPILE_CONFIGURATION "{build_type}")
-                        endif()
-                     """),
-                     append=True)
+                extra += textwrap.dedent(f"""
+                    if (NOT DEFINED CMAKE_TRY_COMPILE_CONFIGURATION)
+                        set(CMAKE_TRY_COMPILE_CONFIGURATION "{build_type}")
+                    endif()
+                """)
+            save(self._conanfile, "conan_toolchain.cmake", extra, append=True)
 
 
 def validate_settings(conanfile: ConanFile):
