@@ -18,15 +18,12 @@ class LzipConan(ConanFile):
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def validate(self):
         if self.settings.os == "Windows" and self.settings.compiler != "gcc":
-            raise ConanInvalidConfiguration("Only gcc supported for windows builds")
+            raise ConanInvalidConfiguration("Only GCC is supported for Windows builds")
 
     def package_id(self):
         del self.info.settings.compiler
@@ -34,10 +31,18 @@ class LzipConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        replace_in_file(self, "configure", "CXX=g++", 'CXX="${CXX:-g++}"')
+        replace_in_file(self, "configure",
+                        'cp -fp ${progname} "${installdir}/${progname}" || exit 1',
+                        'cp -fp "${progname}${extension}" "${installdir}/${progname}${extension}" || exit 1')
+        replace_in_file(self, "Makefile.in",
+                        '$(INSTALL_PROGRAM) ./$(progname) "$(DESTDIR)$(bindir)/$(progname)"',
+                        '$(INSTALL_PROGRAM) ./$(progname)$(extension) "$(DESTDIR)$(bindir)/$(progname)$(extension)"')
 
     def generate(self):
+        extension = ".exe" if self.settings.os == "Windows" else ""
         tc = AutotoolsToolchain(self)
+        tc.configure_args.append(f"extension={extension}")
         tc.generate()
 
     def build(self):
@@ -46,7 +51,7 @@ class LzipConan(ConanFile):
         autotools.make()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
         autotools = Autotools(self)
         autotools.install(target="install-bin")
 
