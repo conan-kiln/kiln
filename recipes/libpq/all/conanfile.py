@@ -75,7 +75,7 @@ class LibpqConan(ConanFile):
         elif self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
         else:
             if self.options.with_openssl or self.options.with_icu:
                 if not self.conf.get("tools.gnu:pkg_config", check_type=str):

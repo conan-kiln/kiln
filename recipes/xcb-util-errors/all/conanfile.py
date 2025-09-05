@@ -55,7 +55,7 @@ class XcbUtilErrorsConan(ConanFile):
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
         self.tool_requires("xcb-proto/1.17.0")
         if not self._have_python:
             self.tool_requires("cpython/[^3.12]")

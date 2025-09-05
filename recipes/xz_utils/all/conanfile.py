@@ -72,7 +72,7 @@ class XZUtilsConan(ConanFile):
         if self.settings_build.os == "Windows" and not self._use_msbuild:
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
         if self.options.get_safe("i18n"):
             self.tool_requires("gettext/[>=0.21 <1]", options={"tools": True})
 

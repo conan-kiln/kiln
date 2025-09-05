@@ -95,7 +95,7 @@ class GettextConan(ConanFile):
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", default=False, check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
         if is_msvc(self) or self._is_clang_cl:
             self.tool_requires("automake/[^1.18.1]")
 

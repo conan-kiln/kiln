@@ -65,7 +65,7 @@ class NsprConan(ConanFile):
             self.tool_requires("mozilla-build/[^3.3]")
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
 
     def source(self):
         with chdir(self, self.export_sources_folder):

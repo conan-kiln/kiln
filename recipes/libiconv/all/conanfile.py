@@ -46,7 +46,7 @@ class LibiconvConan(ConanFile):
     def build_requirements(self):
         if self.settings_build.os == "Windows":
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
             self.win_bash = True
 
     def source(self):

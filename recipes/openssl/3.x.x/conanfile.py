@@ -143,7 +143,7 @@ class OpenSSLConan(ConanFile):
             else:
                 self.win_bash = True
                 if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                    self.tool_requires("msys2/cci.latest")
+                    self.tool_requires("msys2/latest")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

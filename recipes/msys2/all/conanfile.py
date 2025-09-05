@@ -13,7 +13,7 @@ required_conan_version = ">=2.1"
 class MSYS2Conan(ConanFile):
     name = "msys2"
     description = "MSYS2 is a software distro and building platform for Windows"
-    version = "cci.latest"
+    version = "latest"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.msys2.org"
     license = "BSD 3-Clause"  # only the base installer, not the installed packages

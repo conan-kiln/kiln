@@ -76,7 +76,7 @@ class PackageConan(ConanFile):
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/cci.latest")
+                self.tool_requires("msys2/latest")
             # For MSVC support to get compile & ar-lib scripts (may be avoided if shipped in source code of the library).
             # Not needed if libtool already in build requirements.
             if is_msvc(self):
