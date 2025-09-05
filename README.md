@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-04:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-05:
 
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
@@ -112,7 +112,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - crow/1.1.0
 - crow/1.2.0
 - crow/1.2.1
-- ctadvisor/13.0.39
+- ctadvisor/13.0.85
 - cub/2.2.0
 - cub/2.3.2
 - cub/2.4.0
@@ -136,7 +136,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cublas/12.6.4.1
 - cublas/12.8.4.1
 - cublas/12.9.1.4
-- cublas/13.0.0.19
+- cublas/13.0.2.14
 - cublasmp/0.2.1.427
 - cublasmp/0.3.1.663
 - cublasmp/0.4.0.789
@@ -172,7 +172,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-crt/12.6.85
 - cuda-crt/12.8.93
 - cuda-crt/12.9.86
-- cuda-crt/13.0.48
+- cuda-crt/13.0.88
 - cuda-driver-stubs/11.4.148
 - cuda-driver-stubs/11.5.117
 - cuda-driver-stubs/11.6.55
@@ -187,8 +187,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-driver-stubs/12.6.77
 - cuda-driver-stubs/12.8.90
 - cuda-driver-stubs/12.9.79
-- cuda-driver-stubs/13.0.48
-- cuda-gdb/13.0.39
+- cuda-driver-stubs/13.0.88
+- cuda-gdb/13.0.85
 - cuda-opencl/11.4.148
 - cuda-opencl/11.5.117
 - cuda-opencl/11.6.55
@@ -203,7 +203,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-opencl/12.6.77
 - cuda-opencl/12.8.90
 - cuda-opencl/12.9.19
-- cuda-opencl/13.0.39
+- cuda-opencl/13.0.85
 - cuda-profiler-api/11.8.86
 - cuda-profiler-api/12.0.140
 - cuda-profiler-api/12.1.105
@@ -214,7 +214,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-profiler-api/12.6.77
 - cuda-profiler-api/12.8.90
 - cuda-profiler-api/12.9.79
-- cuda-profiler-api/13.0.39
+- cuda-profiler-api/13.0.85
 - cuda-samples/12.9
 - cuda-samples/13.0
 - cuda-sanitizer-api/11.4.120
@@ -231,7 +231,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-sanitizer-api/12.6.77
 - cuda-sanitizer-api/12.8.93
 - cuda-sanitizer-api/12.9.79
-- cuda-sanitizer-api/13.0.48
+- cuda-sanitizer-api/13.0.85
 - cudart/11.4.148
 - cudart/11.5.117
 - cudart/11.6.55
@@ -246,7 +246,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudart/12.6.77
 - cudart/12.8.90
 - cudart/12.9.79
-- cudart/13.0.48
+- cudart/13.0.88
 - cudax/2.5.0
 - cudax/2.6.1
 - cudax/2.7.0
@@ -290,13 +290,13 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cufft/11.2.6.59
 - cufft/11.3.3.83
 - cufft/11.4.1.4
-- cufft/12.0.0.15
+- cufft/12.0.0.61
 - cufftmp/11.4.0.6
 - cufile/1.10.1.7
 - cufile/1.11.1.6
 - cufile/1.13.1.3
 - cufile/1.14.1.1
-- cufile/1.15.0.42
+- cufile/1.15.1.6
 - cufile/1.3.1.18
 - cufile/1.4.0.31
 - cufile/1.5.1.14
@@ -318,8 +318,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - culibos/12.6.77
 - culibos/12.8.90
 - culibos/12.9.79
-- culibos/13.0.39
-- cuobjdump/13.0.39
+- culibos/13.0.85
+- cuobjdump/13.0.85
 - cuosd/0.0.0+git.20250627
 - cupcl/1.0+jp4
 - cupcl/1.0+jp5
@@ -340,7 +340,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cupti/12.6.80
 - cupti/12.8.90
 - cupti/12.9.79
-- cupti/13.0.48
+- cupti/13.0.85
 - cuquantum/25.03.0.11
 - cuquantum/25.06.0.10
 - curand/10.2.10.91
@@ -352,7 +352,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cusolver/11.5.4.101
 - cusolver/11.6.4.69
 - cusolver/11.7.5.82
-- cusolver/12.0.3.29
+- cusolver/12.0.4.66
 - cusolvermp/0.4.3.549
 - cusolvermp/0.5.1.690
 - cusolvermp/0.6.0.712
@@ -365,7 +365,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cusparse/12.3.1.170
 - cusparse/12.4.1.24
 - cusparse/12.5.10.65
-- cusparse/12.6.2.49
+- cusparse/12.6.3.3
 - cusparselt/0.4.0.7
 - cusparselt/0.5.2.1
 - cusparselt/0.6.3.2
@@ -379,7 +379,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cutlass/2.11.0
 - cutlass/3.9.2
 - cutlass/4.1.0
-- cuxxfilt/13.0.39
+- cuxxfilt/13.0.85
 - cv-cuda/0.15.0
 - daggy/2.1.3
 - daggy/2.2.3
@@ -405,8 +405,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigen/3.3.9
 - eigen/4.0.0-cci.20250815
 - eigenpy/3.11.0
-- elfutils/0.191
 - elfutils/0.192
+- elfutils/0.193
 - embree/3.12.0
 - embree/3.13.1
 - embree/3.13.3
@@ -709,6 +709,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - moltenvk/1.2.11
 - moltenvk/1.2.7
 - mpdecimal/4.0.1
+- mpg123/1.33.2
 - mrcal/2.4.1
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
@@ -736,7 +737,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - npp/12.2.5.30
 - npp/12.3.3.100
 - npp/12.4.1.87
-- npp/13.0.0.50
+- npp/13.0.1.2
 - npp_plus/0.10.0.0
 - npp_plus/0.9.0.0
 - nss/3.107
@@ -757,17 +758,17 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvcc/12.6.85
 - nvcc/12.8.93
 - nvcc/12.9.86
-- nvcc/13.0.48
+- nvcc/13.0.88
 - nvcomp/4.1.1.1
 - nvcomp/4.2.0.11
 - nvcomp/5.0.0.6
-- nvdisasm/13.0.39
+- nvdisasm/13.0.85
 - nvfatbin/12.4.127
 - nvfatbin/12.5.82
 - nvfatbin/12.6.77
 - nvfatbin/12.8.90
 - nvfatbin/12.9.82
-- nvfatbin/13.0.39
+- nvfatbin/13.0.85
 - nvidia-optical-flow-sdk/4.0.11
 - nvidia-optical-flow-sdk/5.0.7
 - nvidia-video-codec-sdk/10.0.26
@@ -785,7 +786,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvjitlink/12.6.85
 - nvjitlink/12.8.93
 - nvjitlink/12.9.86
-- nvjitlink/13.0.39
+- nvjitlink/13.0.88
 - nvjpeg/11.5.4.107
 - nvjpeg/11.6.2.124
 - nvjpeg/11.7.2.34
@@ -796,7 +797,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvjpeg/12.2.3.32
 - nvjpeg/12.3.5.92
 - nvjpeg/12.4.0.76
-- nvjpeg/13.0.0.40
+- nvjpeg/13.0.1.86
 - nvjpeg2k/0.7.5.32
 - nvjpeg2k/0.8.1.40
 - nvjpeg2k/0.9.0.43
@@ -815,7 +816,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvml-stubs/12.6.77
 - nvml-stubs/12.8.90
 - nvml-stubs/12.9.79
-- nvml-stubs/13.0.39
+- nvml-stubs/13.0.87
 - nvpl_blas/0.1.0
 - nvpl_blas/0.2.0.1
 - nvpl_blas/0.3.0
@@ -837,7 +838,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvpl_tensor/0.2.0
 - nvpl_tensor/0.3.1
 - nvprof/12.9.79
-- nvprune/13.0.39
+- nvprune/13.0.85
 - nvptxcompiler/11.4.152
 - nvptxcompiler/11.5.119
 - nvptxcompiler/11.6.124
@@ -852,7 +853,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvptxcompiler/12.6.85
 - nvptxcompiler/12.8.93
 - nvptxcompiler/12.9.86
-- nvptxcompiler/13.0.48
+- nvptxcompiler/13.0.88
 - nvrtc/11.5.119
 - nvrtc/11.6.124
 - nvrtc/11.7.99
@@ -866,7 +867,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvrtc/12.6.85
 - nvrtc/12.8.93
 - nvrtc/12.9.86
-- nvrtc/13.0.48
+- nvrtc/13.0.88
 - nvshmem/3.3.20
 - nvtiff/0.3.1.56
 - nvtiff/0.4.0.62
@@ -887,7 +888,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvvm/12.6.85
 - nvvm/12.8.93
 - nvvm/12.9.86
-- nvvm/13.0.48
+- nvvm/13.0.88
 - ocl-icd/2.3.3
 - odbc/2.3.12
 - ogre/14.3.4
@@ -925,6 +926,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openpmix/6.0.0
 - openrng/25.04
 - openspecfun/0.5.7
+- opentelemetry-cpp/1.12.0
+- opentelemetry-cpp/1.14.2
+- opentelemetry-cpp/1.16.1
+- opentelemetry-cpp/1.17.0
+- opentelemetry-cpp/1.18.0
 - openucx/1.19.0
 - openusd/25.02
 - openxr/1.1.47
@@ -1195,6 +1201,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - xpack/1.0.6
 - xpmem/2.6.5.cci.20240911
 - xtrans/1.5.0
+- yasm/1.3.0+git.20230922
 - zenoh-c/1.2.0
 - zenoh-c/1.3.2
 - zenoh-cpp/1.3.2
