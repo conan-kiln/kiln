@@ -9,6 +9,7 @@ from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
+
 class MDSpanConan(ConanFile):
     name = "mdspan"
     description = "Production-quality reference implementation of mdspan"
@@ -27,7 +28,7 @@ class MDSpanConan(ConanFile):
     def _minimum_compilers_version(self):
         return {
             "14": {
-                "msvc": "191" if Version(self.version) < "0.2.0" else "192",
+                "msvc": "192",
                 "gcc": "5",
                 "clang": "3.4",
                 "apple-clang": "5.1"
@@ -69,17 +70,12 @@ class MDSpanConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def package(self):
-        copy(self, pattern="*LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
-        copy(
-            self,
-            pattern="*",
-            dst=os.path.join(self.package_folder, "include"),
-            src=os.path.join(self.source_folder, "include"),
-        )
+        copy(self, "*LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "mdspan")
+        self.cpp_info.set_property("cmake_target_name", "std::mdspan")
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
 
-        self.cpp_info.set_property("cmake_file_name", "mdspan")
-        self.cpp_info.set_property("cmake_target_name", "std::mdspan")
