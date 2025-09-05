@@ -47,7 +47,7 @@ class LibinputConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("mtdev/1.1.6")
+        self.requires("mtdev/[^1.1.6]")
         self.requires("libevdev/1.13.1")
 
         if self.options.debug_gui:
