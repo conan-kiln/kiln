@@ -93,7 +93,7 @@ class PodofoConan(ConanFile):
         if self.options.with_png:
             self.requires("libpng/[~1.6]")
         if self.options.with_unistring:
-            self.requires("libunistring/0.9.10")
+            self.requires("libunistring/[^1]")
 
     def build_requirements(self):
         if Version(self.version) >= "0.10.4":

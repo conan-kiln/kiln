@@ -48,7 +48,7 @@ class LibPslConan(ConanFile):
         elif self.options.with_idna == "libidn2":
             self.requires("libidn2/2.3.0")
         if self.options.with_idna in ("libidn", "libidn2"):
-            self.requires("libunistring/1.1")
+            self.requires("libunistring/[^1.1]")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.3 <2]")
