@@ -14,10 +14,10 @@ required_conan_version = ">=2.4"
 
 class LdnsConan(ConanFile):
     name = "ldns"
+    description = "LDNS is a DNS library that facilitates DNS tool programming"
     license = "BSD-3-Clause"
     homepage = "https://www.nlnetlabs.nl/projects/ldns"
-    description = "LDNS is a DNS library that facilitates DNS tool programming"
-    topics = ("dns")
+    topics = ("dns",)
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
