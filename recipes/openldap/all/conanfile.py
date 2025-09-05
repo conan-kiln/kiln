@@ -18,7 +18,6 @@ class OpenldapConan(ConanFile):
     license = "OLDAP-2.8"
     homepage = "https://www.openldap.org/"
     topics = ("ldap", "load-balancer", "directory-access")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -31,12 +30,8 @@ class OpenldapConan(ConanFile):
         "fPIC": True,
         "with_cyrus_sasl": True,
     }
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -52,6 +47,8 @@ class OpenldapConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "configure", "\n\nsystemdsystemunitdir=", "\n\n")
+        save(self, "doc/Makefile.in", "all:\ninstall:\n")
 
     def generate(self):
         if not cross_building(self):
@@ -77,14 +74,7 @@ class OpenldapConan(ConanFile):
         tc = AutotoolsDeps(self)
         tc.generate()
 
-    def _patch_sources(self):
-        replace_in_file(self, os.path.join(self.source_folder, "configure"),
-                        "WITH_SYSTEMD=no\nsystemdsystemunitdir=", "WITH_SYSTEMD=no")
-        # Disable docs and avoid a dependency on soelim tool
-        save(self, os.path.join(self.source_folder, "doc", "Makefile.in"), "all:\ninstall:\n")
-
     def build(self):
-        self._patch_sources()
         with chdir(self, self.source_folder):
             autotools = Autotools(self)
             autotools.configure()
