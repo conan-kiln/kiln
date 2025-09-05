@@ -51,10 +51,8 @@ class FaissRecipe(ConanFile):
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        self.options["openblas"].use_openmp = True
-        self.options["openblas"].use_thread = False
+        self.options["openblas"].threading = "openmp"
         self.options["openblas"].use_locking = False
-        self.options["openblas"].num_threads = 512
         if not self.options.with_cuda:
             del self.settings.cuda
 

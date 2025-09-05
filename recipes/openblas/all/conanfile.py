@@ -5,10 +5,8 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.build import cross_building
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc_static_runtime, is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -72,11 +70,10 @@ class OpenblasConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "interface": ["lp64", "ilp64"],
+        "threading": ["openmp", "pthread", "serial"],
         "build_lapack": [True, False],
         "build_relapack": [True, False],
         "build_bfloat16": [True, False],
-        "use_openmp": [True, False],
-        "use_thread": [True, False],
         "use_locking": [True, False],
         "dynamic_arch": [True, False],
         "target": [None] + available_openblas_targets,
@@ -88,25 +85,23 @@ class OpenblasConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "interface": "lp64",
+        "threading": "openmp",
         "build_lapack": True,
         "build_relapack": True,
         "build_bfloat16": False,
-        "use_openmp": True,
-        "use_thread": True,
-        "use_locking": True,
+        "use_locking": False,
         "dynamic_arch": False,
         "target": None,
         "max_threads": 128,
         "max_omp_parallel": 1,
-        "use_fortran": True,
+        "use_fortran": True,  # Only enabled if a Fortran compiler is found
     }
     options_description = {
         "interface": "Optionally build with ILP64 interface instead of LP64 (incompatible with the standard API)",
+        "threading": "Threading model to use: openmp, pthread or serial (no threading)",
         "build_lapack": "Build LAPACK and LAPACKE",
         "build_relapack": "Build with ReLAPACK (recursive implementation of several LAPACK functions on top of standard LAPACK)",
         "build_bfloat16": "Build with bfloat16 support",
-        "use_openmp": "Enable OpenMP support",
-        "use_thread": "Enable threads support",
         "use_locking": "Use locks even in single-threaded builds to make them callable from multiple threads",
         "dynamic_arch": "Include support for multiple CPU targets, with automatic selection at runtime (x86/x86_64, aarch64 or ppc only)",
         "target": "OpenBLAS TARGET variable (see TargetList.txt)",
@@ -119,26 +114,25 @@ class OpenblasConan(ConanFile):
     def _fortran_compiler(self):
         return self.conf.get("tools.build:compiler_executables", default={}).get("fortran", None)
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
         if not self._fortran_compiler:
             self.options.use_fortran = False
+        if self.settings.compiler in ["msvc", "apple-clang"]:
+            self.options.build_relapack = False
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        if self.options.build_lapack:
-            self.options.build_relapack.value = self.settings.compiler not in ["msvc", "apple-clang"]
-        else:
+        if not self.options.build_lapack:
             del self.options.build_relapack
             del self.options.use_fortran
-        if not self.options.use_thread:
+        if self.options.threading != "serial":
+            del self.options.use_locking
+        else:
             del self.options.max_threads
-        if not self.options.use_openmp:
+        if self.options.threading != "openmp":
             del self.options.max_omp_parallel
 
         # When cross-compiling, OpenBLAS requires explicitly setting TARGET
@@ -154,7 +148,7 @@ class OpenblasConan(ConanFile):
                 self.options.target = target
 
     def requirements(self):
-        if self.options.use_openmp:
+        if self.options.threading == "openmp":
             self.requires("openmp/system")
 
     def validate(self):
@@ -170,7 +164,7 @@ class OpenblasConan(ConanFile):
                                             "Please set the 'fortran' executable path in 'tools.build:compiler_executables'.")
 
     def build_requirements(self):
-        if self.options.use_openmp:
+        if self.options.threading == "openmp":
             # Required for LINK_LANGUAGE generator expression
             self.tool_requires("cmake/[>=3.18 <5]")
 
@@ -182,7 +176,6 @@ class OpenblasConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
         # Disable test subdirs.
         # ctest also otherwise fails to compile on Android API 22 and earlier due to incomplete complex support.
         save(self, os.path.join(self.source_folder, "cpp_thread_test", "CMakeLists.txt"), "")
@@ -195,53 +188,28 @@ class OpenblasConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def generate(self):
-        VirtualBuildEnv(self).generate()
-
         tc = CMakeToolchain(self)
         tc.variables["BUILD_STATIC_LIBS"] = not self.options.shared
         tc.variables["BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["BUILD_TESTING"] = False
-
-        tc.variables["NOFORTRAN"] = not self.options.build_lapack
-        if self.options.build_lapack and not self.options.use_fortran:
-            tc.variables["C_LAPACK"] = True
-            tc.variables["NOFORTRAN"] = True
-            self.output.info("Building LAPACK without a Fortran compiler")
-
         tc.variables["BUILD_WITHOUT_LAPACK"] = not self.options.build_lapack
         tc.variables["BUILD_RELAPACK"] = self.options.get_safe("build_relapack", False)
-        tc.variables["BUILD_BFLOAT16"] = self.options.build_bfloat16
+        tc.variables["NOFORTRAN"] = self.options.use_fortran
+        tc.variables["C_LAPACK"] = not self.options.use_fortran
         tc.variables["INTERFACE64"] = self.options.interface == "ilp64"
-        tc.variables["DYNAMIC_ARCH"] = self.options.dynamic_arch
-        tc.variables["USE_OPENMP"] = self.options.use_openmp
-        tc.variables["USE_THREAD"] = self.options.use_thread
-        tc.variables["USE_LOCKING"] = self.options.use_locking
+        tc.variables["USE_THREAD"] = self.options.threading != "serial"
+        tc.variables["USE_OPENMP"] = self.options.threading == "openmp"
+        tc.variables["USE_LOCKING"] = self.options.get_safe("use_locking", False)
         if self.options.get_safe("max_threads", "auto") != "auto":
-            tc.variables["NUM_PARALLEL"] = self.options.max_threads
+            tc.variables["NUM_THREADS"] = self.options.max_threads
         if self.options.get_safe("max_omp_parallel"):
-            tc.variables["NUM_THREADS"] = self.options.max_omp_parallel
-
-        tc.variables["MSVC_STATIC_CRT"] = is_msvc_static_runtime(self)
-
-        # Needed for $<$<LINK_LANGUAGE:C>:OpenMP::OpenMP_C> to work correctly
-        tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0022"] = "NEW"
-
-        # This is a workaround to add the libm dependency on linux,
-        # which is required to successfully compile on older gcc versions.
-        tc.variables["ANDROID"] = self.settings.os in ["Linux", "Android"]
-
+            tc.variables["NUM_PARALLEL"] = self.options.max_omp_parallel
         if self.options.target:
             tc.cache_variables["TARGET"] = self.options.target
-
-        tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
-        if Version(self.version) < "0.3.29":
-            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
-
-        # Fix a fatal compiler warning on GCC 14
-        # https://github.com/OpenMathLib/OpenBLAS/pull/4894
-        if self.settings.compiler != "msvc":
-            tc.extra_cflags.append("-Wno-error=incompatible-pointer-types")
-
+        tc.variables["DYNAMIC_ARCH"] = self.options.dynamic_arch
+        tc.variables["BUILD_BFLOAT16"] = self.options.build_bfloat16
+        tc.variables["MSVC_STATIC_CRT"] = is_msvc_static_runtime(self)
+        tc.variables["ANDROID"] = self.settings.os == "Android"
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -277,53 +245,20 @@ class OpenblasConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", f"OpenBLAS{self._64bit}")
         self.cpp_info.set_property("cmake_target_name", "OpenBLAS::OpenBLAS")
+        aliases = [f"OpenBLAS::{self.options.threading}"]
         if self.options.interface == "ilp64":
-            self.cpp_info.set_property("cmake_target_aliases", ["OpenBLAS64::OpenBLAS"])
+            aliases.append("OpenBLAS::OpenBLAS64")
+        self.cpp_info.set_property("cmake_target_aliases", aliases)
         self.cpp_info.set_property("pkg_config_name", f"openblas{self._64bit}")
-        self.cpp_info.components["openblas_component"].set_property("pkg_config_name", f"openblas{self._64bit}")
-        self.cpp_info.components["openblas_component"].includedirs.append(os.path.join("include", f"openblas{self._64bit}"))
-        self.cpp_info.components["openblas_component"].libs = [self._lib_name]
-        if self.settings.os in ["Linux", "FreeBSD"] and not self.options.shared:
-            self.cpp_info.components["openblas_component"].system_libs.append("m")
-            if self.options.use_thread:
-                self.cpp_info.components["openblas_component"].system_libs.append("pthread")
+
+        self.cpp_info.includedirs.append(f"include/openblas{self._64bit}")
+        self.cpp_info.libs = [self._lib_name]
+        if not self.options.shared:
+            if self.settings.os in ["Linux", "FreeBSD"]:
+                self.cpp_info.system_libs.append("m")
+                if self.options.threading != "serial":
+                    self.cpp_info.system_libs.append("pthread")
             if self.options.get_safe("use_fortran") and "gfortran" in self._fortran_compiler:
-                self.cpp_info.components["openblas_component"].system_libs.append("gfortran")
-        if self.options.use_openmp:
-            self.cpp_info.components["openblas_component"].requires.append("openmp::openmp")
+                self.cpp_info.system_libs.append("gfortran")
 
-        # OpenBLAS always has one and only one of these components defined: openmp, pthread or serial.
-        if self.options.use_openmp:
-            component = "openmp"
-        elif self.options.use_thread:
-            component = "pthread"
-        else:
-            component = "serial"
-        self.cpp_info.components[component].set_property("cmake_target_name", f"OpenBLAS::{component}")
-        self.cpp_info.components[component].requires = ["openblas_component"]
-
-        if self.options.use_openmp:
-            if self.options.use_openmp and self.settings.compiler in ["clang", "apple-clang"]:
-                self.cpp_info.components["openblas_component"].requires.append("openmp::openmp")
-            else:
-                if is_msvc(self):
-                    openmp_flags = ["-openmp"]
-                elif self.settings.compiler == "gcc":
-                    openmp_flags = ["-fopenmp"]
-                elif self.settings.compiler == "intel-cc":
-                    openmp_flags = ["-Qopenmp"]
-                self.cpp_info.exelinkflags.extend(openmp_flags)
-                self.cpp_info.sharedlinkflags.extend(openmp_flags)
-
-        # OpenBLAS always has one and only one of these components defined: openmp, pthread or serial.
-        if self.options.use_openmp:
-            component = "openmp"
-        elif self.options.use_thread:
-            component = "pthread"
-        else:
-            component = "serial"
-        self.cpp_info.components[component].set_property("cmake_target_name", f"OpenBLAS::{component}")
-        self.cpp_info.components[component].requires = ["openblas_component"]
-
-        self.buildenv_info.define_path("OpenBLAS_HOME", self.package_folder)
         self.runenv_info.define_path("OpenBLAS_HOME", self.package_folder)
