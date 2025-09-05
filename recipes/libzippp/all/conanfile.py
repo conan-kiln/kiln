@@ -5,7 +5,6 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -35,20 +34,10 @@ class LibZipppConan(ConanFile):
 
     def requirements(self):
         self.requires("zlib-ng/[^2.0]")
-        if Version(self.version) == "4.0":
-            self.requires("libzip/[^1.7.3]")
-        else:
-            versions = str(self.version).split("-")
-            if len(versions) == 2:
-                self.requires(f"libzip/{versions[1]}")
+        self.requires("libzip/[^1]")
 
     def validate(self):
         check_min_cppstd(self, 11)
-
-        libzippp_version = str(self.version)
-        if libzippp_version != "4.0" and len(libzippp_version.split("-")) != 2:
-            raise ConanInvalidConfiguration(f"{self.ref}: version number must include '-'. (ex. '5.0-1.8.0')")
-
         if self.settings.compiler == "clang" and self.settings.compiler.get_safe("libcxx") == "libc++":
             raise ConanInvalidConfiguration(f"{self.ref} does not support clang with libc++. Use libstdc++ instead.")
 
@@ -71,14 +60,7 @@ class LibZipppConan(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
 
-    def _patch_source(self):
-        if Version(self.version) <= "6.0":
-            replace_in_file(self, os.path.join(self.source_folder, 'CMakeLists.txt'),
-                            'find_package(LIBZIP MODULE REQUIRED)',
-                            'find_package(libzip REQUIRED CONFIG)')
-
     def build(self):
-        self._patch_source()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
