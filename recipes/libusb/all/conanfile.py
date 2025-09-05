@@ -7,9 +7,8 @@ from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, AutotoolsDeps
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, MSBuild, MSBuildToolchain
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibUSBConan(ConanFile):
@@ -30,6 +29,8 @@ class LibUSBConan(ConanFile):
         "fPIC": True,
         "enable_udev": True,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     @property
     def _is_mingw(self):
@@ -39,9 +40,6 @@ class LibUSBConan(ConanFile):
     def _msbuild_configuration(self):
         return "Debug" if self.settings.build_type == "Debug" else "Release"
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
@@ -50,12 +48,6 @@ class LibUSBConan(ConanFile):
         # FIXME: enable_udev should be True for Android, but libudev recipe is missing
         if self.settings.os == "Android":
             self.options.enable_udev = False
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -73,7 +65,6 @@ class LibUSBConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         if is_msvc(self):
@@ -92,32 +83,8 @@ class LibUSBConan(ConanFile):
 
     def build(self):
         if is_msvc(self):
-            solution_msvc_year = "2017" if Version(self.version) < "1.0.24" else "2019"
-            solution = f"libusb_{'dll' if self.options.shared else 'static'}_{solution_msvc_year}.vcxproj"
+            solution = f"libusb_{'dll' if self.options.shared else 'static'}.vcxproj"
             vcxproj_path = os.path.join(self.source_folder, "msvc", solution)
-
-            #==============================
-            # TODO: to remove once https://github.com/conan-io/conan/pull/12817 available in conan client
-            replace_in_file(
-                self, vcxproj_path,
-                "<WholeProgramOptimization Condition=\"'$(Configuration)'=='Release'\">true</WholeProgramOptimization>",
-                "",
-            )
-            old_toolset = "v141" if Version(self.version) < "1.0.24" else "v142"
-            new_toolset = MSBuildToolchain(self).toolset
-            replace_in_file(
-                self, vcxproj_path,
-                f"<PlatformToolset>{old_toolset}</PlatformToolset>",
-                f"<PlatformToolset>{new_toolset}</PlatformToolset>",
-            )
-            conantoolchain_props = os.path.join(self.generators_folder, MSBuildToolchain.filename)
-            replace_in_file(
-                self, vcxproj_path,
-                "<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-                f"<Import Project=\"{conantoolchain_props}\" /><Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-            )
-            #==============================
-
             msbuild = MSBuild(self)
             msbuild.build_type = self._msbuild_configuration
             msbuild.build(vcxproj_path)
