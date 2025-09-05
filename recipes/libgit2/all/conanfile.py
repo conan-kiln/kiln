@@ -6,9 +6,8 @@ from conan.tools.apple import is_apple_os
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc_static_runtime, is_msvc
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibGit2Conan(ConanFile):
@@ -46,6 +45,8 @@ class LibGit2Conan(ConanFile):
         "with_regex": "builtin",
         "with_http_parser": "http-parser",
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -53,36 +54,22 @@ class LibGit2Conan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
-
         if not is_apple_os(self):
             del self.options.with_iconv
-
         if self.settings.os == "Windows":
             del self.options.with_ntlmclient
-
         if self.settings.os == "Macos":
             self.options.with_regex = "regcomp_l"
-
-        # < 1.8.1 requries http_parser only.
-        if Version(self.version) < "1.8.1":
-            del self.options.with_http_parser
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
         self.requires("zlib-ng/[^2.0]")
-        if Version(self.version) < "1.8.1" or self.options.get_safe("with_http_parser") == "http-parser":
+        if self.options.with_http_parser == "http-parser":
             self.requires("http_parser/2.9.4")
         else:
             self.requires("llhttp/[^9.1.3]")
-
         if self.options.with_libssh2:
             self.requires("libssh2/[^1.11.0]")
         if self._need_openssl:
@@ -112,67 +99,58 @@ class LibGit2Conan(ConanFile):
             if self.settings.os != "Windows":
                 raise ConanInvalidConfiguration("winhttp is only valid on Windows")
 
-        if self.options.with_sha1 == "win32":
-            if self.settings.os != "Windows":
-                raise ConanInvalidConfiguration("win32 is only valid on Windows")
+        if self.options.with_sha1 == "win32" and self.settings.os != "Windows":
+            raise ConanInvalidConfiguration("win32 is only valid on Windows")
 
         if self.options.with_regex == "regcomp" or self.options.with_regex == "regcomp_l":
             if is_msvc(self):
-                raise ConanInvalidConfiguration("{} isn't supported by Visual Studio".format(self.options.with_regex))
+                raise ConanInvalidConfiguration(f"{self.options.with_regex} isn't supported by Visual Studio")
 
         if self.settings.os in ["iOS", "tvOS", "watchOS"] and self.options.with_regex == "regcomp_l":
-            raise ConanInvalidConfiguration("regcomp_l isn't supported on {}".format(self.settings.os))
+            raise ConanInvalidConfiguration(f"regcomp_l isn't supported on {self.settings.os}")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
 
-    _cmake_https = {
-        "openssl": "OpenSSL",
-        "winhttp": "WinHTTP",
-        "security": "SecureTransport",
-        "mbedtls": "mbedTLS",
-        "False": "OFF",
-    }
-
-    _cmake_sha1 = {
-        "collisiondetection": "CollisionDetection",
-        "commoncrypto": "CommonCrypto",
-        "openssl": "OpenSSL",
-        "mbedtls": "mbedTLS",
-        "generic": "Generic",
-        "win32": "Win32",
-        "False": "OFF",
-    }
-
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["THREADSAFE"] = self.options.threadsafe
-        if Version(self.version) < "1.8.1":
-            tc.variables["USE_SSH"] = self.options.with_libssh2
-        else:
-            tc.variables["USE_SSH"] = "libssh2" if self.options.with_libssh2 else False
+        tc.variables["USE_SSH"] = "libssh2" if self.options.with_libssh2 else False
         tc.variables["USE_ICONV"] = self.options.get_safe("with_iconv", False)
-        tc.variables["USE_HTTPS"] = self._cmake_https[str(self.options.with_https)]
-        tc.variables["USE_SHA1"] = self._cmake_sha1[str(self.options.with_sha1)]
-        if Version(self.version) >= "1.4.0":
-            tc.variables["BUILD_TESTS"] = False
+        tc.variables["USE_HTTPS"] = {
+            "openssl": "OpenSSL",
+            "winhttp": "WinHTTP",
+            "security": "SecureTransport",
+            "mbedtls": "mbedTLS",
+            "False": "OFF",
+        }[str(self.options.with_https)]
+        tc.variables["USE_SHA1"] = {
+            "collisiondetection": "CollisionDetection",
+            "commoncrypto": "CommonCrypto",
+            "openssl": "OpenSSL",
+            "mbedtls": "mbedTLS",
+            "generic": "Generic",
+            "win32": "Win32",
+            "False": "OFF",
+        }[str(self.options.with_sha1)]
+        tc.variables["BUILD_TESTS"] = False
         tc.variables["BUILD_CLAR"] = False
         tc.variables["BUILD_CLI"] = False
         tc.variables["BUILD_EXAMPLES"] = False
-        if Version(self.version) < "1.8.1":
-            tc.variables["USE_HTTP_PARSER"] = "system"
-        else:
-            tc.variables["USE_HTTP_PARSER"] = self.options.get_safe("with_http_parser")
+        tc.variables["USE_HTTP_PARSER"] = self.options.with_http_parser
         tc.variables["REGEX_BACKEND"] = self.options.with_regex
-        if is_msvc(self):
-            tc.variables["STATIC_CRT"] = is_msvc_static_runtime(self)
+        tc.variables["STATIC_CRT"] = is_msvc_static_runtime(self)
         # REGEX_BACKEND is SET(), avoid options overriding it
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
+        tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
+        tc.cache_variables["HAVE_LIBSSH2_MEMORY_CREDENTIALS"] = True
         tc.generate()
+
         deps = CMakeDeps(self)
-        if self.options.get_safe("with_http_parser") == "llhttp":
-            deps.set_property("llhttp", "cmake_file_name", "LLHTTP")
+        deps.set_property("http_parser", "cmake_file_name", "HTTP_PARSER")
+        deps.set_property("libssh2", "cmake_file_name", "LIBSSH2")
+        deps.set_property("llhttp", "cmake_file_name", "LLHTTP")
         deps.generate()
 
     def build(self):
@@ -181,7 +159,7 @@ class LibGit2Conan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, pattern="COPYING", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
@@ -190,8 +168,6 @@ class LibGit2Conan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "libgit2")
         self.cpp_info.libs = ["git2"]
         if self.settings.os == "Windows":
-            self.cpp_info.system_libs.extend(["winhttp", "rpcrt4", "crypt32"])
-            if Version(self.version) >= "1.7.0":
-                self.cpp_info.system_libs.append("secur32")
+            self.cpp_info.system_libs = ["winhttp", "rpcrt4", "crypt32", "secur32"]
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.threadsafe:
-            self.cpp_info.system_libs.append("pthread")
+            self.cpp_info.system_libs = ["pthread"]
