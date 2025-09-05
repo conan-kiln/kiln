@@ -5,29 +5,29 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
 from conan.tools.build import cross_building
-from conan.tools.env import VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import AutotoolsToolchain, AutotoolsDeps, PkgConfigDeps, Autotools
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.2"
 
 
 class GnuTLSConan(ConanFile):
     name = "gnutls"
-    homepage = "https://www.gnutls.org"
     description = "GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols"
+    homepage = "https://www.gnutls.org"
+    license = "GPL-3.0-or-later AND LGPL-2.1-or-later"
     topics = ("tls", "ssl", "secure communications")
-    license = ("LGPL-2.1-or-later", "GPL-3-or-later")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
         "enable_cxx": [True, False],
-        "enable_tools": [True, False],
         "enable_openssl_compatibility": [True, False],
+        "tools": [True, False],
         "with_zlib": [True, False],
         "with_zstd": [True, False],
         "with_brotli": [True, False],
@@ -36,19 +36,13 @@ class GnuTLSConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "enable_cxx": True,
-        "enable_tools": True,
         "enable_openssl_compatibility": False,
+        "tools": True,
         "with_zlib": True,
         "with_zstd": True,
         "with_brotli": True,
     }
-
-    def export_sources(self):
-        export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+    implements = ["auto_shared_fpic"]
 
     def configure(self):
         if self.options.shared:
@@ -85,11 +79,8 @@ class GnuTLSConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
         if not cross_building(self):
             env = VirtualRunEnv(self)
             env.generate(scope="build")
@@ -114,15 +105,15 @@ class GnuTLSConan(ConanFile):
             "--without-idn",
             "--with-included-unistring",
             "--with-included-libtasn1",
-            "--with-libiconv-prefix={}".format(self.dependencies["libiconv"].package_folder),
-            "--enable-shared={}".format(yes_no(self.options.shared)),
-            "--enable-static={}".format(yes_no(not self.options.shared)),
-            "--with-cxx={}".format(yes_no(self.options.enable_cxx)),
-            "--with-zlib={}".format(yes_no(self.options.with_zlib)),
-            "--with-brotli={}".format(yes_no(self.options.with_brotli)),
-            "--with-zstd={}".format(yes_no(self.options.with_zstd)),
-            "--enable-tools={}".format(yes_no(self.options.enable_tools)),
-            "--enable-openssl-compatibility={}".format(yes_no(self.options.enable_openssl_compatibility)),
+            f"--with-libiconv-prefix={self.dependencies['libiconv'].package_folder}",
+            f"--enable-shared={yes_no(self.options.shared)}",
+            f"--enable-static={yes_no(not self.options.shared)}",
+            f"--with-cxx={yes_no(self.options.enable_cxx)}",
+            f"--with-zlib={yes_no(self.options.with_zlib)}",
+            f"--with-brotli={yes_no(self.options.with_brotli)}",
+            f"--with-zstd={yes_no(self.options.with_zstd)}",
+            f"--enable-tools={yes_no(self.options.tools)}",
+            f"--enable-openssl-compatibility={yes_no(self.options.enable_openssl_compatibility)}",
         ])
         if is_apple_os(self):
             # fix_apple_shared_install_name() may fail without -headerpad_max_install_names
@@ -152,29 +143,10 @@ class GnuTLSConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
         fix_apple_shared_install_name(self)
-        self._create_cmake_module_variables(
-            os.path.join(self.package_folder, self._module_file_rel_path)
-        )
-
-    def _create_cmake_module_variables(self, module_file):
-        content = textwrap.dedent(f"""\
+        save(self, os.path.join(self.package_folder, self._module_file_rel_path), textwrap.dedent(f"""\
             set(GNUTLS_FOUND TRUE)
-            if(NOT DEFINED GNUTLS_INCLUDE_DIR AND DEFINED GnuTLS_INCLUDE_DIRS)
-                set(GNUTLS_INCLUDE_DIR ${{GnuTLS_INCLUDE_DIRS}})
-            endif()
-            if(NOT DEFINED GNUTLS_LIBRARIES AND DEFINED GnuTLS_LIBRARIES)
-                set(GNUTLS_LIBRARIES ${{GnuTLS_LIBRARIES}})
-            endif()
-            if(NOT DEFINED GNUTLS_DEFINITIONS)
-                if(DEFINED GnuTLS_DEFINITIONS)
-                    set(GNUTLS_DEFINITIONS ${{GnuTLS_DEFINITIONS}})
-                else()
-                    set(GNUTLS_DEFINITIONS "")
-                endif()
-            endif()
             set(GNUTLS_VERSION {self.version})
-        """)
-        save(self, module_file, content)
+        """))
 
     @property
     def _module_file_rel_path(self):
@@ -185,6 +157,7 @@ class GnuTLSConan(ConanFile):
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "GnuTLS")
         self.cpp_info.set_property("cmake_target_name", "GnuTLS::GnuTLS")
+        self.cpp_info.set_property("cmake_additional_variables_prefixes", ["GNUTLS"])
         self.cpp_info.set_property("cmake_build_modules", [self._module_file_rel_path])
         self.cpp_info.set_property("pkg_config_name", "gnutls")
 
