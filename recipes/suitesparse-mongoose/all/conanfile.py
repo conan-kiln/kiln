@@ -61,7 +61,7 @@ class SuiteSparseMongooseConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "Mongoose"))
+        cmake.configure(build_script_folder="Mongoose")
         cmake.build()
 
     def package(self):

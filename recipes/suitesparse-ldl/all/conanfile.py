@@ -57,7 +57,7 @@ class SuiteSparseLdlConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "LDL"))
+        cmake.configure(build_script_folder="LDL")
         cmake.build()
 
     def package(self):

@@ -57,7 +57,7 @@ class ZstdConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "build", "cmake"))
+        cmake.configure(build_script_folder="build/cmake")
         cmake.build()
 
     def package(self):

@@ -65,7 +65,7 @@ class DiscountConan(ConanFile):
         if not can_run(self):
             replace_in_file(self, os.path.join(self.source_folder, "cmake", "CMakeLists.txt"),
                             "add_executable(mktags", "message(TRACE ")
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "cmake"))
+        cmake.configure(build_script_folder="cmake")
         if not can_run(self):
             cc = AutotoolsToolchain(self).vars().get("CC_FOR_BUILD", "cc")
             self.run(f"{cc} {os.path.join(self.source_folder, 'mktags.c')} -o mktags", cwd=self.build_folder)

@@ -189,7 +189,7 @@ class ICUConan(ConanFile):
                 shutil.copy(str(self.options.dat_package_file), dat_package_file[0])
 
         autotools = Autotools(self)
-        autotools.configure(build_script_folder=os.path.join(self.source_folder, "source"))
+        autotools.configure(build_script_folder="source")
         autotools.make()
         if self._with_unit_tests:
             autotools.make(target="check")

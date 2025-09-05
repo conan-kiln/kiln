@@ -60,7 +60,7 @@ class Log4cppConan(ConanFile):
 
     def build(self):
         autotools = Autotools(self)
-        autotools.configure(build_script_folder=os.path.join(self.source_folder, "log4cpp"))
+        autotools.configure(build_script_folder="log4cpp")
         autotools.make()
 
     def package(self):

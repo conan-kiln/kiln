@@ -53,7 +53,7 @@ class XxHashConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "cmake_unofficial"))
+        cmake.configure(build_script_folder="cmake_unofficial")
         cmake.build()
 
     def package(self):

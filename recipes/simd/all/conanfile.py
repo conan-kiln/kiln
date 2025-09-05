@@ -94,7 +94,7 @@ class SimdConan(ConanFile):
             msbuild.build(os.path.join(self.source_folder, "prj", self.vs_proj_folder, "Simd.vcxproj"))
         else:
             cmake = CMake(self)
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, "prj", "cmake"))
+            cmake.configure(build_script_folder="prj/cmake")
             cmake.build()
 
     def package(self):

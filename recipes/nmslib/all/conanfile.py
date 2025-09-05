@@ -94,7 +94,7 @@ class Nmslib(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "similarity_search"))
+        cmake.configure(build_script_folder="similarity_search")
         cmake.build()
 
     def package(self):

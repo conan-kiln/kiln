@@ -62,7 +62,7 @@ class SuiteSparseLagraphConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "LAGraph"))
+        cmake.configure(build_script_folder="LAGraph")
         cmake.build()
 
     def package(self):

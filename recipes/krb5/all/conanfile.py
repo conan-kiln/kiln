@@ -108,7 +108,7 @@ class Krb5Conan(ConanFile):
         with chdir(self, os.path.join(self.source_folder, "src")):
             self.run("autoreconf -vif")
         autotools = Autotools(self)
-        autotools.configure(build_script_folder=os.path.join(self.source_folder, "src"))
+        autotools.configure(build_script_folder="src")
         autotools.make()
 
     def package(self):

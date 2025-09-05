@@ -75,7 +75,7 @@ class DetoursConan(ConanFile):
                 self.run(f"nmake DETOURS_TARGET_PROCESSOR={self._target_processor}")
         else:
             cmake = CMake(self)
-            cmake.configure(build_script_folder=Path(self.source_folder).parent)
+            cmake.configure(build_script_folder="..")
             cmake.build()
 
     def package(self):

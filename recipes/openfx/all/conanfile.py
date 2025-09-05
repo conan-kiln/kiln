@@ -67,7 +67,7 @@ class openfx(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=Path(self.source_folder).parent)
+        cmake.configure(build_script_folder="..")
         cmake.build()
 
     @property

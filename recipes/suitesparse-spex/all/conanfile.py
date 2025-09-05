@@ -72,7 +72,7 @@ class SuiteSparseSpexConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "SPEX"))
+        cmake.configure(build_script_folder="SPEX")
         cmake.build()
 
     def package(self):

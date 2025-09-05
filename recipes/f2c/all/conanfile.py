@@ -121,7 +121,7 @@ class F2cConan(ConanFile):
 
     def _build_f2c(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "f2c"))
+        cmake.configure(build_script_folder="f2c")
         cmake.build()
 
         fc = os.path.join(self.source_folder, "f2c", "fc")

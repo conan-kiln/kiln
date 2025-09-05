@@ -98,7 +98,7 @@ class DevilConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "DevIL"))
+        cmake.configure(build_script_folder="DevIL")
         cmake.build()
 
     def package(self):

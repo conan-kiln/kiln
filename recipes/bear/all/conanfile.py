@@ -58,7 +58,7 @@ class BearConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "source"))
+        cmake.configure(build_script_folder="source")
         cmake.build()
 
     def package(self):

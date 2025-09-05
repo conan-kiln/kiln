@@ -61,7 +61,7 @@ class RagelConan(ConanFile):
 
         if self.settings.os == "Windows":
             cmake = CMake(self)
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, os.pardir))
+            cmake.configure(build_script_folder="..")
             cmake.build()
         else:
             autotools = Autotools(self)

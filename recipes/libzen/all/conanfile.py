@@ -63,7 +63,7 @@ class LibzenConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "Project", "CMake"))
+        cmake.configure(build_script_folder="Project/CMake")
         cmake.build()
 
     def package(self):

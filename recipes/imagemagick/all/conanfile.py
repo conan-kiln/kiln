@@ -205,7 +205,7 @@ class ImageMagicConan(ConanFile):
 
         # Build and run configure.exe to generate .sln and .vcxproj files
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "Configure"))
+        cmake.configure(build_script_folder="Configure")
         cmake.build()
         configure_args = load(self, os.path.join(self.generators_folder, "configure_args"))
         self.run(f"configure.exe {configure_args}", cwd=os.path.join(self.source_folder, "Configure"))
@@ -266,7 +266,7 @@ class ImageMagicConan(ConanFile):
     def _build_autotools(self):
         with chdir(self, os.path.join(self.source_folder, "ImageMagick")):
             autotools = Autotools(self)
-            autotools.configure(build_script_folder=os.path.join(self.source_folder, "ImageMagick"))
+            autotools.configure(build_script_folder="ImageMagick")
             autotools.make()
 
     def generate(self):

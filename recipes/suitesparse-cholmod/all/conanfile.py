@@ -123,7 +123,7 @@ class SuiteSparseCholmodConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "CHOLMOD"))
+        cmake.configure(build_script_folder="CHOLMOD")
         cmake.build()
 
     def package(self):

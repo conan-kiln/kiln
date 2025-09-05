@@ -83,7 +83,7 @@ class OctomapConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "octomap"))
+        cmake.configure(build_script_folder="octomap")
         cmake.build()
 
     def package(self):

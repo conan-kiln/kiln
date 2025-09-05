@@ -235,7 +235,7 @@ class LibdbConan(ConanFile):
                 msbuild.build(sln=project_file)
         else:
             autotools = Autotools(self)
-            autotools.configure(build_script_folder=os.path.join(self.source_folder, "dist"))
+            autotools.configure(build_script_folder="dist")
             autotools.make()
 
     def package(self):

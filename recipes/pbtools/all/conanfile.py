@@ -46,7 +46,7 @@ class PbtoolsConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "lib"))
+        cmake.configure(build_script_folder="lib")
         cmake.build()
 
     def package(self):

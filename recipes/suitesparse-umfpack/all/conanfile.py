@@ -62,7 +62,7 @@ class SuiteSparseUmfpackConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "UMFPACK"))
+        cmake.configure(build_script_folder="UMFPACK")
         cmake.build()
 
     def package(self):

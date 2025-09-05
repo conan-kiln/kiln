@@ -643,7 +643,7 @@ class GdalConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=Path(self.source_folder).parent)
+        cmake.configure(build_script_folder="..")
         cmake.build()
 
     def package(self):

@@ -91,7 +91,7 @@ class TmxliteConan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "tmxlite"))
+        cmake.configure(build_script_folder="tmxlite")
         cmake.build()
 
     def package(self):

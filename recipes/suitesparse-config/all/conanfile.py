@@ -59,7 +59,7 @@ class SuiteSparseConfigConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "SuiteSparse_config"))
+        cmake.configure(build_script_folder="SuiteSparse_config")
         cmake.build()
 
     def _copy_license(self):

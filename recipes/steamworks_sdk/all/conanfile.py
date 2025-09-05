@@ -87,7 +87,7 @@ class SteamworksSdkConan(ConanFile):
     def build(self):
         if self.options.get_safe("build_glmgr"):
             cmake = CMake(self)
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, "glmgr"))
+            cmake.configure(build_script_folder="glmgr")
             cmake.build()
 
     def _fetch_license(self):

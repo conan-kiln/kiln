@@ -67,7 +67,7 @@ class JoltPhysicsConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "Build"))
+        cmake.configure(build_script_folder="Build")
         cmake.build()
 
     def package(self):

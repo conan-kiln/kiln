@@ -135,7 +135,7 @@ class LibphonenumberConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "cpp"))
+        cmake.configure(build_script_folder="cpp")
         cmake.build()
 
     def package(self):

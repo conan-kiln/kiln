@@ -61,7 +61,7 @@ class AngelScriptConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "angelscript", "projects", "cmake"))
+        cmake.configure(build_script_folder="angelscript/projects/cmake")
         cmake.build()
 
     def _extract_license(self):

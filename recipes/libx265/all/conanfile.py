@@ -139,7 +139,7 @@ class Libx265Conan(ConanFile):
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "source"))
+        cmake.configure(build_script_folder="source")
         cmake.build()
 
     def package(self):

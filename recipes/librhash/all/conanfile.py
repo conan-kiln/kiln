@@ -60,7 +60,7 @@ class LibRHashConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "librhash"))
+        cmake.configure(build_script_folder="librhash")
         cmake.build()
 
     def package(self):

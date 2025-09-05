@@ -71,7 +71,7 @@ class ZookeeperClientCConan(ConanFile):
         self.run(f'mvn compile -Dmaven.repo.local="{m2_repository}"', cwd=os.path.join(self.source_folder, "zookeeper-jute"))
 
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "zookeeper-client", "zookeeper-client-c"))
+        cmake.configure(build_script_folder="zookeeper-client/zookeeper-client-c")
         cmake.build()
 
     def package(self):

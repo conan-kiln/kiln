@@ -61,9 +61,9 @@ class TreeSitterConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         if Version(self.version) < "0.24.1":
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, os.pardir))
+            cmake.configure(build_script_folder="..")
         else:
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, "lib"))
+            cmake.configure(build_script_folder="lib")
         cmake.build()
 
     def package(self):

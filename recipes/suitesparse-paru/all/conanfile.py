@@ -58,7 +58,7 @@ class SuiteSparseParuConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "ParU"))
+        cmake.configure(build_script_folder="ParU")
         cmake.build()
 
     def package(self):

@@ -56,7 +56,7 @@ class SuiteSparseRBioConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "RBio"))
+        cmake.configure(build_script_folder="RBio")
         cmake.build()
 
     def package(self):

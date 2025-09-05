@@ -140,7 +140,7 @@ class PhysXConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, "physx/compiler/public"))
+        cmake.configure(build_script_folder="physx/compiler/public")
         cmake.build(build_type=self._get_physx_build_type())
 
     def _get_cmakemodules_subfolder(self):

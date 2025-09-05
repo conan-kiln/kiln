@@ -159,8 +159,8 @@ class PDCursesConan(ConanFile):
         if self.options.get_safe("with_x11"):
             with chdir(self, os.path.join(self.source_folder, "x11")):
                 autotools = Autotools(self)
-                autotools.autoreconf(build_script_folder=os.path.join(self.source_folder, "x11"))
-                autotools.configure(build_script_folder=os.path.join(self.source_folder, "x11"))
+                autotools.autoreconf(build_script_folder="x11")
+                autotools.configure(build_script_folder="x11")
                 autotools.make()
         if self.options.with_sdl:
             with chdir(self, os.path.join(self.source_folder, "sdl2")):

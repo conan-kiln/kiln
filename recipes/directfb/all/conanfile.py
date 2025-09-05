@@ -235,8 +235,8 @@ class DirectfbConan(ConanFile):
     def build(self):
         with chdir(self, os.path.join(self.source_folder, "flux")):
             autotools = Autotools(self, namespace="flux")
-            autotools.autoreconf(build_script_folder=os.path.join(self.source_folder, "flux"))
-            autotools.configure(build_script_folder=os.path.join(self.source_folder, "flux"))
+            autotools.autoreconf(build_script_folder="flux")
+            autotools.configure(build_script_folder="flux")
             autotools.make()
 
         autotools = Autotools(self)

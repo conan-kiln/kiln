@@ -54,7 +54,7 @@ class LibmadConan(ConanFile):
             "# define FPM_INTEL", "# define FPM_DEFAULT",
         )
         cmake = CMake(self)
-        cmake.configure(build_script_folder=os.path.join(self.source_folder, os.pardir))
+        cmake.configure(build_script_folder="..")
         cmake.build()
 
     def package(self):

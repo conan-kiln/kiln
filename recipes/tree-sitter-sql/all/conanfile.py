@@ -65,7 +65,7 @@ class TreeSitterSqlConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         if Version(self.version) < "0.3.7":
-            cmake.configure(build_script_folder=os.path.join(self.source_folder, os.pardir))
+            cmake.configure(build_script_folder="..")
         else:
             cmake.configure()
         cmake.build()
