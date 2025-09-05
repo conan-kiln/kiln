@@ -15,7 +15,6 @@ class MsixConan(ConanFile):
     name = "msix"
     description = "An SDK for creating MSIX packages"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/msix-packaging"
     topics = ("sdk", "packaging", "conan-recipe")
 

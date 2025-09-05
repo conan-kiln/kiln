@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "cppdap"
     description = "Debug Adapter Protocol SDK"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/cppdap"
     topics = ("debug", "adapter", "protocol", "dap")
     package_type = "library"

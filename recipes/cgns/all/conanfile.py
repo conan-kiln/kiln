@@ -14,7 +14,6 @@ class CgnsConan(ConanFile):
     topics = "data", "cfd", "fluids"
     homepage = "http://cgns.org/"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

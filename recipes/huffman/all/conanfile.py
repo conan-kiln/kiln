@@ -11,7 +11,6 @@ class HuffmanConan(ConanFile):
     name = "huffman"
     description = "huffman encoder/decoder"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/drichardson/huffman"
     topics = ("encoder", "decoder", "compression")
 

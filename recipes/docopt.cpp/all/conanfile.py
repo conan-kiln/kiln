@@ -13,7 +13,6 @@ class DocoptCppConan(ConanFile):
     name = "docopt.cpp"
     description = "C++11 port of docopt"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/docopt/docopt.cpp"
     topics = ("cli", "getopt", "options", "argparser")
 

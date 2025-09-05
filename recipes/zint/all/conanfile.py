@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 class ZintConan(ConanFile):
     name = "zint"
     description = "Zint Barcode Generator"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.zint.org.uk"
     license = "BSD", "GPL-3.0"
     topics = ("barcode", "qt")

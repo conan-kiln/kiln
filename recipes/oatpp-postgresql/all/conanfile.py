@@ -15,7 +15,6 @@ class OatppPostgresqlConan(ConanFile):
     name = "oatpp-postgresql"
     license = "Apache-2.0"
     homepage = "https://github.com/oatpp/oatpp-postgresql"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "oat++ PostgreSQL library"
     topics = ("oat", "postgresql", "orm", "database")
 

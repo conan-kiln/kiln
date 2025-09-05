@@ -15,7 +15,6 @@ required_conan_version = ">=2.4"
 class EditlineConan(ConanFile):
     name = "editline"
     description = "Autotool- and libtoolized port of the NetBSD Editline library (libedit)."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://thrysoee.dk/editline/"
     topics = ("libedit", "line", "editing", "history", "tokenization")
     license = "BSD-3-Clause"

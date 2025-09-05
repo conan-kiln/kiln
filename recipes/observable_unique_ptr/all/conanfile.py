@@ -12,7 +12,6 @@ class OupConan(ConanFile):
     name = "observable_unique_ptr"
     description = "Unique-ownership smart pointers with observable lifetime."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cschreib/observable_unique_ptr"
     topics = ("memory", "smart-pointer")
     package_type = "header-library"

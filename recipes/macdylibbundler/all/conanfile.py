@@ -16,7 +16,6 @@ class MacDylibBundlerConan(ConanFile):
         "mac dylib bundler is a tool for use when bundling mac applications"
     )
     topics = ("build", "dylib", "installer", "mac")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/auriamg/macdylibbundler"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

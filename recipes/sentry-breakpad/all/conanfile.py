@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class SentryBreakpadConan(ConanFile):
     name = "sentry-breakpad"
     description = "Client component that implements a crash-reporting system."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/getsentry/breakpad"
     license = "Apache-2.0"
     topics = ("breakpad", "error-reporting", "crash-reporting")

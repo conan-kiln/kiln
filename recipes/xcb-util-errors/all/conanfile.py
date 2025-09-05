@@ -17,7 +17,6 @@ class XcbUtilErrorsConan(ConanFile):
     name = "xcb-util-errors"
     description = "XCB utility library that gives human readable names to error, event, & request codes"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-errors"
     topics = ("xorg", "x11", "xcb")
 

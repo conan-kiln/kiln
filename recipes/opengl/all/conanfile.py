@@ -10,7 +10,6 @@ class SysConfigOpenGLConan(ConanFile):
     version = "system"
     description = "cross-platform virtual conan package for the OpenGL support"
     topics = ("opengl", "gl")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.opengl.org/"
     license = "MIT"
     package_type = "shared-library"

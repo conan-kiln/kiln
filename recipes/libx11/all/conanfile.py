@@ -17,7 +17,6 @@ class LibX11Conan(ConanFile):
     name = "libx11"
     description = "Core X11 protocol client library"
     license = "MIT AND MIT-open-group AND X11 AND DocumentRef-COPYING:LicenseRef-X11-other"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libx11"
     topics = ("xorg", "x11")
 

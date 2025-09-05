@@ -16,7 +16,6 @@ class EasyhttpcppConan(ConanFile):
     license = "MIT"
     topics = ("http", "client", "protocol")
     homepage = "https://github.com/sony/easyhttpcpp"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

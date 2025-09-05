@@ -11,7 +11,6 @@ class AVIRConan(ConanFile):
     name = "avir"
     description = "High-quality pro image resizing / scaling C++ library, image resize"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/avaneev/avir"
     topics = ("image-processing", "image-resizer", "lanczos", "header-only")
 

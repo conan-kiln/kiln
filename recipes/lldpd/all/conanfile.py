@@ -16,7 +16,6 @@ class LldpdConan(ConanFile):
     name = "lldpd"
     description = "lldpd: implementation of IEEE 802.1ab (LLDP)"
     license = "ISC AND GPL-2.0 WITH Linux-syscall-note"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://lldpd.github.io/"
     topics = ("network", "discovery", "lldp", "cdp", "lldpd")
     package_type = "library"

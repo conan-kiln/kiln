@@ -14,7 +14,6 @@ class BearConan(ConanFile):
     name = "bear"
     description = "Bear is a tool that generates a compilation database for clang tooling"
     license = "GPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rizsotto/Bear"
     topics = ("clang", "compilation", "database", "llvm")
     package_type = "application"

@@ -12,7 +12,6 @@ class EmbeddedRingbufcppConan(ConanFile):
     name = "embedded_ringbuf_cpp"
     description = "A simple C++ Ring (Circular) Buffer Queuing Library for Programming with Arduino's and other Embedded platforms"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wizard97/Embedded_RingBuf_CPP/"
     topics = ("ring buffer", "circular buffer", "queue", "data-structures", "header-only")
 

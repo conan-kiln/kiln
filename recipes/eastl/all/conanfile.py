@@ -20,7 +20,6 @@ class EastlConan(ConanFile):
     )
     topics = ("eastl", "stl", "high-performance")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/electronicarts/EASTL"
 
     package_type = "library"

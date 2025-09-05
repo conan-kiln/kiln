@@ -12,7 +12,6 @@ class LibmngConan(ConanFile):
     name = "libmng"
     description = "Multiple-image Network Graphics (MNG) reference library"
     license = "DocumentRef-LICENSE:LicenseRef-libmng"  # a slightly reworded libpng license
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libmng.com/"
     topics = ("mng", "png", "graphics", "image")
     package_type = "library"

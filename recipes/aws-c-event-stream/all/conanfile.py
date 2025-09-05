@@ -11,7 +11,6 @@ class AwsCEventStream(ConanFile):
     name = "aws-c-event-stream"
     description = "C99 implementation of the vnd.amazon.eventstream content-type"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-event-stream"
     topics = ("aws", "eventstream", "content", )
     package_type = "library"

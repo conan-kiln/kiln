@@ -14,7 +14,6 @@ class ProtozeroConan(ConanFile):
     topics = ("protozero", "protobuf")
     license = "BSD-2-Clause"
     homepage = "https://github.com/mapbox/protozero"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

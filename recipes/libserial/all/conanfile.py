@@ -13,7 +13,6 @@ class LibserialConan(ConanFile):
     name = "libserial"
     description = "Serial Port Programming in C++"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/crayzeewulf/libserial"
     topics = ("serial-ports", "rs232", "usb-serial")
     settings = "os", "arch", "compiler", "build_type"

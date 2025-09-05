@@ -17,7 +17,6 @@ class GStreamerConan(ConanFile):
     name = "gstreamer"
     description = "GStreamer is a development framework for creating applications like media players, video editors, streaming media broadcasters and so on"
     topics = ("multimedia", "video", "audio", "broadcasting", "framework", "media")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gstreamer.freedesktop.org/"
     license = "LGPL-2.0-or-later"
     package_type = "library"

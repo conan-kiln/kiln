@@ -17,7 +17,6 @@ class CharlsConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("jpeg", "JPEG-LS", "compression", "decompression", )
     homepage = "https://github.com/team-charls/charls"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

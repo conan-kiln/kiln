@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "openpam"
     description = "OpenPAM: an open source PAM library that focuses on simplicity, correctness, and cleanliness"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openpam.org/"
     topics = ("pam", "pluggable-authentication-module", "authentication", "security")
     package_type = "library"

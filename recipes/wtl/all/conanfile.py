@@ -12,7 +12,6 @@ class WTLConan(ConanFile):
     name = "wtl"
     description = "Windows Template Library (WTL) is a C++ library for developing Windows applications and UI components."
     license = "MS-PL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/wtl"
     topics = ("atl", "template library", "windows", "template", "ui", "gdi", "header-only")
 

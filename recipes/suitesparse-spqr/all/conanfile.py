@@ -13,7 +13,6 @@ class SuiteSparseSpqrConan(ConanFile):
     name = "suitesparse-spqr"
     description = "SPQR: Multithreaded, multifrontal, rank-revealing sparse QR factorization method in SuiteSparse"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "matrix-factorization", "qr-factorization")
 

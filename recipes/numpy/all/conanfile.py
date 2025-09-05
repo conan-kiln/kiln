@@ -18,7 +18,6 @@ class NumpyConan(ConanFile):
     name = "numpy"
     description = "NumPy is the fundamental package for scientific computing with Python."
     license = "BSD 3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://numpy.org/devdocs/reference/c-api/index.html"
     topics = ("ndarray", "array", "linear algebra", "npymath")
     package_type = "header-library"

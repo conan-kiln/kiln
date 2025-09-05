@@ -17,7 +17,6 @@ class LibXextConan(ConanFile):
     name = "libxext"
     description = "libXext: Xlib-based library for common extensions to the X11 protocol"
     license = "MIT-open-group AND X11 AND HPND AND HPND-sell-variant AND SMLNJ AND MIT AND ISC AND HPND-doc AND HPND-doc-sell"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxext"
     topics = ("xorg", "x11")
 

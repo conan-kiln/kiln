@@ -14,7 +14,6 @@ class VcglibConan(ConanFile):
     license = "GPL-3.0-only"
     topics = ("vcglib", "mesh-processing")
     homepage = "https://github.com/cnr-isti-vclab/vcglib"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

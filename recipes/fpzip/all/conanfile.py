@@ -10,7 +10,6 @@ class FpzipConan(ConanFile):
     name = "fpzip"
     description = "Lossless compressor of multidimensional floating-point arrays"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://fpzip.llnl.gov/"
     topics = ("compression", "lossless", "floating-point")
     package_type = "library"

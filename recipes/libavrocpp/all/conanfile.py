@@ -13,7 +13,6 @@ class LibavrocppConan(ConanFile):
     name = "libavrocpp"
     description = "Avro is a data serialization system."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://avro.apache.org/"
     topics = ("serialization", "deserialization","avro")
     package_type = "library"

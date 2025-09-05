@@ -15,7 +15,6 @@ class XsimdConan(ConanFile):
     name = "xsimd"
     description = "C++ wrappers for SIMD intrinsics and parallelized, optimized mathematical functions (SSE, AVX, NEON, AVX512)"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xtensor-stack/xsimd"
     topics = ("simd-intrinsics", "vectorization", "simd", "header-only")
     package_type = "header-library"

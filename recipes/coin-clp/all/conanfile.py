@@ -16,7 +16,6 @@ class CoinClpConan(ConanFile):
     name = "coin-clp"
     description = "COIN-OR Linear Programming Solver"
     topics = ("clp", "simplex", "solver", "linear", "programming")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or/Clp"
     license = "EPL-2.0"
     package_type = "library"

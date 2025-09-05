@@ -13,7 +13,6 @@ class JxrlibConan(ConanFile):
     name = "jxrlib"
     description = "jxrlib is JPEG XR Image Codec reference implementation library released by Microsoft under BSD-2-Clause License."
     homepage = "https://jxrlib.codeplex.com/"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-2-Clause"
     topics = ("jxr", "jpeg", "xr")
     package_type = "library"

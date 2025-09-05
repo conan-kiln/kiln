@@ -13,7 +13,6 @@ class Hdf4Conan(ConanFile):
     name = "hdf4"
     description = "HDF4 is a data model, library, and file format for storing and managing data."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://portal.hdfgroup.org/display/HDF4/HDF4"
     topics = ("hdf", "data")
 

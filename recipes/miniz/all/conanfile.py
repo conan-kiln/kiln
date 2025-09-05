@@ -14,7 +14,6 @@ class MinizConan(ConanFile):
                   "implements the zlib (RFC 1950) and Deflate (RFC 1951) " \
                   "compressed data format specification standards"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/richgel999/miniz"
     topics = ("zlib", "compression", "lossless")
     package_type = "library"

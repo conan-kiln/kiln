@@ -14,7 +14,6 @@ class LibmodplugConan(ConanFile):
     name = "libmodplug"
     description = "libmodplug - the library which was part of the Modplug-xmms project"
     topics = ("auduo", "multimedia", "sound", "music", "mod", "mod music", "tracket music")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://modplug-xmms.sourceforge.net"
     license = "Unlicense"
     package_type = "library"

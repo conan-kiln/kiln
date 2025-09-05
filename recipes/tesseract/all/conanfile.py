@@ -13,7 +13,6 @@ class TesseractConan(ConanFile):
     name = "tesseract"
     description = "Tesseract Open Source OCR Engine"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tesseract-ocr/tesseract"
     topics = ("ocr", "image", "multimedia", "graphics")
 

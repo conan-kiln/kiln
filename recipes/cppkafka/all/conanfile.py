@@ -13,7 +13,6 @@ class CppKafkaConan(ConanFile):
     name = "cppkafka"
     description = "Modern C++ Apache Kafka client library (wrapper for librdkafka)"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mfontanini/cppkafka"
     topics = ("librdkafka", "kafka")
     package_type = "library"

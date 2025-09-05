@@ -14,7 +14,6 @@ class EthashConan(ConanFile):
     name = "ethash"
     description = "C/C++ implementation of Ethash and ProgPoW – the Ethereum Proof of Work algorithms"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chfast/ethash"
     topics = ("ethereum", "mining", "proof-of-work")
     package_type = "library"

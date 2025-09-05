@@ -12,7 +12,6 @@ class OGDFConan(ConanFile):
     name = "ogdf"
     description = "Open Graph algorithms and Data structures Framework"
     license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://ogdf.net"
     topics = ("graph", "algorithm", "data-structures")
     settings = "os", "arch", "compiler", "build_type"

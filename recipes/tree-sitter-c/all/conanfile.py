@@ -12,7 +12,6 @@ class TreeSitterCConan(ConanFile):
     name = "tree-sitter-c"
     description = "C grammar for tree-sitter."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tree-sitter/tree-sitter-c"
     topics = ("parser", "grammar", "tree", "c", "ide")
     settings = "os", "arch", "compiler", "build_type"

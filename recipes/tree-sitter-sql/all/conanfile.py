@@ -13,7 +13,6 @@ class TreeSitterSqlConan(ConanFile):
     name = "tree-sitter-sql"
     description = "SQL grammar for tree-sitter"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/DerekStride/tree-sitter-sql"
     topics = ("tree-sitter", "sql", "parser")
     package_type = "library"

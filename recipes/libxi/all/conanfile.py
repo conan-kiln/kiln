@@ -17,7 +17,6 @@ class LibXiConan(ConanFile):
     name = "libxi"
     description = "libXi: Xlib library for the X Input Extension"
     license = "MIT-open-group AND SMLNJ AND MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxi"
     topics = ("xorg", "x11")
 

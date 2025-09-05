@@ -15,7 +15,6 @@ class SpirvReflectConan(ConanFile):
     license = "Apache-2.0"
     topics = ("spirv", "spirv-v", "vulkan", "opengl", "opencl", "khronos")
     homepage = "https://github.com/KhronosGroup/SPIRV-Reflect"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
 

@@ -14,7 +14,6 @@ class EnttConan(ConanFile):
     description = "Gaming meets modern C++ - a fast and reliable entity-component system (ECS) and much more"
     topics = ("entt", "gaming", "entity", "ecs")
     homepage = "https://github.com/skypjack/entt"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

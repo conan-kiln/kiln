@@ -14,7 +14,6 @@ class FTXUIConan(ConanFile):
     name = "ftxui"
     description = "C++ Functional Terminal User Interface."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ArthurSonzogni/FTXUI"
     topics = ("ncurses", "terminal", "screen", "tui")
     package_type = "library"

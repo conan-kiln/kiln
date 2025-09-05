@@ -13,7 +13,6 @@ class HashLibraryConan(ConanFile):
     homepage = "https://create.stephan-brumme.com/hash-library/"
     topics = ("hash", "digest", "hmac", "checksum", "crc32", "md5", "sha1", "sha2", "sha256", "sha3", "keccak")
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

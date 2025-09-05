@@ -11,7 +11,6 @@ class UPXConan(ConanFile):
     name = "upx"
     description = "UPX - the Ultimate Packer for eXecutables "
     license = ("GPL-2.0-or-later", "special-exception-for-compressed-executables")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://upx.github.io/"
     topics = ("packer", "executable", "compression", "size", "reduction", "small", "footprintt", "pre-built")
 

@@ -19,7 +19,6 @@ class LibcurlConan(ConanFile):
     name = "libcurl"
     description = "command line tool and library for transferring data with URLs"
     license = "curl"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://curl.se"
     topics = ("curl", "data-transfer",
             "ftp", "gopher", "http", "imap", "ldap", "mqtt", "pop3", "rtmp", "rtsp",

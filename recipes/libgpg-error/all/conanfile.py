@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 
 class GPGErrorConan(ConanFile):
     name = "libgpg-error"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gnupg.org/software/libgpg-error/index.html"
     topics = ("gpg", "gnupg", "encrypt", "pgp", "openpgp")
     description = "Libgpg-error is a small library that originally defined common error values for all GnuPG " \

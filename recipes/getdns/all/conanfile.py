@@ -13,7 +13,6 @@ class GetDnsConan(ConanFile):
     name = "getdns"
     description = "A modern asynchronous DNS API"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://getdnsapi.net/"
     topics = ("dns", "asynchronous", "event")
 

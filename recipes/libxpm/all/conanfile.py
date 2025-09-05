@@ -13,7 +13,6 @@ class LibXpmConan(ConanFile):
     name = "libxpm"
     description = "X Pixmap (XPM) image file format library"
     license = "MIT-open-group"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxpm"
     topics = ("xorg", "x11", "xpm")
 

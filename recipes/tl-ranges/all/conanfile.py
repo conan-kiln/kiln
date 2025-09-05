@@ -13,7 +13,6 @@ class TLRangesConan(ConanFile):
     name = "tl-ranges"
     description = "Ranges that didn't make C++20"
     license = "CC0-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TartanLlama/ranges"
     topics = ("ranges",  "views", "header-only")
     package_type = "header-library"

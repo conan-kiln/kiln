@@ -15,7 +15,6 @@ class LibsolaceConan(ConanFile):
     name = "libsolace"
     description = "High-performance components for mission-critical applications"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/abbyssoul/libsolace"
     topics = ("HPC", "High reliability", "P10", "solace", "performance", "c++")
 

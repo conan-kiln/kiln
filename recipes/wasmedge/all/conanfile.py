@@ -14,7 +14,6 @@ class WasmedgeConan(ConanFile):
                 "for cloud native, edge, and decentralized applications."
                 "It powers serverless apps, embedded functions, microservices, smart contracts, and IoT devices.")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/WasmEdge/WasmEdge/"
     topics = ("webassembly", "wasm", "wasi", "emscripten")
     package_type = "shared-library"

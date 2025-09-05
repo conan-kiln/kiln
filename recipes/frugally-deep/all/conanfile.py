@@ -14,7 +14,6 @@ class FrugallyDeepConan(ConanFile):
     name = "frugally-deep"
     description = "Use Keras models in C++ with ease."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Dobiasd/frugally-deep"
     topics = ("keras", "tensorflow", "header-only")
 

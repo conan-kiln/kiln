@@ -16,7 +16,6 @@ class OdeConan(ConanFile):
     license = ("LGPL-2.1-or-later", "BSD-3-Clause")
     topics = ("open-dynamics-engine", "physics", "physics-engine", "physics-simulation", "dynamics", "rigid-body")
     homepage = "https://www.ode.org"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

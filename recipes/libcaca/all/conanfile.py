@@ -17,7 +17,6 @@ class LibcacaConan(ConanFile):
     name = "libcaca"
     description = "Graphics library that outputs text instead of pixels"
     license = "WTFTPL AND GPL-2.0 AND ISC AND LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://caca.zoy.org/wiki/libcaca"
     topics = ("text-graphics", "ascii", "cli")
     package_type = "library"

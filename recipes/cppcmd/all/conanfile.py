@@ -15,7 +15,6 @@ class CppCmdConan(ConanFile):
     description = "Simple cpp command interpreter header-only library"
     topics = ("header-only", "interpreter", "cpp")
     homepage = "https://github.com/remysalim/cppcmd"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

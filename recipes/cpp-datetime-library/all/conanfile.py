@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "cpp-datetime-library"
     description = "A simple Date and time library built in C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jeremydumais/CPP-DateTime-library"
     topics = ("date", "time")
     package_type = "library"

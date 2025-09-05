@@ -17,7 +17,6 @@ class FilamentConan(ConanFile):
     name = "filament"
     description = "Filament is a real-time physically based rendering engine for Android, iOS, Windows, Linux, macOS, and WebGL2"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://google.github.io/filament/"
     topics = ("3d-graphics", "android", "webgl", "real-time", "opengl", "metal", "graphics", "vulkan", "wasm", "opengl-es", "pbr", "gltf", "gltf-viewer")
 

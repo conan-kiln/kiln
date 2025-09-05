@@ -14,7 +14,6 @@ class BdwGcConan(ConanFile):
     homepage = "https://www.hboehm.info/gc/"
     description = "The Boehm-Demers-Weiser conservative C/C++ Garbage Collector (libgc, bdwgc, boehm-gc)"
     topics = ("gc", "garbage", "collector")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"
 

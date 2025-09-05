@@ -13,7 +13,6 @@ class SIMEeConan(ConanFile):
     name = "simde"
     description = "Implementations of SIMD instruction sets for systems which don't natively support them."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/simd-everywhere/simde"
     topics = ("neon", "avx", "sse", "simd", "header-only")
     package_type = "header-library"

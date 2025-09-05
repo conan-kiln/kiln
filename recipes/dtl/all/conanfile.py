@@ -12,7 +12,6 @@ class DtlConan(ConanFile):
     name = "dtl"
     description = "diff template library written by C++"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cubicdaiya/dtl"
     topics = ("diff", "library", "algorithm", "header-only")
 

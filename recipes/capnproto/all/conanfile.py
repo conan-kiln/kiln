@@ -23,7 +23,6 @@ class CapnprotoConan(ConanFile):
     license = "MIT"
     topics = ("serialization", "rpc")
     homepage = "https://capnproto.org"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

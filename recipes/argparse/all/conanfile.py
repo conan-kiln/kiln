@@ -14,7 +14,6 @@ class ArgparseConan(ConanFile):
     name = "argparse"
     description = "Argument Parser for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/argparse"
     topics = ("argument", "parsing", "header-only")
 

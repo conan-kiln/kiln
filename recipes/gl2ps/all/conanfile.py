@@ -11,7 +11,6 @@ class Gl2psConan(ConanFile):
     name = "gl2ps"
     description = "GL2PS: an OpenGL to PostScript printing library"
     license = "GL2PS OR LGPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.geuz.org/gl2ps/"
     topics = ("postscript", "opengl", "printing")
     package_type = "library"

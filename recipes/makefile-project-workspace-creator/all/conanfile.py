@@ -11,7 +11,6 @@ class MPCGeneratorConan(ConanFile):
     name = "makefile-project-workspace-creator"
     description = "The Makefile, Project and Workspace Creator"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/objectcomputing/MPC"
     topics = ("objectcomputing", "installer")
 

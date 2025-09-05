@@ -13,7 +13,6 @@ class Z3Conan(ConanFile):
     name = "z3"
     description = "The Z3 Theorem Prover"
     topics = ("z3", "theorem", "smt", "satisfiability", "prover", "solver")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Z3Prover/z3"
     license = "MIT"
 

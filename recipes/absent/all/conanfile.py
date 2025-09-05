@@ -18,7 +18,6 @@ class AbsentConan(ConanFile):
         "types in a generic, type-safe, and declarative way"
     )
     homepage = "https://github.com/rvarago/absent"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     topics = ("nullable-types", "composition", "monadic-interface", "declarative-programming")
     package_type = "header-library"

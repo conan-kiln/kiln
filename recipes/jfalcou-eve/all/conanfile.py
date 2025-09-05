@@ -17,7 +17,6 @@ class JfalcouEveConan(ConanFile):
                    "Boost.SIMD on C++20"
                    )
     license = ("MIT", "BSL-1.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://jfalcou.github.io/eve/"
     topics = ("cpp", "simd", "header-only")
     package_type = "header-library"

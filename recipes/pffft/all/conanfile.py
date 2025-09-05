@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class PffftConan(ConanFile):
     name = "pffft"
     description = "PFFFT, a pretty fast Fourier Transform."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bitbucket.org/jpommier/pffft/src/master/"
     topics = ("fft", "pffft")
     license = "BSD-like (FFTPACK license)"

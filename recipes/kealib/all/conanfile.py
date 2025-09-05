@@ -15,7 +15,6 @@ class KealibConan(ConanFile):
     name = "kealib"
     description = "C++ library providing complete access to the KEA image format."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ubarsc/kealib"
     topics = ("image", "raster")
 

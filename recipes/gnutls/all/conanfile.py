@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 
 class GnuTLSConan(ConanFile):
     name = "gnutls"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnutls.org"
     description = "GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols"
     topics = ("tls", "ssl", "secure communications")

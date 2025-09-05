@@ -14,7 +14,6 @@ class TgbotConan(ConanFile):
     name = "tgbot"
     description = "C++ library for Telegram bot API"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://reo7sp.github.io/tgbot-cpp"
     topics = ("telegram", "telegram-api", "telegram-bot", "bot")
 

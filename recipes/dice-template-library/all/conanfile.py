@@ -16,7 +16,6 @@ class DiceTemplateLibrary(ConanFile):
     description = ("This template library is a collection of handy template-oriented code that we, "
                    "the Data Science Group at UPB, found pretty handy.")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dice-group/dice-template-library/"
     topics = ("template", "template-library", "compile-time", "switch", "integral-tuple", "header-only")
 

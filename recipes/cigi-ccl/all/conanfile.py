@@ -13,7 +13,6 @@ class CigiClConan(ConanFile):
     name = "cigi-ccl"
     description = "Industry standard communication with compliant image generators"
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://cigi.sourceforge.io/product_ccl.php"
     topics = ("simulation", "interface engines", "data visualization")
     package_type = "library"

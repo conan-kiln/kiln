@@ -14,7 +14,6 @@ class ArsenalgearConan(ConanFile):
     name = "arsenalgear"
     description = "A library containing general purpose C++ utils."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/JustWhit3/arsenalgear-cpp"
     topics = ("constants", "math", "operators", "stream")
     package_type = "library"

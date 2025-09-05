@@ -12,7 +12,6 @@ class S2nConan(ConanFile):
     name = "s2n"
     description = "An implementation of the TLS/SSL protocols"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aws/s2n-tls"
     topics = ("aws", "amazon", "cloud", )
     package_type = "library"

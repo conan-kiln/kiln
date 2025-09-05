@@ -14,7 +14,6 @@ class SfcgalConan(ConanFile):
     description = ("SFCGAL is a C++ wrapper library around CGAL with the aim of supporting"
                    " ISO 191007:2013 and OGC Simple Features for 3D operations.")
     license = "LGPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sfcgal.gitlab.io/SFCGAL"
     topics = ("spatial", "3d", "geometry", "gis")
 

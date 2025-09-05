@@ -11,7 +11,6 @@ class RapidHashConan(ConanFile):
     name = "rapidhash"
     description = "Very fast, high quality, platform-independent hashing algorithm"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Nicoshev/rapidhash"
     topics = ("hash", "wyhash", "header-only")
     package_type = "header-library"

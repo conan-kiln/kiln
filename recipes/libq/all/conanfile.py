@@ -14,7 +14,6 @@ class libqConan(ConanFile):
     description = "A platform-independent promise library for C++, implementing asynchronous continuations."
     license = "Apache-2.0"
     topics = ("async", "promises")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/grantila/q"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"

@@ -18,7 +18,6 @@ class HalfConan(ConanFile):
     license = "MIT"
     topics = ("half-precision", "float", "arithmetic")
     homepage = "https://sourceforge.net/projects/half"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

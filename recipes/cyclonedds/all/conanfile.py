@@ -12,7 +12,6 @@ class CycloneDDSConan(ConanFile):
     name = "cyclonedds"
     license = "EPL-2.0"
     homepage = "https://cyclonedds.io/"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Eclipse Cyclone DDS - An implementation"\
                   " of the OMG Data Distribution Service (DDS) specification"
     topics = ("dds", "ipc", "ros", "middleware")

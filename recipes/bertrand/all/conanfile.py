@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class BertrandConan(ConanFile):
     name = "bertrand"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bernedom/bertrand"
     description = "A C++ header only library providing a trivial implementation for design by contract."
     topics = ("design by contract", "dbc", "cplusplus-library", "cplusplus-17")

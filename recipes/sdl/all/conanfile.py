@@ -16,7 +16,6 @@ class SDLConan(ConanFile):
     name = "sdl"
     description = "Access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL, Direct3D and Vulkan"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libsdl.org"
     topics = ("sdl2", "audio", "keyboard", "graphics", "opengl")
     package_type = "library"

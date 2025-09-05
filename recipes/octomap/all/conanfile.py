@@ -16,7 +16,6 @@ class OctomapConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("octree", "3d", "robotics")
     homepage = "https://github.com/OctoMap/octomap"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

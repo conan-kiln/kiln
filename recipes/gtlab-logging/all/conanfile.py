@@ -11,7 +11,6 @@ class GTLabLoggingConan(ConanFile):
     name = "gtlab-logging"
     description = "Simple logging interface with Qt support"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dlr-gtlab/gt-logging"
     topics = ("logging", "qt")
 

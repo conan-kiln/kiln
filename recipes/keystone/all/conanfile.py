@@ -16,7 +16,6 @@ class KeystoneConan(ConanFile):
         "Mips, PowerPC, Sparc, SystemZ & X86) + bindings."
     )
     license = ( "GPL-2.0-only", "DocumentRef-EXCEPTIONS-CLIENT:LicenseRef-FOSS-License-Exception" )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.keystone-engine.org"
     topics = (
         "security",

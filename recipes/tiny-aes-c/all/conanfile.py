@@ -13,7 +13,6 @@ class TinyAesCConan(ConanFile):
     name = "tiny-aes-c"
     license = "Unlicense"
     homepage = "https://github.com/kokke/tiny-AES-c"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Small portable AES128/192/256 in C"
     topics = ("encryption", "crypto", "AES")
     package_type = "library"

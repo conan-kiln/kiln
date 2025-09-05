@@ -15,7 +15,6 @@ class WatcherConan(ConanFile):
     name = "fswatch"
     description = "A cross-platform file change monitor with multiple backends"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/emcrisostomo/fswatch"
     topics = ("watch", "filesystem", "event", "monitor")
     package_type = "library"

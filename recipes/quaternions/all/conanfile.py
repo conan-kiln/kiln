@@ -12,7 +12,6 @@ class QuaternionsConan(ConanFile):
     name = "quaternions"
     description = "A blazingly fast C++ library to work with quaternions."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ferd36/quaternions"
     topics = ("mathematics", "header-only")
 

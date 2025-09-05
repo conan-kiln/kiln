@@ -13,7 +13,6 @@ class LibRHashConan(ConanFile):
     name = "librhash"
     description = "Great utility for computing hash sums"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://rhash.sourceforge.net/"
     topics = ("rhash", "hash", "checksum")
 

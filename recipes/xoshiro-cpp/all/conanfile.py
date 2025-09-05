@@ -15,7 +15,6 @@ class XoshiroCppConan(ConanFile):
     description = "Header-only Xoshiro/Xoroshiro PRNG wrapper library for modern C++ (C++17/C++20)"
     license = "MIT"
     homepage = "https://github.com/Reputeless/Xoshiro-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("prng", "xoshiro", "header-only")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

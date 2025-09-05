@@ -11,7 +11,6 @@ class SoleConan(ConanFile):
     name = "sole"
     description = "Sole is a lightweight C++11 library to generate universally unique identificators (UUID), both v1 and v4."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/r-lyeh-archived/sole"
     topics = ("uuid", "header-only")
     package_type = "header-library"

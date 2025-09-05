@@ -16,7 +16,6 @@ class XcbUtilXrmConan(ConanFile):
     name = "xcb-util-xrm"
     description = "XCB utility functions for the X resource manager"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Airblader/xcb-util-xrm"
     topics = ("xorg", "x11", "xcb")
 

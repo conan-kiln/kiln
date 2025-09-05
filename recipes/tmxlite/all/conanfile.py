@@ -16,7 +16,6 @@ class TmxliteConan(ConanFile):
     license = "Zlib"
     topics = ("tmxlite", "tmx", "tiled-map", "parser")
     homepage = "https://github.com/fallahn/tmxlite"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

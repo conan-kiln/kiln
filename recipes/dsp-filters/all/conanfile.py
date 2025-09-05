@@ -12,7 +12,6 @@ class DSPFiltersConan(ConanFile):
     name = "dsp-filters"
     description = "Set of DSP filters"
     topics = ("dsp", "filters")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vinniefalco/DSPFilters"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

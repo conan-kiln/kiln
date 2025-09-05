@@ -15,7 +15,6 @@ class CernRootConan(ConanFile):
     name = "cern-root"
     description = "CERN ROOT data analysis framework."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     # ROOT itself is located at: https://github.com/root-project/root
     homepage = "https://root.cern/"
     topics = ("data-analysis", "physics")

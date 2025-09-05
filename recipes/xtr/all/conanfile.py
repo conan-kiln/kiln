@@ -15,7 +15,6 @@ class XtrConan(ConanFile):
     name = "xtr"
     description = "C++ Logging Library for Low-latency or Real-time Environments"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/choll/xtr"
     topics = ("logging", "logger")
 

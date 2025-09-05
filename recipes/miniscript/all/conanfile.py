@@ -10,7 +10,6 @@ class MiniscriptConan(ConanFile):
     name = "miniscript"
     description = "modern, elegant, easy to learn, and easy to embed in your own C# or C++ projects."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/JoeStrout/miniscript"
     topics = ("script", "embedded", "programming-language")
     settings = "os", "arch", "compiler", "build_type"

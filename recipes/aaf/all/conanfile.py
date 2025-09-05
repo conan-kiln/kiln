@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class AafConan(ConanFile):
     name = "aaf"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/aaf/"
     description = (
         "A cross-platform SDK for AAF. AAF is a metadata management system and "

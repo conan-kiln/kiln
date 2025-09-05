@@ -17,7 +17,6 @@ class CunitConan(ConanFile):
     name = "cunit"
     description = "A Unit Testing Framework for C"
     topics = ("conan", "cunit", "testing")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://cunit.sourceforge.net/"
     license = "BSD-3-Clause"
     settings = "os", "arch", "compiler", "build_type"

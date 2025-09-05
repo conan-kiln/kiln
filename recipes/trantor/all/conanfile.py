@@ -15,7 +15,6 @@ class TrantorConan(ConanFile):
     name = "trantor"
     description = "a non-blocking I/O tcp network lib based on c++14/17"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/an-tao/trantor"
     topics = ("tcp-server", "asynchronous-programming", "non-blocking-io")
     package_type = "library"

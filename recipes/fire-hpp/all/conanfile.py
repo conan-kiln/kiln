@@ -12,7 +12,6 @@ class FireHppConan(ConanFile):
     name = "fire-hpp"
     description = "Fire for C++: Create fully functional CLIs using function signatures"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kongaskristjan/fire-hpp"
     topics = ("command-line", "argument", "parser", "header-only")
 

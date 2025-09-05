@@ -14,7 +14,6 @@ class LiefConan(ConanFile):
     name = "lief"
     description = "Library to Instrument Executable Formats"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lief-project/LIEF"
     topics = ("executable", "elf", "pe", "mach-o")
     package_type = "library"

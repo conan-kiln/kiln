@@ -19,7 +19,6 @@ class VulkanValidationLayersConan(ConanFile):
     license = "Apache-2.0"
     topics = ("vulkan", "validation-layers")
     homepage = "https://github.com/KhronosGroup/Vulkan-ValidationLayers"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
     options = {

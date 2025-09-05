@@ -14,7 +14,6 @@ class ScnlibConan(ConanFile):
     name = "scnlib"
     description = "scanf for modern C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eliaskosunen/scnlib"
     topics = ("parsing", "io", "scanf")
     package_type = "library"

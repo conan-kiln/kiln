@@ -14,7 +14,6 @@ class MapboxVariantConan(ConanFile):
     topics = ("variant",)
     license = "BSD-3-Clause"
     homepage = "https://github.com/mapbox/variant"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

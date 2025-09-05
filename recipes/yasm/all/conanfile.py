@@ -14,7 +14,6 @@ required_conan_version = ">=2.4"
 class YASMConan(ConanFile):
     name = "yasm"
     package_type = "application"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yasm/yasm"
     description = "Yasm is a complete rewrite of the NASM assembler under the 'new' BSD License"
     topics = ("yasm", "installer", "assembler")

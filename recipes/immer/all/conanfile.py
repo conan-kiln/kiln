@@ -14,7 +14,6 @@ class ImmerConan(ConanFile):
     name = "immer"
     description = "Postmodern immutable and persistent data structures for C++ - value semantics at scale"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/arximboldi/immer"
     topics = ("header", "header-only", "persistent", "modern", "immutable", "data structures",
               "functional", "value semantics", "postmodern", "rrb-tree")

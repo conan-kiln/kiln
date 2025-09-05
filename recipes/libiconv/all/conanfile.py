@@ -15,7 +15,6 @@ class LibiconvConan(ConanFile):
     name = "libiconv"
     description = "Convert text to and from Unicode"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/libiconv/"
     topics = ("iconv", "text", "encoding", "locale", "unicode", "conversion")
     package_type = "library"

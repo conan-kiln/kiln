@@ -14,7 +14,6 @@ class TCSBankUriTemplateConan(ConanFile):
     name = "tcsbank-uri-template"
     description = "URI Templates expansion and reverse-matching for C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TinkoffCreditSystems/uri-template"
     topics = ("uri-template", "url-template", "rfc-6570")
 

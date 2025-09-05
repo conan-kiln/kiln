@@ -14,7 +14,6 @@ class OpenXlsxConan(ConanFile):
     name = "openxlsx"
     description = "reading, writing, creating and modifying Microsoft Excel® (.xlsx) files."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/troldal/OpenXLSX"
     topics = ("excel", "spreadsheet", "xlsx")
     settings = "os", "arch", "compiler", "build_type"

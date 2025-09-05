@@ -11,7 +11,6 @@ class XpackConan(ConanFile):
     name = "xpack"
     description = "C++ reflection, ability to convert between C++ structures and json/xml."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xyz347/xpack"
     topics = ("json", "bson", "reflection", "xml", "header-only")
     package_type = "header-library"

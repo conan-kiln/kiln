@@ -11,7 +11,6 @@ class ensmallenRecipe(ConanFile):
     name = "ensmallen"
     description = "ensmallen is a high quality C++ library for non-linear numerical optimization."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mlpack/ensmallen"
     topics = ("optimization", "numerical", "header-only")
 

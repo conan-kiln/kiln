@@ -13,7 +13,6 @@ class SemimapConan(ConanFile):
     name = "semimap"
     description = "A semi compile-/run-time associative map container with compile-time lookup and run-time storage"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hogliux/semimap"
     topics = ("containers", "constexpr", "hashmap", "header-only")
     settings = "os", "arch", "compiler", "build_type"

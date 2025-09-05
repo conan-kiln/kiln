@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     # Use short name only, conform to SPDX License List: https://spdx.org/licenses/
     # In case it's not listed there, use "DocumentRef-<license-file-name>:LicenseRef-<package-name>"
     license = ""
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/project/package"
     # Use topics from the upstream listed on GH. Include 'header-only' as a topic
     topics = ("topic1", "topic2", "topic3", "header-only")

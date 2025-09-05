@@ -16,7 +16,6 @@ class Nghttp2Conan(ConanFile):
     name = "libnghttp2"
     description = "HTTP/2 C Library and tools"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://nghttp2.org"
     topics = ("http", "http2")
     package_type = "library"

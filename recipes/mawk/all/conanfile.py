@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     name = "mawk"
     description = "mawk is an interpreter for the AWK Programming Language."
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://invisible-island.net/mawk/mawk.html"
     topics = ("awk", "app", "interpreter", "programming-language")
     package_type = "application"

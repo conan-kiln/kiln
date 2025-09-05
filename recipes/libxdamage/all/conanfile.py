@@ -16,7 +16,6 @@ class LibXdamageConan(ConanFile):
     name = "libxdamage"
     description = "libXdamage: X Damage Extension library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxdamage"
     topics = ("xorg", "x11")
 

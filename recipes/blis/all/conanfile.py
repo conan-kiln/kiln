@@ -16,7 +16,6 @@ class BlisConan(ConanFile):
     name = "blis"
     description = "BLIS is a software framework for instantiating high-performance BLAS-like dense linear algebra libraries"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/flame/blis"
     topics = ("hpc", "optimization", "matrix", "linear-algebra", "matrix-multiplication", "blas")
 

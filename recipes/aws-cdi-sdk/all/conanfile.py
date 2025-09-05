@@ -13,7 +13,6 @@ class AwsCdiSdkConan(ConanFile):
     name = "aws-cdi-sdk"
     description = "AWS Cloud Digital Interface (CDI) SDK"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aws/aws-cdi-sdk"
     topics = ("aws", "communication", "framework", "service")
 

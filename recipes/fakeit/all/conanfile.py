@@ -12,7 +12,6 @@ class FakeItConan(ConanFile):
     name = "fakeit"
     description = "C++ mocking made easy. A simple yet very expressive, headers only library for c++ mocking."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eranpeer/FakeIt"
     topics = ("mock", "fake", "spy", "header-only")
     package_type = "header-library"

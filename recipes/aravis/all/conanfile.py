@@ -19,7 +19,6 @@ class AravisConan(ConanFile):
     name = "aravis"
     description = "A vision library for genicam based cameras."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AravisProject/aravis"
     topics = ("usb", "camera")
 

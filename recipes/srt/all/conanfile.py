@@ -18,7 +18,6 @@ class SrtConan(ConanFile):
         " performance across unpredictable networks, such as the Internet."
     )
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Haivision/srt"
     topics = ("ip", "transport")
 

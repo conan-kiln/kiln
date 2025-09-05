@@ -18,7 +18,6 @@ class CairommConan(ConanFile):
     name = "cairomm"
     description = "cairomm is a C++ wrapper for the cairo graphics library."
     license = "LGPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.cairographics.org/cairomm/"
     topics = ["cairo", "wrapper", "graphics"]
     package_type = "library"

@@ -17,7 +17,6 @@ class KcovConan(ConanFile):
         "debugging information to collect and report data without special compilation options"
     )
     license = "GPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://simonkagstrom.github.io/kcov/index.html"
     topics = ("coverage", "linux", "debug")
 

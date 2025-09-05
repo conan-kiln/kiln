@@ -12,7 +12,6 @@ class SuyashUlidConan(ConanFile):
     name = "suyash-ulid"
     description = "ulids in C++, Header Only"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://suy.io/ulid/"
     topics = ("ulid", "header-only")
     package_type = "header-library"

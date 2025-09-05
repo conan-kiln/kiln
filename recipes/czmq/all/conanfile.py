@@ -15,7 +15,6 @@ class CzmqConan(ConanFile):
     name = "czmq"
     description = "High-level C binding for ZeroMQ"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zeromq/czmq"
     topics = ("zmq", "libzmq", "message-queue", "asynchronous")
     package_type = "library"

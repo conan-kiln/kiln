@@ -12,7 +12,6 @@ class CppRestSDKConan(ConanFile):
     name = "cpprestsdk"
     description = "A project for cloud-based client-server communication in native code using a modern asynchronous " \
                   "C++ API design"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Microsoft/cpprestsdk"
     topics = ("rest", "client", "http", "https")
     license = "MIT"

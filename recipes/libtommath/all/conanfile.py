@@ -13,7 +13,6 @@ class LibTomMathConan(ConanFile):
     name = "libtommath"
     description = "LibTomMath is a free open source portable number theoretic multiple-precision integer library written entirely in C."
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libtom.net/"
     topics = ("math", "multi-precision")
     package_type = "library"

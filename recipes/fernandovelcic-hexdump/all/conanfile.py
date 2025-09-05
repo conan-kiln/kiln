@@ -12,7 +12,6 @@ class FernandoVelcicHexdumpConan(ConanFile):
     name = "fernandovelcic-hexdump"
     description = "A header-only hexdump library."
     license = ["BSD-3-Clause"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/FernandoVelcic/hexdump"
     topics = ("hexadecimal", "hexdump", "inspection", "debug", "header-only")
 

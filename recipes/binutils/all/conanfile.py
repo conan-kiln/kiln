@@ -16,7 +16,6 @@ class BinutilsConan(ConanFile):
     description = "The GNU Binutils are a collection of binary tools."
     package_type = "application"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index/"
     homepage = "https://www.gnu.org/software/binutils"
     topics = ("gnu", "ld", "linker", "as", "assembler", "objcopy", "objdump")
     settings = "os", "arch", "compiler", "build_type"

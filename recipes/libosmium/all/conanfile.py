@@ -13,7 +13,6 @@ class LibosmiumConan(ConanFile):
     description = "A fast and flexible C++ library for working with OpenStreetMap data"
     license = "BSL-1.0"
     homepage = "https://osmcode.org/libosmium/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("openstreetmap", "osm", "basemap", "gis", "geography", "header-only")
 
     package_type = "header-library"

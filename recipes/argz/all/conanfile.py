@@ -14,7 +14,6 @@ class ArgzConan(ConanFile):
     name = "argz"
     description = "A light weight C++ in memory argument parser"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stephenberry/argz"
     topics = ("argument", "parser", "header-only")
     package_type = "header-library"

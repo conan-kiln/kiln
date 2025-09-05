@@ -11,7 +11,6 @@ class LibmaxminddbConan(ConanFile):
     name = "libmaxminddb"
     description = "C library for the MaxMind DB file format"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://maxmind.github.io/libmaxminddb/"
     topics = ("maxmind", "geoip")
     settings = "os", "arch", "compiler", "build_type"

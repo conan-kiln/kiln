@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class HeatshrinkConan(ConanFile):
     name = "heatshrink"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "data compression library for embedded/real-time systems"
     topics = ("compression", "embedded", "realtime")
     homepage = "https://github.com/atomicobject/heatshrink"

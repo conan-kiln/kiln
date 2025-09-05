@@ -13,7 +13,6 @@ class ForestDBConan(ConanFile):
     name = "forestdb"
     description = "ForestDB is a KeyValue store based on a Hierarchical B+-Tree."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ForestDB-KVStore/forestdb"
     topics = ("kv-store", "mvcc", "wal")
 

@@ -11,7 +11,6 @@ class EmhashConan(ConanFile):
     name = "emhash"
     description = "Fast and memory efficient c++ flat hash map/set"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ktprime/emhash"
     topics = ("flat", "map", "set", "hash", "header-only")
     package_type = "header-library"

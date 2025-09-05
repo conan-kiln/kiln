@@ -16,7 +16,6 @@ class DlibConan(ConanFile):
     name = "dlib"
     description = "A toolkit for making real world machine learning and data analysis applications"
     topics = ("machine-learning", "deep-learning", "computer-vision")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://dlib.net"
     license = "BSL-1.0"
     package_type = "library"

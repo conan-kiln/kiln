@@ -14,7 +14,6 @@ class BoolinqConan(ConanFile):
     topics = ("linq", "header-only")
     license = "MIT"
     homepage = "https://github.com/k06a/boolinq"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

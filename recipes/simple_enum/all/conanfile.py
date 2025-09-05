@@ -13,7 +13,6 @@ class SimpleEnumConan(ConanFile):
     name = "simple_enum"
     description = "An Fast, Intuitive and Type-Safe C++ Enumeration Support Library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/arturbac/simple_enum"
     topics = ("serialization", "type-safe", "header-only")
     package_type = "header-library"

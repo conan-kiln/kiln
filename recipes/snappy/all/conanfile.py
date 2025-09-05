@@ -13,7 +13,6 @@ class SnappyConan(ConanFile):
     name = "snappy"
     description = "A fast compressor/decompressor"
     topics = ("google", "compressor", "decompressor")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/snappy"
     license = "BSD-3-Clause"
 

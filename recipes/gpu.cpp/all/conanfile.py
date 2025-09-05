@@ -12,7 +12,6 @@ class GpuCppConan(ConanFile):
     name = "gpu.cpp"
     description = "A lightweight library for portable low-level GPU computation using WebGPU."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gpucpp.answer.ai/"
     topics = ("gpgpu", "webgpu")
 

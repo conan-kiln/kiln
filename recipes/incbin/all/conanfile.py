@@ -12,7 +12,6 @@ class IncbinConan(ConanFile):
     name = "incbin"
     description = "Include binary files in C/C++"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/graphitemaster/incbin/"
     topics = ("include", "binary", "preprocess")
     package_type = "header-library"

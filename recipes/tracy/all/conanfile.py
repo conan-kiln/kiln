@@ -15,7 +15,6 @@ class TracyConan(ConanFile):
     name = "tracy"
     description = "C++ frame profiler"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wolfpld/tracy"
     topics = ("profiler", "performance", "gamedev")
     package_type = "library"

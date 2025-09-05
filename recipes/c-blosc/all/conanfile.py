@@ -15,7 +15,6 @@ class CbloscConan(ConanFile):
     description = "An extremely fast, multi-threaded, meta-compressor library."
     license = "BSD-3-Clause"
     topics = ("blosc", "compression")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Blosc/c-blosc"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

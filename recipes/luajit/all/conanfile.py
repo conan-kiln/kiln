@@ -16,7 +16,6 @@ required_conan_version = ">=2.4"
 class LuajitConan(ConanFile):
     name = "luajit"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://luajit.org"
     description = "LuaJIT is a Just-In-Time Compiler (JIT) for the Lua programming language."
     topics = ("lua", "jit")

@@ -12,7 +12,6 @@ class MBitsMstchConan(ConanFile):
     name = "mbits-mstch"
     description = "libmstch implemented in terms of C++17 variant."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-libs/libmstch"
     topics = ("parser", "mstch", "mustache", "libmstch", "libmstch-parser")
     settings = "os", "arch", "compiler", "build_type"

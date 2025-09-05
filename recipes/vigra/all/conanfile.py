@@ -10,7 +10,6 @@ class VigraConan(ConanFile):
     name = "vigra"
     description = "A generic C++ library for image analysis"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://ukoethe.github.io/vigra/"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

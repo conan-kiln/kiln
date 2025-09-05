@@ -15,7 +15,6 @@ class StcConan(ConanFile):
         "Forward List, Smart Pointers, Bitset and Random numbers."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tylov/STC"
     topics = ("containers", "string", "vector", "map", "set", "deque", "bitset", "random", "list")
     settings = "os", "arch", "compiler", "build_type"

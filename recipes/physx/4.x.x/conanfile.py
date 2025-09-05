@@ -17,7 +17,6 @@ class PhysXConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("physx", "physics", "physics-engine", "physics-simulation", "game-development", "cuda")
     homepage = "https://github.com/NVIDIAGameWorks/PhysX"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

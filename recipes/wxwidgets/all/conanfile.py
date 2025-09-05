@@ -20,7 +20,6 @@ class wxWidgetsConan(ConanFile):
     description = "wxWidgets is a C++ library that lets developers create applications for Windows, macOS, " \
                   "Linux and other platforms with a single code base."
     topics = ("wxwidgets", "gui", "ui")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.wxwidgets.org"
     license = "wxWidgets"
     settings = "os", "arch", "compiler", "build_type"

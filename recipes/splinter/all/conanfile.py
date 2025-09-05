@@ -15,7 +15,6 @@ class SplinterConan(ConanFile):
     description = ("SPLINTER (SPLine INTERpolation) is a library for multivariate function approximation with splines. "
                    "The library can be used for function approximation, regression, data smoothing, data reduction, and much more.")
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bgrimstad/splinter"
     topics = ("splines", "interpolation", "smoothing", "function-approximation")
 

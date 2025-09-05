@@ -13,7 +13,6 @@ class RsyncConan(ConanFile):
     name = "rsync"
     description = "rsync is an open source utility that provides fast incremental file transfer"
     topics = ("backup", "transferring", "file-transfer", "ssh", "compression")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://rsync.samba.org/"
     license = ("GPL-3.0", "LGPL-3.0")
     package_type = "application"

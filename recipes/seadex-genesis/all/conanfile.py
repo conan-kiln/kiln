@@ -14,7 +14,6 @@ class SeadexGenesisConan(ConanFile):
     name = "seadex-genesis"
     description = "genesis is a generator library developed by Seadex (written in C++11)."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://genesis.seadex.de/"
     topics = ("generator", "c++")
     settings = "os", "arch", "compiler", "build_type"

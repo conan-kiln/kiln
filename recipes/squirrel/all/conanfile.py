@@ -16,7 +16,6 @@ class SquirrelConan(ConanFile):
                   "fits in the size, memory bandwidth, and real-time requirements " \
                   "of applications like video games."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.squirrel-lang.org/"
     topics = ("programming-language", "object-oriented", "scripting")
     settings = "os", "arch", "compiler", "build_type"

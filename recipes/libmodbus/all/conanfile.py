@@ -17,7 +17,6 @@ class LibmodbusConan(ConanFile):
     homepage = "https://libmodbus.org/"
     topics = ("modbus", "protocol", "industry", "automation")
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

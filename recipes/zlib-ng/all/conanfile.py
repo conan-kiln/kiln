@@ -15,7 +15,6 @@ class ZlibNgConan(ConanFile):
     name = "zlib-ng"
     description = "zlib data compression library for the next generation systems"
     license ="Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zlib-ng/zlib-ng/"
     topics = ("zlib", "compression")
     package_type = "library"

@@ -11,7 +11,6 @@ class Asio(ConanFile):
     name = "asio"
     description = "Asio is a cross-platform C++ library for network and low-level I/O"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://think-async.com/Asio"
     topics = ("network", "io", "low-level", "header-only")
 

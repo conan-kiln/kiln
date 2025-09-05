@@ -11,7 +11,6 @@ class FffConan(ConanFile):
     name = "fff"
     description = "A testing micro framework for creating function test doubles"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/meekrosoft/fff"
     topics = ("c", "c++", "embedded", "tdd", "micro-framework", "fake-functions", "header-only")
     package_type = "header-library"

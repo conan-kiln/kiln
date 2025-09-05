@@ -18,7 +18,6 @@ class SpeechDispatcherConan(ConanFile):
     name = "speech-dispatcher"
     description = "Common high-level interface to speech synthesis"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://freebsoft.org/speechd"
     topics = ("speech", "synthesis", "tts", "text-to-speech")
     package_type = "library"

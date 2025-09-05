@@ -13,7 +13,6 @@ class EfswConan(ConanFile):
     name = "efsw"
     description = "efsw is a C++ cross-platform file system watcher and notifier."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SpartanJ/efsw"
     topics = ("file system", "watch", "cross-platform")
     package_type = "library"

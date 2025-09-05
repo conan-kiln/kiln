@@ -13,7 +13,6 @@ class TgcConan(ConanFile):
     license = "BSD-2-Clause"
     topics = ("garbage-collector",)
     homepage = "https://github.com/orangeduck/tgc"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

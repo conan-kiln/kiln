@@ -18,7 +18,6 @@ class ImguiConan(ConanFile):
     name = "imgui"
     description = "Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ocornut/imgui"
     topics = ("gui", "graphical", "bloat-free")
 

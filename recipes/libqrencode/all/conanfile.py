@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 class LibqrencodeConan(ConanFile):
     name = "libqrencode"
     description = "A fast and compact QR Code encoding library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fukuchi/libqrencode"
     license = "LGPL-2.1-or-later"
     topics = ("qr-code", "encoding")

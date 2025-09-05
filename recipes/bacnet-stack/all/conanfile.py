@@ -11,7 +11,6 @@ class BacnetStackConan(ConanFile):
     name = "bacnet-stack"
     license = "GPL-2.0-or-later"
     homepage = "https://github.com/bacnet-stack/bacnet-stack/"
-    url = "https://github.com/conan-io/conan-center-index"
     description = """
         BACnet Protocol Stack library provides a BACnet application layer,
         network layer and media access (MAC) layer communications services."""

@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class LupleConan(ConanFile):
     name = "luple"
     license = "Public-domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alexpolt/luple"
     description = "Home to luple, nuple, C++ String Interning, Struct Reader and C++ Type Loophole"
     topics = ("loophole", "luple", "nuple", "struct", "intern")

@@ -11,7 +11,6 @@ class LibschriftConan(ConanFile):
     name = "libschrift"
     description = "A lightweight TrueType font rendering library "
     topics = ("truetype", "suckless", )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tomolt/libschrift"
     license = ("ISC",)
     package_type = "library"

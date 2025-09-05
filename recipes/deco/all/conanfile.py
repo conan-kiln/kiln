@@ -12,7 +12,6 @@ class DecoConan(ConanFile):
     name = "deco"
     description = "Delimiter Collision Free Format"
     license = "Apache-2.0-WITH-LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Enhex/Deco"
     topics = ("serialization", "header-only")
 

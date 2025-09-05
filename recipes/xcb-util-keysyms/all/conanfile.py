@@ -16,7 +16,6 @@ class XcbUtilKeysymsConan(ConanFile):
     name = "xcb-util-keysyms"
     description = "Standard X key constants and conversion to/from keycodes"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-keysyms"
     topics = ("xorg", "x11", "xcb")
 

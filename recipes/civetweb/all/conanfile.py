@@ -13,7 +13,6 @@ class CivetwebConan(ConanFile):
     name = "civetweb"
     license = "MIT"
     homepage = "https://github.com/civetweb/civetweb"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Embedded C/C++ web server"
     topics = ("web-server", "embedded")
 

@@ -13,7 +13,6 @@ class LibgdConan(ConanFile):
     description = ("GD is an open source code library for the dynamic"
                    "creation of images by programmers.")
     license = "BSD-like"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libgd.github.io"
     topics = ("images", "graphics")
     package_type = "library"

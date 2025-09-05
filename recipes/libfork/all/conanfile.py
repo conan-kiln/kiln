@@ -13,7 +13,6 @@ class LibforkConan(ConanFile):
     name = "libfork"
     description = "A bleeding-edge, lock-free, wait-free, continuation-stealing tasking library."
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ConorWilliams/libfork"
     topics = ("multithreading",
               "fork-join",

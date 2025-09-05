@@ -14,7 +14,6 @@ class WslayConan(ConanFile):
     description = "The WebSocket library in C"
     topics = ("websockets", "rfc6455", "communication", "tcp")
     homepage = "https://tatsuhiro-t.github.io/wslay"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
 
     package_type = "library"

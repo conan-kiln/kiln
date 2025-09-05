@@ -15,7 +15,6 @@ class TroldalZippyConan(ConanFile):
     name = "troldal-zippy"
     description = 'A simple C++ wrapper around the "miniz" zip library '
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/troldal/Zippy"
     topics = ("wrapper", "compression", "zip", "header-only")
 

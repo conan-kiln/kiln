@@ -12,7 +12,6 @@ class NngConan(ConanFile):
     name = "nng"
     description = "nanomsg-next-generation: light-weight brokerless messaging"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nanomsg/nng"
     topics = ("nanomsg", "communication", "messaging", "protocols")
     package_type = "library"

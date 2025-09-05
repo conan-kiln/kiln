@@ -12,7 +12,6 @@ class GiflibConan(ConanFile):
     name = "giflib"
     description = "A library and utilities for reading and writing GIF images."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://giflib.sourceforge.net"
     topics = ("gif", "image", "multimedia", "format", "graphics")
     package_type = "library"

@@ -65,7 +65,6 @@ MODULES = (
 class BoostConan(ConanFile):
     name = "boost"
     description = "Boost provides free peer-reviewed portable C++ source libraries"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.boost.org"
     license = "BSL-1.0"
     topics = ("libraries", "cpp")

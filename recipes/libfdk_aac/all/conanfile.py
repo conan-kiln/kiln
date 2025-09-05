@@ -17,7 +17,6 @@ required_conan_version = ">=2.1"
 
 class LibFDKAACConan(ConanFile):
     name = "libfdk_aac"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A standalone library of the Fraunhofer FDK AAC code from Android"
     license = "https://github.com/mstorsjo/fdk-aac/blob/master/NOTICE"
     homepage = "https://sourceforge.net/projects/opencore-amr/"

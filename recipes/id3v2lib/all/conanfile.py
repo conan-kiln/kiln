@@ -13,7 +13,6 @@ class Id3v2libConan(ConanFile):
     name = "id3v2lib"
     description = "id3v2lib is a library written in C to read and edit id3 tags from mp3 files."
     topics = ("conan", "id3", "tags", "mp3", "container", "media", "audio")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/larsbs/id3v2lib"
     license = "BSD-2-Clause"
     package_type = "library"

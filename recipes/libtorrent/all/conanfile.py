@@ -17,7 +17,6 @@ class LibtorrentConan(ConanFile):
         "focusing on efficiency and scalability"
     )
     topics = ("p2p", "network", "mesh")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://libtorrent.org"
     license = ("BSD-3-clause", "ZLIB", "BSL-1.0")
 

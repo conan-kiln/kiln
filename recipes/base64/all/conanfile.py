@@ -16,7 +16,6 @@ class Base64Conan(ConanFile):
     name = "base64"
     description = "Fast Base64 stream encoder/decoder"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aklomp/base64"
     topics = ("codec", "encoder", "decoder")
     package_type = "library"

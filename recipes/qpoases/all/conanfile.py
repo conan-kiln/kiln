@@ -12,7 +12,6 @@ class ConanRecipe(ConanFile):
     description = "Open-source C++ implementation of the recently proposed online active set strategy."
     topics = ("container", "parametric", "quadratic", "programming")
     homepage = "https://github.com/coin-or/qpOASES"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "LGPL-2.1"
 
     settings = "os", "arch", "compiler", "build_type"

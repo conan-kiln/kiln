@@ -15,7 +15,6 @@ class CoinCbcConan(ConanFile):
     name = "coin-cbc"
     description = "COIN-OR Branch-and-Cut solver"
     license = "EPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or/Cbc"
     topics = ("cbc", "branch-and-cut", "solver", "linear", "programming")
 

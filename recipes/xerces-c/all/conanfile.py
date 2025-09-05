@@ -14,7 +14,6 @@ class XercesCConan(ConanFile):
         "Xerces-C++ is a validating XML parser written in a portable subset of C++"
     )
     topics = ("xerces", "XML", "validation", "DOM", "SAX", "SAX2")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://xerces.apache.org/xerces-c/index.html"
     license = "Apache-2.0"
 

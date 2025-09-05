@@ -17,7 +17,6 @@ class LibTomCryptConan(ConanFile):
                    " published block ciphers, one-way hash functions, chaining modes,"
                    " pseudo-random number generators, public key cryptography and other routines.")
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libtom.net/"
     topics = ("cryptography", "encryption", "libtom")
 

@@ -12,7 +12,6 @@ class CudaSamplesConan(ConanFile):
     description = ("Common headers from NVIDIA CUDA Samples - "
                    "samples for CUDA developers which demonstrate features in CUDA Toolkit")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/NVIDIA/cuda-samples"
     topics = ("cuda", "cuda-kernels", "cuda-driver-api", "cuda-opengl", "nvcudasamples")
 

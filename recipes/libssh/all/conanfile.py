@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class LibSSHRecipe(ConanFile):
     name = "libssh"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libssh.org/"
     description = "multiplatform C library implementing the SSHv2 protocol on client and server side"
     topics = ("ssh", "shell", "ssh2", "connection")

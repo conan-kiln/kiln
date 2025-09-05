@@ -16,7 +16,6 @@ class IridescenceConan(ConanFile):
     name = "iridescence"
     description = "3D visualization library for rapid prototyping of 3D algorithms"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://koide3.github.io/iridescence"
     topics = ("visualization", "imgui", "opengl", "localization", "mapping", "point-cloud", "slam")
 

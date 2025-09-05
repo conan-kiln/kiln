@@ -13,7 +13,6 @@ class XpropertyConan(ConanFile):
     name = "xproperty"
     description = "Traitlets-like C++ properties and implementation of the observer pattern."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jupyter-xeus/xproperty"
     topics = ("observer", "traitlets", "header-only")
     package_type = "header-library"

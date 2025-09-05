@@ -11,7 +11,6 @@ class RingBufferConan(ConanFile):
     name = "jnk0le_ringbuffer"
     description = "simple C++11 ring buffer implementation, allocated and evaluated at compile time"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jnk0le/Ring-Buffer"
     topics = ("ring buffer", "compile time", "data-structures", "header-only")
     package_type = "header-library"

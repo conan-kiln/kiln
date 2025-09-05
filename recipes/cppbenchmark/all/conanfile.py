@@ -13,7 +13,6 @@ class CppBenchmark(ConanFile):
     name = "cppbenchmark"
     description = "Performance benchmark framework for C++ with nanoseconds measure precision."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chronoxor/CppBenchmark"
     topics = ("utils", "library", "benchmark")
     package_type = "library"

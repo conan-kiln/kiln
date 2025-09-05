@@ -12,7 +12,6 @@ class MBitsDiagsConan(ConanFile):
     name = "mbits-diags"
     description = "Diagnostic library with source positions, ranges and hints."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-libs/diags"
     topics = ("diagnostics", "cli", "logging", "errors")
     settings = "os", "arch", "compiler", "build_type"

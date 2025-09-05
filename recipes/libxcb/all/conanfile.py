@@ -17,7 +17,6 @@ class LibXcbConan(ConanFile):
     name = "libxcb"
     description = "X protocol C-language Binding (XCB) library"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb"
     topics = ("xorg", "x11", "xcb")
 

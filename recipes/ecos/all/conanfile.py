@@ -13,7 +13,6 @@ class EcosConan(ConanFile):
     license = "GPL-3.0-or-later"
     topics = ("ecos", "conic-solver")
     homepage = "https://github.com/embotech/ecos"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

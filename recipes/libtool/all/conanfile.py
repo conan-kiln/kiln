@@ -22,7 +22,6 @@ class LibtoolConan(ConanFile):
     # most common use is as "application", but library traits
     # are a superset of application so this should cover all cases
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/libtool/"
     topics = ("configure", "library", "shared", "static")
     settings = "os", "arch", "compiler", "build_type"

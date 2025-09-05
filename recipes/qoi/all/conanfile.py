@@ -11,7 +11,6 @@ class QoiConan(ConanFile):
     name = "qoi"
     description = "The “Quite OK Image Format” for fast, lossless image compression"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://qoiformat.org/"
     topics = ("image", "compression", "header-only")
     package_type = "header-library"

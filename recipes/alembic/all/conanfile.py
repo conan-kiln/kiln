@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class AlembicConan(ConanFile):
     name = "alembic"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.alembic.io"
     description = "Open framework for storing and sharing scene data."
     topics = ("3d", "scene", "geometry", "graphics")

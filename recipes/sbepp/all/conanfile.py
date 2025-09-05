@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "sbepp"
     description = "C++ implementation of the FIX Simple Binary Encoding"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/OleksandrKvl/sbepp"
     topics = ("trading", "fix", "sbe")
     package_type = "header-library"

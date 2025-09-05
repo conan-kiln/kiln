@@ -16,7 +16,6 @@ class FlecsConan(ConanFile):
               "game-development", "ecs", "entity-component-system",
               "cpp11", "ecs-framework")
     homepage = "https://github.com/SanderMertens/flecs"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

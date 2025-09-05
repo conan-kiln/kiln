@@ -13,7 +13,6 @@ class UserspaceRCUConan(ConanFile):
     name = "userspace-rcu"
     description = "Userspace RCU (read-copy-update) library"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://liburcu.org/"
     topics = ("rcu", "read-copy-update")
     package_type = "library"

@@ -15,7 +15,6 @@ class ZugConan(ConanFile):
     name = "zug"
     description = "Transducers for C++ — Clojure style higher order push/pull sequence transformations"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sinusoid.es/zug/"
     topics = ("transducer", "algorithm", "signals", "header-only")
 

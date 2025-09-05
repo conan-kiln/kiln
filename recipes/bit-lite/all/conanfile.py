@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class BitLiteConan(ConanFile):
     name = "bit-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/bit-lite"
     description = ("bit is a C++20 bit operations for C++98 and later \
                     in a single-file header-only library.")

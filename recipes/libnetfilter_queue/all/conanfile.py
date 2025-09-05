@@ -14,7 +14,6 @@ class Libnetfilter_queueConan(ConanFile):
     description = ("userspace library that provides an API to packets"
                    " that have been queued by the kernel packet filter")
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://netfilter.org/projects/libnetfilter_queue/index.html"
     topics = "netfilter"
 

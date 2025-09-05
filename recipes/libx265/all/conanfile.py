@@ -14,7 +14,6 @@ class Libx265Conan(ConanFile):
     name = "libx265"
     description = "x265 is the leading H.265 / HEVC encoder software library"
     license = "GPL-2.0-only"  # or a commercial license from MulticoreWare Inc.
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.videolan.org/developers/x265.html"
     topics = ("x265", "codec", "video", "H.265")
 

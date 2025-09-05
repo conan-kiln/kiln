@@ -13,7 +13,6 @@ class MtFmtConan(ConanFile):
     name = "mtfmt"
     description = "mtfmt (Mini template formatter) is a formatting library designed for embedded systems"
     license = "LGPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/MtFmT-Lib/mtfmt"
     topics = ("formatting", "embedded")
     package_type = "library"

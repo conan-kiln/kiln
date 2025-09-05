@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class Libxml2Conan(ConanFile):
     name = "libxml2"
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "libxml2 is a software library for parsing XML documents"
     topics = "xml", "parser", "validation"
     homepage = "https://gitlab.gnome.org/GNOME/libxml2/-/wikis/"

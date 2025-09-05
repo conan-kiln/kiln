@@ -12,7 +12,6 @@ class CurlppConan(ConanFile):
     name = "curlpp"
     description = "C++ wrapper around libcURL"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jpbarrette/curlpp"
     topics = ("curl", "libcurl")
     package_type = "library"

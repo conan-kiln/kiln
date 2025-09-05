@@ -19,7 +19,6 @@ class CppUTestConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("testing", "unit-testing")
     homepage = "https://cpputest.github.io"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

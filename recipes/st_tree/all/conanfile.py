@@ -11,7 +11,6 @@ class STTreeConan(ConanFile):
     name = "st_tree"
     description = "A fast and flexible c++ template class for tree data structures"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/erikerlandson/st_tree"
     topics = ("stl", "container", "data-structures", "tree", "header-only")
     package_type = "header-library"

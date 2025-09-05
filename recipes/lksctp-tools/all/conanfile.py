@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class LKSCTPToolsConan(ConanFile):
     name = "lksctp-tools"
     settings = "os", "arch", "compiler", "build_type"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sctp/lksctp-tools"
     description = "The Linux Kernel Stream Control Transmission Protocol (lksctp) project"
     package_type = "library"

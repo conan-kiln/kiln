@@ -13,7 +13,6 @@ class JsmnConan(ConanFile):
     license = "MIT"
     topics = ("dataset", "api", "dz", "header-only")
     homepage = "https://github.com/dzcode-io/kuliya"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

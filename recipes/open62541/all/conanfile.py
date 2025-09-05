@@ -22,7 +22,6 @@ class Open62541Conan(ConanFile):
                   "All platform-specific functionality is implemented via exchangeable " \
                   "plugins. Plugin implementations are provided for the major operating systems."
     license = ("MPL-2.0", "CC0-1.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://open62541.org/"
     topics = (
         "opc ua", "sdk", "server/client", "c", "iec-62541",

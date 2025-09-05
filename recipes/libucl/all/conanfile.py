@@ -11,7 +11,6 @@ class LibuclConan(ConanFile):
     name = "libucl"
     description = "Universal configuration library parser"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vstakhov/libucl"
     topics = ("universal", "configuration", "language", "parser", "ucl")
     settings = "os", "arch", "compiler", "build_type"

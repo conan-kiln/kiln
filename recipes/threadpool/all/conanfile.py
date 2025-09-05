@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class ThreadpoolConan(ConanFile):
     name = "threadpool"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/progschj/ThreadPool"
     description = "A simple C++11 Thread Pool implementation."
     license = "Zlib"

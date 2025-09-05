@@ -14,7 +14,6 @@ class LibConfuseConan(ConanFile):
     name = "libconfuse"
     description = "Small configuration file parser library for C"
     topics = ("configuration", "parser")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinh/libconfuse"
     license = "ISC"
     package_type = "library"

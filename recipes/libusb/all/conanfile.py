@@ -17,7 +17,6 @@ class LibUSBConan(ConanFile):
     description = "A cross-platform library to access USB devices"
     license = "LGPL-2.1"
     homepage = "https://github.com/libusb/libusb"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("usb", "device")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

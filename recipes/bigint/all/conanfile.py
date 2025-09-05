@@ -15,7 +15,6 @@ class BigintConan(ConanFile):
     license = "Unlicense"
     topics = ("bigint", "integer")
     homepage = "https://mattmccutchen.net/bigint"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

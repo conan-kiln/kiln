@@ -20,7 +20,6 @@ class WaylandConan(ConanFile):
         "its clients as well as a library implementation of the protocol"
     )
     topics = "protocol", "compositor", "display"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://wayland.freedesktop.org"
     license = "MIT"
     package_type = "library"

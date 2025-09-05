@@ -11,7 +11,6 @@ class OpenApiGeneratorConan(ConanFile):
     name = "openapi-generator"
     description = "Generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openapi-generator.tech"
     topics = ("api", "sdk", "generator", "openapi")
     settings = "os", "arch", "compiler", "build_type"

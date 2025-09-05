@@ -16,7 +16,6 @@ class VulkanUtilityLibrariesConan(ConanFile):
     license = "Apache-2.0"
     topics = ("vulkan",)
     homepage = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"

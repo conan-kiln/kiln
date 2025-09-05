@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     description = "Intel(R) Multi-Buffer Crypto for IPSec"
     license = "BSD-3-Clause"
     homepage = "https://github.com/intel/intel-ipsec-mb"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("intel", "ipsec", "crypto", "security")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

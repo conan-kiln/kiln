@@ -14,7 +14,6 @@ class TlfunctionrefConan(ConanFile):
     license = "CC0-1.0"
     topics = ("function_ref", "callable")
     homepage = "https://github.com/TartanLlama/function_ref"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

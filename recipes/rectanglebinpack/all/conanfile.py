@@ -12,7 +12,6 @@ class RectangleBinPackConan(ConanFile):
     name = "rectanglebinpack"
     description = "The code can be used to solve the problem of packing a set of 2D rectangles into a larger bin."
     license = "LicenseRef-rectanglebinpack-public-domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/juj/RectangleBinPack"
     topics = ("rectangle", "packing", "bin")
 

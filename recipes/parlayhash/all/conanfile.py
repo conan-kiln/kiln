@@ -14,7 +14,6 @@ class ParlayHashConan(ConanFile):
     name = "parlayhash"
     description = "A Header-Only Scalable Concurrent Hash Map."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cmuparlay/parlayhash"
     topics = ("unordered_map", "hashmap", "header-only")
     package_type = "header-library"

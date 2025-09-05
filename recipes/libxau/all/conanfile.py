@@ -16,7 +16,6 @@ class LibXauConan(ConanFile):
     name = "libxau"
     description = "libXau: X authorization file management library"
     license = "MIT-open-group"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxau"
     topics = ("xorg", "x11")
 

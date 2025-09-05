@@ -14,7 +14,6 @@ class BrigandConan(ConanFile):
     license = "BSL-1.0"
     topics = ("meta-programming", "boost", "runtime", "header-only")
     homepage = "https://github.com/edouarda/brigand"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -14,7 +14,6 @@ class MtdevConan(ConanFile):
     name = "mtdev"
     description = "The mtdev library transforms all variants of kernel MT events to the slotted type B protocol."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bitmath.org/code/mtdev/"
     topics = ("device", "freedesktop", "input", "mt", "multitouch", "touch")
     package_type = "library"

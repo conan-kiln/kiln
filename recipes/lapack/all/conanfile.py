@@ -12,7 +12,6 @@ class LapackConan(ConanFile):
     name = "lapack"
     description = "LAPACK is a library of Fortran subroutines for solving the most commonly occurring problems in numerical linear algebra"
     license = "BSD-3-Clause-Open-MPI"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Reference-LAPACK/lapack"
     topics = ("linear-algebra", "matrix-factorization", "linear-equations", "svd", "singular-values", "eigenvectors", "eigenvalues")
 

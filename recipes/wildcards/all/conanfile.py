@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "wildcards"
     description = "A simple C++ header-only template library implementing matching using wildcards"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zemasoft/wildcards"
     topics = ("template", "header-only")
     package_type = "header-library"

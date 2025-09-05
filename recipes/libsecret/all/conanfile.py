@@ -16,7 +16,6 @@ class LibsecretConan(ConanFile):
     name = "libsecret"
     description = "A library for storing and retrieving passwords and other secrets"
     topics = ("gobject", "password", "secret")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://wiki.gnome.org/Projects/Libsecret"
     license = "LGPL-2.1-or-later"
 

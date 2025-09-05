@@ -21,7 +21,6 @@ class TinycborConan(ConanFile):
     license = "MIT"
     topics = ("cbor", "encoder", "decoder")
     homepage = "https://github.com/intel/tinycbor"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

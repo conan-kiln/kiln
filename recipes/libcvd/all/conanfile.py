@@ -14,7 +14,6 @@ class LibCVDConan(ConanFile):
     name = "libcvd"
     description = "libCVD - efficient and easy-to-use C++ computer vision library"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/edrosten/libcvd"
     topics = ("computer-vision",)
 

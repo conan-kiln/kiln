@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "unordered_dense"
     description = "A fast & densely stored hashmap and hashset based on robin-hood backward shift deletion"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinus/unordered_dense"
     topics = ("unordered_map", "unordered_set", "hashmap", "hashset", "header-only")
     package_type = "header-library"

@@ -13,7 +13,6 @@ class CajunJsonApiConan(ConanFile):
     name = "cajun-jsonapi"
     description = "CAJUN* is a C++ API for the JSON object interchange format."
     topics = ("cajun", "json")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cajun-jsonapi/cajun-jsonapi"
     license = "BSD-3-Clause"
     package_type = "header-library"

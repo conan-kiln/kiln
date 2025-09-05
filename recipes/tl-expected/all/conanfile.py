@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class TlExpectedConan(ConanFile):
     name = "tl-expected"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tl.tartanllama.xyz"
     description = "C++11/14/17 std::expected with functional-style extensions"
     topics = ("cpp11", "cpp14", "cpp17", "expected")

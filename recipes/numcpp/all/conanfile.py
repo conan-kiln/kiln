@@ -14,7 +14,6 @@ class NumCppConan(ConanFile):
     name = "numcpp"
     description = "A Templatized Header Only C++ Implementation of the Python NumPy Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dpilger26/NumCpp"
     topics = ("python", "numpy", "numeric", "header-library")
     package_type = "header-library"

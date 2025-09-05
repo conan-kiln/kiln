@@ -17,7 +17,6 @@ class OatppWebSocketConan(ConanFile):
     homepage = "https://github.com/oatpp/oatpp-websocket"
     license = "Apache-2.0"
     topics = ("oat++", "oatpp", "websocket")
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

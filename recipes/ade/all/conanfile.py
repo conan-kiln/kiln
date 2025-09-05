@@ -14,7 +14,6 @@ class AdeConan(ConanFile):
     name = "ade"
     license = "Apache-2.0"
     homepage = "https://github.com/opencv/ade"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Graph construction, manipulation, and processing framework"
     topics = ("graphs", "opencv")
 

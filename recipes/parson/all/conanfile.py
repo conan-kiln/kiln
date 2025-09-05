@@ -13,7 +13,6 @@ class ParsonConan(ConanFile):
     license = "MIT"
     topics = ("json", "parser")
     homepage = "https://github.com/kgabis/parson"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

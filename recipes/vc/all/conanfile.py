@@ -16,7 +16,6 @@ class VcConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("simd", "vectorization", "parallel", "sse", "avx", "neon")
     homepage = "https://github.com/VcDevel/Vc"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -12,7 +12,6 @@ class LibTinsConan(ConanFile):
     name = "libtins"
     description = "High-level, multiplatform C++ network packet sniffing and crafting library."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mfontanini/libtins"
     topics = ("pcap", "packets", "network", "packet-analyser", "packet-parsing", "libpcap", "sniffing")
     package_type = "library"

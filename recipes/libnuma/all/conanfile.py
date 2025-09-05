@@ -15,7 +15,6 @@ class LibnumaConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("numa",)
     homepage = "https://github.com/numactl/numactl"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

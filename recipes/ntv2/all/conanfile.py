@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class Ntv2Conan(ConanFile):
     name = "ntv2"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aja-video/ntv2"
     description = "AJA NTV2 SDK"
     topics = "video", "hardware"

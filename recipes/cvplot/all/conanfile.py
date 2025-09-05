@@ -11,7 +11,6 @@ class CvPlotConan(ConanFile):
     name = "cvplot"
     description = "Fast modular OpenCV plotting library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Profactor/cv-plot"
     topics = ("plot", "opencv", "diagram", "plotting", "header-only")
 

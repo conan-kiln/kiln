@@ -11,7 +11,6 @@ class EnkiTSConan(ConanFile):
     name = "enkits"
     description = "A permissively licensed C and C++ Task Scheduler for creating parallel programs."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dougbinks/enkiTS"
     topics = ("c", "thread", "multithreading", "scheduling", "gamedev")
 

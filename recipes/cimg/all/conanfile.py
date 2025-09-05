@@ -14,7 +14,6 @@ class CImgConan(ConanFile):
     name = "cimg"
     description = "The CImg Library is a small and open-source C++ toolkit for image processing"
     license = "CECILL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://cimg.eu"
     topics = ("image", "image-processing", "header-only")
 

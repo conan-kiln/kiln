@@ -13,7 +13,6 @@ class GslLiteConan(ConanFile):
     name = "gsl-lite"
     description = "ISO C++ Core Guidelines Library implementation for C++98, C++11 up"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gsl-lite.github.io/gsl-lite/"
     topics = ("GSL", "header-only")
     package_type = "header-library"

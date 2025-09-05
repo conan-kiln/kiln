@@ -16,7 +16,6 @@ class CfitsioConan(ConanFile):
     license = ("CFITSIO", "NASA-1.3")
     topics = ("fits", "image", "nasa", "astronomy", "astrophysics", "space")
     homepage = "https://heasarc.gsfc.nasa.gov/fitsio/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

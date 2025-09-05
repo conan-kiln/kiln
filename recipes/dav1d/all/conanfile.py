@@ -16,7 +16,6 @@ class Dav1dConan(ConanFile):
     homepage = "https://www.videolan.org/projects/dav1d.html"
     topics = ("av1", "codec", "video", "decoding")
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

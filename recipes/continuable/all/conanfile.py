@@ -15,7 +15,6 @@ class ContinuableConan(ConanFile):
         "(supporting then, exception handling, coroutines and connections)"
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Naios/continuable"
     topics = ("asynchronous", "future", "coroutines", "header-only")
 

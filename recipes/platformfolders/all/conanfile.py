@@ -13,7 +13,6 @@ class PlatformFoldersConan(ConanFile):
     name = "platformfolders"
     license = "MIT"
     homepage = "https://github.com/sago007/PlatformFolders"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A C++ library to look for special directories like My Documents and APPDATA so that you do not need to write Linux, Windows or Mac OS X specific code"
     topics = ("multi-platform", "xdg", "standardpaths", "special-folders")
     package_type = "library"

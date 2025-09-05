@@ -16,7 +16,6 @@ class LibisalConan(ConanFile):
     name = "isa-l"
     description = "Intel's Intelligent Storage Acceleration Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/isa-l"
     topics = "compression"
     package_type = "library"

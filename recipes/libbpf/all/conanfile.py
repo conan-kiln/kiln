@@ -12,7 +12,6 @@ class LibbpfConan(ConanFile):
     name = "libbpf"
     description = "eBPF helper library"
     license = "LGPL-2.1-only", "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libbpf/libbpf"
     topics = ("berkeley-packet-filter", "bpf", "ebpf", "network", "tracing")
 

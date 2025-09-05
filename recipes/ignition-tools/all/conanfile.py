@@ -15,7 +15,6 @@ class IgnitionToolsConan(ConanFile):
     name = "ignition-tools"
     description = "Ignition entry point for using all the suite of ignition tools."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://ignitionrobotics.org/libs/tools"
     topics = ("ignition", "robotics", "tools", "gazebo")
 

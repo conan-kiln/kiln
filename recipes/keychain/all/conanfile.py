@@ -11,7 +11,6 @@ class KeychainConan(ConanFile):
     name = "keychain"
     description = "A cross-platform wrapper for the operating system's credential storage"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hrantzsch/keychain"
     topics = ("keychain", "security", "credentials", "password", "cpp11")
     package_type = "library"

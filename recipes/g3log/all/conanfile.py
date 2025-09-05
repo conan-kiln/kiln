@@ -18,7 +18,6 @@ class G3logConan(ConanFile):
         "with default logging sinks or you can add your own."
     )
     license = "The Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/KjellKod/g3log"
     topics = ("logging", "log", "asynchronous")
     package_type = "library"

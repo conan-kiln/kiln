@@ -17,7 +17,6 @@ class CgifConan(ConanFile):
     license = "MIT"
     topics = ("gif", "encoder", "image")
     homepage = "https://github.com/dloebl/cgif"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

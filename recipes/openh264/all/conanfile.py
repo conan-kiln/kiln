@@ -15,7 +15,6 @@ class OpenH264Conan(ConanFile):
     name = "openh264"
     description = "Open Source H.264 Codec"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.openh264.org/"
     topics = ("h264", "codec", "video", "compression", )
     package_type = "library"

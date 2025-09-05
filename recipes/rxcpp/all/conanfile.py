@@ -15,7 +15,6 @@ class RxcppConan(ConanFile):
     license = "Apache-2.0"
     topics = ("rxcpp", "reactivex", "asynchronous", "event", "observable", "values-distributed-in-time")
     homepage = "https://github.com/ReactiveX/RxCpp"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "header-library"
     no_copy_source = True

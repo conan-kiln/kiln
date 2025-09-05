@@ -12,7 +12,6 @@ class MMFileConan(ConanFile):
     name = "mm_file"
     description = "A self-contained, header-only, implementation of memory-mapped files in C++ for fast integration into larger projects."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jermp/mm_file"
     topics = ("memory-mapped-file", "header-only")
     package_type = "header-library"

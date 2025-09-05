@@ -12,7 +12,6 @@ class PDFWriterConan(ConanFile):
     name = "pdf-writer"
     description = "High performance library for creating, modiyfing and parsing PDF files in C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/galkahana/PDF-Writer"
     topics = ("pdf", "writer")
     package_type = "library"

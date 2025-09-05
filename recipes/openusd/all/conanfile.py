@@ -20,7 +20,6 @@ class OpenUSDConan(ConanFile):
     name = "openusd"
     description = "Universal Scene Description"
     license = "DocumentRef-LICENSE.txt:LicenseRef-Modified-Apache-2.0-License"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openusd.org/"
     topics = ("3d", "scene", "usd")
     package_type = "library"

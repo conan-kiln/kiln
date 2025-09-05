@@ -12,7 +12,6 @@ class PlusaesConan(ConanFile):
     name = "plusaes"
     description = "Header only C++ AES cipher library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kkAyataka/plusaes"
     topics = ("encryption", "header-only")
 

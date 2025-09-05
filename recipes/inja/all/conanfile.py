@@ -14,7 +14,6 @@ class InjaConan(ConanFile):
     name = "inja"
     license = "MIT"
     homepage = "https://github.com/pantor/inja"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Inja is a template engine for modern C++, loosely inspired by jinja for python"
     topics = ("jinja2", "string templates", "templates engine")
     package_type = "header-library"

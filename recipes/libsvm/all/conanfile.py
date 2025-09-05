@@ -14,7 +14,6 @@ class libsvmConan(ConanFile):
     name = "libsvm"
     description = "Libsvm is a simple, easy-to-use, and efficient software for SVM classification and regression"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.csie.ntu.edu.tw/~cjlin/libsvm/"
     topics = ("svm", "vector")
 

@@ -17,7 +17,6 @@ class LibnetConan(ConanFile):
     name = "libnet"
     description = "Libnet is an API to help with the construction and injection of network packets."
     topics = ("network")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://libnet.sourceforge.net/"
     license = ["BSD-2-Clause"]
     settings = "os", "arch", "compiler", "build_type"

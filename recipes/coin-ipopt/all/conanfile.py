@@ -16,7 +16,6 @@ class CoinClpConan(ConanFile):
     name = "coin-ipopt"
     description = "COIN-OR Interior Point Optimizer IPOPT"
     topics = ("optimization", "interior-point", "nonlinear", "nonconvex")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or/Ipopt"
     license = "EPL-2.0"
 

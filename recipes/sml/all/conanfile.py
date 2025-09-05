@@ -16,7 +16,6 @@ class SMLConan(ConanFile):
     description = "SML: C++14 State Machine Library"
     topics = ("state-machine", "metaprogramming", "design-patterns")
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "header-library"
 

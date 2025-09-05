@@ -13,7 +13,6 @@ class TinyregexcConan(ConanFile):
     license = "Unlicense"
     topics = ("regex",)
     homepage = "https://github.com/kokke/tiny-regex-c"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

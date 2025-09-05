@@ -13,7 +13,6 @@ class Toml11Conan(ConanFile):
     name = "toml11"
     description = "TOML for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ToruNiina/toml11"
     topics = ("toml", "c-plus-plus-11", "c-plus-plus", "parser", "serializer", "header-only")
     package_type = "header-library"

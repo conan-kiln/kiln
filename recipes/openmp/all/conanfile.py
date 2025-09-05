@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "openmp"
     description = "Conan meta-package for OpenMP (Open Multi-Processing)"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.openmp.org/"
     topics = ("parallelism", "multiprocessing")
 

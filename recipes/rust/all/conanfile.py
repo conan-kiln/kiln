@@ -50,7 +50,6 @@ class RustConan(ConanFile):
     description = "The Rust Programming Language"
     license = "MIT", "Apache-2.0"
     homepage = "https://www.rust-lang.org"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("rust", "language", "rust-language", "pre-built")
 
     package_type = "application"

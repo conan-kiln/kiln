@@ -14,7 +14,6 @@ class MiniupnpcConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("upnp", "networking", "internet-gateway")
     homepage = "https://github.com/miniupnp/miniupnp"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

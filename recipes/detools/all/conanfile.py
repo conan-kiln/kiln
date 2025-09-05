@@ -11,7 +11,6 @@ class DetoolsConan(ConanFile):
     name = "detools"
     description = "Binary delta encoding"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eerimoq/detools"
     topics = ("delta-compression", "delta-update", "delta-encoding",
               "ota", "bsdiff", "hdiffpatch")

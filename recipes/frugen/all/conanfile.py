@@ -12,7 +12,6 @@ class FrugenConan(ConanFile):
     name = "frugen"
     description = "IPMI FRU Information generator / editor tool and library"
     license = ("Apache-2.0", "GPL-2.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codeberg.org/IPMITool/frugen"
     topics = ("hardware", "ipmi", "fru")
     package_type = "library"

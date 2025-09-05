@@ -14,7 +14,6 @@ class FastIoConan(ConanFile):
     name = "fast_io"
     description = "fast_io is a C++ io exception-safe RAII library based on C++ 20 Concepts. It is at least 10 times faster than cstdio than iostream."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cppfastio/fast_io"
     topics = ("cstdio", "iostream", "io", "header-only")
     package_type = "header-library"

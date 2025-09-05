@@ -13,7 +13,6 @@ class YogaConan(ConanFile):
     name = "yoga"
     description = "cross-platform layout engine which implements Flexbox"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://yogalayout.com/"
     topics = ("layout engine", "flexbox")
     package_type = "static-library"

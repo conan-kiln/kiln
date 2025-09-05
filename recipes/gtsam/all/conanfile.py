@@ -15,7 +15,6 @@ class GtsamConan(ConanFile):
     name = "gtsam"
     license = "BSD-3-Clause"
     homepage = "https://github.com/borglab/gtsam"
-    url = "https://github.com/conan-io/conan-center-index"
     description = ("GTSAM is a library of C++ classes that implement "
                    "smoothing and mapping (SAM) in robotics and vision")
     topics = ("mapping", "smoothing", "optimization", "factor-graphs",

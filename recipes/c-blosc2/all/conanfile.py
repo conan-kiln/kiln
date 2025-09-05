@@ -16,7 +16,6 @@ class CBlosc2Conan(ConanFile):
     name = "c-blosc2"
     description = "A fast, compressed, persistent binary data store library for C."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Blosc/c-blosc2"
     topics = ("c-blosc", "blosc", "compression", "cache", "store")
     package_type = "library"

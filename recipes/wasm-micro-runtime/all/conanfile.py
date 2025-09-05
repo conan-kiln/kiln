@@ -14,7 +14,6 @@ class WasmMicroRuntimeConan(ConanFile):
     name = "wasm-micro-runtime"
     description = "WebAssembly Micro Runtime (WAMR)"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bytecodealliance.github.io/wamr.dev/"
     topics = ("wasm", "embedded", "webassembly", "runtime")
     package_type = "library"

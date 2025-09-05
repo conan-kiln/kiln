@@ -15,7 +15,6 @@ class Liburing(ConanFile):
     description = ("helpers to setup and teardown io_uring instances, and also a simplified interface for "
                    "applications that don't need (or want) to deal with the full kernel side implementation.")
     license = ("GPL-2.0-or-later", "MIT", "LGPL-2.1-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/axboe/liburing"
     topics = ("asynchronous-io", "async", "kernel")
     settings = "os", "arch", "compiler", "build_type"

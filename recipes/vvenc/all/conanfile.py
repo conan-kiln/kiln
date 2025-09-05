@@ -17,7 +17,6 @@ class vvencRecipe(ConanFile):
     name = "vvenc"
     description = "Fraunhofer Versatile Video Encoder (VVenC)"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.hhi.fraunhofer.de/en/departments/vca/technologies-and-solutions/h266-vvc.html"
     topics = ("video", "encoder", "codec", "vvc", "h266")
     package_type = "library"

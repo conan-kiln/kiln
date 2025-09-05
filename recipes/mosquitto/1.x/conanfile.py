@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class MosquittoConan(ConanFile):
     name = "mosquitto"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eclipse/mosquitto"
     topics = ("mqtt", "broker", "libwebsockets", "eclipse", "iot")
     license = "EPL-1.0", "BSD-3-Clause" # https://lists.spdx.org/g/Spdx-legal/message/2701

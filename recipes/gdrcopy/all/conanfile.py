@@ -13,7 +13,6 @@ class GdrcopyConan(ConanFile):
     name = "gdrcopy"
     description = "A fast GPU memory copy library based on NVIDIA GPUDirect RDMA technology"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://developer.nvidia.com/gdrcopy"
     topics = ("nvidia", "gpu-memory", "kernel-mode-driver", "gpudirect-rdma")
     package_type = "shared-library"

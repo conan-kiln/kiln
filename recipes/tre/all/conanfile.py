@@ -16,7 +16,6 @@ class TreConan(ConanFile):
     description = "TRE is a lightweight, robust, and efficient POSIX-compliant regexp matching library with some exciting features such as approximate (fuzzy) matching."
     license = "BSD-2-Clause"
     homepage = "https://github.com/laurikari/tre"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = "regex", "fuzzy matching"
 
     package_type = "library"

@@ -14,7 +14,6 @@ class MysqlConnectorCppConan(ConanFile):
     name = "mysql-connector-cpp"
     description = "MySQL database connector for C++ applications"
     license = "GPL-2.0-only WITH Universal-FOSS-exception-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://dev.mysql.com/doc/connector-cpp/en/"
     topics = ("mysql", "sql", "connector", "database")
 

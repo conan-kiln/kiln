@@ -12,7 +12,6 @@ class MinizipNgConan(ConanFile):
     name = "minizip-ng"
     description = "Fork of the popular zip manipulation library found in the zlib distribution."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zlib-ng/minizip-ng"
     topics = ("compression", "zip")
     package_type = "library"

@@ -12,7 +12,6 @@ class ArgparseConan(ConanFile):
     name = "argh"
     description = "Frustration-free command line processing"
     license = "BSD-3"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/adishavit/argh"
     topics = ("argument", "parsing", "header-only")
 

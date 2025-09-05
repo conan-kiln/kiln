@@ -15,7 +15,6 @@ class SkyrUrlConan(ConanFile):
     name = "skyr-url"
     description = "A C++ library that implements the WhatWG URL specification"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://cpp-netlib.github.io/url"
     topics = ("whatwg", "url", "parser")
     package_type = "library"

@@ -18,7 +18,6 @@ class DiscountConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("markdown",)
     homepage = "http://www.pell.portland.or.us/~orc/Code/discount"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

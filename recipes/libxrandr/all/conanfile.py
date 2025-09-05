@@ -17,7 +17,6 @@ class LibXrandrConan(ConanFile):
     name = "libxrandr"
     description = "libXrandr: Xlib Resize, Rotate and Reflection (RandR) extension library"
     license = "HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxrandr"
     topics = ("xorg", "x11")
 

@@ -17,7 +17,6 @@ class Krb5Conan(ConanFile):
     homepage = "https://web.mit.edu/kerberos"
     topics = ("kerberos", "network", "authentication", "protocol", "client", "server", "cryptography")
     license = "DocumentRef-NOTICE:LicenseRef-"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -16,7 +16,6 @@ class JsmnConan(ConanFile):
     license = "MIT"
     topics = ("json", "parser")
     homepage = "https://github.com/zserge/jsmn"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

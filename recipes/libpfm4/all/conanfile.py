@@ -11,7 +11,6 @@ class Libpfm4Conan(ConanFile):
     name = "libpfm4"
     license = "MIT"
     homepage = "http://perfmon2.sourceforge.net"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A helper library to program the performance monitoring events"
     topics = ("perf", "pmu", "benchmark", "microbenchmark")
     settings = "os", "arch", "compiler", "build_type"

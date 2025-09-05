@@ -13,7 +13,6 @@ class QuickJSConan(ConanFile):
     name = "quickjs"
     description = "QuickJS is a small and embeddable Javascript engine."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bellard.org/quickjs/"
     topics = ("Javascript", "embeddable", "ES2020", "asynchronous")
     settings = "os", "arch", "compiler", "build_type"

@@ -17,7 +17,6 @@ class ZbarConan(ConanFile):
     description = ("ZBar is an open source software suite for reading bar codes "
                    "from various sources, such as video streams, image files and raw intensity sensors")
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://zbar.sourceforge.net/"
     topics = ("barcode", "scanner", "decoder", "reader", "bar")
     package_type = "library"

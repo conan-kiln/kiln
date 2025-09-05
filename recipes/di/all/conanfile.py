@@ -14,7 +14,6 @@ class DiConan(ConanFile):
     name = "di"
     description = "DI: C++14 Dependency Injection Library."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/boost-ext/di"
     topics = ("dependency-injection", "metaprogramming", "design-patterns", "header-only")
 

@@ -19,7 +19,6 @@ class WolfSSLConan(ConanFile):
         "of TLS/SSL for embedded devices to the cloud."
     )
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.wolfssl.com/"
     topics = ("wolfssl", "tls", "ssl", "iot", "fips", "secure", "cryptology", "secret")
     package_type = "library"

@@ -13,7 +13,6 @@ class LibmikmodConan(ConanFile):
     name = "libmikmod"
     description = "Module player and library supporting many formats, including mod, s3m, it, and xm."
     topics = ("audio",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://mikmod.sourceforge.net"
     license = "LGPL-2.1-or-later"
     package_type = "library"

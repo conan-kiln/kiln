@@ -16,7 +16,6 @@ class LibMDConan(ConanFile):
     description = "Message Digest functions from BSD systems"
     license = "BSD-2-Clause AND BSD-3-Clause AND ISC AND Beerware AND DocumentRef-COPYING:LicenseRef-libmd-Public-Domain"
     homepage = "https://gitlab.freedesktop.org/libbsd/libmd"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("message-digest", "hash", "bsd",
               "md2", "md4", "md5", "ripemd", "rmd160",
               "sha", "sha1", "sha2", "sha256", "sha512")

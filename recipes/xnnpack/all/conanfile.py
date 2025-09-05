@@ -16,7 +16,6 @@ class XnnpackConan(ConanFile):
                   "neural network inference operators for ARM, WebAssembly, " \
                   "and x86 platforms."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/XNNPACK"
     topics = ("neural-network", "inference", "multithreading", "inference-optimization",
               "matrix-multiplication", "simd")

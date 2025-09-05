@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "sqlitemap"
     description = "sqlitemap - Persistent Map Backed by SQLite"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bw-hro/sqlitemap"
     topics = ("sqlite", "database", "hash map", "header-only")
     package_type = "header-library"

@@ -12,7 +12,6 @@ class LibCpuidConan(ConanFile):
     name = "libcpuid"
     description = "libcpuid is a small C library for x86 CPU detection and feature extraction"
     license = "https://github.com/anrieff/libcpuid"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/anrieff/libcpuid"
     topics = ("detec", "cpu", "intel", "amd", "x86_64")
 

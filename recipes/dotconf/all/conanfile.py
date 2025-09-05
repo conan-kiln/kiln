@@ -16,7 +16,6 @@ class DotconfConan(ConanFile):
     name = "dotconf"
     description = "dot.conf configuration file parser"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/williamh/dotconf"
     topics = ("config", "parser")
     package_type = "library"

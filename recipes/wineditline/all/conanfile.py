@@ -12,7 +12,6 @@ class WineditlineConan(ConanFile):
     name = "wineditline"
     description = "A BSD-licensed EditLine API implementation for the native Windows Console"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://mingweditline.sourceforge.net/"
     topics = ("readline", "editline", "windows")
 

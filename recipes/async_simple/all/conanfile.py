@@ -15,7 +15,6 @@ class AsyncSimpleConan(ConanFile):
     name = "async_simple"
     description = "Simple, light-weight and easy-to-use asynchronous components"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alibaba/async_simple"
     topics = ("modules", "asynchronous", "coroutines", "cpp20", "header-only")
 

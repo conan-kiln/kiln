@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class YACLibConan(ConanFile):
     name = "yaclib"
     description = "lightweight C++ library for concurrent and parallel task execution"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/YACLib/YACLib"
     license = "MIT"
     topics = ("async", "parallel", "concurrency")

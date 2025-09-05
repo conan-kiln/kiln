@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class CryptoPPConan(ConanFile):
     name = "cryptopp"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://cryptopp.com"
     license = "BSL-1.0"
     description = "Crypto++ Library is a free C++ class library of cryptographic schemes."

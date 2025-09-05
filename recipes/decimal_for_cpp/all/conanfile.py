@@ -13,7 +13,6 @@ class DecimalforcppConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("currency", "money-library", "decimal-numbers")
     homepage = "https://github.com/vpiotr/decimal_for_cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -62,7 +62,6 @@ class LLVMCoreConan(ConanFile):
     license = "Apache-2.0 WITH LLVM-exception"
     topics = ("llvm", "compiler")
     homepage = "https://llvm.org"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

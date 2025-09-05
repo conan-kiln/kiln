@@ -21,7 +21,6 @@ class B2Conan(ConanFile):
     description = "B2 makes it easy to build C++ projects, everywhere."
     topics = ("installer", "builder", "build", "build-system")
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     package_type = "application"

@@ -13,7 +13,6 @@ class SspConan(ConanFile):
     name = "ssp"
     description = "C++ CSV parser"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/red0124/ssp"
     topics = ("csv", "parser", "header-only")
     package_type = "header-library"

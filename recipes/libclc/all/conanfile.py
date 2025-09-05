@@ -17,7 +17,6 @@ class LibclcConan(ConanFile):
     license = "Apache-2.0 WITH LLVM-exception AND (NCSA OR MIT)"
     topics = ("llvm", "compiler")
     homepage = "https://libclc.llvm.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     default_options = {

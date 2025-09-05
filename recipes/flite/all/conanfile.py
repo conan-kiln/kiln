@@ -17,7 +17,6 @@ class FliteConan(ConanFile):
     name = "flite"
     description = "A small fast portable speech synthesis system"
     license = "MIT AND Apache-2.0 AND BSD-3-Clause AND Public-Domain AND BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/festvox/flite"
     topics = ("speech", "synthesis", "tts", "text-to-speech")
     package_type = "library"

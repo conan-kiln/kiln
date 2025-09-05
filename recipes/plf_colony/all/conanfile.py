@@ -14,7 +14,6 @@ class PlfcolonyConan(ConanFile):
     license = "Zlib"
     topics = ("container", "bucket", "unordered", "header-only")
     homepage = "https://github.com/mattreecebentley/plf_colony"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def export_sources(self):

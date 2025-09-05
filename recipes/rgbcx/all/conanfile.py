@@ -12,7 +12,6 @@ class RgbcxConan(ConanFile):
     name = "rgbcx"
     description = "High-performance scalar BC1-5 encoders."
     license = ("MIT", "Unlicense")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/richgel999/bc7enc"
     topics = ("BC1", "BC5", "BCx", "encoding", "header-only")
 

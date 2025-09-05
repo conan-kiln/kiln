@@ -14,7 +14,6 @@ class OsrmConan(ConanFile):
     name = "osrm"
     description = "Open Source Routing Machine: high performance routing engine designed to run on OpenStreetMap data."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://project-osrm.org/"
     topics = ("routing", "routing-engine", "map-matching", "traveling-salesman", "isochrones", "osm", "openstreetmap")
 

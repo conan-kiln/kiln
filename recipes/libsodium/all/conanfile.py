@@ -16,7 +16,6 @@ class LibsodiumConan(ConanFile):
     name = "libsodium"
     description = "A modern and easy-to-use crypto library."
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://doc.libsodium.org/"
     topics = "encryption", "signature", "hashing"
     package_type = "library"

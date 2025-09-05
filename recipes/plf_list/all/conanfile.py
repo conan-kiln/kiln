@@ -13,7 +13,6 @@ class PlflistConan(ConanFile):
     description = "plf::list is a drop-in higher-performance replacement for std::list"
     license = "Zlib"
     topics = ("container", "linked-list", "list", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mattreecebentley/plf_list"
     settings = "os", "arch", "compiler", "build_type"
 

@@ -18,7 +18,6 @@ class LibrealsenseConan(ConanFile):
     name = "librealsense"
     description = "Intel(R) RealSense(tm) Cross Platform API for accessing Intel RealSense cameras."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/IntelRealSense/librealsense"
     topics = ("usb", "camera")
     package_type = "library"

@@ -16,7 +16,6 @@ class XorgMacrosConan(ConanFile):
     topics = ("autoconf", "macros", "build", "system", "m4")
     license = "MIT"
     homepage = "https://gitlab.freedesktop.org/xorg/util/macros"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def export_sources(self):

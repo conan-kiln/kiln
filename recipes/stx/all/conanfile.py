@@ -12,7 +12,6 @@ class STXConan(ConanFile):
     name = "stx"
     description = "C++17 & C++ 20 error-handling and utility extensions."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lamarrr/STX"
     topics = ("error-handling", "result", "option", "backtrace", "panic")
     package_type = "static-library"

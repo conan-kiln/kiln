@@ -17,7 +17,6 @@ class LibharuConan(ConanFile):
     topics = "pdf", "generate", "generator"
     license = "Zlib"
     homepage = "http://libharu.org/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

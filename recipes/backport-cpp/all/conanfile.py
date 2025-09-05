@@ -12,7 +12,6 @@ class BackportCppRecipe(ConanFile):
     description = "An ongoing effort to bring modern C++ utilities to be compatible with C++11"
     topics = ("header-only", "backport")
     homepage = "https://github.com/bitwizeshift/BackportCpp"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

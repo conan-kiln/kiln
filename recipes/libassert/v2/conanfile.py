@@ -13,7 +13,6 @@ class LibassertConan(ConanFile):
     name = "libassert"
     description = "The most over-engineered C++ assertion library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jeremy-rifkin/libassert"
     topics = ("assert", "library", "assertions", "stacktrace", "diagnostics", "defensive programming", "testing")
     package_type = "library"

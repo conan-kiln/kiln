@@ -10,7 +10,6 @@ class LibaesgmConan(ConanFile):
     name = "libaesgm"
     description = "Library implementation of AES (Rijndael) cryptographic methods"
     license = "LicenseRef-libaesgm-BSD"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xmake-mirror/libaesgm"
     topics = ("aes", "cryptographic")
     package_type = "library"

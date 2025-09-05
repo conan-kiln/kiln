@@ -14,7 +14,6 @@ class LibxlsxwriterConan(ConanFile):
     name = "libxlsxwriter"
     description = "A C library for creating Excel XLSX files"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jmcnamara/libxlsxwriter"
     topics = ("excel", "xlsx")
 

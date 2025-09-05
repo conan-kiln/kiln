@@ -18,7 +18,6 @@ class WilConan(ConanFile):
         "type-safe C++ interfaces for common Windows coding patterns."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/wil"
     topics = ("win", "wil", "header-only")
     package_type = "header-library"

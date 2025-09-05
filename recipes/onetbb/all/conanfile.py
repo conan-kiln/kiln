@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 class OneTBBConan(ConanFile):
     name = "onetbb"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uxlfoundation/oneTBB"
     description = (
         "oneAPI Threading Building Blocks (oneTBB) lets you easily write parallel C++"

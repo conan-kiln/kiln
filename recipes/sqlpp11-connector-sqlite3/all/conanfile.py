@@ -12,7 +12,6 @@ class sqlpp11Conan(ConanFile):
     name = "sqlpp11-connector-sqlite3"
     description = "A C++ wrapper for sqlite3 meant to be used in combination with sqlpp11."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rbock/sqlpp11-connector-sqlite3"
     topics = ("sqlite3", "sqlpp11", "sql", "database")
 

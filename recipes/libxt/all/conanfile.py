@@ -17,7 +17,6 @@ class LibXtConan(ConanFile):
     name = "libxt"
     description = "libXt: X Toolkit Intrinsics library"
     license = "MIT AND HPND-sell-variant AND SMLNJ AND MIT-open-group AND X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxt"
     topics = ("xorg", "x11")
 

@@ -16,7 +16,6 @@ class SCIPConan(ConanFile):
     name = "scip"
     description = "SCIP mixed integer (nonlinear) programming solver"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://scipopt.org/"
     topics = ("mip", "solver", "linear", "programming")
     settings = "os", "arch", "compiler", "build_type"

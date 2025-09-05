@@ -11,7 +11,6 @@ class CircularBufferConan(ConanFile):
     name = "circularbuffer"
     description = "Arduino circular buffer library"
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rlogiacco/CircularBuffer"
     topics = ("circular buffer", "arduino", "data-structures", "header-only")
     package_type = "header-library"

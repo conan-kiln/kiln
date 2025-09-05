@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class GperfConan(ConanFile):
     name = "gperf"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/gperf"
     description = "GNU gperf is a perfect hash function generator"
     topics = ("hash-generator", "hash")

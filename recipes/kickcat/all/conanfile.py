@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class KickCATRecipe(ConanFile):
     name = "kickcat"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Siviuze/KickCAT"
     description = "Thin EtherCAT stack designed to be embedded in a more complex software and with efficiency in mind"
     license = "CeCILL-C"

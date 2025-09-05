@@ -10,7 +10,6 @@ class LibmeshbConan(ConanFile):
     name = "libmeshb"
     description = "A library to handle the *.meshb file format."
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/LoicMarechal/libMeshb"
     topics = ("3d", "mesh", "geometry")
     package_type = "library"

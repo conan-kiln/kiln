@@ -15,7 +15,6 @@ class LibmortonConan(ConanFile):
     license = "MIT"
     topics = ("morton", "encoding", "decoding")
     homepage = "https://github.com/Forceflow/libmorton"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 

@@ -13,7 +13,6 @@ class Nghttp3Conan(ConanFile):
     name = "nghttp3"
     description = "HTTP/3 library written in C"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://nghttp2.org/nghttp3/"
     topics = ("http", "http3", "quic", "qpack")
     package_type = "library"

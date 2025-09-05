@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 class ZopfliConan(ConanFile):
     name = "zopfli"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/zopfli/"
     description = (
         "Zopfli Compression Algorithm is a compression library programmed in C "

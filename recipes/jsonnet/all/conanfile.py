@@ -15,7 +15,6 @@ class JsonnetConan(ConanFile):
     name = "jsonnet"
     description = "Jsonnet - The data templating language"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/jsonnet"
     topics = ("config", "json", "functional", "configuration")
     settings = "os", "arch", "compiler", "build_type"

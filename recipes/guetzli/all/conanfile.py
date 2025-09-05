@@ -15,7 +15,6 @@ class GoogleGuetzliConan(ConanFile):
     name = "guetzli"
     description = "Perceptual JPEG encoder"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://opensource.google/projects/guetzli"
     topics = ("jpeg", "compression")
 

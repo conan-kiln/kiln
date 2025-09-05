@@ -14,7 +14,6 @@ class WinregConan(ConanFile):
     homepage = "https://github.com/GiovanniDicanio/WinReg"
     description = "Convenient high-level C++ wrapper around the Windows Registry API."
     topics = "registry", "header-only"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

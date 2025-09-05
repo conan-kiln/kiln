@@ -12,7 +12,6 @@ class CppcheckConan(ConanFile):
     name = "cppcheck"
     description = "Cppcheck is an analysis tool for C/C++ code."
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/danmar/cppcheck"
     topics = ("code quality", "static analyzer", "linter")
     package_type = "application"

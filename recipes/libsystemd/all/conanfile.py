@@ -18,7 +18,6 @@ required_conan_version = ">=2.4"
 class LibsystemdConan(ConanFile):
     name = "libsystemd"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/wiki/Software/systemd/"
     description = "System and Service Manager API library"
     topics = ("systemd", "service", "manager")

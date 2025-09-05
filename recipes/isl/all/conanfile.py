@@ -18,7 +18,6 @@ class IslConan(ConanFile):
     topics = ("isl", "integer", "set", "library")
     license = "MIT"
     homepage = "https://libisl.sourceforge.io"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -12,7 +12,6 @@ class StellaCvFbowConan(ConanFile):
     name = "stella-cv-fbow"
     description = "FBoW (Fast Bag of Words) is an extremely optimized version of the DBoW2/DBoW3 libraries."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stella-cv/FBoW"
     topics = ("bag-of-words", "computer-vision", "visual-slam", "dbow")
 

@@ -15,7 +15,6 @@ class HiredisConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("hiredis", "redis", "client", "database")
     homepage = "https://github.com/redis/hiredis"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

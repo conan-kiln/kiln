@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class BlazeConan(ConanFile):
     name = "blaze"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bitbucket.org/blaze-lib/blaze"
     description = "open-source, high-performance C++ math library for dense and sparse arithmetic"
     topics = ("math", "algebra", "linear algebra", "high-performance")

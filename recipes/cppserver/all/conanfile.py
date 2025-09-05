@@ -15,7 +15,6 @@ class CppServer(ConanFile):
         " client C++ library with support TCP, SSL, UDP, HTTP, HTTPS, WebSocket" \
         " protocols and 10K connections problem solution."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chronoxor/CppServer"
     topics = ("network", "socket", "asynchronous", "low-latency")
     package_type = "library"

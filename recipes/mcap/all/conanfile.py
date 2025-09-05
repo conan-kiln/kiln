@@ -14,7 +14,6 @@ class McapConan(ConanFile):
         "primarily intended for use in robotics applications."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/foxglove/mcap"
     topics = ("serialization", "deserialization", "recording", "header-only")
     package_type = "header-library"

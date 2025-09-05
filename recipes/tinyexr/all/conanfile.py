@@ -13,7 +13,6 @@ class TinyExrConan(ConanFile):
     name = "tinyexr"
     description = "Tiny OpenEXR image loader/saver library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/syoyo/tinyexr"
     topics = ("exr", "header-only")
     package_type = "header-library"

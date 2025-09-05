@@ -14,7 +14,6 @@ class EnhexGenericserializationConan(ConanFile):
     name = "enhex-generic_serialization"
     description = "Lightweight and extensible generic serialization library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Enhex/generic_serialization"
     topics = ("serialization", "header-only")
 

@@ -15,7 +15,6 @@ class PthreadpoolConan(ConanFile):
     license = "BSD-2-Clause"
     topics = ("multi-threading", "pthreads", "multi-core", "threadpool")
     homepage = "https://github.com/Maratyszcza/pthreadpool"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

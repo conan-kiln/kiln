@@ -22,7 +22,6 @@ class PackageConan(ConanFile):
     )
 
     license = "LicenseRef-LICENSE"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/richgel999/lzham_codec"
     topics = ("compression", "lz-compression")
     settings = "os", "arch", "compiler", "build_type"

@@ -14,7 +14,6 @@ class PugiXmlConan(ConanFile):
     description = "Light-weight, simple and fast XML parser for C++ with XPath support"
     topics = ("xml-parser", "xpath", "xml", "dom")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://pugixml.org/"
     package_type = "library"
 

@@ -16,7 +16,6 @@ class VhacdConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("3d", "mesh", "shape", "decomposition", "convex")
     homepage = "https://github.com/kmammou/v-hacd"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

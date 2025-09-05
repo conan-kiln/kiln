@@ -12,7 +12,6 @@ class SuiteSparseGraphBlasConan(ConanFile):
     name = "suitesparse-graphblas"
     description = "SuiteSparse:GraphBLAS: graph algorithms in the language of linear algebra"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/GraphBLAS.html"
     topics = ("graph-algorithms", "mathematics", "sparse-matrix", "linear-algebra")
 

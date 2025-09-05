@@ -19,7 +19,6 @@ class ReadLineConan(ConanFile):
     topics = ("cli", "terminal", "command")
     license = "GPL-3.0-only"
     homepage = "https://tiswww.case.edu/php/chet/readline/rltop.html"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

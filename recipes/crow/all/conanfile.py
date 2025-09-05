@@ -13,7 +13,6 @@ class CrowConan(ConanFile):
     name = "crow"
     description = "Crow is a C++ microframework for running web services."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://crowcpp.org/"
     topics = ("web", "microframework", "header-only")
     package_type = "header-library"

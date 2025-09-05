@@ -18,7 +18,6 @@ class OpenIAPConan(ConanFile):
     description = "Client library for OpenCore, header file and prebuilt binaries"
     license = "MPL-2.0"
     homepage = "https://github.com/openiap/rustapi"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("automation", "observability")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

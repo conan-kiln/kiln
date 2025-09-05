@@ -13,7 +13,6 @@ class NsyncConan(ConanFile):
     homepage = "https://github.com/google/nsync"
     description = "Library that exports various synchronization primitives"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("c", "thread", "multithreading", "google")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

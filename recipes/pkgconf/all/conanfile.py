@@ -13,7 +13,6 @@ class PkgConfConan(ConanFile):
     name = "pkgconf"
     description = "package compiler and linker metadata toolkit"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.sr.ht/~kaniini/pkgconf"
     topics = ("build", "configuration")
     package_type = "application"

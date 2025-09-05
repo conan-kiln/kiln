@@ -15,7 +15,6 @@ class SfmlConan(ConanFile):
     name = "sfml"
     description = "Simple and Fast Multimedia Library."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.sfml-dev.org"
     topics = ("multimedia", "games", "graphics", "audio")
     package_type = "library"

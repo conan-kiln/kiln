@@ -11,7 +11,6 @@ class LibenvppConan(ConanFile):
     name = "libenvpp"
     description = "A modern C++ library for type-safe environment variable parsing"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ph3at/libenvpp"
     topics = ("environment", "type-safe")
     package_type = "static-library"

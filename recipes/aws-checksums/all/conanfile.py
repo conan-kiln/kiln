@@ -14,7 +14,6 @@ class AwsChecksums(ConanFile):
         "SW implementations. C interface with language bindings for each of our SDKs."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-checksums"
     topics = ("aws", "checksum", )
     package_type = "library"

@@ -12,7 +12,6 @@ class RosxIntrospectionConan(ConanFile):
     name = "rosx_introspection"
     description = "Deserialize any ROS message, without compilation time information."
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facontidavide/rosx_introspection"
     topics = ("ros", "serialization", "introspection")
     package_type = "library"

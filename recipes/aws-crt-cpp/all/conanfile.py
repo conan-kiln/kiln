@@ -13,7 +13,6 @@ class AwsCrtCpp(ConanFile):
     name = "aws-crt-cpp"
     description = "C++ wrapper around the aws-c-* libraries. Provides Cross-Platform Transport Protocols and SSL/TLS implementations for C++."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-crt-cpp"
     topics = ("aws", "amazon", "cloud", "wrapper")
     package_type = "library"

@@ -18,7 +18,6 @@ class CPythonConan(CPythonAutotools, CPythonMSVC):
     name = "cpython"
     description = "Python is a programming language that lets you work quickly and integrate systems more effectively."
     license = "Python-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.python.org"
     topics = ("python", "cpython", "language", "script")
 

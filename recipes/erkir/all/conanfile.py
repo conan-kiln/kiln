@@ -13,7 +13,6 @@ class ErkirConan(ConanFile):
     name = "erkir"
     description = "a C++ library for geodetic and trigonometric calculations"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vahancho/erkir"
     topics = ("earth", "geodesy", "geography", "coordinate-systems", "geodetic", "datum")
     package_type = "library"

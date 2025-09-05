@@ -14,7 +14,6 @@ class LibliftoffConan(ConanFile):
     name = "libliftoff"
     description = "Lightweight KMS plane library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/emersion/libliftoff"
     topics = ("drm", "KMS", "plane")
     package_type = "library"

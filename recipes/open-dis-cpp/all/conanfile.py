@@ -15,7 +15,6 @@ class OpenDisConan(ConanFile):
     homepage = "https://open-dis.org"
     description = "C++ implementation of the IEEE-1278.1 Distributed Interactive Simulation (DIS) application protocol v6 and v7"
     topics = ("library","protocol","simulation-framework","dis")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-2-Clause"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

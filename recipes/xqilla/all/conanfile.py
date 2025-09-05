@@ -20,7 +20,6 @@ class XqillaConan(ConanFile):
         "written in C++, implemented on top of the Xerces-C library"
     )
     topics = ("xml", "xquery")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://xqilla.sourceforge.net/HomePage"
     license = "Apache-2.0"
 

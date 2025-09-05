@@ -18,7 +18,6 @@ class LibffiConan(ConanFile):
     name = "libffi"
     description = "A portable, high level programming interface to various calling conventions"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceware.org/libffi/"
     topics = ("runtime", "foreign-function-interface", "runtime-library")
     settings = "os", "arch", "compiler", "build_type"

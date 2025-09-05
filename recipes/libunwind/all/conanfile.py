@@ -16,7 +16,6 @@ class LiunwindConan(ConanFile):
     name = "libunwind"
     description = "Manipulate the preserved state of each call-frame and resume the execution at any point."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libunwind/libunwind"
     topics = ("unwind", "debuggers", "exception-handling", "introspection", "setjmp")
     package_type = "library"

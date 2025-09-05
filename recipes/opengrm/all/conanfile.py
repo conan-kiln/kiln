@@ -18,7 +18,6 @@ class OpenGrmConan(ConanFile):
         "and context-dependent rewrite rules into weighted finite-state transducers."
     )
     topics = ("fst", "wfst", "opengrm", "thrax")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.opengrm.org/twiki/bin/view/GRM/Thrax"
     license = "Apache-2.0"
 

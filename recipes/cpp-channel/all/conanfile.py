@@ -13,7 +13,6 @@ class CppCHannelConan(ConanFile):
     name = "cpp-channel"
     description = "Thread-safe container for sharing data between threads"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/andreiavrammsd/cpp-channel"
     topics = ("channel", "golang", "container", "header-only")
     package_type = "header-library"

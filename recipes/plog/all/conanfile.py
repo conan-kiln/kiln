@@ -10,7 +10,6 @@ class PlogConan(ConanFile):
     name = "plog"
     description = "Pretty powerful logging library in about 1000 lines of code"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SergiusTheBest/plog"
     topics = ("logging", "header-only", "portable")
     no_copy_source = True

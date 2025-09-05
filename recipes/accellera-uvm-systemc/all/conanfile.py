@@ -16,7 +16,6 @@ class UvmSystemC(ConanFile):
     name = "accellera-uvm-systemc"
     description = "Universal Verification Methodology for SystemC"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://systemc.org/overview/uvm-systemc-faq"
     topics = ("systemc", "verification", "tlm", "uvm")
 

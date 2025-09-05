@@ -12,7 +12,6 @@ class CLIConan(ConanFile):
     name = "cli"
     description = "A library for interactive command line interfaces in modern C++"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/daniele77/cli"
     topics = "cli-interface", "cpp14", "no-dependencies", "header-only"
     package_type = "header-library"

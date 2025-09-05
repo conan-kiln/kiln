@@ -16,7 +16,6 @@ class XgboostConan(ConanFile):
     description = ("Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library. "
                    "Runs on single machine, Hadoop, Spark, Dask, Flink and DataFlow")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dmlc/xgboost"
     topics = ("machine-learning", "boosting", "distributed-systems")
 

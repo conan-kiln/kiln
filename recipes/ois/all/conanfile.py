@@ -13,7 +13,6 @@ class OisConan(ConanFile):
     name = "ois"
     description = "Object oriented Input System."
     topics = ("input system", "input" )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wgois/OIS"
     license = "Zlib"
     package_type = "library"

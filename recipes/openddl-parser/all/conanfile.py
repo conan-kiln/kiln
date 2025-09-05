@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class OpenDDLParserConan(ConanFile):
     name = "openddl-parser"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kimkulling/openddl-parser"
     description = "A simple and fast OpenDDL Parser"
     topics = ("openddl", "parser")

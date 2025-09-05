@@ -14,7 +14,6 @@ class PcgcppConan(ConanFile):
     license = ("MIT", "Apache-2.0")
     topics = ("pcg-cpp", "pcg", "rng", "random", "header-only")
     homepage = "https://github.com/imneme/pcg-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

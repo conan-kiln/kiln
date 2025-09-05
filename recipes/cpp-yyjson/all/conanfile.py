@@ -13,7 +13,6 @@ class CppYyjsonConan(ConanFile):
     name = "cpp-yyjson"
     description = "Ultra-fast and intuitive C++ JSON reader/writer with yyjson backend"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yosh-matsuda/cpp-yyjson"
     topics = ("json", "reader", "writer", "header-only")
     package_type = "header-library"

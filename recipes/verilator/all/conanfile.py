@@ -17,7 +17,6 @@ class VerilatorConan(ConanFile):
     name = "verilator"
     description = "Verilator compiles synthesizable Verilog and Synthesis assertions into single- or multi-threaded C++ or SystemC code"
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.veripool.org/wiki/verilator"
     topics = ("verilog", "hdl", "eda", "simulator", "hardware", "fpga", "pre-built")
 

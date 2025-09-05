@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class MicrotarConan(ConanFile):
     name = "microtar"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rxi/microtar"
     description = "A lightweight tar library written in ANSI C"
     topics = ("tar", "archive")

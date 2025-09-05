@@ -12,7 +12,6 @@ class TinycolormapConan(ConanFile):
     name = "tinycolormap"
     description = "A header-only, single-file library for colormaps written in C++11"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yuki-koyama/tinycolormap"
     topics = ("color", "colormap", "visualization", "header-only")
     package_type = "header-library"

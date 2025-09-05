@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class FoxgloveWebSocketConan(ConanFile):
     name = "foxglove-websocket"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/foxglove/ws-protocol"
     description = "A C++ server implementation of the Foxglove WebSocket Protocol"
     license = "MIT"

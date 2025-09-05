@@ -15,7 +15,6 @@ class OpenColorIOConan(ConanFile):
     description = "A color management framework for visual effects and animation."
     license = "BSD-3-Clause"
     homepage = "https://opencolorio.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("colors", "visual", "effects", "animation")
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"

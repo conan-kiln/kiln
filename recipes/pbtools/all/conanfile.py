@@ -13,7 +13,6 @@ class PbtoolsConan(ConanFile):
     name = "pbtools"
     description = "A Google Protocol Buffers C library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eerimoq/pbtools"
     topics = ("protobuf", "serialization", "rpc", "protocol-buffers")
     package_type = "library"

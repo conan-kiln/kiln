@@ -14,7 +14,6 @@ class LibdisasmConan(ConanFile):
     name = "libdisasm"
     description = "The libdisasm library provides basic disassembly of Intel x86 instructions from a binary stream."
     homepage = "http://bastard.sourceforge.net/libdisasm.html"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("disassembler", "x86", "asm")
     license = "MIT"
 

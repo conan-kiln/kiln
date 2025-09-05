@@ -12,7 +12,6 @@ class RandomConan(ConanFile):
     name = "effolkronium-random"
     description = "Random for modern C++ with convenient API."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/effolkronium/random"
     topics = ("random", "header-only")
 

@@ -10,7 +10,6 @@ class PdfgenConan(ConanFile):
     name = "pdfgen"
     description = "Simple C PDF Writer/Generation library"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AndreRenaud/PDFGen"
     topics = ("pdf", "generation")
     settings = "os", "arch", "compiler", "build_type"

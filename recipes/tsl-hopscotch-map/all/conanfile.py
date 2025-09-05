@@ -13,7 +13,6 @@ class TslHopscotchMapConan(ConanFile):
     license = "MIT"
     description = "C++ implementation of a fast hash map and hash set using hopscotch hashing"
     topics = ("structure", "hash map", "hash set", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Tessil/hopscotch-map"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

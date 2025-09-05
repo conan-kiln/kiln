@@ -13,7 +13,6 @@ class StellaVslamConan(ConanFile):
     name = "stella_vslam"
     description = "stella_vslam is a monocular, stereo, and RGBD visual SLAM system."
     license = "BSD-2-Clause AND BSD-3-Clause AND MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stella-cv/stella_vslam"
     topics = ("visual-slam", "computer-vision")
 

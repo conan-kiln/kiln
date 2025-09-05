@@ -13,7 +13,6 @@ class SpyConan(ConanFile):
     name = "spy"
     description = "C++ 17 for constexpr-proof detection and classification of informations about OS, compiler, etc..."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://jfalcou.github.io/spy/"
     topics = ("config", "metaprogramming", "header-only")
     package_type = "header-library"

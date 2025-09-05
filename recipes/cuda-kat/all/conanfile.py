@@ -15,7 +15,6 @@ class CudaKatConan(ConanFile):
     name = "cuda-kat"
     description = "CUDA kernel author's tools"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eyalroz/cuda-kat"
     topics = ("gpgpu", "cuda", "header-only")
     package_type = "header-library"

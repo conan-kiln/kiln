@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class HedleyConan(ConanFile):
     name = "hedley"
     license = "CC0-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://nemequ.github.io/hedley/"
     description = "A C/C++ header to help move #ifdefs out of your code"
     topics = ("header", "header-only", "preprocessor", "#ifdef", "cross-platform")

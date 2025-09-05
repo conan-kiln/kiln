@@ -16,7 +16,6 @@ class LibalsaConan(ConanFile):
     description = "Library of ALSA: The Advanced Linux Sound Architecture, that provides audio " \
                   "and MIDI functionality to the Linux operating system"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alsa-project/alsa-lib"
     topics = ("alsa", "sound", "audio", "midi")
     package_type = "library"

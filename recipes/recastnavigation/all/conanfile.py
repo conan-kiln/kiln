@@ -12,7 +12,6 @@ class RecastNavigationConan(ConanFile):
     homepage = "https://github.com/recastnavigation/recastnavigation"
     description = " Navigation-mesh Toolset for Games"
     topics = ("navmesh", "recast", "navigation", "crowd")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Zlib"
 
     settings = "os", "arch", "compiler", "build_type"

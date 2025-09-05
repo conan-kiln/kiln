@@ -17,7 +17,6 @@ class LibcupsConan(ConanFile):
     name = "libcups"
     description = "CUPS is a standards-based, open source printing system"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openprinting.github.io/cups/"
     topics = ("printing", "cups", "ipp")
     package_type = "library"

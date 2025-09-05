@@ -20,7 +20,6 @@ class GinkgoConan(ConanFile):
     )
     license = "BSD-3-Clause"
     homepage = "https://github.com/ginkgo-project/ginkgo"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("hpc", "linear-algebra")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type", "cuda"

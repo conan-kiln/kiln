@@ -14,7 +14,6 @@ class InversifyCppConan(ConanFile):
     name = "inversify-cpp"
     description = "C++17 inversion of control and dependency injection container library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mosure/inversify-cpp"
     topics = ("ioc", "container", "dependency", "injection", "header-only")
 

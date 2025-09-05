@@ -19,7 +19,6 @@ class LibTasn1Conan(ConanFile):
     homepage = "https://www.gnu.org/software/libtasn1/"
     description = "Libtasn1 is the ASN.1 library used by GnuTLS, p11-kit and some other packages."
     topics = ("ASN.1", "cryptography")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "LGPL-2.1-or-later"
 
     package_type = "library"

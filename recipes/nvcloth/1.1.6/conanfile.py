@@ -18,7 +18,6 @@ class NvclothConan(ConanFile):
     name = "nvcloth"
     description = "NvCloth is a library that provides low level access to a cloth solver designed for realtime interactive applications."
     license = "DocumentRef-license.txt:LicenseRef-Nvidia-Source-Code-License"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/NVIDIAGameWorks/NvCloth"
     topics = ("physics", "physics-engine", "physics-simulation", "game-development", "cuda")
 

@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class ByteLiteConan(ConanFile):
     name = "byte-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/byte-lite"
     description = ("byte lite - A single-file header-only C++17-like byte type for \
                     C++98, C++11 and later")

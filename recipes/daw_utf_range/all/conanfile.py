@@ -11,7 +11,6 @@ class DawUtfRangeConan(ConanFile):
     name = "daw_utf_range"
     description = "Range operations on character arrays"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/beached/utf_range/"
     topics = ("utf", "validator", "iterator", "header-only")
     package_type = "header-library"

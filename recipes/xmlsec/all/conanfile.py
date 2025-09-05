@@ -19,7 +19,6 @@ class XmlSecConan(ConanFile):
     description = "XML Security Library is a C library based on LibXML2. The library supports major XML security standards."
     license = ("MIT", "MPL-1.1")
     homepage = "https://www.aleksey.com/xmlsec"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("xml", "signature", "encryption")
 
     package_type = "library"

@@ -13,7 +13,6 @@ class SpeedbConan(ConanFile):
     name = "speedb"
     description = "A RocksDB compliant high performance scalable embedded key-value store"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/speedb-io/speedb"
     topics = ("rocksdb", "embedded", "key-value-store", "kvs", "storage-engine")
     package_type = "library"

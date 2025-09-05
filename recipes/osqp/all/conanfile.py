@@ -15,7 +15,6 @@ class OsqpConan(ConanFile):
     package_type = "library"
     description = "The OSQP (Operator Splitting Quadratic Program) solver is a numerical optimization package."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://osqp.org/"
     topics = ("machine-learning", "control", "optimization", "svm", "solver", "lasso", "portfolio-optimization",
               "numerical-optimization", "quadratic-programming", "convex-optimization", "model-predictive-control")

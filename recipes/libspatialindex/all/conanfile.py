@@ -15,7 +15,6 @@ class LibspatialindexConan(ConanFile):
     license = "MIT"
     topics = ("spatial-indexing", "tree")
     homepage = "https://github.com/libspatialindex/libspatialindex"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

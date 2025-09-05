@@ -15,7 +15,6 @@ class OatppsqliteConan(ConanFile):
     name = "oatpp-sqlite"
     description = "SQLite adapter for oatpp ORM."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/oatpp/oatpp-sqlite"
     topics = ("oat++", "oatpp", "sqlite")
     package_type = "library"

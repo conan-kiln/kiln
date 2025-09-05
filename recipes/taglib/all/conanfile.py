@@ -17,7 +17,6 @@ class TaglibConan(ConanFile):
     license = ("LGPL-2.1-or-later", "MPL-1.1")
     topics = ("audio", "metadata")
     homepage = "https://taglib.org"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

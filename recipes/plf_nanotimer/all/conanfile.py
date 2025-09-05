@@ -13,7 +13,6 @@ class PlfnanotimerConan(ConanFile):
     license = "Zlib"
     topics = ("plf_nanotimer", "timer", "benchmark")
     homepage = "https://plflib.org/nanotimer.htm"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

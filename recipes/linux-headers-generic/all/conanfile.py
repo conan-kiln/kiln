@@ -14,7 +14,6 @@ class LinuxHeadersGenericConan(ConanFile):
     name = "linux-headers-generic"
     description = "Generic Linux kernel headers"
     license = "GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.kernel.org/"
     topics = ("linux", "headers", "generic", "header-only")
 

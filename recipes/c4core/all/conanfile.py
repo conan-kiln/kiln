@@ -16,7 +16,6 @@ class C4CoreConan(ConanFile):
         "low-latency projects in mind."
     )
     license = "MIT",
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/biojppm/c4core"
     topics = ("utilities", "low-latency", )
     package_type = "library"

@@ -14,7 +14,6 @@ class Yomm2Recipe(ConanFile):
     name = "yomm2"
     package_type = "header-library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jll63/yomm2"
     description = "Fast, orthogonal, open multi-methods. Solve the Expression Problem in C++17"
     topics = ("multi-methods", "multiple-dispatch", "open-methods", "shared-library",

@@ -14,7 +14,6 @@ class RangesnextConan(ConanFile):
     name = "rangesnext"
     description = "ranges features for C++23 ported to C++20"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cor3ntin/rangesnext"
     topics = ("ranges", "backport", "backport-cpp", "header-only")
 

@@ -15,7 +15,6 @@ class ShadercConan(ConanFile):
     name = "shaderc"
     description = "A collection of tools, libraries and tests for shader compilation."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/shaderc"
     topics = ("glsl", "hlsl", "msl", "spirv", "spir-v", "glslc")
 

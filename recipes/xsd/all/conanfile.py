@@ -18,7 +18,6 @@ class ConanXqilla(ConanFile):
         "XSD supports two C++ mappings: in-memory C++/Tree and event-driven C++/Parser."
     )
     license = ("GPL-2.0", "FLOSSE")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codesynthesis.com/projects/xsd/"
     topics = ("xml", "c++")
 

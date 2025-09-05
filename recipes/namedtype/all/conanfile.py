@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class NamedTypeConan(ConanFile):
     name = "namedtype"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/joboccara/NamedType"
     description = "Implementation of strong types in C++"
     topics = ("strong types", "header-only")

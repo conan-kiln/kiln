@@ -14,7 +14,6 @@ class VirSIMDConan(ConanFile):
     name = "vir-simd"
     description = "A fallback std::experimental::simd (Parallelism TS 2) implementation with additional features"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mattkretz/vir-simd"
     topics = ("simd", "parallelism-ts", "cpp17", "header-only")
     package_type = "header-library"

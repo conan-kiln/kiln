@@ -13,7 +13,6 @@ class JsonifierConan(ConanFile):
     name = "jsonifier"
     description = "A few classes for parsing and serializing objects from/into JSON - very rapidly."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/RealTimeChris/Jsonifier"
     topics = ("serialization", "json", "simd", "parswer", "header-only")
     package_type = "header-library"

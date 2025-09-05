@@ -13,7 +13,6 @@ class Antlr4Conan(ConanFile):
     name = "antlr4"
     description = "powerful parser generator for reading, processing, executing, or translating structured text or binary files."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/antlr/antlr4"
     topics = ("parser", "generator")
     package_type = "application"

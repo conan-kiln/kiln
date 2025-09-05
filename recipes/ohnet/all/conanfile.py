@@ -15,7 +15,6 @@ class OhNetConan(ConanFile):
     name = "ohnet"
     description = "OpenHome Networking (ohNet) is a modern, cross platform, multi-language UPnP stack"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/openhome/ohNet"
     topics = ("openhome", "ohnet", "upnp")
     package_type = "library"

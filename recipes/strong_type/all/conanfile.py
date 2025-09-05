@@ -14,7 +14,6 @@ class StrongTypeConan(ConanFile):
     name = "strong_type"
     description = "An additive strong typedef library for C++14/17/20"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rollbear/strong_type"
     topics = ("cpp14", "cpp17", "strong_type", "header-only")
     package_type = "header-library"

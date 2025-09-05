@@ -14,7 +14,6 @@ class LibunifexConan(ConanFile):
     name = "libunifex"
     description = "A prototype implementation of the C++ sender/receiver async programming model"
     license = ("Apache-2.0", "LLVM-exception")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facebookexperimental/libunifex"
     topics = ("async", "cpp")
 

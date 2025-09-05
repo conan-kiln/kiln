@@ -14,7 +14,6 @@ class Catch2Conan(ConanFile):
     description = "A modern, C++-native, header-only, framework for unit-tests, TDD and BDD"
     topics = ("header-only", "unit-test", "tdd", "bdd")
     homepage = "https://github.com/catchorg/Catch2"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSL-1.0"
 
     settings = "os", "arch", "compiler", "build_type"

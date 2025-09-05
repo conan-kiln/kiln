@@ -18,7 +18,6 @@ class VectorclassConan(ConanFile):
     license = "Apache-2.0"
     topics = ("vectorclass", "vector", "simd")
     homepage = "https://github.com/vectorclass/version2"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

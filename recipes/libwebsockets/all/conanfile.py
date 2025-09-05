@@ -13,7 +13,6 @@ required_conan_version = ">=2.4"
 class LibwebsocketsConan(ConanFile):
     name = "libwebsockets"
     description = "Canonical libwebsockets.org websocket library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/warmcat/libwebsockets"
     license = "MIT"
     topics = ("websocket",)

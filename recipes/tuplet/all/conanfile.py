@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class TupletConan(ConanFile):
     name = "tuplet"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/codeinred/tuplet"
     description = "A fast, simple tuple implementation that implements tuple as an aggregate"
     topics = ("tuple", "trivially-copyable", "modern-cpp")

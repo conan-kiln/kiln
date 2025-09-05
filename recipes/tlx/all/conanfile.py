@@ -16,7 +16,6 @@ class TlxConan(ConanFile):
     license = "BSL-1.0"
     topics = ("data-structure", "algorithm")
     homepage = "https://github.com/tlx/tlx"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

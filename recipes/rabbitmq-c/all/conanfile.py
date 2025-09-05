@@ -12,7 +12,6 @@ class RabbitmqcConan(ConanFile):
     name = "rabbitmq-c"
     description = "This is a C-language AMQP client library for use with v2.0+ of the RabbitMQ broker."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alanxz/rabbitmq-c"
     topics = ("rabbitmq", "message queue")
     package_type = "library"

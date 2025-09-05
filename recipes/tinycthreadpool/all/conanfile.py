@@ -11,7 +11,6 @@ class TinyCThreadPoolConan(ConanFile):
     name = "tinycthreadpool"
     description = "Portable C thread pool"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bennyhuo/tinycthreadpool"
     topics = ("thread-pool", "threading", "pure-c")
     settings = "os", "arch", "compiler", "build_type"

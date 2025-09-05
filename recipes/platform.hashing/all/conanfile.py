@@ -18,7 +18,6 @@ class PlatformInterfacesConan(ConanFile):
                   " - types constrained by std::ranges::range\n" \
                   " - std::any"
     license = "LGPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linksplatform/Hashing"
     topics = ("linksplatform", "cpp20", "hashing", "any", "ranges", "native", "header-only")
     package_type = "header-library"

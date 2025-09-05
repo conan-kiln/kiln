@@ -17,7 +17,6 @@ class LibXssConan(ConanFile):
     name = "libxss"
     description = "libXScrnSaver: Xlib-based X11 Screen Saver extension client library"
     license = "X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver"
     topics = ("xorg", "x11")
 

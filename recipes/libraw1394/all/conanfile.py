@@ -14,7 +14,6 @@ class Libraw1394Conan(ConanFile):
     name = "libraw1394"
     description = "Interface library for the Linux IEEE1394 (FireWire) drivers"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://ieee1394.docs.kernel.org/"
     topics = ("ieee1394", "firewire")
     package_type = "library"

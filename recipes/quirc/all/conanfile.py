@@ -13,7 +13,6 @@ class QuircConan(ConanFile):
     license = "ISC"
     topics = ("qr", "decoder")
     homepage = "https://github.com/dlbeer/quirc"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

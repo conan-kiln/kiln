@@ -13,7 +13,6 @@ class HttpParserConan(ConanFile):
     name = "http_parser"
     description = "http request/response parser for c"
     topics = ("http", "parser")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nodejs/http-parser"
     license = "MIT"
     package_type = "library"

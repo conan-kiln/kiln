@@ -13,7 +13,6 @@ class PngppConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("png++", "png")
     homepage = "https://www.nongnu.org/pngpp"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def export_sources(self):

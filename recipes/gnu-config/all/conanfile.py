@@ -12,7 +12,6 @@ class GnuConfigConan(ConanFile):
     name = "gnu-config"
     description = "The GNU config.guess and config.sub scripts"
     homepage = "https://savannah.gnu.org/projects/config/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("gnu", "config", "autotools", "canonical", "host", "build", "target", "triplet")
     license = "GPL-3.0-or-later", "autoconf-special-exception"
     package_type = "build-scripts"

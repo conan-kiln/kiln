@@ -15,7 +15,6 @@ class Ezc3dConan(ConanFile):
     license = "MIT"
     topics = ("ezc3d", "c3d")
     homepage = "https://github.com/pyomeca/ezc3d"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

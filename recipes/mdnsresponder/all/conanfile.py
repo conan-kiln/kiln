@@ -15,7 +15,6 @@ class MdnsResponderConan(ConanFile):
     name = "mdnsresponder"
     description = "Apple Open Source DNS Service Discovery Collection"
     topics = ("Bonjour", "DNS-SD", "mDNS")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://opensource.apple.com/tarballs/mDNSResponder/"
     license = "Apache-2.0", "BSD-3-Clause"
     settings = "os", "arch", "compiler", "build_type"

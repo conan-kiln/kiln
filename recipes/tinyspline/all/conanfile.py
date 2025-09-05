@@ -16,7 +16,6 @@ class TinysplineConan(ConanFile):
     license = "MIT"
     topics = ("tinyspline ", "nurbs", "b-splines", "bezier")
     homepage = "https://github.com/msteinbeck/tinyspline"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

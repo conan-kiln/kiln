@@ -17,7 +17,6 @@ class CityhashConan(ConanFile):
     license = "MIT"
     topics = ("hash",)
     homepage = "https://github.com/google/cityhash"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

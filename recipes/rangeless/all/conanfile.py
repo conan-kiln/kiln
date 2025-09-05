@@ -14,7 +14,6 @@ class RangelessConan(ConanFile):
     name = "rangeless"
     description = "c++ LINQ -like library of higher-order functions for data manipulation"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ast-al/rangeless"
     topics = ("range", "linq", "lazy-evaluation", "header-only")
 

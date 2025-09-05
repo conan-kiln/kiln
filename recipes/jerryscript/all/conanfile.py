@@ -15,7 +15,6 @@ class JerryScriptStackConan(ConanFile):
     name = "jerryscript"
     description = "Ultra-lightweight JavaScript engine for the Internet of Things"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jerryscript-project/jerryscript"
     topics = ("javascript", "iot", "javascript-engine")
 

@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class GlewConan(ConanFile):
     name = "glew"
     description = "The GLEW library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://github.com/nigels-com/glew"
     topics = ("glew", "opengl", "wrangler", "loader", "binding")
     license = "MIT"

@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class SociConan(ConanFile):
     name = "soci"
     homepage = "https://github.com/SOCI/soci"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "The C++ Database Access Library "
     topics = ("mysql", "odbc", "postgresql", "sqlite3")
     license = "BSL-1.0"

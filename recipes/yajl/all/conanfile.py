@@ -11,7 +11,6 @@ class YAJLConan(ConanFile):
     name = "yajl"
     description = "A fast streaming JSON parsing library in C"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lloyd/yajl"
     topics = ("json", "encoding", "decoding", "manipulation")
     package_type = "library"

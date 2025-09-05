@@ -16,7 +16,6 @@ class PlfindiesortConan(ConanFile):
     license = "Zlib"
     topics = ("algorithm", "sort", "header-only")
     homepage = "https://plflib.org/indiesort.htm"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

@@ -18,7 +18,6 @@ class LibnoiseConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("graphics", "noise-generator")
     homepage = "http://libnoise.sourceforge.net"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

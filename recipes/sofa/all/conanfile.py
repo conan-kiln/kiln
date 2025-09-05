@@ -13,7 +13,6 @@ class SofaConan(ConanFile):
     license = "SOFA Software License"
     topics = ("iau", "astronomy")
     homepage = "http://www.iausofa.org"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

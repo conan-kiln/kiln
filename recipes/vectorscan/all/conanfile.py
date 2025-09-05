@@ -13,7 +13,6 @@ class VectorscanConan(ConanFile):
     name = "vectorscan"
     description = "A portable fork of the high-performance regular expression matching library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/VectorCamp/vectorscan"
     topics = ("regex", "regular expressions", "hyperscan")
     package_type = "library"

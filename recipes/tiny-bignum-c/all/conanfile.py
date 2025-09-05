@@ -13,7 +13,6 @@ class TinybignumcConan(ConanFile):
     license = "Unlicense"
     topics = ("bignum", "arbitrary-precision", "multi-precision")
     homepage = "https://github.com/kokke/tiny-bignum-c"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

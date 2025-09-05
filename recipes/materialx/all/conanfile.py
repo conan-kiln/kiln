@@ -13,7 +13,6 @@ class MaterialXConan(ConanFile):
     name = "materialx"
     description = "MaterialX is an open standard for the exchange of rich material and look-development content across applications and renderers."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AcademySoftwareFoundation/MaterialX"
     topics = ("vfx", "3d", "graphics", "aswf")
     package_type = "library"

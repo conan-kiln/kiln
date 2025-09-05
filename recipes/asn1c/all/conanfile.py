@@ -16,7 +16,6 @@ class Asn1cConan(ConanFile):
     name = "asn1c"
     description = "The ASN.1 Compiler"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://lionet.info/asn1c"
     topics = ("asn.1", "compiler")
 

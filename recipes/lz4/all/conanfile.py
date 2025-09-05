@@ -13,7 +13,6 @@ class LZ4Conan(ConanFile):
     name = "lz4"
     description = "Extremely Fast Compression algorithm"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lz4/lz4"
     topics = ("compression",)
     package_type = "library"

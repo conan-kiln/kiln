@@ -11,7 +11,6 @@ class ChocConan(ConanFile):
     name = "choc"
     description = "A collection of header only classes, permissively licensed, to provide basic useful tasks with the bare-minimum of dependencies."
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Tracktion/choc/"
     topics = ("audio", "json", "containers", "header-only")
     package_type = "header-library"

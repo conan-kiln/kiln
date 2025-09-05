@@ -14,7 +14,6 @@ class PahoMqttCppConan(ConanFile):
     name = "paho-mqtt-cpp"
     description = "The open-source client implementations of MQTT and MQTT-SN"
     license = "EPL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eclipse/paho.mqtt.cpp"
     topics = ("mqtt", "iot", "eclipse", "ssl", "paho", "cpp")
     package_type = "library"

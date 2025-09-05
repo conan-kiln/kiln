@@ -13,7 +13,6 @@ class libjuiceConan(ConanFile):
     description = "JUICE is a UDP Interactive Connectivity Establishment library."
     license = "MPL-2.0"
     topics = ("webrtc", "ice")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/paullouisageneau/libjuice"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"

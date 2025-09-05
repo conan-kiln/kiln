@@ -16,7 +16,6 @@ class OpenclIcdLoaderConan(ConanFile):
     license = "Apache-2.0"
     topics = ("opencl", "khronos", "parallel", "icd-loader")
     homepage = "https://github.com/KhronosGroup/OpenCL-ICD-Loader"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

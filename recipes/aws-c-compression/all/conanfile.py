@@ -11,7 +11,6 @@ class AwsCCompression(ConanFile):
     name = "aws-c-compression"
     description = "C99 implementation of huffman encoding/decoding"
     topics = ("aws", "amazon", "cloud", "compression", "huffman", )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-compression"
     license = "Apache-2.0"
     package_type = "library"

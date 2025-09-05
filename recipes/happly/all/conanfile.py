@@ -12,7 +12,6 @@ class HapplyConan(ConanFile):
     name = "happly"
     description = "A C++ header-only parser for the PLY file format. Parse .ply happily!"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nmwsharp/happly"
     topics = ("ply", "3D", "mesh", "point cloud", "header-only")
 

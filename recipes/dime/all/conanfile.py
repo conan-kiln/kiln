@@ -14,7 +14,6 @@ class DimeConan(ConanFile):
     name = "dime"
     description = "DXF (Data eXchange Format) file format support library."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin3d/dime"
     topics = ("dxf", "coin3d", "opengl", "graphics")
 

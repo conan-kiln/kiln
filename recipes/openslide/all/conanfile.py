@@ -17,7 +17,6 @@ class OpenSlideConan(ConanFile):
     name = "openslide"
     description = "OpenSlide is a C library for reading whole slide image files (also known as virtual slides)"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openslide.org/"
     topics = ("image", "pathology", "whole-slide-imaging", "slide-image",
               # supported formats

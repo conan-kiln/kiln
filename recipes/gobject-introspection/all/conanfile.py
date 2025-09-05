@@ -18,7 +18,6 @@ class GobjectIntrospectionConan(ConanFile):
     description = ("GObject introspection is a middleware layer between "
                    "C libraries (using GObject) and language bindings")
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/gobject-introspection"
     topics = ("gobject", "introspection",)
 

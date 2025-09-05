@@ -16,7 +16,6 @@ class CozConan(ConanFile):
     name = "coz"
     description = "Causal profiler, uses performance experiments to predict the effect of optimizations"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://coz-profiler.org"
     topics = ("profiler", "causal")
 

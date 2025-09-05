@@ -22,7 +22,6 @@ class NetSnmpConan(ConanFile):
         "(eg. routers), computer equipment and even devices like UPSs."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.net-snmp.org/"
     topics = "snmp"
 

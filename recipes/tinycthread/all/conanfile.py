@@ -10,7 +10,6 @@ class TinycthreadConan(ConanFile):
     name = "tinycthread"
     description = "Small, portable implementation of the C11 threads API"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tinycthread/tinycthread"
     topics = ("thread", "c11", "portable")
     package_type = "static-library"

@@ -13,7 +13,6 @@ class XlsxioConan(ConanFile):
     name = "xlsxio"
     description = "Cross-platform C library for reading values from and writing values to .xlsx files."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/brechtsanders/xlsxio"
     topics = ("xlsx",)
 

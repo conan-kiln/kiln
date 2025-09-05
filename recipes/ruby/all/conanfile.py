@@ -23,7 +23,6 @@ class RubyConan(ConanFile):
     license = "Ruby"
     topics = ("ruby", "language", "object-oriented", "ruby-language")
     homepage = "https://www.ruby-lang.org"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

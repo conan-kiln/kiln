@@ -16,7 +16,6 @@ class GslConan(ConanFile):
     description = "GNU Scientific Library"
     homepage = "https://www.gnu.org/software/gsl"
     topics = ("numerical", "math", "random", "scientific")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-3.0-or-later"
 
     package_type = "library"

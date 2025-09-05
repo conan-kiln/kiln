@@ -13,7 +13,6 @@ class TinyXmlConan(ConanFile):
     name = "tinyxml"
     description = "TinyXML is a simple, small, C++ XML parser that can be easily integrated into other programs."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.grinninglizard.com/tinyxml/"
     topics = ("xml", "parser")
     package_type = "library"

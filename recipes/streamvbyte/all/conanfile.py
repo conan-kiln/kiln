@@ -10,7 +10,6 @@ class StreamvbyteConan(ConanFile):
     name = "streamvbyte"
     description = "Fast integer compression in C using the StreamVByte codec"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lemire/streamvbyte"
     topics = ("compression", "simd")
     package_type = "library"

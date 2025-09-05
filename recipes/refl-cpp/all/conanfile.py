@@ -13,7 +13,6 @@ class ReflCppConan(ConanFile):
     name = "refl-cpp"
     description = "A modern compile-time reflection library for C++ with support for overloads, templates, attributes and proxies"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/veselink1/refl-cpp"
     topics = ("header", "header-only", "reflection", "modern", "metaprogramming")
     package_type = "header-library"

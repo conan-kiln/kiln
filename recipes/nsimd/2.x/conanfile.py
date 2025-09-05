@@ -11,7 +11,6 @@ class NsimdConan(ConanFile):
     name = "nsimd"
     description = "Agenium Scale vectorization library for CPUs and GPUs"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/agenium-scale/nsimd"
     topics = ("hpc", "neon", "cuda", "avx", "simd", "avx2", "sse2",
               "aarch64", "avx512", "sse42", "rocm", "sve", "neon128")

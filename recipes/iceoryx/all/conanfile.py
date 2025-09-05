@@ -16,7 +16,6 @@ class IceoryxConan(ConanFile):
     name = "iceoryx"
     description = "Eclipse iceoryx - true zero-copy inter-process-communication"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://iceoryx.io/"
     topics = ("Shared Memory", "IPC", "ROS", "Middleware")
 

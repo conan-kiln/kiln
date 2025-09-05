@@ -14,7 +14,6 @@ class IcecreamcppConan(ConanFile):
     name = "icecream-cpp"
     description = "A little library to help with the print debugging on C++11 and forward."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/renatoGarcia/icecream-cpp"
     topics = ("debug", "single-header-lib", "print", "header-only")
 

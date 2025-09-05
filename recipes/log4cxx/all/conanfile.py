@@ -13,7 +13,6 @@ class Log4cxxConan(ConanFile):
     name = "log4cxx"
     description = "Logging framework for C++ patterned after Apache log4j"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://logging.apache.org/log4cxx"
     topics = ("logging", "log")
 

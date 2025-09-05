@@ -13,7 +13,6 @@ class LunaSVGConan(ConanFile):
     name = "lunasvg"
     description = "lunasvg is a standalone SVG rendering library in C++."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sammycage/lunasvg"
     topics = ("svg", "renderer", )
     package_type = "library"

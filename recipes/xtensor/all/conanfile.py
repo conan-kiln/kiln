@@ -16,7 +16,6 @@ class XtensorConan(ConanFile):
     package_type = "header-library"
     description = "C++ tensors with broadcasting and lazy computing"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xtensor-stack/xtensor"
     topics = ("numpy", "multidimensional-arrays", "tensors")
     settings = "os", "arch", "compiler", "build_type"

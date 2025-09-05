@@ -13,7 +13,6 @@ class Fastnoise2Conan(ConanFile):
     name = "fastnoise2"
     description = "Modular node graph based noise generation library using SIMD, C++17 and templates"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Auburn/FastNoise2"
     topics = ("procedural-generation", "terrain-generation", "noise")
     package_type = "library"

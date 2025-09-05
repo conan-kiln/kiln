@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class LibE57FormatConan(ConanFile):
     name = "libe57format"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/asmaloney/libE57Format"
     description = "Library for reading & writing the E57 file format"
     topics = ("e57", "io", "point-cloud")

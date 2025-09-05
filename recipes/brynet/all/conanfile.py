@@ -12,7 +12,6 @@ class BrynetConan(ConanFile):
     name = "brynet"
     description = "Header Only Cross platform high performance TCP network library using C++ 11."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/IronsDu/brynet"
     topics = ("networking", "tcp", "websocket")
     package_type = "header-library"

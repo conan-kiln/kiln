@@ -18,7 +18,6 @@ ALL = [SINGLE, DOUBLE, LONGDOUBLE, QUAD]
 class FFTWConan(ConanFile):
     name = "fftw"
     description = "C subroutine library for computing the Discrete Fourier Transform (DFT) in one or more dimensions"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.fftw.org/"
     license = "GPL-2.0"
     topics = ("fftw", "dft", "dct", "dst")

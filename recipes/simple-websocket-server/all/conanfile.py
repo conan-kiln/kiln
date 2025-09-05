@@ -15,7 +15,6 @@ class SimpleWebSocketServerConan(ConanFile):
         "and WebSocket Secure (WSS) server and client library."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/eidheim/Simple-WebSocket-Server"
     topics = ("websocket", "socket", "server", "client", "header-only")
 

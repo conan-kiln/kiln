@@ -16,7 +16,6 @@ class LibdisplayInfoConan(ConanFile):
     name = "libdisplay-info"
     description = "EDID and DisplayID library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/emersion/libdisplay-info"
     topics = ("display", "DisplayID", "EDID")
     package_type = "library"

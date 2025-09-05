@@ -12,7 +12,6 @@ class LibgtaConan(ConanFile):
     name = "libgta"
     description = "Library that reads and writes GTA (Generic Tagged Arrays) files."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://marlam.de/gta"
     topics = ("gta",)
 

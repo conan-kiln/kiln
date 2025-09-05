@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 
 class LcmsConan(ConanFile):
     name = "lcms"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A free, open source, CMM engine."
     license = "MIT"
     homepage = "https://github.com/mm2/Little-CMS"

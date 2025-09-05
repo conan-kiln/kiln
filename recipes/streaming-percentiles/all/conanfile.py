@@ -11,7 +11,6 @@ class StreamingPercentilesConan(ConanFile):
     name = "streaming-percentiles"
     description = "Cross-platform, multi-language implementation of multiple streaming percentile algorithms"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sengelha/streaming-percentiles"
     topics = ("streaming", "percentiles", "header-only")
     package_type = "header-library"

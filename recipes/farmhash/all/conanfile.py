@@ -13,7 +13,6 @@ class FarmhashConan(ConanFile):
     topics = ("hash", "google", "family")
     license = "MIT"
     homepage = "https://github.com/google/farmhash"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

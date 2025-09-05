@@ -24,7 +24,6 @@ class StableHLOConan(ConanFile):
         "ML frameworks that produce StableHLO programs are compatible with ML compilers that consume StableHLO programs."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/openxla/stablehlo"
     topics = ("machine-learning", "hlo", "compiler", "mlir", "onnx", "jax", "tensorflow")
     package_type = "library"

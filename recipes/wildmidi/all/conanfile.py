@@ -12,7 +12,6 @@ class WildmidiConan(ConanFile):
     name = "wildmidi"
     description = "WildMIDI is a simple software midi player which has a core softsynth library that can be used in other applications."
     license = "LGPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.mindwerks.net/projects/wildmidi"
     topics = ("audio", "midi", "multimedia", "music", "softsynth", "sound", "synth")
     package_type = "library"

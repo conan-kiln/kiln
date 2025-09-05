@@ -10,7 +10,6 @@ class NanomsgConan(ConanFile):
     name = "nanomsg"
     description = "A socket library that provides several common communication patterns."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nanomsg/nanomsg"
     topics = ("socket", "protocols", "communication")
     package_type = "library"

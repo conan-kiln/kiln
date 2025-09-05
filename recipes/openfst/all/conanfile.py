@@ -15,7 +15,6 @@ class OpenFstConan(ConanFile):
     name = "openfst"
     description = "A library for constructing, combining, optimizing and searching weighted finite-state-transducers (FSTs)."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.openfst.org/twiki/bin/view/FST/WebHome"
     topics = ("asr", "fst", "wfst", "openfst")
 

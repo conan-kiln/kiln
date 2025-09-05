@@ -13,7 +13,6 @@ class FakerCXXConan(ConanFile):
     name = "faker-cxx"
     description = "C++ Faker library based on faker-js/faker. "
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cieslarmichal/faker-cxx"
     topics = ("faker", "fake",)
     package_type = "library"

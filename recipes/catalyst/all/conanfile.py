@@ -12,7 +12,6 @@ class CatalystConan(ConanFile):
     name = "catalyst"
     license = "BSD-3-Clause"
     description = "Catalyst is an API specification developed for simulations (and other scientific data producers) to analyze and visualize data in situ."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.kitware.com/paraview/catalyst"
     topics = ("simulation", "visualization", "paraview", "in-situ", "in-transit")
     package_type = "library"

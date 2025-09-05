@@ -17,7 +17,6 @@ class LibXineramaConan(ConanFile):
     name = "libxinerama"
     description = "libXinerama: Xlib API for Xinerama extension to the X11 Protocol"
     license = "MIT AND MIT-open-group AND X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxinerama"
     topics = ("xorg", "x11")
 

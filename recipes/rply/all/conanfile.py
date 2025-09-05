@@ -13,7 +13,6 @@ class RplyConan(ConanFile):
     license = "MIT"
     topics = ("ply", "3d", "reader", "writer")
     homepage = "https://w3.impa.br/~diego/software/rply"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

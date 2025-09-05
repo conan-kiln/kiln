@@ -12,7 +12,6 @@ class Rtmonan(ConanFile):
     name = "rtm"
     description = "Realtime Math"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nfrechette/rtm"
     topics = ("realtime", "math", "header-only")
 

@@ -19,7 +19,6 @@ class LelyConan(ConanFile):
         "They can be even be used on bare-metal microcontrollers with as little as 32 kB RAM."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/lely_industries/lely-core/"
     topics = ("canopen",)
     package_type = "library"

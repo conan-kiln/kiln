@@ -12,7 +12,6 @@ class TinygltfConan(ConanFile):
     name = "tinygltf"
     description = "Header only C++11 tiny glTF 2.0 library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/syoyo/tinygltf"
     topics = ("gltf", "header-only")
     package_type = "header-library"

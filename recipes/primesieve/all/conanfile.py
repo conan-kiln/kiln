@@ -12,7 +12,6 @@ class PrimesieveConan(ConanFile):
     name = "primesieve"
     description = "Fast prime number generator"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kimwalisch/primesieve"
     topics = ("math", "prime-numbers", "sieve-of-eratosthenes")
     package_type = "library"

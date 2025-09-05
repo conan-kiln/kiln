@@ -14,7 +14,6 @@ class GlazeConan(ConanFile):
     name = "glaze"
     description = "Extremely fast, in memory, JSON and interface library for modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stephenberry/glaze"
     topics = ("json", "memory", "header-only")
     package_type = "header-library"

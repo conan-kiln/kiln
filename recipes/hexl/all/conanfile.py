@@ -15,7 +15,6 @@ class HexlConan(ConanFile):
     name = "hexl"
     description = "Intel Homomorphic Encryption (HE) Acceleration Library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/hexl"
     topics = ("homomorphic", "encryption", "privacy")
 

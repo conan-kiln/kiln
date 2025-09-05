@@ -11,7 +11,6 @@ class XbyakRiscvConan(ConanFile):
     name = "xbyak_riscv"
     description = "Xbyak_riscv is a C++ header library that enables dynamically to assemble RISC-V instructions."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/herumi/xbyak_riscv"
     topics = ("jit", "assembler", "risc-v", "header-only")
     package_type = "header-library"

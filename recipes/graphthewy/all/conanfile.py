@@ -14,7 +14,6 @@ class GraphthewyConan(ConanFile):
     name = "graphthewy"
     description = "Simple header-only C++ Library for graph modelling (directed or not) and graph cycle detection. "
     license = "EUPL-1.2"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alex-87/graphthewy"
     topics = ("graph", "algorithm", "modelling", "header-only")
 

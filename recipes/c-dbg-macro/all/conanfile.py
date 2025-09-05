@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class DbgMacroConan(ConanFile):
     name = "c-dbg-macro"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eerimoq/dbg-macro"
     license = "MIT"
     description = "A dbg(...) macro for C"

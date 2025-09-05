@@ -15,7 +15,6 @@ class CargsConan(ConanFile):
         " for C/C++. Can be used to parse argv and argc parameters."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://likle.github.io/cargs/"
     topics = ("cargs", "cross-platform", "windows", "macos", "osx", "linux",
               "getopt", "getopt-long", "command-line-parser", "command-line",

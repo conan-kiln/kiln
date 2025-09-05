@@ -21,7 +21,6 @@ class LibrasterliteConan(ConanFile):
     license = ("MPL-1.1", "GPL-2.0-or-later", "LGPL-2.1-or-later")
     topics = ("rasterlite", "raster", "spatialite")
     homepage = "https://www.gaia-gis.it/fossil/librasterlite"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

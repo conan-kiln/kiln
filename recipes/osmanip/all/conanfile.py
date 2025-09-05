@@ -17,7 +17,6 @@ class OsmanipConan(ConanFile):
         "manipulators, progress bars and terminal graphics."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/JustWhit3/osmanip"
     topics = ("manipulator", "iostream", "output-stream", "iomanip")
     package_type = "library"

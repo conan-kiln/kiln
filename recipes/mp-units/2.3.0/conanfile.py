@@ -33,7 +33,6 @@ class MPUnitsConan(ConanFile):
         "quantity-manipulation",
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "cxx_modules": [True, False],

@@ -13,7 +13,6 @@ class GlogConan(ConanFile):
     name = "glog"
     description = "Google logging library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/glog/"
     topics = ("logging",)
     package_type = "library"

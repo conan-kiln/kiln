@@ -11,12 +11,11 @@ required_conan_version = ">=2.1"
 
 class OpenJDK(ConanFile):
     name = "openjdk"
-    package_type = "application"
-    url = "https://github.com/conan-io/conan-center-index/"
     description = "Java Development Kit builds, from Oracle"
     homepage = "https://jdk.java.net"
     license = "GPL-2.0-only WITH Classpath-exception-2.0", "GPL-2.0-only WITH OpenJDK-assembly-exception-1.0"
     topics = ("java", "jdk", "openjdk")
+    package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
     upload_policy = "skip"
     build_policy = "missing"

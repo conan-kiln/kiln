@@ -11,7 +11,6 @@ class TcbSpanConan(ConanFile):
     name = "tcb-span"
     description = "Implementation of C++20's std::span for older C++ standards"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tcbrindle/span"
     topics = ("span", "header-only")
     settings = "os", "arch", "compiler", "build_type"

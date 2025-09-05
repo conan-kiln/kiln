@@ -14,7 +14,6 @@ class EVMCConan(ConanFile):
     name = "evmc"
     description = "EVMC – Ethereum Client-VM Connector API"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ethereum/evmc"
     topics = ("ethereum", "wasm", "evm")
     package_type = "static-library"

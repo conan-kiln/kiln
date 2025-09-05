@@ -15,7 +15,6 @@ class LodepngConan(ConanFile):
     license = "Zlib"
     topics = ("png", "encoder", "decoder")
     homepage = "https://github.com/lvandeve/lodepng"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

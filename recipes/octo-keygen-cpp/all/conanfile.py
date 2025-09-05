@@ -15,7 +15,6 @@ class OctoKeygenCPPConan(ConanFile):
     name = "octo-keygen-cpp"
     description = "Key generation / certificate generation using openssl for CPP"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ofiriluz/octo-keygen-cpp"
     topics = ("pki", "keypair", "certificates", "cpp")
     package_type = "static-library"

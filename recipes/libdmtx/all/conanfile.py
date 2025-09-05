@@ -14,7 +14,6 @@ class libdmtxConan(ConanFile):
         "and write Data Matrix barcodes of the modern ECC200 variety"
     )
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dmtx/libdmtx"
     topics = ("data matrix", "ECC200", "barcode")
     settings = "os", "arch", "compiler", "build_type"

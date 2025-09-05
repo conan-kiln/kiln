@@ -12,7 +12,6 @@ class OpenTracingConan(ConanFile):
     name = "opentracing-cpp"
     description = "C++ implementation of the OpenTracing API http://opentracing.io"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/opentracing/opentracing-cpp"
     topics = "opentracing"
     package_type = "library"

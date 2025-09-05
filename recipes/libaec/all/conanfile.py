@@ -13,7 +13,6 @@ required_conan_version = ">=2.4"
 class LibaecConan(ConanFile):
     name = "libaec"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.dkrz.de/k202009/libaec"
     description = "Adaptive Entropy Coding library"
     topics = "dsp", "encoding", "decoding"

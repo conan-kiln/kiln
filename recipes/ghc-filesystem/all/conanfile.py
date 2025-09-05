@@ -12,7 +12,6 @@ class GhcFilesystemRecipe(ConanFile):
     description = "A header-only single-file std::filesystem compatible helper library"
     topics = ("header-only", "filesystem")
     homepage = "https://github.com/gulrak/filesystem"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

@@ -15,7 +15,6 @@ class ClippConan(ConanFile):
         "for modern C++ / single header / usage & doc generation."
     )
     topics = ("argparse", "cli", "usage", "options", "subcommands")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/muellan/clipp"
     license = "MIT"
     package_type = "header-library"

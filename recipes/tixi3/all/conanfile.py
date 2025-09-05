@@ -12,7 +12,6 @@ class Tixi3Conan(ConanFile):
     name = "tixi3"
     description = "A simple xml interface based on libxml2 and libxslt"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/DLR-SC/tixi"
     topics = ("xml", "xml2", "xslt")
 

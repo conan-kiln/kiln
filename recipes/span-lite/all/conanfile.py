@@ -11,7 +11,6 @@ class SpanLiteConan(ConanFile):
     name = "span-lite"
     description = "A C++20-like span for C++98, C++11 and later in a single-file header-only library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/span-lite"
     topics = ("cpp98", "cpp11", "cpp14", "cpp17", "span", "span-implementations", "header-only")
     package_type = "header-library"

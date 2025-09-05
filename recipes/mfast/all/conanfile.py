@@ -17,7 +17,6 @@ class mFASTConan(ConanFile):
         "(FIX Adapted for STreaming) protocol"
     )
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://objectcomputing.github.io/mFAST/"
     topics = ("fast", "fix", "fix-adapted-for-streaming",
               "financial-information-exchange", "libraries", "cpp")

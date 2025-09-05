@@ -20,7 +20,6 @@ class PocoConan(ConanFile):
         "mobile and embedded systems."
     )
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://pocoproject.org"
     topics = ("building", "networking", "server", "mobile", "embedded")
     package_type = "library"

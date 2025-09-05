@@ -16,7 +16,6 @@ class SpscqueueConan(ConanFile):
     license = "MIT"
     topics = ("spscqueue", "thread", "queue")
     homepage = "https://github.com/rigtorp/SPSCQueue"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

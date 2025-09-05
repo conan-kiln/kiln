@@ -15,7 +15,6 @@ class SafeintConan(ConanFile):
     topics = ("integer", "overflow", "header-only")
     package_type = "header-library"
     homepage = "https://github.com/dcleblanc/SafeInt"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

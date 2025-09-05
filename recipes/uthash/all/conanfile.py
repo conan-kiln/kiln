@@ -11,7 +11,6 @@ class UthashConan(ConanFile):
     description = "C macros for hash tables and more"
     license = "BSD-1-Clause"
     homepage = "https://troydhanson.github.io/uthash/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("hash-table", "header-only")
 
     package_type = "header-library"

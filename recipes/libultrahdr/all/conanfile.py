@@ -13,7 +13,6 @@ class LibultrahdrConan(ConanFile):
     name = "libultrahdr"
     description = "libultrahdr is an image format for storing SDR and HDR versions of an image for android."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/libultrahdr"
     topics = ("ultrahdr", "graphics", "image", "hdr")
     package_type = "library"

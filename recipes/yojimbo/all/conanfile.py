@@ -18,7 +18,6 @@ class YojimboConan(ConanFile):
     name = "yojimbo"
     description = "A network library for client/server games written in C++"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/networkprotocol/yojimbo"
     topics = ("game", "udp", "protocol", "client-server", "multiplayer-game-server")
 

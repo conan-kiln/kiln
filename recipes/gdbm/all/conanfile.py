@@ -19,7 +19,6 @@ class GdbmConan(ConanFile):
         "These routines are provided to a programmer needing to create and manipulate a hashed database."
     )
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org.ua/software/gdbm/gdbm.html"
     topics = ("dbm", "hash", "database")
     package_type = "library"

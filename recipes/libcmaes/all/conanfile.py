@@ -16,7 +16,6 @@ class LibcmaesConan(ConanFile):
         " using the CMA-ES algorithm for Covariance Matrix Adaptation Evolution Strategy"
     )
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CMA-ES/libcmaes"
     topics = ("optimization", "minimization")
 

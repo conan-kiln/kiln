@@ -24,7 +24,6 @@ class XapianCoreConan(ConanFile):
     topics = ("xapian", "search", "engine", "indexing", "query")
     license = "GPL-2.0-or-later"
     homepage = "https://xapian.org/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

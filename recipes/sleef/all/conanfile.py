@@ -13,7 +13,6 @@ class SleefConan(ConanFile):
     name = "sleef"
     description = "SLEEF is a library that implements vectorized versions of C standard math functions."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sleef.org"
     topics = ("vectorization", "simd")
 

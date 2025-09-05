@@ -16,7 +16,6 @@ class USearchConan(ConanFile):
     description = "Smaller & Faster Single-File Vector Search Engine from Unum"
     homepage = "https://unum-cloud.github.io/usearch/"
     topics = ("search", "vector", "simd", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     options = {

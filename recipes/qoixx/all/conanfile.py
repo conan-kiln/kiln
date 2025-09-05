@@ -13,7 +13,6 @@ class QoixxConan(ConanFile):
     name = "qoixx"
     description = "Single Header Quite Fast QOI(Quite OK Image Format) Implementation written in C++20"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wx257osn2/qoixx"
     topics = ("qoi", "simd", "image", "header-only")
     package_type = "header-library"

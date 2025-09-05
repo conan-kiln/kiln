@@ -13,7 +13,6 @@ class NuklearConan(ConanFile):
     license = ["MIT", "Unlicense"]
     topics = ("gui", "header-only")
     homepage = "https://github.com/Immediate-Mode-UI/Nuklear"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -13,7 +13,6 @@ class PsimdConan(ConanFile):
     license = "MIT"
     topics = ("psimd", "simd")
     homepage = "https://github.com/Maratyszcza/psimd"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

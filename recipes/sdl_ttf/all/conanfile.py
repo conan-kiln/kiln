@@ -17,7 +17,6 @@ class SdlttfConan(ConanFile):
     license = "Zlib"
     topics = ("sdl2", "sdl2_ttf", "sdl", "sdl_ttf", "ttf", "font")
     homepage = "https://www.libsdl.org/projects/SDL_ttf"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

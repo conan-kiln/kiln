@@ -14,7 +14,6 @@ class TslOrderedMapConan(ConanFile):
     description = "C++ hash map and hash set which preserve the order of insertion."
     topics = ("ordered-map", "structure", "hash map", "hash set")
     homepage = "https://github.com/Tessil/ordered-map"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class ExtracmakemodulesConan(ConanFile):
     name = "extra-cmake-modules"
     license = ("MIT", "BSD-2-Clause", "BSD-3-Clause")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://api.kde.org/ecm/"
     topics = ("cmake", "cmake-modules", "toolchain", "build-settings")
     description = "KDE's CMake modules"

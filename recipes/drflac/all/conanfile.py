@@ -14,7 +14,6 @@ class DrflacConan(ConanFile):
     homepage = "https://mackron.github.io/dr_flac"
     topics = ("audio", "flac", "sound")
     license = ("Unlicense", "MIT-0")
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -13,7 +13,6 @@ class SioclientConan(ConanFile):
     name = "sioclient"
     description = "C++11 implementation of Socket.IO client"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/socketio/socket.io-client-cpp"
     topics = ("websocket", "client")
 

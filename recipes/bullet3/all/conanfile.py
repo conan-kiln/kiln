@@ -21,7 +21,6 @@ class Bullet3Conan(ConanFile):
     homepage = "https://github.com/bulletphysics/bullet3"
     topics = ("bullet", "physics", "simulation", "robotics", "kinematics", "engine")
     license = "ZLIB"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

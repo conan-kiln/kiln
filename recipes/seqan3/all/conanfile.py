@@ -14,7 +14,6 @@ class Seqan3Conan(ConanFile):
     name = "seqan3"
     description = "SeqAn3 is the new version of the popular SeqAn template library for the analysis of biological sequences."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/seqan/seqan3"
     topics = ("cpp20", "algorithms", "data structures", "biological sequences", "header-only")
 

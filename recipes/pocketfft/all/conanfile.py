@@ -13,7 +13,6 @@ class PocketfftConan(ConanFile):
     name = "pocketfft"
     description = "PocketFFT: a heavily modified implementation of FFTPack"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mreineck/pocketfft"
     topics = ("fft", "fast-fourier-transform", "fftpack", "header-only")
 

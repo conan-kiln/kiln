@@ -14,7 +14,6 @@ class LibEvdevConan(ConanFile):
     name = "libevdev"
     description = "libevdev is a wrapper library for evdev devices."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/wiki/Software/libevdev"
     topics = ("device", "evdev", "freedesktop", "input")
     package_type = "library"

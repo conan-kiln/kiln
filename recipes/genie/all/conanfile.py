@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class GenieConan(ConanFile):
     name = "genie"
     license = "BSD-3-clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bkaradzic/GENie"
     description = "Project generator tool"
     topics = ("genie", "project", "generator", "build", "build-systems")

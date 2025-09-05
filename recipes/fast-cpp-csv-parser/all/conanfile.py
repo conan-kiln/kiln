@@ -12,7 +12,6 @@ class FastcppcsvparserConan(ConanFile):
     name = "fast-cpp-csv-parser"
     description = "C++11 header-only library for reading comma separated value (CSV) files."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ben-strasser/fast-cpp-csv-parser"
     topics = ("csv", "parser", "header-only")
     package_type = "header-library"

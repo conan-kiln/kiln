@@ -16,7 +16,6 @@ class LibbacktraceConan(ConanFile):
     name = "libbacktrace"
     description = "A C library that may be linked into a C/C++ program to produce symbolic backtraces."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ianlancetaylor/libbacktrace"
     topics = ("backtrace", "stack-trace")
     package_type = "library"

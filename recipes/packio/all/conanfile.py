@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class PackioConan(ConanFile):
     name = "packio"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/qchateau/packio"
     description = "An asynchronous msgpack-RPC and JSON-RPC library built on top of Boost.Asio."
     topics = ("rpc", "msgpack", "json", "asio", "async", "cpp17", "cpp20", "coroutines")

@@ -12,7 +12,6 @@ class BrotliConan(ConanFile):
     name = "brotli"
     description = "Brotli compression format"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/brotli"
     topics = ("brotli", "compression")
     package_type = "library"

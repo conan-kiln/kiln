@@ -12,7 +12,6 @@ class CtreConan(ConanFile):
     name = "ctre"
     description = "Compile Time Regular Expression for C++17/20"
     license = "Apache-2.0 WITH LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hanickadot/compile-time-regular-expressions"
     topics = ("cpp17", "regex", "compile-time-regular-expressions", "header-only")
     package_type = "header-library"

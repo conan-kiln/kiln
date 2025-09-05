@@ -18,7 +18,6 @@ class LibxlsConan(ConanFile):
     name = "libxls"
     description = "a C library which can read Excel (xls) files."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libxls/libxls/"
     topics = ("excel", "xls")
     package_type = "library"

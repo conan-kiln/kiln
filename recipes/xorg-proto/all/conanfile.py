@@ -20,7 +20,6 @@ class XorgProtoConan(ConanFile):
     topics = ("specification", "x-window")
     license = "X11"
     homepage = "https://gitlab.freedesktop.org/xorg/proto/xorgproto"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def layout(self):

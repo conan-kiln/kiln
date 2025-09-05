@@ -14,7 +14,6 @@ class AsioGrpcConan(ConanFile):
     name = "asio-grpc"
     description = "Asynchronous gRPC with Asio/unified executors"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Tradias/asio-grpc"
     topics = ("cpp", "asynchronous", "grpc", "asio", "asynchronous-programming", "cpp17", "coroutine", "cpp20", "executors", "header-only")
 

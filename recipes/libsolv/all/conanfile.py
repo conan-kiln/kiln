@@ -11,7 +11,6 @@ class LibSolvConan(ConanFile):
     name = "libsolv"
     description = "Library for solving packages and reading repositories"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/openSUSE/libsolv"
     topics = ("dependency-solver", "package-repository", "packaging")
 

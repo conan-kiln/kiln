@@ -17,7 +17,6 @@ class MapboxGeometryConan(ConanFile):
     topics = ("geometry",)
     license = "ISC"
     homepage = "https://github.com/mapbox/geometry.hpp"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

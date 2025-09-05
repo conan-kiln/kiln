@@ -12,7 +12,6 @@ class DuckxConan(ConanFile):
     name = "duckx"
     description = " C++ library for creating and updating Microsoft Word (.docx) files."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/amiremohamadi/DuckX/"
     topics = ("docx", "docx-files", "office")
     settings = "os", "arch", "compiler", "build_type"

@@ -12,7 +12,6 @@ class Atomic_opsConan(ConanFile):
     homepage = "https://github.com/ivmai/libatomic_ops"
     description = "The atomic_ops project (Atomic memory update operations portable implementation)"
     topics = ("conan", "fmt", "format", "iostream", "printf")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-2.0-or-later"
     settings = "os", "arch", "compiler", "build_type"
 

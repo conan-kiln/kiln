@@ -10,7 +10,6 @@ class NaiveTsearchConan(ConanFile):
     name = "naive-tsearch"
     description = "A simple tsearch() implementation for platforms without one"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kulp/naive-tsearch"
     topics = ("tsearch", "search", "tree", "msvc")
     package_type = 'static-library'

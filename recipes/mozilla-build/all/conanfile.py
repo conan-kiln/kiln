@@ -12,7 +12,6 @@ class MozillaBuildConan(ConanFile):
     homepage = "https://wiki.mozilla.org/MozillaBuild"
     description = "Mozilla build requirements on Windows"
     topics = ("mozilla", "build")
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     license = "MPL-2.0"
 

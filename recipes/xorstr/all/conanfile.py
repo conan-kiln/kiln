@@ -15,7 +15,6 @@ class XorstrConan(ConanFile):
     license = "Apache-2.0"
     topics = ("encryption", "string", "vectorized")
     homepage = "https://github.com/JustasMasiulis/xorstr"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

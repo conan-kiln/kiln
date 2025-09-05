@@ -18,7 +18,6 @@ class SqlcipherConan(ConanFile):
     name = "sqlcipher"
     description = "SQLite extension that provides 256 bit AES encryption of database files."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.zetetic.net/sqlcipher/"
     topics = ("database", "encryption", "sqlite")
 

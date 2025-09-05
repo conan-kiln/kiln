@@ -17,7 +17,6 @@ class MozjpegConan(ConanFile):
     name = "mozjpeg"
     description = "MozJPEG is an improved JPEG encoder"
     license = ("BSD", "BSD-3-Clause", "ZLIB")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mozilla/mozjpeg"
     topics = ("image", "format", "mozjpeg", "jpg", "jpeg", "picture", "multimedia", "graphics")
     settings = "os", "arch", "compiler", "build_type"

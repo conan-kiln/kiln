@@ -15,7 +15,6 @@ class OatppSwaggerConan(ConanFile):
     name = "oatpp-swagger"
     license = "Apache-2.0"
     homepage = "https://github.com/oatpp/oatpp-swagger"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Swagger UI for oatpp services"
     topics = ("oat++", "oatpp", "swagger")
 

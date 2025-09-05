@@ -17,7 +17,6 @@ class GlfwConan(ConanFile):
                   "application development. It provides a simple, platform-independent API for creating" \
                   "windows, contexts and surfaces, reading input, handling events, etc."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/glfw/glfw"
     topics = ("graphics", "opengl", "vulkan", "opengl-es")
     package_type = "library"

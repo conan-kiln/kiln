@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class QuickcpplibCodeConan(ConanFile):
     name = "quickcpplib"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ned14/quickcpplib"
     description = "Eliminate all the tedious hassle when making state-of-the-art C++ 17 - 23 libraries!"
     topics = ("header-only", "common")

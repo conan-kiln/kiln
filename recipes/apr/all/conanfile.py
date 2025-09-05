@@ -25,7 +25,6 @@ class AprConan(ConanFile):
     license = "Apache-2.0"
     topics = ("apache", "platform", "library")
     homepage = "https://apr.apache.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

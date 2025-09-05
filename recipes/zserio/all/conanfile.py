@@ -13,7 +13,6 @@ class ZserioConanFile(ConanFile):
     name = "zserio"
     description = "Zserio C++ Runtime Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://zserio.org"
     topics = ("zserio", "cpp", "c++", "serialization")
     package_type = "static-library"

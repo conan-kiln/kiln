@@ -13,7 +13,6 @@ class LzipConan(ConanFile):
     name = "lzip"
     description = "Lzip is a lossless data compressor with a user interface similar to the one of gzip or bzip2"
     license = "GPL-v2-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.nongnu.org/lzip/"
     topics = ("compressor", "lzma")
     package_type = "application"

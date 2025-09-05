@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class TaoCPPJSONConan(ConanFile):
     name = "taocpp-json"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/json"
     description = "C++ header-only JSON library"
     topics = ("json", "jaxn", "cbor", "msgpack",

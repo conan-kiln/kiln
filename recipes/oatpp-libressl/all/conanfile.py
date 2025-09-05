@@ -15,7 +15,6 @@ class OatppLibresslConan(ConanFile):
     name = "oatpp-libressl"
     license = "Apache-2.0"
     homepage = "https://github.com/oatpp/oatpp-libressl"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "oat++ libressl library"
     topics = ("oat++", "oatpp", "libressl")
 

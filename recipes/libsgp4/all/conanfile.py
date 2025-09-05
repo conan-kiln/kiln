@@ -14,7 +14,6 @@ class Libsgp4Conan(ConanFile):
     license = "Apache-2.0"
     topics = ("sgp4", "orbit", "satellite", "perturbation")
     homepage = "https://github.com/dnwrnr/sgp4"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class IntelNeon2sseConan(ConanFile):
     name = "intel-neon2sse"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/ARM_NEON_2_x86_SSE"
     description = "Header only library intended to simplify ARM->IA32 porting"
     license = "BSD-2-Clause"

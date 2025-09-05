@@ -11,7 +11,6 @@ class AwsCMQTT(ConanFile):
     name = "aws-c-mqtt"
     description = "C99 implementation of the MQTT 3.1.1 specification."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-mqtt"
     topics = ("aws", "amazon", "cloud", "mqtt")
     package_type = "library"

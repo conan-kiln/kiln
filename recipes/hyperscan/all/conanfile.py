@@ -13,7 +13,6 @@ class HyperscanConan(ConanFile):
     name = "hyperscan"
     description = "High-performance regular expression matching library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.hyperscan.io"
     topics = ("regex", "regular expressions")
     package_type = "library"

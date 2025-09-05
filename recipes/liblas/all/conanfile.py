@@ -12,7 +12,6 @@ class LibLASConan(ConanFile):
     name = "liblas"
     description = "C++ library and programs for reading and writing ASPRS LAS format with LiDAR data"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://liblas.org/"
     topics = ("point-cloud", "lidar", "las")
     package_type = "library"

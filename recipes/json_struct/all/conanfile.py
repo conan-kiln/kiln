@@ -11,7 +11,6 @@ class JsonStructConan(ConanFile):
     name = "json_struct"
     description = "json_struct is a single header only C++ library for parsing JSON directly to C++ structs and vice versa"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jorgen/json_struct"
 
     topics = ("serialization", "deserialization", "reflection", "json")

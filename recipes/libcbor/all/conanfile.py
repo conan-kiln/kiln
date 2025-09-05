@@ -11,7 +11,6 @@ class LibCborStackConan(ConanFile):
     name = "libcbor"
     license = "MIT"
     homepage = "https://github.com/PJK/libcbor"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "CBOR protocol implementation for C"
     topics = ("cbor", "serialization", "messaging")
     settings = "os", "arch", "compiler", "build_type"

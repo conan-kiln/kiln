@@ -17,7 +17,6 @@ class LibXResConan(ConanFile):
     name = "libxres"
     description = "libXRes: Xlib-based X-Resource extension client library"
     license = "X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxres"
     topics = ("xorg", "x11")
 

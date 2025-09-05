@@ -12,7 +12,6 @@ class Jinja2cppConan(ConanFile):
     name = "jinja2cpp"
     description = "Jinja2 C++ (and for C++) almost full-conformance template engine implementation"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://jinja2cpp.dev/"
     topics = ("cpp14", "cpp17", "jinja2", "string templates", "templates engine")
     package_type = "library"

@@ -17,7 +17,6 @@ class PDCursesConan(ConanFile):
     name = "pdcurses"
     description = "PDCurses - a curses library for environments that don't fit the termcap/terminfo model"
     license = "LicenseRef-LICENSE"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://pdcurses.org/"
     topics = ("curses", "ncurses")
 

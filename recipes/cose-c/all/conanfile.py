@@ -14,7 +14,6 @@ class CoseCConan(ConanFile):
     name = "cose-c"
     description = "Implementation of COSE in C using cn-cbor and openssl"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cose-wg/COSE-C"
     topics = "cbor"
     package_type = "library"

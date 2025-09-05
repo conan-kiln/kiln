@@ -14,7 +14,6 @@ class Sqlite3Conan(ConanFile):
     name = "sqlite3"
     description = "Self-contained, serverless, in-process SQL database engine."
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.sqlite.org"
     topics = ("sqlite", "database", "sql", "serverless")
     package_type = "library"

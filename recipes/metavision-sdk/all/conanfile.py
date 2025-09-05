@@ -15,7 +15,6 @@ class MetavisionSdkConan(ConanFile):
     name = "metavision-sdk"
     description = "Open source SDK to create applications leveraging event-based vision hardware equipment"
     license = "Apache"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/prophesee-ai/openeb"
     topics = ("sdk", "computer-vision", "camera-api", "neuromorphic", "event-camera")
     package_type = "shared-library"

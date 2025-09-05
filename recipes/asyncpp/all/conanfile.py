@@ -15,7 +15,6 @@ class AsyncppRecipe(ConanFile):
     name = "asyncpp"
     description = "A C++20 coroutine library for asynchronous and parallel programming."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/petiaccja/asyncpp/"
     topics = ("coroutine", "c++20", "async", "parallel", "concurrency")
 

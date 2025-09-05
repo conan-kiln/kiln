@@ -11,7 +11,6 @@ class SConsConan(ConanFile):
     name = "scons"
     description = "SCons is an Open Source software construction tool-that is, a next-generation build tool"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index/"
     homepage = "https://scons.org"
     topics = ("scons", "build", "configuration", "development")
     settings = "os", "arch", "compiler", "build_type"

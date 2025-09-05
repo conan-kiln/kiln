@@ -22,7 +22,6 @@ class LightGBMConan(ConanFile):
         "used for ranking, classification and many other machine learning tasks."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/LightGBM"
     topics = ("machine-learning", "boosting")
 

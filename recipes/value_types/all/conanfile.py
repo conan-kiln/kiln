@@ -12,7 +12,6 @@ class ValueTypesConan(ConanFile):
     name = "value_types"
     description = "a C++20 reference implementation of std::indirect and std::polymophic as a standalone library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jbcoe/value_types"
     topics = ("utility", "backport")
     package_type = "header-library"

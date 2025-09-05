@@ -13,7 +13,6 @@ class HighFiveConan(ConanFile):
     name = "highfive"
     description = "User-friendly, header-only, C++14 wrapper for HDF5."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/highfive-devs/highfive"
     topics = ("hdf5", "hdf", "data", "header-only")
     package_type = "header-library"

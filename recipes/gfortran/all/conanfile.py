@@ -17,7 +17,6 @@ class GFortranConan(ConanFile):
     name = "gfortran"
     description = "The Fortran compiler front end and run-time libraries for GCC"
     license = "GPL-3.0-only WITH GCC-exception-3.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gcc.gnu.org/fortran"
     topics = ("fortran", "gcc", "gnu", "compiler")
 

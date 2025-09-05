@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "libvdpau"
     description = "Video Decode and Presentation API for UNIX"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/wiki/Software/VDPAU/"
     topics = ("video", "decode", "presentation")
     package_type = "shared-library"

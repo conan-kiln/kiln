@@ -13,7 +13,6 @@ class Clipper2Conan(ConanFile):
     name = "clipper2"
     description = " A Polygon Clipping and Offsetting library in C++"
     license = "BSL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AngusJohnson/Clipper2"
     topics = ("geometry", "polygon", "clipping")
     package_type = "library"

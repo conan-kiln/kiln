@@ -15,7 +15,6 @@ class YderConan(ConanFile):
     homepage = "https://github.com/babelouest/yder"
     topics = ("logging", "stdout", "file", "journald", "systemd")
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

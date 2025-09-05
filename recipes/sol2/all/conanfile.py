@@ -14,7 +14,6 @@ class Sol2Conan(ConanFile):
     name = "sol2"
     description = "a C++ <-> Lua API wrapper with advanced features and top notch performance"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ThePhD/sol2"
     topics = ("lua", "c++", "bindings", "scripting", "header-only")
     package_type = "header-library"

@@ -14,7 +14,6 @@ class FunctionsFrameworkCppConan(ConanFile):
     name = "functions-framework-cpp"
     description = "An open source FaaS (Functions as a Service) framework"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/GoogleCloudPlatform/functions-framework-cpp"
     topics = ("google", "cloud", "functions-as-a-service", "faas-framework")
     settings = "os", "arch", "compiler", "build_type"

@@ -17,7 +17,6 @@ class ImakeConan(ConanFile):
     topics = ("xmkmf", "preprocessor", "build", "system")
     license = "MIT"
     homepage = "https://gitlab.freedesktop.org/xorg/util/imake"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"

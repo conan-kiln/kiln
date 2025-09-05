@@ -16,7 +16,6 @@ class Im95ableReaConan(ConanFile):
         "designed for constant time insertion, erasure, lookup, and fastest possible iteration."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/im95able/Rea/"
     topics = ("slot_map", "slot_list", "header-only")
     package_type = "header-library"

@@ -12,7 +12,6 @@ class EnumFlagsConan(ConanFile):
     name = "enum-flags"
     description = "Bit flags for C++11 scoped enums"
     homepage = "https://github.com/grisumbras/enum-flags"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("bitmask", "enum")
     license = "MIT"
     package_type = "header-library"

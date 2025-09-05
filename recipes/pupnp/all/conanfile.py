@@ -20,7 +20,6 @@ class PupnpConan(ConanFile):
         "devices, and bridges on several operating systems."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pupnp/pupnp"
     topics = ("upnp", "networking")
 

@@ -21,7 +21,6 @@ class OpenVDBConan(ConanFile):
         "manipulation of sparse volumetric data discretized on three-dimensional grids."
     )
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AcademySoftwareFoundation/openvdb"
     topics = ("voxel", "voxelizer", "volume-rendering", "fx", "vdb")
 

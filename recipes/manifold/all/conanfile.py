@@ -12,7 +12,6 @@ class ManifoldConan(ConanFile):
     name = "manifold"
     description = "Geometry library for topological robustness"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/elalish/manifold"
     topics = ("geometry", "topological", "mesh")
 

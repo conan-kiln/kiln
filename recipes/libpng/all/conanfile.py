@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 class LibpngConan(ConanFile):
     name = "libpng"
     description = "libpng is the official PNG file format reference library."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.libpng.org"
     license = "libpng-2.0"
     topics = ("png", "graphics", "image")

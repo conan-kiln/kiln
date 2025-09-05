@@ -12,7 +12,6 @@ class fastgltf(ConanFile):
     name = "fastgltf"
     description = "A modern C++17 glTF 2.0 library focused on speed, correctness, and usability"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/spnda/fastgltf"
     topics = ("gltf", "simd", "cpp17")
     package_type = "library"

@@ -24,7 +24,6 @@ class VtkConan(ConanFile):
                    " freely available software system for 3D computer graphics,"
                    " image processing, and visualization.")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.vtk.org/"
     topics = ("scientific", "image", "processing", "visualization")
     settings = "os", "arch", "compiler", "build_type"

@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class MingwConan(ConanFile):
     name = "mingw-builds"
     description = "MinGW is a contraction of Minimalist GNU for Windows"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/niXman/mingw-builds"
     license = "ZPL-2.1", "MIT", "GPL-2.0-or-later"
     topics = ("gcc", "gnu", "unix", "mingw32", "binutils")

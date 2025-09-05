@@ -11,7 +11,6 @@ class CloveUnitConan(ConanFile):
     description = "Single-header Unit Testing framework for C (interoperable with C++) with test autodiscovery feature"
     license = "MIT"
     homepage = "https://github.com/fdefelici/clove-unit"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("unit-testing", "testing", "unit testing", "test", "header-only")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

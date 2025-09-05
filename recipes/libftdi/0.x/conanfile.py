@@ -13,7 +13,6 @@ class LibFtdi(ConanFile):
     name = "libftdi"
     description = "libFTDI - FTDI USB driver with bitbang mode"
     license = "LGPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.intra2net.com/en/developer/libftdi"
     topics = ("libconfuse", "configuration", "parser")
 

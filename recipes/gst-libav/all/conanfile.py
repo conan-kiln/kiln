@@ -15,7 +15,6 @@ class GStLibAVConan(ConanFile):
     name = "gst-libav"
     description = "GStreamer plugin for the FFmpeg libav libraries"
     license = "GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gstreamer.freedesktop.org/"
     topics = ("gstreamer", "ffmpeg", "multimedia", "video", "audio", "broadcasting", "framework", "media")
     package_type = "library"

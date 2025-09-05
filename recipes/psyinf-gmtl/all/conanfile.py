@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "psyinf-gmtl"
     description = "The Generic Math Template Library. A math library designed to be high-performance, extensible, and generic."
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/psyinf/gmtl"
     topics = ("linear-algebra", "collision", "vector", "matrix", "template", "math", "header-only")
     settings = "os", "arch", "compiler", "build_type"

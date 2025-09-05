@@ -13,7 +13,6 @@ class IguanaConan(ConanFile):
     name = "iguana"
     description = "universal serialization engine"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/qicosmos/iguana"
     topics = ("serialization", "json", "xml", "header-only")
     package_type = "header-library"

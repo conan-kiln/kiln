@@ -12,7 +12,6 @@ class HunspellConan(ConanFile):
     name = "hunspell"
     description = "Hunspell is a free spell checker and morphological analyzer library"
     license = "LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://hunspell.github.io/"
     topics = ("spell", "spell-check")
 

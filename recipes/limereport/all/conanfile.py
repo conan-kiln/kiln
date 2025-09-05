@@ -14,7 +14,6 @@ class LimereportConan(ConanFile):
     homepage = "https://limereport.ru"
     topics = ("pdf", "report", "qt")
     license = "LGPL-3.0", "GPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

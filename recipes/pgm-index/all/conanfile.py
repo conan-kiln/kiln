@@ -20,7 +20,6 @@ class PgmIndexConan(ConanFile):
     license = "Apache-2.0"
     topics = ("data-structure", "spatial-index", "b-tree", "compression", "database", "machine-learning")
     homepage = "https://pgm.di.unipi.it"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

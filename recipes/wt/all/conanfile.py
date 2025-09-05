@@ -15,7 +15,6 @@ class WtConan(ConanFile):
     name = "wt"
     description = "Wt is a C++ library for developing web applications"
     license = "GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/emweb/wt"
     topics = ("server", "web", "webapp", "websocket", "cgi", "fastcgi", "orm")
     package_type = "library"

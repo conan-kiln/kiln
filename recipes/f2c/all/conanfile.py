@@ -17,7 +17,6 @@ class F2cConan(ConanFile):
     name = "f2c"
     description = "Fortran 77 to C/C++ translator"
     license = "SMLNJ"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://netlib.org/f2c/"
     topics = ("fortran", "translator")
 

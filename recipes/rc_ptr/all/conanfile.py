@@ -13,7 +13,6 @@ class RcPtrConan(ConanFile):
     name = "rc_ptr"
     description = "Reference counted smart pointer for single-threaded environments"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Chylynsky/rc_ptr"
     topics = ("memory", "smart-pointer", "header-only")
     package_type = "header-library"

@@ -14,7 +14,6 @@ class GLShaderPPConan(ConanFile):
     name = "glshaderpp"
     description = "A lightweight header-only library to compile and link OpenGL GLSL shaders."
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab-lepuy.iut.uca.fr/opengl/glshaderpp"
     topics = ("opengl", "glsl", "shader", "header-only")
 

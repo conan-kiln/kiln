@@ -15,7 +15,6 @@ class XtransConan(ConanFile):
     name = "xtrans"
     description = "X Network Transport layer shared code"
     license = "HPND AND HPND-sell-variant AND MIT AND MIT-open-group AND X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxtrans"
     topics = ("xorg", "x11")
 

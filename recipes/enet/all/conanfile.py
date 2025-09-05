@@ -13,7 +13,6 @@ class EnetConan(ConanFile):
     name = "enet"
     description = "ENet reliable UDP networking library"
     topics = ("udp", "networking")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lsalzman/enet"
     license = "MIT"
 

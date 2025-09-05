@@ -13,7 +13,6 @@ class MBitsLngsConan(ConanFile):
     name = "mbits-lngs"
     description = "Language strings support"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-os/lngs"
     topics = ("gettext", "locale",)
     settings = "os", "arch", "compiler", "build_type"

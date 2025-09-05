@@ -19,7 +19,6 @@ class OpenUCXConan(ConanFile):
                    "production proven-communication framework for modern, high-bandwidth "
                    "and low-latency networks.")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.openucx.org/"
     topics = ("networking", "hpc", "mpi", "gemini", "pgas", "rdma", "infiniband", "iwarp", "roce", "cray", "verbs", "shared-memory", "aries")
     package_type = "shared-library"  # static build fails with an internal linker error

@@ -11,7 +11,6 @@ class AwsCHttp(ConanFile):
     name = "aws-c-http"
     description = "C99 implementation of the HTTP/1.1 and HTTP/2 specifications"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-http"
     topics = ("aws", "amazon", "cloud", "http", "http2", )
     package_type = "library"

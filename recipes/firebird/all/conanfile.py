@@ -16,7 +16,6 @@ class FirebirdConan(ConanFile):
     name = "firebird"
     description = "Client library for Firebird - a relational database offering many ANSI SQL standard features."
     license = ("LicenseRef-IDPLicense.txt", "LicenseRef-IPLicense.txt")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/FirebirdSQL/firebird"
     topics = ("sql", "database")
     package_type = "shared-library"

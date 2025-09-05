@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class LemonConan(ConanFile):
     name = "lemon"
     description = "The Lemon program reads a grammar of the input language and emits C-code to implement a parser for that language."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sqlite.org/lemon.html"
     topics = ("grammar", "lexer", "lalr", "parser", "generator", "sqlite")
     license = "Unlicense"

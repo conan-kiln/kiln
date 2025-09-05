@@ -18,7 +18,6 @@ class QhullConan(ConanFile):
                    "furthest-site Delaunay triangulation, and furthest-site "
                    "Voronoi diagram.")
     license = "Qhull"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.qhull.org"
     topics = ("geometry", "convex", "triangulation", "intersection")
     package_type = "library"

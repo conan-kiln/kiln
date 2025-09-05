@@ -14,7 +14,6 @@ class LibarchiveConan(ConanFile):
     name = "libarchive"
     description = "Multi-format archive and compression library"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libarchive.org"
     topics = ("archive", "compression", "tar", "data-compressor", "file-compression")
     package_type = "library"

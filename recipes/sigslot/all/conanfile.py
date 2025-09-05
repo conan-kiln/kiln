@@ -15,7 +15,6 @@ class SigslotConan(ConanFile):
     name = "sigslot"
     description = "Sigslot is a header-only, thread safe implementation of signal-slots for C++."
     topics = ("signal", "slot", "c++14", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/palacaze/sigslot"
     license = "MIT"
     package_type = "header-library"

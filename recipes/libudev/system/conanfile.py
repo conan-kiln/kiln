@@ -11,7 +11,6 @@ class LibUDEVConan(ConanFile):
     version = "system"
     description = "API for enumerating and introspecting local devices"
     topics = ("udev", "devices", "enumerating")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/software/systemd/man/udev.html"
     license = "GPL-2.0-or-later", "LGPL-2.1-or-later"
     package_type = "shared-library"

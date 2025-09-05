@@ -18,7 +18,6 @@ class ImathConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("computer-graphics", "matrix", "openexr", "3d-vector")
     homepage = "https://github.com/AcademySoftwareFoundation/Imath"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -14,7 +14,6 @@ class CCTZConan(ConanFile):
     name = "cctz"
     description = "C++ library for translating between absolute and civil times"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/cctz"
     topics = ("time", "timezones")
     package_type = "library"

@@ -11,7 +11,6 @@ class EtcdCppApiv3Conan(ConanFile):
     name = "etcd-cpp-apiv3"
     description = "C++ library for etcd's v3 client APIs, i.e., ETCDCTL_API=3."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3"
     topics = ("etcd", "api", )
 

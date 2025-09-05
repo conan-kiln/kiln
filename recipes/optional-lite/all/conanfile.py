@@ -11,7 +11,6 @@ class OptionalLiteConan(ConanFile):
     name = "optional-lite"
     description = "A single-file header-only version of a C++17-like optional, a nullable object for C++98, C++11 and later"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/optional-lite"
     topics = ("cpp98", "cpp17", "optional", "optional-implementations", "header-only")
     package_type = "header-library"

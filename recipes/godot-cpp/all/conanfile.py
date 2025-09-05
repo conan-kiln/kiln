@@ -13,7 +13,6 @@ class GodotCppConan(ConanFile):
     name = "godot-cpp"
     description = "C++ bindings for the Godot script API"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/godotengine/godot-cpp"
     topics = ("game-engine", "game-development", "c++")
 

@@ -18,7 +18,6 @@ class SpirvCrossConan(ConanFile):
     license = "Apache-2.0"
     topics = ("reflection", "disassembler", "spirv", "spir-v", "glsl", "hlsl")
     homepage = "https://github.com/KhronosGroup/SPIRV-Cross"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

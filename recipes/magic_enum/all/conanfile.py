@@ -17,7 +17,6 @@ class MagicEnumConan(ConanFile):
         "with any enum type without any macro or boilerplate code."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Neargye/magic_enum"
     topics = ("cplusplus", "enum-to-string", "string-to-enum", "serialization",
               "reflection", "header-only", "compile-time")

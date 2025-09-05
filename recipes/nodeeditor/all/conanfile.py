@@ -11,7 +11,6 @@ class NodeEditorConan(ConanFile):
     name = "nodeeditor"
     license = "BSD-3-Clause"
     description = "Dataflow programming framework and UI for Qt"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/paceholder/nodeeditor"
     topics = ("qt", "ui", "dataflow")
     settings = "os", "arch", "compiler", "build_type"

@@ -13,7 +13,6 @@ class HwDataConan(ConanFile):
     name = "hwdata"
     description = "hwdata contains various hardware identification and configuration data, such as the pci.ids and usb.ids databases"
     license = ("GPL-2.0-or-later", "XFree86-1.1")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vcrhonek/hwdata"
     topics = ("hardware", "id", "pci", "usb")
     package_type = "unknown"

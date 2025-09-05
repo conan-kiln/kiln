@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class AwsSdkCppConan(ConanFile):
     name = "aws-sdk-cpp"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aws/aws-sdk-cpp"
     description = "AWS SDK for C++"
     topics = ("aws", "cpp", "cross-platform", "amazon", "cloud")

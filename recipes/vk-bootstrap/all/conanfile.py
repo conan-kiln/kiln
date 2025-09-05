@@ -17,7 +17,6 @@ class VkBootstrapConan(ConanFile):
     license = "MIT"
     topics = ("vulkan", "bootstrap", "setup")
     homepage = "https://github.com/charles-lunarg/vk-bootstrap"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

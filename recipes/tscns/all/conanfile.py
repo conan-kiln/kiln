@@ -13,7 +13,6 @@ class TscnsConan(ConanFile):
     name = "tscns"
     description = "A low overhead nanosecond clock based on x86 TSC"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/MengRao/tscns/"
     topics = ("timestamp", "x86_64", "header-only")
     package_type = "header-library"

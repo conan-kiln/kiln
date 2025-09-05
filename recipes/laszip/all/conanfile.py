@@ -15,7 +15,6 @@ class LaszipConan(ConanFile):
     license = "LGPL-2.1"
     topics = ("las", "laz", "lidar", "compression", "decompression")
     homepage = "https://github.com/LASzip/LASzip"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

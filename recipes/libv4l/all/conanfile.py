@@ -16,7 +16,6 @@ class Libv4lConan(ConanFile):
     name = "libv4l"
     description = "libv4l is a collection of libraries which adds a thin abstraction layer on top of video4linux2 devices."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://linuxtv.org/wiki/index.php/V4l-utils"
     topics = ("video4linux2", "v4l", "video", "camera", "webcam")
     package_type = "library"

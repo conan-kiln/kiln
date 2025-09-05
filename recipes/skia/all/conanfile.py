@@ -15,7 +15,6 @@ class SkiaConan(ConanFile):
     description = ("Skia is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms."
                    " It serves as the graphics engine for Google Chrome and ChromeOS, Android, Flutter, and many other products.")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://skia.org/"
     topics = ("graphics", "2d", "rendering", "chromium")
 

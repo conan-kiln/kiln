@@ -15,7 +15,6 @@ class MlpackConan(ConanFile):
     name = "mlpack"
     description = "mlpack: a fast, header-only C++ machine learning library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mlpack/mlpack"
     topics = ("machine-learning", "deep-learning", "regression", "nearest-neighbor-search", "scientific-computing", "header-only")
 

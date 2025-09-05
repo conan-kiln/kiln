@@ -15,7 +15,6 @@ class SdlnetConan(ConanFile):
     license = "Zlib"
     topics = ("sdl2", "sdl2_net", "sdl", "sdl_net", "net", "networking")
     homepage = "https://www.libsdl.org/projects/SDL_net"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

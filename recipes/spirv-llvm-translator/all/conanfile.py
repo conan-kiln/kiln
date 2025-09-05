@@ -13,7 +13,6 @@ class SpirvLlvmTranslatorConan(ConanFile):
     name = "spirv-llvm-translator"
     description = "A tool and a library for bi-directional translation between SPIR-V and LLVM IR"
     license = "NCSA"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
     topics = ("spirv", "llvm", "llvm-ir")
     package_type = "library"

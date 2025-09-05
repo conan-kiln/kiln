@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     name = "fmtlog"
     description = "fmtlog is a performant fmtlib-style logging library with latency in nanoseconds."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/MengRao/fmtlog"
     topics = ("logging", "low-latency")
     package_type = "library"

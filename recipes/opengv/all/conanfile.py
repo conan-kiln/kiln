@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class opengvConan(ConanFile):
     name = "opengv"
     description = "A collection of computer vision methods for solving geometric vision problems"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/laurentkneip/opengv"
     license = "BSD-3-Clause"
     topics = ("computer", "vision", "geometric", "pose", "triangulation", "point-cloud")

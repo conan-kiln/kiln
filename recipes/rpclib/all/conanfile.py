@@ -13,7 +13,6 @@ class rpclibConan(ConanFile):
     name = "rpclib"
     description = "A modern C++ msgpack-RPC server and client library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rpclib/rpclib/"
     topics = ("rpc", "ipc", "rpc-server")
 

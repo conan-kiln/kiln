@@ -18,7 +18,6 @@ class GfCompleteConan(ConanFile):
     name = "gf-complete"
     description = "A library for Galois Field arithmetic"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ceph/gf-complete"
     topics = ("galois field", "math", "algorithms")
 

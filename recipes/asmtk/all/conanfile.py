@@ -12,7 +12,6 @@ class AsmjitConan(ConanFile):
     description = "AsmTK provides concepts that are useful mostly in AOT code-generation."
     license = "Zlib"
     topics = ("asmjit", "compiler", "assembler", "jit", "asmtk")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://asmjit.com"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -11,7 +11,6 @@ class TreeSitterCPPConan(ConanFile):
     name = "tree-sitter-cpp"
     description = "C++ grammar for tree-sitter"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tree-sitter.github.io/tree-sitter"
     topics = ("tree-sitter", "parser", "cplusplus")
     package_type = "library"

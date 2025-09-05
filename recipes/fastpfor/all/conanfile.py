@@ -13,7 +13,6 @@ class FastPFORConan(ConanFile):
     name = "fastpfor"
     description = "Fast integer compression"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lemire/FastPFor"
     topics = ("compression", "sorted-lists", "simd", "x86", "x86-64")
     package_type = "static-library"

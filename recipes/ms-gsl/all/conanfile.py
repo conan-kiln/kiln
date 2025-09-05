@@ -14,7 +14,6 @@ class MicrosoftGslConan(ConanFile):
     name = "ms-gsl"
     description = "Microsoft's implementation of the Guidelines Support Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/GSL"
     topics = ("gsl", "guidelines", "core", "span", "header-only")
     package_type = "header-library"

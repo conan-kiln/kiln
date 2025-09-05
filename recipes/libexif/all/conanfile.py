@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 
 class LibexifConan(ConanFile):
     name = "libexif"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libexif.github.io/"
     license = "LGPL-2.1"
     description = "libexif is a library for parsing, editing, and saving EXIF data."

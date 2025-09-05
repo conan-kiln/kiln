@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class LibmnlConan(ConanFile):
     name = "libmnl"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://netfilter.org/projects/libmnl/index.html"
     description = "Minimalistic Netlink communication library"
     topics = ("libmnl", "netlink")

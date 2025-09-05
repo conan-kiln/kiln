@@ -13,7 +13,6 @@ class AstroInformaticsSO3(ConanFile):
     name = "astro-informatics-so3"
     description = "Fast and accurate Wigner transforms"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/astro-informatics/so3"
     topics = ("physics", "astrophysics", "radio interferometry")
 

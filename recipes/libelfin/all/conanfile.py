@@ -12,7 +12,6 @@ class LibelfinConan(ConanFile):
     name = "libelfin"
     description = "C++11 library for reading ELF binaries and DWARFv4 debug information"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aclements/libelfin"
     topics = ("elf", "dwarf")
 

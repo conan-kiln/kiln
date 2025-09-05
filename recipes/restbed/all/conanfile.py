@@ -15,7 +15,6 @@ class RestbedConan(ConanFile):
     homepage = "https://github.com/Corvusoft/restbed"
     description = "Corvusoft's Restbed framework brings asynchronous RESTful functionality to C++14 applications."
     topics = ("restful", "server", "client", "json", "http", "ssl", "tls")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "AGPL-3.0-or-later", "LicenseRef-CPL"  # Corvusoft Permissive License (CPL)
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

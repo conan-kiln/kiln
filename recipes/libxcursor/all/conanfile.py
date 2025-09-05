@@ -16,7 +16,6 @@ class LibXcursorConan(ConanFile):
     name = "libxcursor"
     description = "libXcursor: Xlib-based Cursor management library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcursor"
     topics = ("xorg", "x11")
 

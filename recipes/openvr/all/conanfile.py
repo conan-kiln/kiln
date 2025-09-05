@@ -18,7 +18,6 @@ class OpenvrConan(ConanFile):
         "have specific knowledge of the hardware they are targeting."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ValveSoftware/openvr"
     topics = ("vr", "virtual reality")
 

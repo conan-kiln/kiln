@@ -13,7 +13,6 @@ class LASlibConan(ConanFile):
     name = "laslib"
     description = "Efficient tools for lidar processing"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/LAStools/LAStools/tree/master/LASlib"
     topics = ("las", "laz", "lidar", "compression", "decompression")
 

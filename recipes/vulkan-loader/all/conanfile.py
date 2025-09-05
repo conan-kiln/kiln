@@ -14,7 +14,6 @@ class VulkanLoaderConan(ConanFile):
     description = "Khronos official Vulkan ICD desktop loader for Windows, Linux, and MacOS."
     topics = ("vulkan", "loader", "desktop", "gpu")
     homepage = "https://github.com/KhronosGroup/Vulkan-Loader"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"

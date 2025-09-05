@@ -17,7 +17,6 @@ class AclConan(ConanFile):
     topics = ("posix",)
     license = "GPL-2.0-or-later"
     homepage = "https://savannah.nongnu.org/projects/acl/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

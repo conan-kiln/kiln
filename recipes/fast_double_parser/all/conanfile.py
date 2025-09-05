@@ -12,7 +12,6 @@ class FastDoubleParserConan(ConanFile):
     name = "fast_double_parser"
     description = "Fast function to parse strings into double (binary64) floating-point values, enforces the RFC 7159 (JSON standard) grammar: 4x faster than strtod"
     license = ("Apache-2.0", "BSL-1.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lemire/fast_double_parser"
     topics = ("numerical", "header-only")
     package_type = "header-library"

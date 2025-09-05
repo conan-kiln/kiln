@@ -14,7 +14,6 @@ class Perf(ConanFile):
     name = "perf"
     description = "Linux profiling with performance counters"
     license = "GPL-2.0 WITH Linux-syscall-note"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://perf.wiki.kernel.org/index.php"
     topics = ("linux", "profiling")
 

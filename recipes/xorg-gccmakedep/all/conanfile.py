@@ -16,7 +16,6 @@ class XorgGccmakedep(ConanFile):
     topics = ("xorg", "gcc", "dependency", "obsolete")
     license = "MIT"
     homepage = "https://gitlab.freedesktop.org/xorg/util/gccmakedep"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def export_sources(self):

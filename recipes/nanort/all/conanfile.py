@@ -9,7 +9,6 @@ from conan.tools.layout import basic_layout
 class NanoRTConan(ConanFile):
     name = "nanort"
     description = "Single header only modern ray tracing kernel"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lighttransport/nanort"
     topics = ("graphics", "raytracing", "header-only")
     license = "MIT"

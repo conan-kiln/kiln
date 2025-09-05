@@ -14,7 +14,6 @@ class ZziplibConan(ConanFile):
     name = "zziplib"
     description = "The ZZIPlib provides read access on ZIP-archives and unpacked data"
     topics = ("zip", "archive", "decompression")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gdraheim/zziplib"
     license = "GPL-2.0-or-later"
 

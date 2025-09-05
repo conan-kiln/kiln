@@ -15,7 +15,6 @@ class EnchantConan(ConanFile):
         "dealing with different spell checking libraries in a consistent way"
     )
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://rrthomas.github.io/enchant/"
     topics = ("enchant", "spell", "spell-check")
 

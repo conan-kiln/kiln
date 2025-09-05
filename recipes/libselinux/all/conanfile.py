@@ -20,7 +20,6 @@ class LibSELinuxConan(ConanFile):
         "mandatory access controls to Linux"
     )
     topics = ("linux", "selinux", "security", "security-enhanced")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SELinuxProject/selinux"
     license = (
         # https://github.com/SELinuxProject/selinux/blob/main/libselinux/LICENSE

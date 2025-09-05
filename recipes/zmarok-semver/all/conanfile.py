@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class ZmarokSemverConan(ConanFile):
     name = "zmarok-semver"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zmarko/semver"
     description = "Semantic versioning for cpp14"
     topics = ("versioning", "semver", "semantic")

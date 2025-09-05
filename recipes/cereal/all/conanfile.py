@@ -13,7 +13,6 @@ class CerealConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("header-only", "serialization", "cpp11")
     homepage = "https://github.com/USCiLab/cereal"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

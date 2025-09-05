@@ -11,7 +11,6 @@ class Iso8601LibConan(ConanFile):
     name = "iso8601lib"
     description = "Parsing a subset of ISO 8601 datetimes, dates and times in C."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TimSC/iso8601lib"
     topics = ("iso8601", "date", "time", "timezone")
     settings = "os", "arch", "compiler", "build_type"

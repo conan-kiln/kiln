@@ -16,7 +16,6 @@ class MrcalConan(ConanFile):
     name = "mrcal"
     description = "mrcal is a generic toolkit built to solve the calibration and SFM-like problems we encounter at NASA/JPL"
     license = "Apache-2.0 AND LGPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mrcal.secretsauce.net/"
     topics = ("camera-calibration", "computer-vision")
 

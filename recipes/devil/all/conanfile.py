@@ -15,7 +15,6 @@ class DevilConan(ConanFile):
     description = "Developer's Image Library (DevIL) is a programmer's library to develop applications with very " \
                   "powerful image loading capabilities, yet is easy for a developer to learn and use."
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openil.sourceforge.net/"
     topics = ("devil", "image")
     package_type = "library"

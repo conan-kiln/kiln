@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class OutPtrConan(ConanFile):
     name = "out_ptr"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/soasis/out_ptr"
     description = "a C++11 implementation of std::out_ptr (p1132), as a standalone library"
     topics = ("utility", "backport")

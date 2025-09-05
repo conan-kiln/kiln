@@ -19,7 +19,6 @@ class XorgCfFilesConan(ConanFile):
     topics = ("imake", "xorg", "template", "configuration", "obsolete")
     license = "MIT"
     homepage = "https://gitlab.freedesktop.org/xorg/util/cf"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
 
     def export_sources(self):

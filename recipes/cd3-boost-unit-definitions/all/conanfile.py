@@ -12,7 +12,6 @@ class Cd3BoostUnitDefinitionsConan(ConanFile):
     name = "cd3-boost-unit-definitions"
     description = "A collection of pre-defined types and unit instances for working with Boost.Units quantities."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CD3/BoostUnitDefinitions"
     topics = ("physical dimensions", "header-only")
     package_type = "header-library"

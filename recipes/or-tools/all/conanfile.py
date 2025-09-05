@@ -14,7 +14,6 @@ class OrToolsConan(ConanFile):
     name = "or-tools"
     description = "OR-Tools is fast and portable software for combinatorial optimization"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://developers.google.com/optimization/"
     topics = ("optimization", "linear-programming", "operations-research", "combinatorial-optimization")
     package_type = "library"

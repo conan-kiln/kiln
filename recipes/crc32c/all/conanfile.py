@@ -12,7 +12,6 @@ class crc32cConan(ConanFile):
     name = "crc32c"
     description = "CRC32C implementation with support for CPU-specific acceleration instructions"
     topics = ("crc32c", "crc")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/crc32c"
     license = "BSD-3-Clause"
 

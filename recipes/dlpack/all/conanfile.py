@@ -11,7 +11,6 @@ class DlpackConan(ConanFile):
     name = "dlpack"
     description = "RFC for common in-memory tensor structure and operator interface for deep learning system"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dmlc/dlpack"
     topics = ("deep-learning", "operator", "tensor", "header-only")
     package_type = "header-library"

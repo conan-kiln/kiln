@@ -18,7 +18,6 @@ class JoltPhysicsConan(ConanFile):
     license = "MIT"
     topics = ("physics", "simulation", "physics-engine", "physics-simulation", "rigid-body", "game", "collision")
     homepage = "https://github.com/jrouwe/JoltPhysics"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

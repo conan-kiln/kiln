@@ -11,7 +11,6 @@ class QDBMConan(ConanFile):
     name = "qdbm"
     description = "QDBM is a library of routines for managing a database."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://dbmx.net/qdbm/"
     topics = ("database", "db")
 

@@ -11,7 +11,6 @@ class SuiteSparseBtfConan(ConanFile):
     name = "suitesparse-btf"
     description = "BTF: Software package for permuting a matrix into block upper triangular form in SuiteSparse"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "matrix-permutation")
 

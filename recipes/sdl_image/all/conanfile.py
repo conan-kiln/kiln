@@ -13,7 +13,6 @@ class SDLImageConan(ConanFile):
     name = "sdl_image"
     description = "SDL_image is an image file loading library"
     topics = ("sdl2", "sdl", "images", "opengl")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libsdl.org/projects/SDL_image/"
     license = "MIT"
 

@@ -12,7 +12,6 @@ class CudaApiWrappersConan(ConanFile):
     name = "cuda-api-wrappers"
     description = "Thin, unified, C++-flavored wrappers for the CUDA APIs"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eyalroz/cuda-api-wrappers"
     topics = ("gpgpu", "cuda", "header-only")
     package_type = "header-library"

@@ -12,7 +12,6 @@ class NameofConan(ConanFile):
     name = "nameof"
     description = "Header-only C++17 library provides nameof macros and functions to simply obtain the name of a variable, type, function, macro, and enum."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Neargye/nameof"
     topics = (
         "enum-to-string",

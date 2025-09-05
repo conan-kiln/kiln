@@ -16,7 +16,6 @@ class OpenmeshConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("mesh", "structure", "geometry")
     homepage = "https://www.graphics.rwth-aachen.de/software/openmesh"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

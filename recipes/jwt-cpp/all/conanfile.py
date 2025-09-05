@@ -11,7 +11,6 @@ class JwtCppConan(ConanFile):
     name = "jwt-cpp"
     description = "A C++ JSON Web Token library for encoding/decoding"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Thalhammer/jwt-cpp"
     topics = ("json", "jwt", "jws", "jwe", "jwk", "jwks", "jose", "header-only")
     package_type = "header-library"

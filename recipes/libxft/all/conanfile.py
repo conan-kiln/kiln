@@ -13,7 +13,6 @@ class libxftConan(ConanFile):
     name = "libxft"
     description = "X FreeType library"
     license = "HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxft"
     topics = ("x11", "xorg", "freetype")
 

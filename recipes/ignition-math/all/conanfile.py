@@ -14,7 +14,6 @@ class IgnitionMathConan(ConanFile):
     name = "ignition-math"
     description = "Math classes and functions for robot applications"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gazebosim.org/libs/math"
     topics = ("ignition", "math", "robotics", "gazebo")
 

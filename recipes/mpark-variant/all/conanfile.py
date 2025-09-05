@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class MparkVariantConan(ConanFile):
     name = "mpark-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mpark/variant"
     description = "C++17 std::variant for C++11/14/17"
     license = "BSL-1.0"

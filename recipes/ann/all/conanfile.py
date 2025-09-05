@@ -15,7 +15,6 @@ class AnnConan(ConanFile):
         "in arbitrarily high dimensions."
     )
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.cs.umd.edu/~mount/ANN"
     topics = ("nns", "nearest-neighbor-search")
     package_type = "library"

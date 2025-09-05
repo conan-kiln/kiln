@@ -14,7 +14,6 @@ class ToonConan(ConanFile):
     name = "toon"
     description = "TooN - Tom's Object Oriented Numerics library"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codedocs.xyz/edrosten/TooN/"
     topics = ("numerical", "linear-algebra", "matrix", "vector", "optimization", "automatic-differentiation", "header-only")
 

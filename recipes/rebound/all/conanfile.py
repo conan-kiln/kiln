@@ -14,7 +14,6 @@ class ReboundConan(ConanFile):
     name = "rebound"
     description = "REBOUND is an N-body integrator, i.e. a software package that can integrate the motion of particles under the influence of gravity."
     license = "GPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hannorein/rebound"
     topics = ("physics", "simulation", "n-body", "gravity", "integrator")
     package_type = "shared-library"

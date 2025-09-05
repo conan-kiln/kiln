@@ -17,7 +17,6 @@ class EasyProfilerConan(ConanFile):
     license = "MIT"
     topics = ("profiler")
     homepage = "https://github.com/yse/easy_profiler/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

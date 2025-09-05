@@ -11,7 +11,6 @@ class MsgpackCConan(ConanFile):
     name = "msgpack-c"
     description = "MessagePack implementation for C"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/msgpack/msgpack-c"
     topics = ("msgpack", "message-pack", "serialization")
     package_type = "library"

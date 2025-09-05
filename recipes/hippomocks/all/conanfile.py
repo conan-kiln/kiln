@@ -12,7 +12,6 @@ class HippomocksConan(ConanFile):
     name = "hippomocks"
     description = "Single-header mocking framework."
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dascandy/hippomocks"
     topics = ("mock", "framework", "header-only")
 

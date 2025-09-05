@@ -15,7 +15,6 @@ class CubicInterpolationConan(ConanFile):
     description = "Leightweight interpolation library based on boost and eigen."
     license = "MIT"
     homepage = "https://github.com/MaxSac/cubic_interpolation"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("interpolation", "splines", "cubic", "bicubic", "boost", "eigen3")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

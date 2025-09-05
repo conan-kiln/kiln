@@ -14,7 +14,6 @@ class HsmConan(ConanFile):
     name = "erikzenker-hsm"
     license = "MIT"
     homepage = "https://github.com/erikzenker/hsm"
-    url = "https://github.com/conan-io/conan-center-index"
     description = (
         "The hana state machine (hsm) is a finite state machine library based "
         "on the boost hana meta programming library. It follows the principles "

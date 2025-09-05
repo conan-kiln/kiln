@@ -19,7 +19,6 @@ class LibmpdclientConan(ConanFile):
     license = "BSD-2-Clause", "BSD-3-Clause"
     topics = ("music", "music-player-demon", "sound")
     homepage = "https://www.musicpd.org/libs/libmpdclient"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

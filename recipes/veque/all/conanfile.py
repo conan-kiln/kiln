@@ -13,7 +13,6 @@ class VequeConan(ConanFile):
     name = "veque"
     description = "Fast C++ container combining the best features of std::vector and std::deque"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Shmoopty/veque"
     topics = ("cpp17", "vector", "deque", "header-only")
     package_type = "header-library"

@@ -16,7 +16,6 @@ class METISConan(ConanFile):
         "fill reducing orderings for sparse matrices"
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/KarypisLab/METIS"
     topics = ("karypislab", "graph", "partitioning-algorithms")
     package_type = "library"

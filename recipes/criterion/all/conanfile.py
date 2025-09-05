@@ -15,7 +15,6 @@ class CriterionConan(ConanFile):
     name = "criterion"
     description = "C and C++ unit testing framework for the 21st century"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Snaipe/Criterion"
     topics = ("unit-testing", "testing")
     package_type = "library"

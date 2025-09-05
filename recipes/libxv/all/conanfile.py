@@ -17,7 +17,6 @@ class LibXvConan(ConanFile):
     name = "libxv"
     description = "libXv: Xlib-based library for the X Video (Xv) extension to the X Window System"
     license = "SMLNJ AND HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxv"
     topics = ("xorg", "x11")
 

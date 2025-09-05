@@ -13,7 +13,6 @@ class Thelink2012AnyConan(ConanFile):
     name = "thelink2012-any"
     description = "Implementation of std::experimental::any, including small object optimization, for C++11 compilers"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/thelink2012/any"
     topics = ("any", "c++11", "data-structures", "header-only")
 

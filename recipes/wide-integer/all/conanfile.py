@@ -13,7 +13,6 @@ class WideIntegerConan(ConanFile):
     name = "wide-integer"
     description = "Wide-Integer implements a generic C++ template for uint128_t, uint256_t, uint512_t, uint1024_t, etc."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ckormanyos/wide-integer/"
     topics = ("arbitary-precision", "multiprecision", "big-integer", "header-only")
     package_type = "header-library"

@@ -17,7 +17,6 @@ class FaacConan(ConanFile):
     name = "faac"
     description = "Freeware Advanced Audio Coder"
     topics = ("audio", "mp4", "encoder", "aac", "m4a", "faac")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/faac"
     license = "LGPL-2.0-only"
 

@@ -14,7 +14,6 @@ class LagerConan(ConanFile):
     description = "C++ library for value-oriented design using the unidirectional data-flow architecture"
     license = "MIT"
     homepage = "https://sinusoid.es/lager/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("redux", "functional-programming", "interactive", "value-semantics", "header-only")
 
     package_type = "header-library"

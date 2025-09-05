@@ -11,7 +11,6 @@ class YyjsonConan(ConanFile):
     name = "yyjson"
     description = "A high performance JSON library written in ANSI C."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ibireme/yyjson"
     topics = ("json", "serialization", "deserialization")
     package_type = "library"

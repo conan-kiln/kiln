@@ -13,7 +13,6 @@ class ClickHouseCppConan(ConanFile):
     name = "clickhouse-cpp"
     description = "ClickHouse C++ API"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ClickHouse/clickhouse-cpp"
     topics = ("database", "db", "clickhouse")
     package_type = "library"

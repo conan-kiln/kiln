@@ -15,7 +15,6 @@ class NanodbcConan(ConanFile):
     topics = ("odbc", "database")
     license = "MIT"
     homepage = "https://github.com/nanodbc/nanodbc/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

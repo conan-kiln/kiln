@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 
 class ZstdConan(ConanFile):
     name = "zstd"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facebook/zstd"
     description = "Zstandard - Fast real-time compression algorithm"
     topics = ("zstandard", "compression", "algorithm", "decoder")

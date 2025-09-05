@@ -14,7 +14,6 @@ class UvwConan(ConanFile):
     name = "uvw"
     description = "Header-only, event based, tiny and easy to use libuv wrapper in modern C++."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/skypjack/uvw"
     topics = ("libuv", "io", "networking", "header-only",)
     package_type = "header-library"

@@ -13,7 +13,6 @@ class VectorialConan(ConanFile):
     topics = ("vectorial", "math", "vector")
     license = "BSD-2-Clause"
     homepage = "https://github.com/scoopr/vectorial"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 
 class TinyADConan(ConanFile):
     name = "tinyad"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/patr-schm/TinyAD"
     description = "TinyAD is a C++ header-only library for second-order automatic differentiation"
     topics = ("algebra", "linear-algebra", "optimization", "autodiff", "numerical", "header-only")

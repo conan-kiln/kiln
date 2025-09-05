@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class Chipmunk2DConan(ConanFile):
     name = "chipmunk2d"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://chipmunk-physics.net"
     topics = ("physics", "engine", "game development")
     description = "Chipmunk2D is a simple, lightweight, fast and portable 2D "\

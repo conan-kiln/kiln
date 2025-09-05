@@ -12,7 +12,6 @@ class XxHashConan(ConanFile):
     name = "xxhash"
     description = "Extremely fast non-cryptographic hash algorithm"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Cyan4973/xxHash"
     topics = ("hash", "algorithm", "fast", "checksum", "hash-functions")
     package_type = "library"

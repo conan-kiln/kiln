@@ -16,7 +16,6 @@ class LibXfixesConan(ConanFile):
     name = "libxfixes"
     description = "libXfixes: Xlib-based library for the XFIXES Extension"
     license = "MIT AND HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxfixes"
     topics = ("xorg", "x11")
 

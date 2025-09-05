@@ -16,7 +16,6 @@ class FunctionalPlusConan(ConanFile):
     license = "BSL-1.0"
     topics = ("fplus", "functional programming", "header-only")
     homepage = "https://github.com/Dobiasd/FunctionalPlus"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

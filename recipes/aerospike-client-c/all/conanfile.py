@@ -15,7 +15,6 @@ class AerospikeConan(ConanFile):
     license = "Apache-2.0"
     description = "The Aerospike C client provides a C interface for interacting with the Aerospike Database."
     homepage = "https://github.com/aerospike/aerospike-client-c"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("aerospike", "client", "database")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -18,7 +18,6 @@ class GrassConan(ConanFile):
     name = "grass"
     description = "GRASS - free and open-source geospatial processing engine"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://grass.osgeo.org/"
     topics = ("geospatial", "gis", "remote-sensing")
     package_type = "shared-library"

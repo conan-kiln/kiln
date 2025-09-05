@@ -64,7 +64,6 @@ class OpenblasConan(ConanFile):
     name = "openblas"
     description = "An optimized BLAS library based on GotoBLAS2, with LAPACK"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.openblas.net"
     topics = ("blas", "lapack")
     package_type = "library"

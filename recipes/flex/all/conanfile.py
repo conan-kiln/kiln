@@ -13,7 +13,6 @@ required_conan_version = ">=2.4"
 
 class FlexConan(ConanFile):
     name = "flex"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/westes/flex"
     description = "Flex, the fast lexical analyzer generator"
     topics = ("lex", "lexer", "lexical analyzer generator")

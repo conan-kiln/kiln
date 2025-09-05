@@ -11,7 +11,6 @@ class BoostDepConan(ConanFile):
     name = "boostdep"
     description = "A tool to create Boost module dependency reports"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/boostorg/boostdep"
     topics = ("dependency", "tree")
     package_type = "application"

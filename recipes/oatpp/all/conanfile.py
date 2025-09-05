@@ -17,7 +17,6 @@ class OatppConan(ConanFile):
     homepage = "https://github.com/oatpp/oatpp"
     license = "Apache-2.0"
     topics = ("oat++", "web-framework")
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

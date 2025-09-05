@@ -16,7 +16,6 @@ class JsonGlibConan(ConanFile):
     name = "json-glib"
     description = "JSON-GLib implements a full JSON parser and generator using GLib and GObject, and integrates JSON with GLib data types."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://wiki.gnome.org/Projects/JsonGlib"
     topics = ("json", "gobject")
     package_type = "library"

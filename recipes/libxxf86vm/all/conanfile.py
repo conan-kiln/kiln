@@ -17,7 +17,6 @@ class LibXxf86vmConan(ConanFile):
     name = "libxxf86vm"
     description = "libXxf86vm: Xlib-based library for the XFree86-VidMode X extension"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxxf86vm"
     topics = ("xorg", "x11")
 

@@ -12,7 +12,6 @@ class TreeGenConan(ConanFile):
     name = "tree-gen"
     license = "Apache-2.0"
     homepage = "https://github.com/QuTech-Delft/tree-gen"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "C++ and Python code generator for tree-like structures common in parser and compiler codebases."
     topics = ("code generation", "tree", "parser", "compiler")
     settings = "os", "arch", "compiler", "build_type"

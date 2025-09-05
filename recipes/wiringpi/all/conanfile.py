@@ -12,7 +12,6 @@ class WiringpiConan(ConanFile):
     name = "wiringpi"
     description = "GPIO Interface library for the Raspberry Pi"
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/WiringPi/WiringPi"
     topics = ("wiringpi", "gpio", "raspberrypi")
     settings = "os", "arch", "compiler", "build_type"

@@ -12,7 +12,6 @@ class FfNvCodecHeaders(ConanFile):
     name = "ffnvcodec"
     description = "FFmpeg version of headers required to interface with Nvidia's codec APIs"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/FFmpeg/nv-codec-headers"
     topics = ("ffmpeg", "video", "nvidia", "headers", "header-only")
     package_type = "header-library"

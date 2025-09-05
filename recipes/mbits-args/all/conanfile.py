@@ -15,7 +15,6 @@ class MBitsArgsConan(ConanFile):
         "depending only on the standard library, with C++17 as minimum requirement."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-libs/args"
     topics = (
         "command-line",

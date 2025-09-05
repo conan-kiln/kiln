@@ -13,7 +13,6 @@ class UwebsocketsConan(ConanFile):
     name = "uwebsockets"
     description = "Simple, secure & standards compliant web server for the most demanding of applications"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uNetworking/uWebSockets"
     topics = ("websocket", "network", "server", "header-only")
     package_type = "header-library"

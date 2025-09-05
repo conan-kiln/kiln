@@ -12,7 +12,6 @@ class CreateDmgConan(ConanFile):
     name = "create-dmg"
     description = "A shell script to build fancy DMGs"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/create-dmg/create-dmg"
     topics = ("command-line", "dmg")
     package_type = "application"

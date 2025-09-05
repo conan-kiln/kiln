@@ -13,7 +13,6 @@ class NiftiClibConan(ConanFile):
     name = "nifti_clib"
     description = "C libraries for NIFTI support"
     license = "LicenseRef-LICENSE"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/NIFTI-Imaging/nifti_clib"
     topics = ("image")
     package_type = "library"

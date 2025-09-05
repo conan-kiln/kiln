@@ -13,7 +13,6 @@ class GumboParserConan(ConanFile):
     name = "gumbo-parser"
     description = "An HTML5 parsing library in pure C99"
     topics = ("parser", "html", "html5")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codeberg.org/gumbo-parser/gumbo-parser"
     license = "Apache-2.0"
     package_type = "library"

@@ -17,7 +17,6 @@ class NanopbConan(ConanFile):
     description = ("Nanopb is a small code-size Protocol Buffers implementation in ansi C. "
                    "It is especially suitable for use in microcontrollers, but fits any memory restricted system.")
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://jpa.kapsi.fi/nanopb/"
     topics = ("protocol-buffers", "protobuf", "microcontrollers")
     package_type = "library"

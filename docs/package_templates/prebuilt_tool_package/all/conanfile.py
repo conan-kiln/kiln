@@ -10,7 +10,6 @@ class PackageConan(ConanFile):
     name = "package"
     description = "short description"
     license = ""  # Use short name only, conform to SPDX License List: https://spdx.org/licenses/
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/project/package"
     # include "pre-built" for pre-built packages
     topics = ("topic1", "topic2", "topic3", "pre-built")

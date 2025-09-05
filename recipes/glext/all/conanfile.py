@@ -11,7 +11,6 @@ class GlextConan(ConanFile):
     name = "glext"
     description = "OpenGL 1.2 and above compatibility profile and extension interfaces"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.khronos.org/registry/OpenGL/index_gl.php"
     topics = ("opengl", "gl", "glext", "header-only")
 

@@ -15,7 +15,6 @@ class WhisperCppConan(ConanFile):
     name = "whisper-cpp"
     description = "High-performance inference of OpenAI's Whisper automatic speech recognition (ASR) model"
     topics = ("whisper", "asr")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ggerganov/whisper.cpp"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

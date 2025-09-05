@@ -15,7 +15,6 @@ required_conan_version = ">=2.1"
 class LibvaultConan(ConanFile):
     name = "libvault"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/abedra/libvault"
     description = "A C++ library for Hashicorp Vault"
     topics = ("vault", "libvault", "secrets", "passwords")

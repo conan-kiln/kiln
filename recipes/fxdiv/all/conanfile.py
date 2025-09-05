@@ -14,7 +14,6 @@ class FxdivConan(ConanFile):
     license = "MIT"
     topics = ("integer-division",)
     homepage = "https://github.com/Maratyszcza/FXdiv"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

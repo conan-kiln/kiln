@@ -13,7 +13,6 @@ class LibsysfsConan(ConanFile):
     name = "libsysfs"
     description = "Library used in handling linux kernel sysfs mounts and their various files."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linux-ras/sysfsutils"
     topics = ("sysfs",)
     package_type = "library"

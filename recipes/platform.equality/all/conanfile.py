@@ -17,7 +17,6 @@ class PlatformInterfacesConan(ConanFile):
         "which uses innovations from the C++20 standard, for slow parody any typing dictionary and others."
     )
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linksplatform/Equality"
     topics = ("linksplatform", "cpp20", "equality", "ranges", "any", "header-only")
 

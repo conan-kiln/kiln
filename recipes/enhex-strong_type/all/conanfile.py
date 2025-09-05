@@ -14,7 +14,6 @@ class EnhexStrongTypeConan(ConanFile):
     name = "enhex-strong_type"
     description = "Create new type from existing type without changing the interface."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Enhex/strong_type"
     topics = ("strong_type", "safety", "header-only")
 

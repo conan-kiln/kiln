@@ -13,7 +13,6 @@ class RapiXMLConan(ConanFile):
     license = ["BSL-1.0", "MIT"]
     topics = ("rapidxml", "xml", "parser")
     homepage = "http://rapidxml.sourceforge.net"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

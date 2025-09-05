@@ -16,7 +16,6 @@ class MpdecimalConan(ConanFile):
     description = "mpdecimal is a package for correctly-rounded arbitrary precision decimal floating point arithmetic."
     license = "BSD-2-Clause"
     topics = ("multiprecision", "decimal")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.bytereef.org/mpdecimal"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

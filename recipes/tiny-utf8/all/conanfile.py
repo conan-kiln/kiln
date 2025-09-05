@@ -14,7 +14,6 @@ class Tinyutf8Conan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("tiny-utf8", "utf8")
     homepage = "https://github.com/DuffsDevice/tiny-utf8"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

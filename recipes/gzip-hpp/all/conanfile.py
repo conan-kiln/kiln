@@ -12,7 +12,6 @@ class GzipHppConan(ConanFile):
     name = "gzip-hpp"
     description = "Gzip header-only C++ library "
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mapbox/gzip-hpp"
     topics = ("gzip", "zlib", "compression", "decompression", "header-only")
     package_type = "header-library"

@@ -13,7 +13,6 @@ class Libhdfs3Conan(ConanFile):
     description = ("Libhdfs3 is a native C/C++ re-implementation of libhdfs,"
                    " a client library for the Hadoop Distributed File System (HDFS).")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/erikmuttersbach/libhdfs3"
 
     topics = ("hdfs", "hadoop", "distributed", "filesystem")

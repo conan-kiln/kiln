@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "cnats"
     description = "A C client for NATS"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://nats.io/"
     topics = ("messaging", "message-bus", "message-queue", "messaging-library", "nats-client")
     package_type = "library"

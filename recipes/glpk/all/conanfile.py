@@ -18,7 +18,6 @@ class GlpkConan(ConanFile):
     description = "GNU Linear Programming Kit"
     homepage = "https://www.gnu.org/software/glpk"
     topics = ("linear", "programming", "simplex", "solver")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-3.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

@@ -12,7 +12,6 @@ class KcpConan(ConanFile):
     name = "kcp"
     description = "A Fast and Reliable ARQ Protocol"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/skywind3000/kcp"
     topics = ("ARQ", "TCP", "protocol")
 

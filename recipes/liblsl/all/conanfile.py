@@ -15,7 +15,6 @@ class LiblslConan(ConanFile):
     license = "MIT"
     topics = ("labstreaminglayer", "lsl", "network", "stream", "signal", "transmission")
     homepage = "https://github.com/sccn/liblsl"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

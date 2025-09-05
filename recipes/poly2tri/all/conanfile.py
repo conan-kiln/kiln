@@ -13,7 +13,6 @@ class Poly2triConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("triangulation", "delaunay", "polygon")
     homepage = "https://github.com/greenm01/poly2tri"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

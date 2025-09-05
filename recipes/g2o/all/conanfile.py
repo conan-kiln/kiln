@@ -13,7 +13,6 @@ class G2oConan(ConanFile):
     name = "g2o"
     description = "g2o: A General Framework for Graph Optimization"
     license = "BSD-2-Clause", "GPL-3.0-or-later", "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/RainerKuemmerle/g2o"
     topics = ("graph-optimization", "slam", "state-estimation", "computer-vision", "robotics")
 

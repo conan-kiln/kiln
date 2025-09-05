@@ -12,7 +12,6 @@ class JSONCConan(ConanFile):
     name = "json-c"
     description = "A JSON implementation in C"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/json-c/json-c"
     topics = ("json", "encoding", "decoding", "manipulation")
 

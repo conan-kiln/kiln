@@ -17,7 +17,6 @@ class QXlsxConan(ConanFile):
     license = "MIT"
     topics = ("excel", "xlsx")
     homepage = "https://github.com/QtExcel/QXlsx"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

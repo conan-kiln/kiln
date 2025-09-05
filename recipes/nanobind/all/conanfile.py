@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "nanobind"
     description = "Tiny and efficient C++/Python bindings"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wjakob/nanobind"
     topics = ("python", "bindings", "pybind11", "header-only")
 

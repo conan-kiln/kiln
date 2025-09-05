@@ -14,7 +14,6 @@ class LibwacomConan(ConanFile):
     name = "libwacom"
     description = "libwacom is a library to identify graphics tablets and their model-specific features."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linuxwacom/libwacom"
     topics = ("device", "graphics", "input", "tablet", "wacom")
     package_type = "shared-library"

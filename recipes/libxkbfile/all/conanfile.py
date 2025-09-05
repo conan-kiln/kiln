@@ -16,7 +16,6 @@ class LibXkbfileConan(ConanFile):
     name = "libxkbfile"
     description = "XKB file handling routines"
     license = "MIT-open-group AND HPND AND SMLNJ"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxkbfile"
     topics = ("xorg", "x11")
 

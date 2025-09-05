@@ -13,7 +13,6 @@ class PargConan(ConanFile):
     name = "parg"
     description = "Parser for argv that works similarly to getopt"
     license = ("CC0-1.0", "MIT-0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jibsen/parg"
     topics = ("getopt", "c")
 

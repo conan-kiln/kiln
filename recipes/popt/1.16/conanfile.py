@@ -15,7 +15,6 @@ class PoptConan(ConanFile):
     name = "popt"
     description = "Library for parsing command line parameters"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rpm-software-management/popt"
     topics = ("command line", "options", "parsing")
     package_type = "library"

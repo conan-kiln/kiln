@@ -15,7 +15,6 @@ class PlatformInterfacesConan(ConanFile):
     innovations from the C++20 standard, for easier use of static polymorphism. It also includes some auxiliary
     structures for more convenient work with containers."""
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linksplatform/Interfaces"
     topics = ("platform", "concepts", "header-only")
     settings = "os", "arch", "compiler", "build_type"

@@ -13,7 +13,6 @@ class CloudiniConan(ConanFile):
     description = ("Cloudini is a pointcloud compression library. "
                    "Its main focus is speed, but it still achieves very good compression ratios.")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facontidavide/cloudini"
     topics = ("point-clouds", "compression")
     package_type = "library"

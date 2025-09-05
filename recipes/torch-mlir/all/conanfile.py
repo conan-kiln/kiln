@@ -20,7 +20,6 @@ class TorchMlirConan(ConanFile):
     name = "torch-mlir"
     description = "The Torch-MLIR project aims to provide first class support from the PyTorch ecosystem to the MLIR ecosystem."
     license = "Apache-2.0 WITH LLVM-exception OR BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/llvm/torch-mlir"
     topics = ("compiler", "pytorch", "mlir")
     # Circular internal dependencies in the project limit the build to static-only.

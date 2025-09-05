@@ -13,7 +13,6 @@ class CtrackConan(ConanFile):
     name = "ctrack"
     description = "A lightweight, high-performance C++ benchmarking and tracking library for effortless function profiling in both development and production environments."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Compaile/ctrack"
     topics = ("benchmark", "tracking", "profiling", "header-only")
     package_type = "header-library"

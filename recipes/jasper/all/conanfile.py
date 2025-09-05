@@ -14,7 +14,6 @@ class JasperConan(ConanFile):
     name = "jasper"
     description = "JasPer Image Processing/Coding Tool Kit"
     license = "JasPer-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://jasper-software.github.io/jasper"
     topics = ("toolkit", "coding", "jpeg", "images")
     package_type = "library"

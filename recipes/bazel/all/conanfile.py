@@ -12,7 +12,6 @@ class BazelConan(ConanFile):
     package_type = "application"
     description = "Bazel is a fast, scalable, multi-language and extensible build system."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://bazel.build/"
     topics = ("test", "build", "automation", "pre-built")
     settings = "os", "arch", "compiler", "build_type"

@@ -20,7 +20,6 @@ class LibdbConan(ConanFile):
     name = "libdb"
     description = "Berkeley DB is a family of embedded key-value database libraries providing scalable high-performance data management services to applications"
     topics = ("gdbm", "dbm", "hash", "database")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.oracle.com/database/berkeley-db"
     license = ("BSD-3-Clause")
     package_type = "library"

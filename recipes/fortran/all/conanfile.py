@@ -17,7 +17,6 @@ class FortranConan(ConanFile):
     description = ("A meta-package for a Fortran compiler and corresponding standard libraries. "
                    "Uses tools.build:compiler_executables, if set, and falls back to gfortran from CCI otherwise.")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://fortran-lang.org/"
     topics = ("fortran", "gfortran", "meta-package")
 

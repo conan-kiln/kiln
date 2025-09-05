@@ -12,7 +12,6 @@ class LestConan(ConanFile):
         "tiny framework for unit-tests, TDD and BDD."
     )
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/lest"
     topics = ("testing", "testing-framework", "unit-testing", "header-only")
     package_type = "header-library"

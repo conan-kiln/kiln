@@ -13,7 +13,6 @@ class IgnitionCmakeConan(ConanFile):
     name = "ignition-cmake"
     description = "A set of CMake modules that are used by the C++-based Ignition projects."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gazebosim/gz-cmake"
     topics = ("ignition", "robotics", "cmake", "gazebo", "header-only")
 

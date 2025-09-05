@@ -12,7 +12,6 @@ class LibdxfrwConan(ConanFile):
     name = "libdxfrw"
     description = "C++ library to read/write DXF and read DWG files"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/LibreCAD/libdxfrw"
     topics = ("dxf", "dwg", "cad")
     settings = "os", "arch", "compiler", "build_type"

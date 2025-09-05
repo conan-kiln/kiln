@@ -16,7 +16,6 @@ class LibSmConan(ConanFile):
     name = "libsm"
     description = "X11 Session Management library"
     license = "MIT AND MIT-open-group"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libsm"
     topics = ("xorg", "x11")
 

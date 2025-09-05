@@ -16,7 +16,6 @@ class RustBindgenConan(ConanFile):
     description = "bindgen automatically generates Rust FFI bindings to C (and some C++) libraries."
     license = "BSD-3-Clause"
     homepage = "https://github.com/rust-lang/rust-bindgen"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("rust", "ffi", "c-bindings", "c++-bindings")
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"

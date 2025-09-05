@@ -13,7 +13,6 @@ class MiniConan(ConanFile):
     name = "mini"
     description = "INI file reader and writer"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/metayeti/mINI"
     topics = ("ini", "writer", "reader", "header-only")
     package_type = "header-library"

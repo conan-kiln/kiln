@@ -15,7 +15,6 @@ class JpegCompressorConan(ConanFile):
     description = "C++ JPEG compression/fuzzed low-RAM JPEG decompression codec with Public Domain or Apache 2.0 license"
     homepage = "https://github.com/richgel999/jpeg-compressor"
     topics = ("jpeg", "image", "compression", "decompression")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Unlicense", "Apache-2.0", "MIT"
 
     settings = "os", "arch", "compiler", "build_type"

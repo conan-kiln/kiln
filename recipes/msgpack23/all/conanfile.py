@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "msgpack23"
     description = "A modern, header-only C++ library for MessagePack serialization and deserialization."
     license = "MIT"
-    url = "https://github.com/rwindegger/msgpack23"
     homepage = "https://github.com/rwindegger/msgpack23"
     topics = ("msgpack", "serialization", "MessagePack")
     package_type = "header-library"

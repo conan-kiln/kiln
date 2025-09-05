@@ -12,7 +12,6 @@ class ProCxxBoostExSimdConan(ConanFile):
     name = "procxx-boost-ext-simd"
     description = "Portable SIMD computation library - was proposed as a Boost library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/procxx/boost.simd"
     topics = ("boost", "simd", "header-only")
 

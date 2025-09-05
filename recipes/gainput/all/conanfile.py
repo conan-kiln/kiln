@@ -14,7 +14,6 @@ class GainputConan(ConanFile):
     license = "MIT"
     topics = ("gainput", "input", "keyboard", "gamepad", "mouse", "multi-touch")
     homepage = "https://gainput.johanneskuhlmann.de"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

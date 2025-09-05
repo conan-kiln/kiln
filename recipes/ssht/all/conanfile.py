@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class SshtConan(ConanFile):
     name = "ssht"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/astro-informatics/ssht"
     description = "Fast spin spherical harmonic transforms"
     settings = "os", "arch", "compiler", "build_type"

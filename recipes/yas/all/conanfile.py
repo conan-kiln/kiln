@@ -12,7 +12,6 @@ class YasConan(ConanFile):
     name = "yas"
     description = "Yet Another Serialization"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/niXman/yas"
     topics = ("serialization", "header-only")
 

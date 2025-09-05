@@ -15,7 +15,6 @@ required_conan_version = ">=2.4"
 
 class LibGphoto2(ConanFile):
     name = "libgphoto2"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "The libgphoto2 camera access and control library."
     homepage = "http://www.gphoto.org/"
     license = "LGPL-2.1"

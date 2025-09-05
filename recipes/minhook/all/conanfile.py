@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "minhook"
     description = "The Minimalistic x86/x64 API Hooking Library for Windows"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TsudaKageyu/minhook"
     topics = ("hook", "windows")
     package_type = "library"

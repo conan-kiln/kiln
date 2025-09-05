@@ -12,7 +12,6 @@ class FlatbushConan(ConanFile):
     name = "flatbush"
     description = "Flatbush for C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chusitoo/flatbush"
     topics = ("header-only", "r-tree", "hilbert", "zero-copy", "spatial-index")
 

@@ -13,7 +13,6 @@ class OrcRecipe(ConanFile):
     description = "ORC is a self-describing type-aware columnar file format designed for Hadoop workloads"
     license = "Apache-2.0"
     homepage = "https://orc.apache.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("orc", "columnar", "file-format", "hadoop")
 
     package_type = "library"

@@ -14,7 +14,6 @@ class LevelDBCppConan(ConanFile):
         "LevelDB is a fast key-value storage library written at Google that "
         "provides an ordered mapping from string keys to string values."
     )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/leveldb"
     topics = ("google", "db")
     license = ("BSD-3-Clause",)

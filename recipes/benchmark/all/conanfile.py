@@ -14,7 +14,6 @@ class BenchmarkConan(ConanFile):
     name = "benchmark"
     description = "A microbenchmark support library."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/benchmark"
     topics = ("google", "microbenchmark")
 

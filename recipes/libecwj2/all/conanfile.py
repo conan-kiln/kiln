@@ -17,7 +17,6 @@ class PackageConan(ConanFile):
     description = ("Legacy version of the ERDAS ECW/JP2 SDK, which provides support for "
                    "the ECW (Enhanced Compressed Wavelet) and the JPEG 2000 image formats.")
     license = "DocumentRef-License.txt:LicenseRef-libecwj2"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://trac.osgeo.org/gdal/wiki/ECW"
     topics = ("image", "ecw", "jp2", "jpeg2000", "gis", "geospatial", "remote-sensing")
 

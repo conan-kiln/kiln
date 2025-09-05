@@ -12,7 +12,6 @@ class HiGHSConan(ConanFile):
     name = "highs"
     description = "high performance serial and parallel solver for large scale sparse linear optimization problems"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.highs.dev/"
     topics = ("simplex", "interior point", "solver", "linear", "programming")
     package_type = "library"

@@ -20,7 +20,6 @@ class XZUtilsConan(ConanFile):
         "compression ratio. XZ Utils were written for POSIX-like systems, but also "
         "work on some not-so-POSIX systems. XZ Utils are the successor to LZMA Utils."
     )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tukaani.org/xz"
     topics = ("lzma", "xz", "compression")
     license = "Unlicense", "LGPL-2.1-or-later",  "GPL-2.0-or-later", "GPL-3.0-or-later"

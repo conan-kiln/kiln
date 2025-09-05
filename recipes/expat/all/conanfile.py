@@ -12,7 +12,6 @@ class ExpatConan(ConanFile):
     name = "expat"
     description = "Fast streaming XML parser written in C."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libexpat/libexpat"
     topics = ("xml", "parsing")
     package_type = "library"

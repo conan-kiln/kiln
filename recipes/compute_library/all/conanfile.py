@@ -15,7 +15,6 @@ class ComputeLibraryConan(ConanFile):
     name = "compute_library"
     description = "The Compute Library is a set of computer vision and machine learning functions optimized for both Arm CPUs and GPUs using SIMD technologies"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ARM-software/ComputeLibrary"
     topics = ("android", "linux", "machine-learning", "arm", "computer-vision", "neural-network")
     package_type = "library"

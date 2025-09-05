@@ -17,7 +17,6 @@ class LibkmlConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("kml", "ogc", "geospatial")
     homepage = "https://github.com/libkml/libkml"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -14,7 +14,6 @@ class EternalConan(ConanFile):
     name = "eternal"
     description = "A C++14 compile-time/constexpr map and hash map with minimal binary footprint"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mapbox/eternal"
     topics = ("hashing", "map", "constexpr", "header-only")
     package_type = "header-library"

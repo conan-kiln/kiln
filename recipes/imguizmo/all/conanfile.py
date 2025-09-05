@@ -13,7 +13,6 @@ class ImGuizmoConan(ConanFile):
     name = "imguizmo"
     description = "Immediate mode 3D gizmo for scene editing and other controls based on Dear Imgui"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CedricGuillemet/ImGuizmo"
     topics = ("imgui", "3d", "graphics", "guizmo")
 

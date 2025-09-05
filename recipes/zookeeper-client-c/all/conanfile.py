@@ -11,7 +11,6 @@ class ZookeeperClientCConan(ConanFile):
     name = "zookeeper-client-c"
     description = "ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://zookeeper.apache.org/"
     topics = ("zookeeper", "client")
     settings = "os", "arch", "compiler", "build_type"

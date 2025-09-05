@@ -14,7 +14,6 @@ class FoxiConan(ConanFile):
     license = "MIT"
     topics = ("foxi", "onnxifi")
     homepage = "https://github.com/houseroad/foxi"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

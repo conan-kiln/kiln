@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class Md4QtConan(ConanFile):
     name = "md4qt"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/igormironchik/md4qt"
     license = "MIT"
     description = "Header-only C++ library for parsing Markdown."

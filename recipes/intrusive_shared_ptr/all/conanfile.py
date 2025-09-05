@@ -12,7 +12,6 @@ class IsptrRecipe(ConanFile):
     name = "intrusive_shared_ptr"
     description = "Intrusive reference counting smart pointer, highly configurable reference counted base class and various adapters."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gershnik/intrusive_shared_ptr"
     topics = ("smart-pointer", "intrusive", "header-only")
     package_type = "header-library"

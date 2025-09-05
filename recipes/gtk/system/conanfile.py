@@ -8,7 +8,6 @@ required_conan_version = ">=2.1"
 
 class ConanGTK(ConanFile):
     name = "gtk"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "LGPL-2.1-or-later"
     homepage = "https://www.gtk.org"
     description = "A free and open-source cross-platform widget toolkit for creating graphical user interfaces"

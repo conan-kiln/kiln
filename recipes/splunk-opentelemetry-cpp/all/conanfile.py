@@ -15,7 +15,6 @@ class SplunkOpentelemetryConan(ConanFile):
     description = "Splunk's distribution of OpenTelemetry C++"
     deprecated = "Deprecated and no longer maintained by authors - Please use the official OpenTelemetry C++ SDK instead."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/signalfx/splunk-otel-cpp"
     topics = ("opentelemetry", "observability", "tracing")
 

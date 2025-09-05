@@ -15,7 +15,6 @@ class CppJwtConan(ConanFile):
     license = "MIT"
     topics = ("jwt", "auth", "header-only")
     homepage = "https://github.com/arun11299/cpp-jwt"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 

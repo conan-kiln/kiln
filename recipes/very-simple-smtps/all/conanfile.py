@@ -16,7 +16,6 @@ class VerySimpleSmtpsConan(ConanFile):
     name = "very-simple-smtps"
     description = "Library that allows applications to send emails with binary attachments"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/matthewT53/Very-Simple-SMTPS/releases"
     topics = ("email", "smtps", "attachments")
     package_type = "library"

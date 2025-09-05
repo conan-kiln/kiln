@@ -12,7 +12,6 @@ class libjwtRecipe(ConanFile):
     name = "libjwt"
     license = "MPL-2.0"
     description = "The C JSON Web Token Library +JWK +JWKS"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/benmcollins/libjwt"
     topics = ("json", "jwt", "jwt-token")
     package_type = "library"

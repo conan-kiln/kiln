@@ -15,7 +15,6 @@ class IXWebSocketConan(ConanFile):
     name = "ixwebsocket"
     description = "IXWebSocket is a C++ library for WebSocket client and server development"
     topics = ("socket", "websocket")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/machinezone/IXWebSocket"
     license = "BSD-3-Clause"
     package_type = "library"

@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "arbiter"
     description = "Uniform access to the filesystem, HTTP, S3, GCS, Dropbox, etc."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/connormanning/arbiter"
     topics = ("filesystem", "http", "s3", "gcs", "dropbox")
 

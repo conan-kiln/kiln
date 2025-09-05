@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 
 class LibsmackerConan(ConanFile):
     name = "libsmacker"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://libsmacker.sourceforge.net"
     topics = ("decoding ", "smk", "smacker", "video", "file")
     license = "LGPL-2.1-or-later"

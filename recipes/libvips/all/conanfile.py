@@ -20,7 +20,6 @@ class LibvipsConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("image", "image-processing")
     homepage = "https://www.libvips.org"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

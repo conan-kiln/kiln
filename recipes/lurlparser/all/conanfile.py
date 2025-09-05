@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "lurlparser"
     description = "Lightweight URL & URI parser (RFC 1738, RFC 3986)"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/corporateshark/LUrlParser/"
     topics = ("url", "uri", "parser")
     settings = "os", "arch", "compiler", "build_type"

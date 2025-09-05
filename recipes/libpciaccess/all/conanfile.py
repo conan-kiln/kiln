@@ -14,7 +14,6 @@ class LibPciAccessConan(ConanFile):
     name = "libpciaccess"
     description = "Generic PCI access library"
     license = "MIT AND ISC AND X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libpciaccess"
     topics = ("pci", "xorg")
     package_type = "library"

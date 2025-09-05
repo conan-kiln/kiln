@@ -14,7 +14,6 @@ class AnyLiteConan(ConanFile):
         "any type for C++98, C++11 and later in a single-file header-only library"
     )
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/any-lite"
     topics = ("cpp11", "cpp14", "cpp17", "any", "any-implementations", "header-only")
 

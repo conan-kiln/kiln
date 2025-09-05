@@ -11,7 +11,6 @@ class SuiteSparseAmdConan(ConanFile):
     name = "suitesparse-amd"
     description = "AMD: Routines for permuting sparse matrices prior to factorization in SuiteSparse"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "matrix-permutation")
 

@@ -12,7 +12,6 @@ class Rvo2Conan(ConanFile):
     name = "rvo2"
     description = "Optimal Reciprocal Collision Avoidance"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/snape/RVO2"
     topics = ("collision", "avoidance")
 

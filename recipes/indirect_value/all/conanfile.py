@@ -14,7 +14,6 @@ class IndirectValueConan(ConanFile):
     name = "indirect_value"
     description = "Production-quality reference implementation of P1950: A Free-Store-Allocated Value Type For C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jbcoe/indirect_value"
     topics = ("std", "vocabulary-type", "value-semantics", "header-only")
 

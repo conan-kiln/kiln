@@ -10,7 +10,6 @@ class EmbeddedTemplateLibraryConan(ConanFile):
     name = "etl"
     description = "A C++ template library for embedded applications"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.etlcpp.com/"
     topics = ("cpp", "embedded", "template", "container", "utility", "framework", "messaging", "header-only")
     package_type = "header-library"

@@ -16,7 +16,6 @@ class VtkmConan(ConanFile):
     name = "vtk-m"
     description = "VTK-m is a toolkit of scientific visualization algorithms for emerging processor architectures."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://m.vtk.org/"
     topics = ("scientific", "image", "processing", "visualization", "cuda", "hip", "openmp", "tbb")
 

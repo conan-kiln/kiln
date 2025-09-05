@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class StatusValueLiteConan(ConanFile):
     name = "status-value-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/status-value-lite"
     description = (
         "status-value - A class for status and optional value for C++11 and "

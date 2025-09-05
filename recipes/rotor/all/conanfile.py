@@ -13,7 +13,6 @@ class RotorConan(ConanFile):
     description = "Event loop friendly C++ actor micro-framework, supervisable"
     license = "MIT"
     homepage = "https://github.com/basiliscos/cpp-rotor"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("concurrency", "actor-framework", "actors", "actor-model", "erlang", "supervising", "supervisor")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

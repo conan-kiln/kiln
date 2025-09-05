@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "rapidfuzz"
     description = "Rapid fuzzy string matching in C++ using the Levenshtein Distance"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rapidfuzz/rapidfuzz-cpp"
     topics = ("levenshtein", "string-matching", "string-similarity", "string-comparison", "header-only")
     package_type = "header-library"

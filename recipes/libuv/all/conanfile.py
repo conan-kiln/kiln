@@ -13,7 +13,6 @@ class LibuvConan(ConanFile):
     name = "libuv"
     description = "A multi-platform support library with a focus on asynchronous I/O"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libuv.org"
     topics = ("asynchronous", "io", "networking", "multi-platform")
     package_type = "library"

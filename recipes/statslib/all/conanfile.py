@@ -11,7 +11,6 @@ class StatsLibConan(ConanFile):
     name = "statslib"
     description = "A C++ header-only library of statistical distribution functions."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.kthohr.com/statslib.html"
     topics = ("statistics", "constexpr", "probability", "stats", "header-only")
     package_type = "header-library"

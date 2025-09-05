@@ -13,7 +13,6 @@ class LibnfsConan(ConanFile):
     description = "LIBNFS is a client library for accessing NFS shares over a network."
     topics = ("async", "nfsv4", "nfs")
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sahlberg/libnfs"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

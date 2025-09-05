@@ -12,7 +12,6 @@ class XFontsEncodingsConan(ConanFile):
     name = "xfonts-encodings"
     description = "Font encoding tables for libfontenc"
     license = "DocumentRef-COPYING:LicenseRef-xfonts-encodings-public-domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/font/encodings"
     topics = ("xorg", "x11")
 

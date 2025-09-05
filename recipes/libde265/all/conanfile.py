@@ -15,7 +15,6 @@ class Libde265Conan(ConanFile):
     license = "LGPL-3.0-or-later"
     topics = ("codec", "video", "h.265")
     homepage = "https://github.com/strukturag/libde265"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

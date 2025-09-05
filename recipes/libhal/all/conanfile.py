@@ -15,7 +15,6 @@ class LibHALConan(ConanFile):
     license = "Apache-2.0"
     description = ("A collection of interfaces and abstractions for embedded "
                    "peripherals and devices using modern C++")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libhal.github.io/"
     topics = ("peripherals", "hardware", "abstraction", "devices", "hal", "header-only")
     package_type = "header-library"

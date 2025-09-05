@@ -15,7 +15,6 @@ class BitseryConan(ConanFile):
         "the networking requirements for real-time data delivery, especially for games."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fraillt/bitsery"
     topics = ("serialization", "binary", "header-only")
     package_type = "header-library"

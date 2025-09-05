@@ -13,7 +13,6 @@ class IntxConan(ConanFile):
     name = "intx"
     description = "Extended precision integer C++ library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chfast/intx"
     topics = ("evm", "biginteger", "arbitrary-precision", "header-only")
     package_type = "header-library"

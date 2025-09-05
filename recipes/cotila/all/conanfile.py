@@ -15,7 +15,6 @@ class CotilaConan(ConanFile):
     name = "cotila"
     description = "A compile time linear algebra system"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/calebzulawski/cotila"
     topics = ("c++", "math", "linear algebra", "compile-time", "header-only")
 

@@ -15,7 +15,6 @@ class ScreenCaptureLiteConan(ConanFile):
     name = "screen_capture_lite"
     license = "MIT"
     description = "cross platform screen/window capturing library "
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/smasherprog/screen_capture_lite"
     topics = ("screen-capture", "screen-ercorder")
     settings = "os", "arch", "compiler", "build_type"

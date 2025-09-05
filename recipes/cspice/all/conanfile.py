@@ -14,7 +14,6 @@ class CspiceConan(ConanFile):
     license = "TSPA"
     topics = ("spice", "naif", "kernels", "space", "nasa", "jpl", "spacecraft", "planet", "robotics")
     homepage = "https://naif.jpl.nasa.gov/naif/toolkit.html"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

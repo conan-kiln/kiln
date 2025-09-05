@@ -13,7 +13,6 @@ class ModernCppKafkaConan(ConanFile):
     name = "modern-cpp-kafka"
     description = "A C++ API for Kafka clients (i.e. KafkaProducer, KafkaConsumer, AdminClient)"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/morganstanley/modern-cpp-kafka"
     topics = ("kafka", "librdkafka", "kafkaproducer", "kafkaconsumer", "header-only")
     package_type = "header-library"

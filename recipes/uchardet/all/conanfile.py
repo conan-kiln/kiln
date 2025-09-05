@@ -18,7 +18,6 @@ class UchardetConan(ConanFile):
         "Returned encoding names are iconv-compatible."
     )
     license = "MPL-1.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/freedesktop/uchardet"
     topics = ("encoding", "detector")
 

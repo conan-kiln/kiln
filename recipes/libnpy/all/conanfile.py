@@ -13,7 +13,6 @@ class LibNPYConan(ConanFile):
     name = "libnpy"
     description = "C++ library for reading and writing of numpy's .npy files"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/llohse/libnpy"
     topics = ("python", "numpy", "npy", "header-only")
     package_type = "header-library"

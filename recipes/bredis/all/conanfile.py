@@ -12,7 +12,6 @@ class BredisConan(ConanFile):
     name = "bredis"
     description = "Boost::ASIO low-level redis client (connector)"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/basiliscos/cpp-bredis"
     topics = ("redis", "network", "asio", "header-only")
     package_type = "header-library"

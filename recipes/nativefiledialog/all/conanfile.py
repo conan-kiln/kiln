@@ -15,7 +15,6 @@ class NativefiledialogConan(ConanFile):
     name = "nativefiledialog"
     description = "A tiny, neat C library that portably invokes native file open and save dialogs."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mlabbe/nativefiledialog"
     topics = ("dialog", "gui")
 

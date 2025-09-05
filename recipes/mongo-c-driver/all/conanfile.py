@@ -16,7 +16,6 @@ class MongoCDriverConan(ConanFile):
     name = "mongo-c-driver"
     description = "A Cross Platform MongoDB Client Library for C"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mongoc.org/"
     topics = ("libbson", "libmongoc", "mongo", "mongodb", "database", "db")
 

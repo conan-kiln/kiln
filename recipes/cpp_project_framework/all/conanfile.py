@@ -14,7 +14,6 @@ class CppProjectFrameworkConan(ConanFile):
     name = "cpp_project_framework"
     description = "C++ Project Framework is a framework for creating C++ projects."
     license = "AGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sheepgrass/cpp_project_framework"
     topics = ("cpp", "project", "framework", "header-only")
 

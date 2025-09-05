@@ -13,7 +13,6 @@ class OpenclHeadersConan(ConanFile):
     license = "Apache-2.0"
     topics = ("opencl", "header-only", "api-headers")
     homepage = "https://github.com/KhronosGroup/OpenCL-Headers"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

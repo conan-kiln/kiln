@@ -13,7 +13,6 @@ class TweetnaclConan(ConanFile):
     name = "tweetnacl"
     description = "TweetNaCl is the world's first auditable high-security cryptographic library"
     license = "Public domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tweetnacl.cr.yp.to"
     topics = ("nacl", "encryption", "signature", "hashing")
 

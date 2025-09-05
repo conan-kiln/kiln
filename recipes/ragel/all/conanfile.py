@@ -14,7 +14,6 @@ class RagelConan(ConanFile):
     name = "ragel"
     description = "Ragel compiles executable finite state machines from regular languages"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.colm.net/open-source/ragel"
     topics = ("FSM", "regex", "fsm-compiler")
     package_type = "application"

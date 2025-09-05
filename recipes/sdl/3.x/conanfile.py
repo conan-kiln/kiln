@@ -28,7 +28,6 @@ class SDLConan(ConanFile):
     name = "sdl"
     description = "A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libsdl.org"
     topics = ("sdl3", "audio", "keyboard", "graphics", "opengl")
     package_type = "library"

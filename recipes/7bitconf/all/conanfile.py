@@ -15,7 +15,6 @@ class SevenBitConfConan(ConanFile):
     homepage = "https://github.com/7bitCoder/7bitConf"
     description = "7bitConf is a simple C++17 centralized configuration provider library."
     topics = ("cpp17", "configuration", "provider", "configuration-files")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

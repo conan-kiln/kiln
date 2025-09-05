@@ -14,7 +14,6 @@ class GtsamPointsPackage(ConanFile):
     name = "gtsam_points"
     description = "A collection of GTSAM factors and optimizers for range-based SLAM"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/koide3/gtsam_points"
     topics = ("localization", "mapping", "gpu", "cuda", "point-cloud", "registration", "slam", "factor-graph")
 

@@ -11,7 +11,6 @@ class Jpcre2Conan(ConanFile):
     name = "jpcre2"
     description = "Header-only C++ wrapper for PCRE2 library."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jpcre2/jpcre2"
     topics = ("regex", "pcre2", "header-only", "single-header")
 

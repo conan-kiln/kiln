@@ -16,7 +16,6 @@ class PolymorphictValueConan(ConanFile):
     description = "Production-quality reference implementation of P0201r2: A polymorphic value-type for C++"
     topics = ("std", "vocabulary-type", "value-semantics")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

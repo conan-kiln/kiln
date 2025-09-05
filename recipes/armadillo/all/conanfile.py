@@ -15,7 +15,6 @@ required_conan_version = ">=2.1"
 class ArmadilloConan(ConanFile):
     name = "armadillo"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://arma.sourceforge.net"
     description = "Armadillo is a high quality C++ library for linear algebra and scientific computing, aiming towards a good balance between speed and ease of use."
     topics = (

@@ -15,7 +15,6 @@ class CppIPCConan(ConanFile):
     name = "cpp-ipc"
     description = "C++ IPC Library: A high-performance inter-process communication using shared memory on Linux/Windows."
     license = ("MIT",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mutouyun/cpp-ipc"
     topics = ("ipc", "shared memory")
 

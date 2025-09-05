@@ -17,7 +17,6 @@ class DbusConan(ConanFile):
     name = "dbus"
     # license is AFL-2.1 OR GPL-2.0-or-later with several other compatible licenses for smaller sections of code
     license = "(AFL-2.1 OR GPL-2.0-or-later) AND DocumentRef-COPYING"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/wiki/Software/dbus"
     description = "D-Bus is a simple system for interprocess communication and coordination."
     topics = "bus", "interprocess", "message"

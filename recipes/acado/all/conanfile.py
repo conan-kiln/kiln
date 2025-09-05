@@ -14,7 +14,6 @@ class AcadoConan(ConanFile):
     description = ("ACADO Toolkit is a software environment and algorithm "
                    "collection for automatic control and dynamic optimization.")
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/acado/acado"
     topics = ("control", "optimization", "mpc")
 

@@ -14,7 +14,6 @@ class AwsCAuth(ConanFile):
         "standard credentials providers and signing."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-auth"
     topics = ("aws", "amazon", "cloud", "authentication", "credentials", "providers", "signing")
     package_type = "library"

@@ -17,7 +17,6 @@ class CTPGConan(ConanFile):
         "and turns it into a LR1 table parser with a deterministic finite automaton lexical analyzer, all in compile time."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/peter-winter/ctpg"
     topics = ("regex", "parser", "grammar", "compile-time", "header-only")
 

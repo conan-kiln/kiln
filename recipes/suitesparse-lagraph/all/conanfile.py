@@ -11,7 +11,6 @@ class SuiteSparseLagraphConan(ConanFile):
     name = "suitesparse-lagraph"
     description = "LAGraph: Library plus test harness for collecting algorithms that use GraphBLAS"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://lagraph.readthedocs.io/en/latest/"
     topics = ("graph-algorithms", "mathematics", "sparse-matrix", "linear-algebra")
 

@@ -13,7 +13,6 @@ class GStOrcConan(ConanFile):
     name = "gst-orc"
     description = "Optimized Inner Loops Runtime Compiler for very simple programs that operate on arrays of data."
     license = "BSD-2-Clause AND BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/gstreamer/orc"
     topics = ("compiler", "simd", "vectorization")
     package_type = "library"

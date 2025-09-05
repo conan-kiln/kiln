@@ -15,7 +15,6 @@ class OctoLoggerCPPConan(ConanFile):
     name = "octo-logger-cpp"
     description = "CPP Stream based logging library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ofiriluz/octo-logger-cpp"
     topics = ("logging", "stream", "syslog", "cloudwatch")
     package_type = "static-library"

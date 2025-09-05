@@ -13,7 +13,6 @@ class OpenjpegConan(ConanFile):
     name = "openjpeg"
     description = "OpenJPEG is an open-source JPEG 2000 codec written in C language."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uclouvain/openjpeg"
     topics = ("jpeg2000", "jp2", "openjpeg", "image", "multimedia", "format", "graphics")
     package_type = "library"

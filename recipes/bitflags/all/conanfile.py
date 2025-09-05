@@ -14,7 +14,6 @@ class BitFlags(ConanFile):
     name = "bitflags"
     description = "Single-header header-only C++11 / C++14 / C++17 library for easily managing set of auto-generated type-safe flags"
     topics = ("bits", "bitflags", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/m-peko/bitflags"
     license = "MIT"
     package_type = "header-library"

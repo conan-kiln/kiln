@@ -12,7 +12,6 @@ class SnowHouseConan(ConanFile):
     name = "snowhouse"
     description = "An assertion library for C++"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/banditcpp/snowhouse"
     topics = ("assertion", "header-only")
 

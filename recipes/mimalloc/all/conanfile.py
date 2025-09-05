@@ -16,7 +16,6 @@ class MimallocConan(ConanFile):
     name = "mimalloc"
     description = "mimalloc is a compact general purpose allocator with excellent performance."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/mimalloc"
     topics = ("mimalloc", "allocator", "performance", "microsoft")
     package_type = "library"

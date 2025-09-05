@@ -19,7 +19,6 @@ class SeqanConan(ConanFile):
         "SeqAn is easy to use and simplifies the development of new software tools with a minimal loss of performance."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/seqan/seqan"
     topics = ("algorithms", "data structures", "biological sequences", "header-only")
 

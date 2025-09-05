@@ -12,7 +12,6 @@ class ResourcePool(ConanFile):
     name = "resource_pool"
     description = "C++ header only library purposed to create pool of some resources like keepalive connections"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://github.com/elsid/resource_pool"
     topics = ("resource pool", "asio", "elsid", "c++17", "cpp17", "header-only")
 

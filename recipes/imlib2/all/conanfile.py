@@ -15,7 +15,6 @@ class Imlib2Conan(ConanFile):
     name = "imlib2"
     description = "Image loading and rendering library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://docs.enlightenment.org/api/imlib2/html/"
     topics = ("image", "image-processing",)
     package_type = "library"

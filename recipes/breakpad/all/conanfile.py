@@ -14,7 +14,6 @@ class BreakpadConan(ConanFile):
     description = "A set of client and server components which implement a crash-reporting system"
     topics = ["crash", "report", "breakpad"]
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://chromium.googlesource.com/breakpad/breakpad/"
 
     settings = "os", "arch", "compiler", "build_type"

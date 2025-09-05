@@ -13,7 +13,6 @@ class StatisticConan(ConanFile):
     name = "statistic"
     description = "Statistic library for Arduino includes sum, average, variance and std deviation"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/RobTillaart/Statistic"
     topics = ("arduino", "statistics", "header-only")
     package_type = "header-library"

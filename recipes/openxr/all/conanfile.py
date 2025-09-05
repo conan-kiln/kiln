@@ -17,7 +17,6 @@ class OpenXRConan(ConanFile):
         "for developing XR applications that run across a wide range of AR and VR devices."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.khronos.org/openxr/"
     topics = ("augmented-reality", "virtual-reality", "vr", "xr")
     package_type = "library"

@@ -12,7 +12,6 @@ class DawHeaderLibrariesConan(ConanFile):
     name = "stringtoolbox"
     description = "A simple header-only, single-file string toolbox library for C++."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chrberger/stringtoolbox"
     topics = ("string", "header-only")
 

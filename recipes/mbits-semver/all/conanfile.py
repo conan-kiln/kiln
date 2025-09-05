@@ -12,7 +12,6 @@ class MBitsSemverConan(ConanFile):
     name = "mbits-semver"
     description = "Semantic Version type for C++17"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-libs/semver"
     topics = ("semver", "semantic-versioning")
     settings = "os", "arch", "compiler", "build_type"

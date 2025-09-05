@@ -14,7 +14,6 @@ class CwtCucumberRecipe(ConanFile):
     name = "cwt-cucumber"
     license = "MIT"
     homepage = "https://github.com/ThoSe1990/cucumber-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A C++20 Cucumber interpreter"
     topics = ("cpp", "bdd", "testing", "cucumber")
     package_type = "library"

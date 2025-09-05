@@ -13,7 +13,6 @@ class RedisPlusPlusConan(ConanFile):
     name = "redis-plus-plus"
     description = "Redis client written in C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sewenew/redis-plus-plus"
     topics = ("database", "redis", "client", "tls")
     package_type = "library"

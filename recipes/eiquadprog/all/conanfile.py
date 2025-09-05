@@ -14,7 +14,6 @@ class EiquadprogConan(ConanFile):
         "Idnani for the solution of a (convex) Quadratic Programming problem by means of a dual method."
     )
     license = ("LGPL-3.0", "GPL-3.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stack-of-tasks/eiquadprog"
     topics = ("algebra", "math", "robotics", "optimization", "quadratic-programming")
     package_type = "library"

@@ -13,7 +13,6 @@ class PerlinnoiseConan(ConanFile):
     name = "perlinnoise"
     description = "Header-only Perlin noise library for modern C++ "
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Reputeless/PerlinNoise/"
     topics = ("noise", "perlin", "header-only")
     settings = "os", "arch", "compiler", "build_type"

@@ -12,7 +12,6 @@ class ItoaConan(ConanFile):
     name = "jeaiii-itoa"
     description = "Fast integer to ascii / integer to string conversion"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jeaiii/itoa/"
     topics = ("string-conversion", "itona", "integer-conversion",)
     package_type = "header-library"

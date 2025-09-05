@@ -16,7 +16,6 @@ class bgfxConan(ConanFile):
     name = "bgfx"
     license = "BSD-2-Clause"
     homepage = "https://github.com/bkaradzic/bgfx"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Cross-platform, graphics API agnostic, \"Bring Your Own Engine/Framework\" style rendering library."
     topics = ("rendering", "graphics")
     settings = "os", "arch", "compiler", "build_type"

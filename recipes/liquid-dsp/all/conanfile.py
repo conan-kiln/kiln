@@ -16,7 +16,6 @@ class LiquidDspConan(ConanFile):
     name = "liquid-dsp"
     description = "Digital signal processing library for software-defined radios (and more)"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jgaeddert/liquid-dsp"
     topics = ("dsp", "sdr")
 

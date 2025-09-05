@@ -15,7 +15,6 @@ class Pagmo2Conan(ConanFile):
     name = "pagmo2"
     description = "pagmo is a C++ scientific library for massively parallel optimization."
     license = ("LGPL-3.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://esa.github.io/pagmo2"
     topics = ("pagmo", "optimization", "parallel-computing", "genetic-algorithm", "metaheuristics")
 

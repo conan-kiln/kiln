@@ -12,7 +12,6 @@ class DaggyConan(ConanFile):
     name = "daggy"
     description = "Data Aggregation Utility and C/C++ developer library for data streams catching"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/synacker/daggy"
     topics = ("streaming", "qt", "monitoring", "process", "stream-processing", "extensible",
               "serverless-framework", "aggregation", "ssh2", "cross-platform", "ssh-client")

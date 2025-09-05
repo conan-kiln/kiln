@@ -16,7 +16,6 @@ class Libreadstat(ConanFile):
     name = "librdata"
     description = "librdata is a library for read and write R data frames from C"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/WizardMac/librdata"
     topics = ("r", "rdata", "rds", "data-frames")
     package_type = "library"

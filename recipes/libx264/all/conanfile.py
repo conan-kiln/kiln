@@ -13,7 +13,6 @@ required_conan_version = ">=2.4"
 
 class LibX264Conan(ConanFile):
     name = "libx264"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.videolan.org/developers/x264.html"
     description = "x264 is a free software library and application for encoding video streams into the " \
                   "H.264/MPEG-4 AVC compression format"

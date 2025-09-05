@@ -18,7 +18,6 @@ class DataFrameConan(ConanFile):
         "using native types and contiguous memory storage"
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hosseinmoein/DataFrame"
     topics = (
         "dataframe",

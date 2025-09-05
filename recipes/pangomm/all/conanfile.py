@@ -16,7 +16,6 @@ class PangommConan(ConanFile):
     name = "pangomm"
     description = "pangomm is a C++ API for Pango: a library for layout and rendering of text."
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/pangomm"
     topics = "pango", "wrapper", "text rendering", "fonts", "freedesktop"
     package_type = "library"

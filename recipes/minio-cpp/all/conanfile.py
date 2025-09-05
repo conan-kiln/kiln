@@ -14,7 +14,6 @@ class MinioCppConan(ConanFile):
     name = "minio-cpp"
     description = "MinIO C++ Client SDK for Amazon S3 Compatible Cloud Storage"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/minio/minio-cpp"
     topics = ("minio", "s3", "storage")
     package_type = "static-library"

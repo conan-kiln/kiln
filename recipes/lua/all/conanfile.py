@@ -13,7 +13,6 @@ class LuaConan(ConanFile):
     name = "lua"
     description = "Lua is a powerful, efficient, lightweight, embeddable scripting language."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.lua.org/"
     topics = ("embed", "scripting")
     package_type = "library"

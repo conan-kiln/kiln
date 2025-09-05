@@ -17,7 +17,6 @@ class AeronConan(ConanFile):
     name = "aeron"
     description = "Efficient reliable UDP unicast, UDP multicast, and IPC message transport"
     topics = ("udp", "messaging", "low-latency")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/real-logic/aeron"
     license = "Apache-2.0"
 

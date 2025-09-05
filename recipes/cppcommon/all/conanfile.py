@@ -17,7 +17,6 @@ class CppCommon(ConanFile):
         " string format and encoding, shared memory, threading, time management" \
         " and others."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chronoxor/CppCommon"
     topics = ("utils", "filesystem", "uuid", "synchronization", "queue")
     package_type = "library"

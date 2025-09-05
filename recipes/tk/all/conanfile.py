@@ -20,7 +20,6 @@ class TkConan(ConanFile):
     topics = ("conan", "tk", "gui", "tcl", "scripting", "programming")
     homepage = "https://tcl.tk"
     license = "TCL"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"
     options = {

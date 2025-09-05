@@ -12,7 +12,6 @@ class HazelcastCppClient(ConanFile):
     name = "hazelcast-cpp-client"
     description = "C++ client library for Hazelcast in-memory database."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hazelcast/hazelcast-cpp-client"
     topics = ("hazelcast", "client", "database", "cache", "in-memory", "distributed", "computing", "ssl")
     package_type = "library"

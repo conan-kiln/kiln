@@ -11,7 +11,6 @@ class SophusConan(ConanFile):
     name = "sophus"
     description = "C++ implementation of Lie Groups using Eigen."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://strasdat.github.io/Sophus/"
     topics = ("eigen", "numerical", "math", "header-only")
     package_type = "header-library"

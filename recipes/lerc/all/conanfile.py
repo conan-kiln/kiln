@@ -13,7 +13,6 @@ class LercConan(ConanFile):
     name = "lerc"
     description = "C++ library for limited Error Raster Compression."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Esri/lerc"
     topics = ("lerclib", "compression", "decompression", "image", "raster")
     package_type = "library"

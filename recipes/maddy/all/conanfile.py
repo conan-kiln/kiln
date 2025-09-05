@@ -14,7 +14,6 @@ class MaddyConan(ConanFile):
     name = "maddy"
     description = "open-source, maddy is a C++ Markdown to HTML header-only parser library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/progsource/maddy"
     topics = ("markdown", "header-only")
 

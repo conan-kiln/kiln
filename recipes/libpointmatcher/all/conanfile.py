@@ -17,7 +17,6 @@ class LibpointmatcherConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("robotics", "lidar", "point-cloud")
     homepage = "https://github.com/ethz-asl/libpointmatcher"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -14,7 +14,6 @@ class FastCDRConan(ConanFile):
     name = "fast-cdr"
     license = "Apache-2.0"
     homepage = "https://github.com/eProsima/Fast-CDR"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "eProsima FastCDR library for serialization"
     topics = ("dds", "middleware", "serialization")
 

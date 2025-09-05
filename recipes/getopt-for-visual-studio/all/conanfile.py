@@ -13,7 +13,6 @@ class GetoptForVisualStudioConan(ConanFile):
     name = "getopt-for-visual-studio"
     description = "GNU getopt for Visual Studio"
     topics = ("getopt", "cli", "command line", "options")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/skandhurkat/Getopt-for-Visual-Studio"
     license = "MIT", "BSD-2-Clause"
     package_type = "header-library"

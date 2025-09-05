@@ -13,7 +13,6 @@ class CtrlCConan(ConanFile):
     name = "ctrl-c"
     description = "Crossplatform code to handle Ctrl+C signal"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/evgenykislov/ctrl-c/"
     topics = ("crossplatform", "signal", "sigint")
     package_type = "library"

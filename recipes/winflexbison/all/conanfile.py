@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class WinflexbisonConan(ConanFile):
     name = "winflexbison"
     description = "Flex and Bison for Windows"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lexxmark/winflexbison"
     topics = ("flex", "bison")
     license = "GPL-3.0-or-later"

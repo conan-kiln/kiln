@@ -15,7 +15,6 @@ class SimdConan(ConanFile):
     name = "simd"
     description = "C++ image processing and machine learning library with SIMD"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ermig1979/Simd"
     topics = ("sse", "avx", "avx-512", "amx", "vmx", "vsx", "neon")
     package_type = "library"

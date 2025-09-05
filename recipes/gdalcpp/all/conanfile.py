@@ -11,7 +11,6 @@ class GdalcppConan(ConanFile):
     name = "gdalcpp"
     description = "C++11 wrapper classes for GDAL/OGR"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/joto/gdalcpp"
     topics = ("gdal", "osgeo", "geospatial", "raster", "vector", "gis", "header-only")
 

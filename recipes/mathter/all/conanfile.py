@@ -15,7 +15,6 @@ class MathterConan(ConanFile):
     name = "mathter"
     description = "Powerful 3D math and small-matrix linear algebra library for games and science."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/petiaccja/Mathter"
     topics = ("game-dev", "linear-algebra", "vector-math", "matrix-library", "header-only")
 

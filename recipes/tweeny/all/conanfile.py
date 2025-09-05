@@ -12,7 +12,6 @@ class TweenyConan(ConanFile):
     name = "tweeny"
     description = "Tweeny is an inbetweening library designed for the creation of complex animations for games and other beautiful interactive software"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mobius3/tweeny"
     topics = ("animation", "tweening", "easing-functions")
     package_type = "header-library"

@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class LibmemcachedConan(ConanFile):
     name = "libmemcached"
     license = "BSD License"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libmemcached.org/"
     description = "libmemcached is a C client library for interfacing to a memcached server"
     topics = ("cache", "network", "cloud")

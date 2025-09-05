@@ -13,7 +13,6 @@ class JungleConan(ConanFile):
     name = "jungle"
     description = "Key-value storage library, based on a combined index of LSM-tree and copy-on-write B+tree"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eBay/Jungle"
     topics = ("kv-store", "cow")
 

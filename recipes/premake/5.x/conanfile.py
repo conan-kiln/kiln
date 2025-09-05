@@ -16,7 +16,6 @@ class PremakeConan(ConanFile):
         "and build it everywhere"
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://premake.github.io"
     topics = ("build", "build-systems")
 

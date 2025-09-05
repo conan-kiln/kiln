@@ -11,7 +11,6 @@ class UfbxConan(ConanFile):
     name = "ufbx"
     description = "Single source file FBX file loader."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ufbx/ufbx"
     topics = ("fbx", "importer")
     settings = "os", "arch", "compiler", "build_type"

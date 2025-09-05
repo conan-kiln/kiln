@@ -11,7 +11,6 @@ class BvdbergCtestConan(ConanFile):
     name = "bvdberg-ctest"
     description = "ctest is a unit test framework for software written in C."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bvdberg/ctest"
     topics = ("testing", "testing-framework", "unit-testing", "header-only")
     package_type = "header-library"

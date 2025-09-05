@@ -15,7 +15,6 @@ class DetoursConan(ConanFile):
     name = "detours"
     description = "Detours is a software package for monitoring and instrumenting API calls on Windows"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/Detours"
     topics = ("monitoring", "instrumenting", "hook", "injection", "windows")
 

@@ -16,7 +16,6 @@ class PrrteConan(ConanFile):
     name = "prrte"
     description = "PMIx Reference RunTime Environment (PRRTE)"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openpmix.github.io/"
     topics = ("process-management", "mpi", "openmpi", "pmix", "hpc")
     package_type = "library"

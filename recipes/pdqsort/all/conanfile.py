@@ -13,7 +13,6 @@ class PdqsortConan(ConanFile):
     license = "Zlib"
     topics = ("pdqsort", "sort")
     homepage = "https://github.com/orlp/pdqsort"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -13,7 +13,6 @@ class CPPValidatorConan(ConanFile):
     name = "cpp-validator"
     description = "C++ header-only library for generic data validation"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/evgeniums/cpp-validator"
     topics = ("validator", "validation", "boost", "hana", "header-only")
     package_type = "header-library"

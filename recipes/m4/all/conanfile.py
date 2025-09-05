@@ -17,7 +17,6 @@ class M4Conan(ConanFile):
     description = "GNU M4 is an implementation of the traditional Unix macro processor"
     license = "GPL-3.0-only"
     homepage = "https://www.gnu.org/software/m4/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "application"
     topics = ("macro", "preprocessor")
     settings = "os", "arch", "compiler", "build_type"

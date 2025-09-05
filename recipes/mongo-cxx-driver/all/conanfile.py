@@ -16,7 +16,6 @@ class MongoCxxConan(ConanFile):
     name = "mongo-cxx-driver"
     description = "C++ Driver for MongoDB"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://mongocxx.org"
     topics = ("libbsoncxx", "libmongocxx", "mongo", "mongodb", "database", "db")
     package_type = "library"

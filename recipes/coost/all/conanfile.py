@@ -14,7 +14,6 @@ class CoostConan(ConanFile):
     name = "coost"
     description = "A tiny boost library in C++11."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/idealvin/coost"
     topics = ("coroutine", "cpp11", "boost")
     package_type = "library"

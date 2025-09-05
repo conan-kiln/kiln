@@ -16,7 +16,6 @@ class CprConan(ConanFile):
     name = "cpr"
     description = "C++ Requests: Curl for People, a spiritual port of Python Requests"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://docs.libcpr.org/"
     topics = ("requests", "web", "curl")
 

@@ -19,7 +19,6 @@ class TclConan(ConanFile):
     name = "tcl"
     description = "Tcl is a very powerful but easy to learn dynamic programming language."
     license = "TCL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tcl.tk"
     topics = ("scripting", "programming")
     package_type = "library"

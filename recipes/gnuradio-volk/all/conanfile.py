@@ -12,7 +12,6 @@ class GnuradioVolkConan(ConanFile):
     name = "gnuradio-volk"
     description = "VOLK is the Vector-Optimized Library of Kernels."
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libvolk.org/"
     topics = ("simd", "kernel", "sdr", "dsp", "gnuradio")
 

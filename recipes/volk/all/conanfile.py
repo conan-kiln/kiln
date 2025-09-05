@@ -12,7 +12,6 @@ class VolkConan(ConanFile):
     name = "volk"
     license = "MIT"
     homepage = "https://github.com/zeux/volk"
-    url = "https://github.com/conan-io/conan-center-index"
     description = (
         "volk is a meta-loader for Vulkan. It allows you to dynamically load "
         "entrypoints required to use Vulkan without linking to vulkan-1.dll or "

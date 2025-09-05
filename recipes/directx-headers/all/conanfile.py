@@ -15,7 +15,6 @@ class DirectXHeadersConan(ConanFile):
     name = "directx-headers"
     description = "Headers for using D3D12"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/DirectX-Headers"
     topics = ("3d", "d3d", "d3d12", "direct", "direct3d", "directx", "graphics")
     package_type = "static-library"

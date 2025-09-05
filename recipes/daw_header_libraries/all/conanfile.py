@@ -14,7 +14,6 @@ class DawHeaderLibrariesConan(ConanFile):
     name = "daw_header_libraries"
     description = "Various header libraries mostly future std lib, replacements for(e.g. visit), or some misc"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/beached/header_libraries"
     topics = ("algorithms", "helpers", "data-structures", "header-only")
     package_type = "header-library"

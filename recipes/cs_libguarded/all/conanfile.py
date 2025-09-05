@@ -13,7 +13,6 @@ class CsLibguardedConan(ConanFile):
     name = "cs_libguarded"
     description = "The libGuarded library is a standalone header-only library for multithreaded programming."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/copperspice/libguarded"
     topics = ("multithreading", "templates", "cpp14", "mutexes", "header-only")
     package_type = "header-library"

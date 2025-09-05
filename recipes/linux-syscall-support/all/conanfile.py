@@ -14,7 +14,6 @@ class LinuxSyscallSupportConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("linux", "syscall", "chromium")
     homepage = "https://chromium.googlesource.com/linux-syscall-support"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

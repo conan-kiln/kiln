@@ -22,7 +22,6 @@ class LibUnistringConan(ConanFile):
     homepage = "https://www.gnu.org/software/libunistring/"
     topics = ("unicode", "string")
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

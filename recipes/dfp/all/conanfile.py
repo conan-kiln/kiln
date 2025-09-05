@@ -14,7 +14,6 @@ class DfpConan(ConanFile):
     # Optional metadata
     description = "Decimal Floating Point Arithmetic Library"
     homepage = "https://github.com/epam/DFP/"
-    url = "https://github.com/conan-io/conan-center-index"
     license = ("Apache-2.0", "Intel")
     topics = ("decimal", "dfp", "ieee-754", "deltix")
 

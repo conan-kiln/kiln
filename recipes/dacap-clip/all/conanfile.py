@@ -15,7 +15,6 @@ class DacapClipConan(ConanFile):
     name = "dacap-clip"
     description = "Cross-platform C++ library to copy/paste clipboard content"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dacap/clip/"
     topics = ("clipboard", "copy", "paste")
     package_type = "library"

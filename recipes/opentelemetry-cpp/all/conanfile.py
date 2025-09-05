@@ -14,7 +14,6 @@ class OpenTelemetryCppConan(ConanFile):
     name = "opentelemetry-cpp"
     description = "The C++ OpenTelemetry API and SDK"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/open-telemetry/opentelemetry-cpp"
     topics = ("opentelemetry", "telemetry", "tracing", "metrics", "logs")
     package_type = "library"

@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 
 class Bzip2Conan(ConanFile):
     name = "bzip2"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceware.org/bzip2"
     license = "bzip2-1.0.6"
     description = "bzip2 is a free and open-source file compression program that uses the Burrows Wheeler algorithm."

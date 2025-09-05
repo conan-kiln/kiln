@@ -8,7 +8,6 @@ from conan.tools.files import *
 class UnitsConan(ConanFile):
     name = "llnl-units"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://units.readthedocs.io"
     description = (
         "A run-time C++ library for working with units "

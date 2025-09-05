@@ -16,7 +16,6 @@ class IfcopenshellConan(ConanFile):
     name = "ifcopenshell"
     description = "Open source IFC library and geometry engine"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://ifcopenshell.org/"
     topics = ("ifc", "bim")
     package_type = "library"

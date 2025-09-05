@@ -15,7 +15,6 @@ class LibniceConan(ConanFile):
     name = "libnice"
     homepage = "https://libnice.freedesktop.org/"
     license = "LGPL-2.1-or-later OR MPL-1.1"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "a GLib ICE implementation"
     topics = ("ice", "stun", "turn")
     package_type = "library"

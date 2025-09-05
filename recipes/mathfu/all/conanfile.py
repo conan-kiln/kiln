@@ -13,7 +13,6 @@ class MathfuConan(ConanFile):
     topics = ("math", "geometry")
     license = "Apache-2.0"
     homepage = "https://github.com/google/mathfu"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

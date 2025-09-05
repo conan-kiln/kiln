@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "au"
     description = "A C++14-compatible physical units library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aurora-opensource/au"
     topics = ("units", "C++14", "header-only")
     package_type = "header-library"

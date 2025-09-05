@@ -16,7 +16,6 @@ class XcbUtilImageConan(ConanFile):
     name = "xcb-util-image"
     description = "XCB port of Xlib's XImage and XShmImage"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-image"
     topics = ("xorg", "x11", "xcb")
 

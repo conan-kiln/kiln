@@ -14,7 +14,6 @@ class DatadogOpenTracingConan(ConanFile):
     name = "dd-opentracing-cpp"
     description = "Monitoring service for cloud-scale applications based on OpenTracing "
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/DataDog/dd-opentracing-cpp"
     topics = ("instrumentation", "monitoring", "security", "tracing")
 

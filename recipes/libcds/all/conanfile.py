@@ -15,7 +15,6 @@ class LibcdsConan(ConanFile):
     license = "BSL-1.0"
     topics = ("concurrent", "lock-free", "containers", "hazard-pointer", "rcu")
     homepage = "https://github.com/khizmax/libcds"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

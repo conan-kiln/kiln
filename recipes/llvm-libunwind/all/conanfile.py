@@ -16,7 +16,6 @@ class LlvmLibunwindConan(ConanFile):
     license = "Apache-2.0 WITH LLVM-exception"
     topics = ("llvm", "unwind", "debuggers", "exception-handling", "introspection", "setjmp")
     homepage = "https://github.com/llvm/llvm-project/tree/main/libunwind"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -13,7 +13,6 @@ class VulkanProfilesConan(ConanFile):
     description = "Vulkan Profiles Tools"
     license = "Apache-2.0"
     homepage = "https://github.com/KhronosGroup/Vulkan-Profiles"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("vulkan", "gpu")
     package_type = "shared-library"  # really header-library + application
     settings = "os", "arch", "compiler", "build_type"

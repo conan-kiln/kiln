@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 class FreeRTOSKernelConan(ConanFile):
     name = "freertos-kernel"
     description = "The FreeRTOS Kernel library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freertos.org/"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

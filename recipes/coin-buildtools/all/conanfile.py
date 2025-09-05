@@ -12,7 +12,6 @@ class CoinBuildtoolsConan(ConanFile):
     name = "coin-buildtools"
     description = "Macros and patches for GNU autotools for COIN-OR projects."
     topics = ("coin", "autotools")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or-tools/BuildTools"
     license = "EPL-2.0"
 

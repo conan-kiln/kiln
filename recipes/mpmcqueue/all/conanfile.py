@@ -16,7 +16,6 @@ class MpmcqueueConan(ConanFile):
     license = "MIT"
     topics = ("queue", "concurrency")
     homepage = "https://github.com/rigtorp/MPMCQueue"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

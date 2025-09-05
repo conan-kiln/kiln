@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class lmdbConan(ConanFile):
     name = "lmdb"
     license = "OLDAP-2.8"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://symas.com/lmdb/"
     description = "Fast and compat memory-mapped key-value database"
     topics = ("database", "key-value", "memory-mapped")

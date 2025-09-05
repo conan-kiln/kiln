@@ -17,7 +17,6 @@ class QuantlibConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("quantitative-finance",)
     homepage = "https://www.quantlib.org"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

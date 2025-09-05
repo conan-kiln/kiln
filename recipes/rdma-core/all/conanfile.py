@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     description = ("RDMA core userspace libraries and daemons. "
                    "Provides userspace components for the Linux Kernel's drivers/infiniband subsystem.")
     license = ("GPL-2.0", "Linux-OpenIB", "BSD-2-Clause")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linux-rdma/rdma-core"
     topics = ("linux-kernel", "rdma", "infiniband", "iwarp", "roce", "kernel-rdma-drivers",
               "libefa", "libibmad", "libibnetdisc", "libibumad", "libibverbs", "libmana",

@@ -14,7 +14,6 @@ class YandexOzoConan(ConanFile):
     name = "yandex-ozo"
     description = "C++ header-only library for asynchronous access to PostgreSQL databases using ASIO"
     license = "PostgreSQL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yandex/ozo"
     topics = ("ozo", "yandex", "postgres", "postgresql", "cpp17", "database", "db", "asio", "header-only")
 

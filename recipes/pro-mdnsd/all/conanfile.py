@@ -14,7 +14,6 @@ class mdnsdConan(ConanFile):
     name = "pro-mdnsd"
     description = "Improved version of Jeremie Miller's MDNS-SD implementation"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Pro/mdnsd"
     topics = ("dns", "daemon", "multicast", "embedded", "c")
 

@@ -14,7 +14,6 @@ class ProxyConan(ConanFile):
     name = "proxy"
     description = "Proxy: Next Generation Polymorphism in C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/proxy"
     topics = ("runtime-polymorphism", "polymorphism", "duck-typing", "metaprogramming", "header-only")
 

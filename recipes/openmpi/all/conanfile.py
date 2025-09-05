@@ -17,7 +17,6 @@ class OpenMPIConan(ConanFile):
     name = "openmpi"
     description = "A High Performance Message Passing Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.open-mpi.org"
     topics = ("mpi", "openmpi", "hpc")
     provides = ["mpi"]

@@ -12,7 +12,6 @@ class DepotToolsConan(ConanFile):
     name = "depot_tools"
     description = "Tools for working with Chromium development."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://chromium.googlesource.com/chromium/tools/depot_tools"
     topics = ("chromium", "pre-built")
 

@@ -13,7 +13,6 @@ class LibhydrogenConan(ConanFile):
     license = "ISC"
     topics = ("cryptography", "crypto", "gimli")
     homepage = "https://github.com/jedisct1/libhydrogen"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

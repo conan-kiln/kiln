@@ -13,7 +13,6 @@ class ImplotConan(ConanFile):
     name = "implot"
     description = "Advanced 2D Plotting for Dear ImGui"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/epezent/implot"
     topics = ("imgui", "plot", "graphics", )
     package_type = "library"

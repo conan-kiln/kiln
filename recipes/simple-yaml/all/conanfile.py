@@ -14,7 +14,6 @@ class SimpleYamlConan(ConanFile):
     name = "simple-yaml"
     description = "Read configuration files in YAML format by code structure"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Rechip/simple-yaml"
     topics = ("cpp", "yaml", "configuration", "header-only")
 

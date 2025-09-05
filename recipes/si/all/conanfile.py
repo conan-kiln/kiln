@@ -17,7 +17,6 @@ class SiConan(ConanFile):
         "for handling physical values defined in the International System of Units."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bernedom/SI"
     topics = ("physical units", "SI-unit-conversion", "cplusplus-library", "cplusplus-17", "header-only")
 

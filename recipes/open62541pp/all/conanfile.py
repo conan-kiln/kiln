@@ -13,7 +13,6 @@ class Open62541ppConan(ConanFile):
     name = "open62541pp"
     description = "open62541++ is a C++ wrapper built on top of the amazing open62541 OPC UA (OPC Unified Architecture) library"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/open62541pp/open62541pp"
     topics = ("opcua", "open62541")
     package_type = "library"

@@ -11,7 +11,6 @@ class AnnoyConan(ConanFile):
     description = "Approximate Nearest Neighbors optimized for memory usage and loading/saving to disk"
     license = "Apache-2.0"
     homepage = "https://github.com/spotify/annoy"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("approximate-nearest-neighbors", "machine-learning", "nearest-neighbors", "header-only")
 
     package_type = "header-library"

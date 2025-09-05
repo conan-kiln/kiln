@@ -14,7 +14,6 @@ class RuyConan(ConanFile):
     name = "ruy"
     description = "ruy is a matrix multiplication library.\n" \
                   "Its focus is to cover the matrix multiplication needs of neural network inference engines\n"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/ruy"
     license = "Apache-2.0"
     topics = ("matrix", "multiplication", "neural", "network", "AI", "tensorflow")

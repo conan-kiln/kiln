@@ -11,7 +11,6 @@ class EventppConan(ConanFile):
     name = "eventpp"
     description = "Event Dispatcher and callback list for C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wqking/eventpp"
     topics = ("observer-pattern", "event-dispatcher", "signal", "slot", "publish-subscribe", "nested-events", "thread-safe", "header-only")
 

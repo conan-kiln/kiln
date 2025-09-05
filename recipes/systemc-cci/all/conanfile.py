@@ -15,7 +15,6 @@ class SystemccciConan(ConanFile):
     name = "systemc-cci"
     description = "SystemC Configuration, Control and Inspection library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.accellera.org/"
     topics = ("simulation", "modeling", "esl", "cci")
 

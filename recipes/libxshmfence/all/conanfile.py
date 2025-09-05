@@ -17,7 +17,6 @@ class LibxshmfenceConan(ConanFile):
     name = "libxshmfence"
     description = "Shared memory 'SyncFence' synchronization primitive"
     license = "X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxshmfence"
     topics = ("shared", "memory", "syncfence", "synchronization", "interprocess")
 

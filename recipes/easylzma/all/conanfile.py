@@ -15,7 +15,6 @@ class EazylzmaConan(ConanFile):
         "Igor Pavlov's work that can be used to compress and extract lzma files"
     )
     license = "DocumentRef-README:LicenseRef-PublicDomain-WITH-Attribution" # Public Domain with attribution request
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lloyd/easylzma"
     topics = ("lzma",)
 

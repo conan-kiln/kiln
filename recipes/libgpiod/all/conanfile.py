@@ -13,7 +13,6 @@ class LibgpiodConan(ConanFile):
     name = "libgpiod"
     description = "C library and tools for interacting with the linux GPIO character device"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/"
     topics = ("gpio", "libgpiodcxx", "linux")
     package_type = "library"

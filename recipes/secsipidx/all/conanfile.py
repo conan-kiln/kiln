@@ -11,7 +11,6 @@ class SecSIPIdXConan(ConanFile):
     name = "secsipidx"
     description = "Secure SIP Identity Extensions - IETF STIR/SHAKEN"
     license = "BSD-3-Clause-Clear"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/asipto/secsipidx"
     topics = ("sip", "telephony")
     package_type = "library"

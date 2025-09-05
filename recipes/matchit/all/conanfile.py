@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class MatchitConan(ConanFile):
     name = "matchit"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/BowenFu/matchit.cpp"
     license = "Apache-2.0"
     description = ("match(it): A lightweight header-only pattern-matching"

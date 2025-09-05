@@ -17,7 +17,6 @@ class EdlibConan(ConanFile):
     topics = ("sequence-alignment", "edit-distance", "levehnstein-distance", "alignment-path")
     license = "MIT"
     homepage = "https://github.com/Martinsos/edlib"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

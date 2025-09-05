@@ -18,7 +18,6 @@ class DjVuLibreConan(ConanFile):
     name = "djvulibre"
     description = "Library and utilities to create, manipulate and view DjVu documents"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://djvu.sourceforge.net/"
     topics = ("djvu", "file-format", "document-format")
 

@@ -17,7 +17,6 @@ class UccConan(ConanFile):
     name = "ucc"
     description = "Unified Collective Communication Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openucx.github.io/ucc/"
     topics = ("deep-learning", "hpc", "mpi", "cuda", "pgas", "sharp", "infiniband", "roce", "openshmem", "collectives")
     package_type = "library"

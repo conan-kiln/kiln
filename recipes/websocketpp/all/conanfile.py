@@ -11,7 +11,6 @@ class WebsocketPPConan(ConanFile):
     name = "websocketpp"
     description = "Header only C++ library that implements RFC6455 The WebSocket Protocol"
     topics = ("websocketpp", "websocket", "network", "web", "rfc6455", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zaphoyd/websocketpp"
     license = "BSD-3-Clause"
     package_type = "header-library"

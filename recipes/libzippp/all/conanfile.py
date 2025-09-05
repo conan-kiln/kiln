@@ -14,7 +14,6 @@ class LibZipppConan(ConanFile):
     name = "libzippp"
     description = "A simple basic C++ wrapper around the libzip library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ctabin/libzippp"
     topics = ("zip", "zlib", "libzip", "zip-archives", "zip-editing")
     package_type = "library"

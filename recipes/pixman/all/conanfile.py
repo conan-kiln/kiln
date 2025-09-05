@@ -13,7 +13,6 @@ class PixmanConan(ConanFile):
     name = "pixman"
     description = "Pixman is a low-level software library for pixel manipulation"
     topics = ("graphics", "compositing", "rasterization")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/pixman/pixman"
     license = "MIT"
     package_type = "library"

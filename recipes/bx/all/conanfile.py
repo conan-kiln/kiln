@@ -17,7 +17,6 @@ class bxConan(ConanFile):
     name = "bx"
     license = "BSD-2-Clause"
     homepage = "https://github.com/bkaradzic/bx"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Base library providing utility functions and macros."
     topics = ("general", "utility")
     settings = "os", "arch", "compiler", "build_type"

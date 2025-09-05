@@ -14,7 +14,6 @@ class LibeventConan(ConanFile):
     name = "libevent"
     description = "libevent - an event notification library"
     topics = ("event", "notification", "networking", "async")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libevent/libevent"
     license = "BSD-3-Clause"
     package_type = "library"

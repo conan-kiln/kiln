@@ -17,7 +17,6 @@ class FriBiDiCOnan(ConanFile):
     topics = ("unicode", "bidirectional", "text")
     license = "LGPL-2.1"
     homepage = "https://github.com/fribidi/fribidi"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

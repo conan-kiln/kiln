@@ -15,7 +15,6 @@ class SasscConan(ConanFile):
     name = "sassc"
     description = "libsass command line driver"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sass-lang.com/libsass"
     topics = ("Sass", "compiler")
 

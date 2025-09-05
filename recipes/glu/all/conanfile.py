@@ -11,7 +11,6 @@ class SysConfigGLUConan(ConanFile):
     version = "system"
     description = "cross-platform virtual conan package for the GLU support"
     topics = ("opengl", "glu")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://cgit.freedesktop.org/mesa/glu/"
     license = "SGI-B-2.0"
     package_type = "shared-library"

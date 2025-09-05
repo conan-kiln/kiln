@@ -12,7 +12,6 @@ class InfluxDBCppConan(ConanFile):
     name = "influxdb-cpp"
     description = "C++ client for InfluxDB."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/orca-zhang/influxdb-cpp"
     topics = ("single-header-lib", "influxdb", "header-only")
 

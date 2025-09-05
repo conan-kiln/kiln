@@ -15,7 +15,6 @@ class ZmqppConan(ConanFile):
         "most of the c-style interface core 0mq provides."
     )
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zeromq/zmqpp"
     topics = ("zmq", "0mq", "zeromq", "message-queue", "asynchronous")
     package_type = "library"

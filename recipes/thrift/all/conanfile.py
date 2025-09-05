@@ -13,7 +13,6 @@ class ThriftConan(ConanFile):
     name = "thrift"
     description = "Thrift is an associated code generation mechanism for RPC"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/apache/thrift"
     topics = ("thrift", "serialization", "rpc")
     package_type = "library"

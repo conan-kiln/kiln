@@ -17,7 +17,6 @@ class SzipConan(ConanFile):
     license = "Szip License"
     topics = "compression", "decompression"
     homepage = "https://support.hdfgroup.org/doc_resource/SZIP/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

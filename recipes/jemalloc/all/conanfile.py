@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 class JemallocConan(ConanFile):
     name = "jemalloc"
     description = "jemalloc is a general purpose malloc(3) implementation that emphasizes fragmentation avoidance and scalable concurrency support."
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-2-Clause"
     homepage = "https://jemalloc.net/"
     topics = ("jemalloc", "malloc", "free")

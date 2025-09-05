@@ -11,7 +11,6 @@ class FreeAlutConan(ConanFile):
     name = "freealut"
     description = "freealut is a free implementation of OpenAL's ALUT standard."
     topics = ("openal", "audio", "api")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openal.org"
     license = "LGPL-2.0-or-later"
     settings = "os", "arch", "compiler", "build_type"

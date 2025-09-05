@@ -14,7 +14,6 @@ class FrozenConan(ConanFile):
     name = "frozen"
     description = "A header-only, constexpr alternative to gperf for C++14 users."
     homepage = "https://github.com/serge-sans-paille/frozen"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
     topics = ("gperf", "constexpr", "header-only")
     package_type = "header-library"

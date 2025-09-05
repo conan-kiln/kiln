@@ -14,7 +14,6 @@ class freeglutConan(ConanFile):
     name = "freeglut"
     description = "Open-source alternative to the OpenGL Utility Toolkit (GLUT) library"
     topics = ("gl", "glut", "graphics," "opengl", "toolkit", "utility")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://freeglut.sourceforge.net"
     license = "X11"
     package_type = "library"

@@ -14,7 +14,6 @@ class GlbindingConan(ConanFile):
     license = "MIT"
     topics = ("opengl", "binding")
     homepage = "https://glbinding.org/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

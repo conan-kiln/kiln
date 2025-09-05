@@ -15,7 +15,6 @@ class SQLiteCppConan(ConanFile):
     name = "sqlitecpp"
     description = "SQLiteCpp is a smart and easy to use C++ sqlite3 wrapper"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SRombauts/SQLiteCpp"
     topics = ("sqlite", "sqlite3", "data-base")
     package_type = "library"

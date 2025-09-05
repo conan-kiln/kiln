@@ -17,7 +17,6 @@ class Hdf5Conan(ConanFile):
     license = "BSD-3-Clause"
     topics = "hdf", "data"
     homepage = "https://www.hdfgroup.org/solutions/hdf5/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

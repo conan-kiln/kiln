@@ -14,7 +14,6 @@ class TermcolorConan(ConanFile):
     topics = ("terminal", "color")
     license = "BSD-3-Clause"
     homepage = "https://github.com/ikalnytskyi/termcolor"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

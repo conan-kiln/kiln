@@ -12,7 +12,6 @@ class StbConan(ConanFile):
     name = "stb"
     description = "single-file public domain libraries for C/C++"
     license = ("Unlicense", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nothings/stb"
     topics = ("stb", "single-file", "header-only")
     package_type = "header-library"

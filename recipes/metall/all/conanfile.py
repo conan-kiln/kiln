@@ -15,7 +15,6 @@ class MetallConan(ConanFile):
     name = "metall"
     description = "Meta allocator for persistent memory"
     license = "MIT", "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/LLNL/metall"
     topics = "cpp", "allocator", "memory-allocator", "persistent-memory", "ecp", "exascale-computing"
     package_type = "header-library"

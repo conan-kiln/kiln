@@ -14,7 +14,6 @@ class SoxrConan(ConanFile):
     homepage = "https://sourceforge.net/projects/soxr/"
     topics = ("resampling", "audio", "sample-rate", "conversion")
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -15,7 +15,6 @@ class MkfontscaleConan(ConanFile):
     name = "mkfontscale"
     description = "Utilities to create the fonts.scale and fonts.dir index files used by the legacy X11 font system."
     license = "MIT AND MIT-open-group AND HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/app/mkfontscale"
     topics = ("xorg", "x11", "xfont-utils")
 

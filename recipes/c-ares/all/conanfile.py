@@ -13,7 +13,6 @@ class CAresConan(ConanFile):
     name = "c-ares"
     description = "A C library for asynchronous DNS requests"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://c-ares.haxx.se/"
     topics = ("dns", "resolver", "async")
     package_type = "library"

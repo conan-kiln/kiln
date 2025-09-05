@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class JthreadLiteConan(ConanFile):
     name = "jthread-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/jthread-lite"
     description = "jthread lite - C++20's jthread for C++11 and later in a single-file header-only library "
     topics = ("jthread", "cpp11")

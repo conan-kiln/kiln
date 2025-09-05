@@ -20,7 +20,6 @@ class ClangConan(ConanFile):
     name = "clang"
     description = "The Clang project provides a language front-end and tooling infrastructure for languages in the C language family"
     license = "Apache-2 with LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://clang.llvm.org/"
     topics = ("clang", "llvm", "compiler")
     package_type = "library"

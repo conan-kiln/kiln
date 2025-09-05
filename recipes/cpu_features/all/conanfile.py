@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 class CpuFeaturesConan(ConanFile):
     name = "cpu_features"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/cpu_features"
     description = "A cross platform C99 library to get cpu features at runtime."
     topics = ("cpu", "features", "cpuid")

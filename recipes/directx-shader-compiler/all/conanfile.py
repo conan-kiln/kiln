@@ -15,7 +15,6 @@ class DirectXShaderCompilerConan(ConanFile):
     description = ("The DirectX Shader Compiler project includes a compiler and related tools used to compile "
                    "High-Level Shader Language (HLSL) programs into DirectX Intermediate Language (DXIL) representation.")
     license = "Apache-2.0 WITH LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/DirectXShaderCompiler"
     topics = ("directx", "shader", "compiler", "hlsl", "dxil")
     package_type = "shared-library"

@@ -15,7 +15,6 @@ class IttApiConan(ConanFile):
         " across different Intel tools."
     )
     license = "BSD-3-Clause AND GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/ittapi"
     topics = ("itt", "ittapi", "vtune", "profiler", "profiling")
     package_type = "static-library"

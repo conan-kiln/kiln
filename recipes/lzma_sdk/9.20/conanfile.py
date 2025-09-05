@@ -23,7 +23,6 @@ required_conan_version = ">=2.1"
 
 class LzmaSdkConan(ConanFile):
     name = "lzma_sdk"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "LZMA provides a high compression ratio and fast decompression, so it is very suitable for embedded applications."
     license = ("LZMA-exception",)
     homepage = "https://www.7-zip.org/sdk.html"

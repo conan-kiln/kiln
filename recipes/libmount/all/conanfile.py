@@ -16,7 +16,6 @@ class LibmountConan(ConanFile):
         "/proc/self/mountinfo files, manage the mtab file, evaluate mount options, etc"
     )
     topics = ("mount", "linux", "util-linux")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
     license = "LGPL-2.1-or-later"
 

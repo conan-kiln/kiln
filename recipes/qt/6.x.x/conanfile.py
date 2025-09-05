@@ -24,7 +24,6 @@ class QtConan(ConanFile):
     name = "qt"
     description = "Qt is a cross-platform framework for graphical user interfaces."
     topics = ("framework", "ui")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.qt.io"
     license = "LGPL-3.0-only"
     settings = "os", "arch", "compiler", "build_type"

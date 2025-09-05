@@ -11,7 +11,6 @@ class SuiteSparseColamdConan(ConanFile):
     name = "suitesparse-colamd"
     description = "COLAMD: Routines for column approximate minimum degree ordering algorithm in SuiteSparse"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "minimum-degree-ordering")
 

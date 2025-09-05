@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "minicoro"
     description = "Single header stackful cross-platform coroutine library in pure C"
     license = ("Unlicense", "MIT-0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/edubart/minicoro"
     topics = ("lua", "coroutine", "fibers", "header-only")
     package_type = "header-library"

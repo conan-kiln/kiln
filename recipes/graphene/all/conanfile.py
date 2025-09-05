@@ -18,7 +18,6 @@ class GrapheneConan(ConanFile):
     name = "graphene"
     description = "A thin layer of graphic data types."
     topics = ("graphic", "canvas", "types")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://ebassi.github.io/graphene/"
     license = "MIT"
     package_type = "library"

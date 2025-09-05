@@ -14,7 +14,6 @@ class MpppConan(ConanFile):
     name = "mppp"
     description = "Multiprecision for modern C++ Topics"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bluescarni/mppp/"
     topics = ("multiprecision", "gmp", "math-bignum", "computer-algebra")
     package_type = "library"

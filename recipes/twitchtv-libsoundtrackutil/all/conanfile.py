@@ -16,7 +16,6 @@ class TwitchTvLibSoundtrackUtilConan(ConanFile):
     name = "twitchtv-libsoundtrackutil"
     description = "Twitch Soundtrack utility library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/twitchtv/libsoundtrackutil"
     topics = ("twitch", "soundtrack")
 

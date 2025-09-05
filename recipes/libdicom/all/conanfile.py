@@ -14,7 +14,6 @@ class LibdicomConan(ConanFile):
     name = "libdicom"
     description = "libdicom is a C library and a set of command-line tools for reading DICOM WSI files."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ImagingDataCommons/libdicom"
     topics = ("dicom", "medical-imaging")
 

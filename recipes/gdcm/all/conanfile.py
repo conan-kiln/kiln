@@ -18,7 +18,6 @@ class GDCMConan(ConanFile):
     package_type = "library"
     description = "C++ library for DICOM medical files"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://gdcm.sourceforge.net/"
     topics = ("dicom", "images", "medical-imaging")
     settings = "os", "arch", "compiler", "build_type"

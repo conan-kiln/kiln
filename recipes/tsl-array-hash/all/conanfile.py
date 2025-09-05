@@ -14,7 +14,6 @@ class TslArrayHashConan(ConanFile):
     description = "C++ implementation of a fast and memory efficient hash map and hash set specialized for strings."
     topics = ("string", "structure", "hash map", "hash set")
     homepage = "https://github.com/Tessil/array-hash"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

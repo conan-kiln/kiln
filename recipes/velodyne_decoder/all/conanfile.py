@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "velodyne_decoder"
     description = "A decoder library for raw Velodyne data and telemetry info"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/valgur/velodyne_decoder"
     topics = ("velodyne", "lidar", "point-cloud")
 

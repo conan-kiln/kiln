@@ -16,7 +16,6 @@ class ICCConan(ConanFile):
         "components that works in different threads. "
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/redradist/Inter-Component-Communication"
     topics = ("thread-safe", "active-object", "communication")
 

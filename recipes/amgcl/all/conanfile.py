@@ -15,7 +15,6 @@ class AmgclConan(ConanFile):
         "AMGCL is a header-only C++ library for solving large sparse linear "
         "systems with algebraic multigrid (AMG) method."
     )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ddemidov/amgcl"
     topics = ("mathematics", "opencl", "openmp", "cuda", "amg")
     license = "MIT"

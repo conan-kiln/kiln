@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class DoubleConversionConan(ConanFile):
     name = "double-conversion"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/double-conversion"
     description = "Efficient binary-decimal and decimal-binary conversion routines for IEEE doubles."
     license = "BSD-3-Clause"

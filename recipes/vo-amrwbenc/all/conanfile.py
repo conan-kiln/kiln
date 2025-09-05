@@ -16,7 +16,6 @@ class OpencoreAmrConan(ConanFile):
     homepage = "https://sourceforge.net/projects/opencore-amr/"
     description = "VisualOn AMR-WB encoder library."
     topics = ("audio-codec", "amr-wb", "G.722.2")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

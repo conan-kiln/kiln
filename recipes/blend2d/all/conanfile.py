@@ -14,7 +14,6 @@ class Blend2dConan(ConanFile):
     name = "blend2d"
     description = "2D Vector Graphics Engine Powered by a JIT Compiler"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://blend2d.com/"
     topics = ("2d-graphics", "rasterization", "asmjit", "jit")
     package_type = "library"

@@ -15,7 +15,6 @@ class TarConan(ConanFile):
     name = "tar"
     description = "GNU Tar provides the ability to create tar archives, as well as various other kinds of manipulation."
     license = "GPL-3-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/tar/"
     topics = "archive"
 

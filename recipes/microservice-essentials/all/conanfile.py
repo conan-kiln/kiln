@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class MicroserviceEssentials(ConanFile):
     name = "microservice-essentials"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/seboste/microservice-essentials"
     license = "MIT"
     description = """microservice-essentials is a portable, independent C++ library that takes care of typical recurring concerns that occur in microservice development."""

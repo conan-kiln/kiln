@@ -22,7 +22,6 @@ class LLDConan(ConanFile):
     license = "Apache-2.0 WITH LLVM-exception"
     topics = ("llvm", "linker")
     homepage = "https://lld.llvm.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

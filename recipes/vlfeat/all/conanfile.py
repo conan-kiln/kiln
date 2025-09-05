@@ -15,7 +15,6 @@ class VlfeatConan(ConanFile):
                    "image understanding and local features extraction and matching.")
     license = "BSD 2-Clause"
     homepage = "https://www.vlfeat.org"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("computer-vision", "image-features")
 
     package_type = "library"

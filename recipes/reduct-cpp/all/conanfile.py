@@ -13,7 +13,6 @@ class ReductCPPConan(ConanFile):
     name = "reduct-cpp"
     description = "ReductStore Client SDK for C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/reductstore/reduct-cpp"
     topics = ("reductstore", "sdk", "http-client")
     package_type = "static-library"

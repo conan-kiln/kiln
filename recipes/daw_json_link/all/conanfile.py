@@ -11,7 +11,6 @@ class DawJsonLinkConan(ConanFile):
     name = "daw_json_link"
     description = "Static JSON parsing in C++"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/beached/daw_json_link"
     topics = ("json", "parse", "json-parser", "serialization", "constexpr", "header-only")
     package_type = "header-library"

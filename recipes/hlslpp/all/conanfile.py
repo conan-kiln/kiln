@@ -16,7 +16,6 @@ class HlslppConan(ConanFile):
     topics = ("hlsl", "math", "shader", "vector", "matrix", "quaternion")
     license = "MIT"
     homepage = "https://github.com/redorav/hlslpp"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

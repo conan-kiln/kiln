@@ -12,7 +12,6 @@ class PortableFileDialogsConan(ConanFile):
     name = "portable-file-dialogs"
     description = "Portable GUI dialogs library, C++11, single-header"
     license = "WTFPL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/samhocevar/portable-file-dialogs"
     topics = ("gui", "dialogs", "header-only")
 

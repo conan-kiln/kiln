@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class NewmatConan(ConanFile):
     name = "newmat"
     description = "Manipulate a variety of types of matrices using standard matrix operations."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.robertnz.net/nm11.htm"
     topics = ("matrix")
     license = "LicenseRef-newmat"

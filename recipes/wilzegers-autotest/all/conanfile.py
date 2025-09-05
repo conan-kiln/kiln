@@ -14,7 +14,6 @@ class WilzegersAutotestConan(ConanFile):
     name = "wilzegers-autotest"
     description = "Autotest facilitates the testing of class interfaces"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/wilzegers/autotest"
     topics = ("autotest", "testing", "header-only")
 

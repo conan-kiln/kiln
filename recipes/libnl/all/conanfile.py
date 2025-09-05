@@ -14,7 +14,6 @@ class LibNlConan(ConanFile):
     name = "libnl"
     description = "A collection of libraries providing APIs to netlink protocol based Linux kernel interfaces."
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/thom311/libnl"
     topics = ("netlink")
     settings = "os", "arch", "compiler", "build_type"

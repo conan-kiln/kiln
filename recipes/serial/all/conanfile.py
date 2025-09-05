@@ -14,7 +14,6 @@ class ConanRecipe(ConanFile):
     name = "serial"
     description = "Cross-platform library for interfacing with rs-232 serial like ports"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://wjwwood.io/serial/"
     topics = ("rs-232", "com")
 

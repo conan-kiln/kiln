@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "reproc"
     description = "A cross-platform C99 process library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/DaanDeMeyer/reproc"
     topics = ("process-management", "process", "cross-platform")
 

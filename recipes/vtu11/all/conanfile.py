@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "vtu11"
     description = "Vtu11 is a small C++ header-only library to write unstructured grids using the vtu file format"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/phmkopp/vtu11"
     topics = ("vtu", "c++11", "header-only")
 

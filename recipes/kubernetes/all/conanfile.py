@@ -12,7 +12,6 @@ class kubernetesRecipe(ConanFile):
     name = "kubernetes"
     package_type = "library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kubernetes-client/c"
     description = "Official C client library for Kubernetes"
     topics = ("kubernetes", "k8s", "kubernetes-client", "k8s-client")

@@ -19,7 +19,6 @@ class LibreSSLConan(ConanFile):
         "2014, with goals of modernizing the codebase, improving security, and "
         "applying best practice development processes."
     )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libressl.org/"
     license = ("OpenSSL", "BSD", "ISC")
 

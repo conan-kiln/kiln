@@ -11,7 +11,6 @@ class SuiteSparseLdlConan(ConanFile):
     name = "suitesparse-ldl"
     description = "LDL: A sparse LDL' factorization and solve package in SuiteSparse"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "ldl-factorization")
 

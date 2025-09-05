@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class ZeusExpectedConan(ConanFile):
     name = "zeus_expected"
 
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zeus-cpp/expected"
     description = "Backporting std::expected to C++17."
     topics = ("cpp17", "expected")

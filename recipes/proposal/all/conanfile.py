@@ -16,7 +16,6 @@ class PROPOSALConan(ConanFile):
     homepage = "https://github.com/tudo-astroparticlephysics/PROPOSAL"
     license = "LGPL-3.0"
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "monte Carlo based lepton and photon propagator"
     topics = ("propagator", "lepton", "photon", "stochastic")
 

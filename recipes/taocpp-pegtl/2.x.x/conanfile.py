@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class TaoCPPPEGTLConan(ConanFile):
     name = "taocpp-pegtl"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/pegtl"
     description = "Parsing Expression Grammar Template Library"
     topics = ("peg", "header-only", "cpp",

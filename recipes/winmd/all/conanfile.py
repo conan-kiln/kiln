@@ -16,7 +16,6 @@ class WinMDConan(ConanFile):
     name = "winmd"
     description = "C++ winmd parser"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/winmd"
     topics = ("native", "C++", "WinRT", "WinMD")
     package_type = "header-library"

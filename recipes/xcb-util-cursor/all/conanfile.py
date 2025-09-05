@@ -16,7 +16,6 @@ class XcbUtilCursorConan(ConanFile):
     name = "xcb-util-cursor"
     description = "XCB port of libXcursor"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-cursor"
     topics = ("xorg", "x11", "xcb")
 

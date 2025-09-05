@@ -11,7 +11,6 @@ class DuktapeConan(ConanFile):
     name = "duktape"
     description = "Duktape is an embeddable Javascript engine, with a focus on portability and compact footprint."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://duktape.org"
     topics = ("javascript", "engine", "embeddable", "compact")
 

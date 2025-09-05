@@ -16,7 +16,6 @@ class EmioConan(ConanFile):
     description = "A character input/output library for embedded systems."
     topics = ("format", "scan", "header-only")
     homepage = "https://github.com/viatorus/emio"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "header-library"

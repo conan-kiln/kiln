@@ -12,7 +12,6 @@ class TCSBankUconfigConan(ConanFile):
     name = "tcsbank-uconfig"
     description = "Lightweight, header-only, C++17 configuration library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Tinkoff/uconfig"
     topics = ("configuration", "env", "json", "header-only")
 

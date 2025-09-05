@@ -17,7 +17,6 @@ required_conan_version = ">=2.1"
 class CyrusSaslConan(ConanFile):
     name = "cyrus-sasl"
     license = "BSD-4-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.cyrusimap.org/sasl/"
     description = (
         "This is the Cyrus SASL API implementation. "

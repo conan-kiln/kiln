@@ -12,7 +12,6 @@ class TinyObjLoaderConan(ConanFile):
     name = "tinyobjloader"
     description = "Tiny but powerful single file wavefront obj loader"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/syoyo/tinyobjloader"
     topics = ("loader", "obj", "3d", "wavefront", "geometry")
     package_type = "library"

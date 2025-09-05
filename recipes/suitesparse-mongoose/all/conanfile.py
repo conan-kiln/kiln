@@ -11,7 +11,6 @@ class SuiteSparseMongooseConan(ConanFile):
     name = "suitesparse-mongoose"
     description = "Mongoose: Graph partitioning library in SuiteSparse"
     license = "GPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("graph-algorithms", "mathematics", "sparse-matrix", "graph-partitioning")
 

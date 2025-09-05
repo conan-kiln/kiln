@@ -11,7 +11,6 @@ class LightPcapNgConan(ConanFile):
     name = "lightpcapng"
     description = "Library for general-purpose tracing based on PCAPNG file format"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Technica-Engineering/LightPcapNg"
     topics = ("pcapng", "pcap")
 

@@ -16,7 +16,6 @@ class LibIceConan(ConanFile):
     name = "libice"
     description = "X11 Inter-Client Exchange library"
     license = "MIT-open-group"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libice"
     topics = ("xorg", "x11")
 

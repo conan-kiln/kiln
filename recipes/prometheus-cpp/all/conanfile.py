@@ -12,7 +12,6 @@ class PrometheusCppConan(ConanFile):
     name = "prometheus-cpp"
     description = "Prometheus Client Library for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jupp0r/prometheus-cpp"
     topics = ("metrics", "prometheus", "networking")
     package_type = "library"

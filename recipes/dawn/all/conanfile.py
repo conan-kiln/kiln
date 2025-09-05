@@ -15,7 +15,6 @@ class DawnConan(ConanFile):
                    " It exposes a C/C++ API that maps almost one-to-one to the WebGPU IDL and"
                    " can be managed as part of a larger system such as a Web browser.")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://dawn.googlesource.com/dawn"
     topics = ("webgpu", "graphics", "gpgpu")
 

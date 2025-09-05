@@ -12,7 +12,6 @@ class GeometricToolsRecipe(ConanFile):
     description = "Geometric Tools Engine"
     license = "BSL-1.0"
     topics = ("gte", "geometry", "graphics", "mathematics", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.geometrictools.com/"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class OctoWildcardMatchingCPPConan(ConanFile):
     name = "octo-wildcardmatching-cpp"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ofiriluz/octo-wildcardmatching-cpp"
     description = "Octo wildcardmatching library"
     topics = ("wildcard", "regex", "patterns", "cpp")

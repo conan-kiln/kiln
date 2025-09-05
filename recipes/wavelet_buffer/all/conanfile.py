@@ -16,7 +16,6 @@ class WaveletBufferConan(ConanFile):
     description = "An universal C++ compression library based on wavelet transformation"
     topics = ("compression", "signal-processing", "wavelet")
     homepage = "https://github.com/panda-official/WaveletBuffer"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

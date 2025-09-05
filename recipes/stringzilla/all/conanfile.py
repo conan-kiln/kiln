@@ -12,7 +12,6 @@ class StringZillaConan(ConanFile):
     name = "stringzilla"
     description = "Fastest string sort, search, split, and shuffle for long strings and multi-gigabyte files in Python and C, leveraging SIMD with Arm Neon and x86 AVX2 & AVX-512 intrinsics."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ashvardanian/StringZilla/"
     topics = ("string", "simd", "sse", "avx", "neon", "header-only")
     package_type = "header-library"

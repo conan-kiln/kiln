@@ -14,7 +14,6 @@ class GameNetworkingSocketsConan(ConanFile):
     name = "gamenetworkingsockets"
     description = "GameNetworkingSockets is a basic transport layer for games."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ValveSoftware/GameNetworkingSockets"
     topics = ("networking", "game-development")
 

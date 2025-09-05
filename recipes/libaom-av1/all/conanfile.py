@@ -13,7 +13,6 @@ class LibaomAv1Conan(ConanFile):
     name = "libaom-av1"
     description = "AV1 Codec Library"
     topics = ("av1", "codec", "video", "encoding", "decoding")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://aomedia.googlesource.com/aom"
     license = "BSD-2-Clause"
 

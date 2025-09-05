@@ -18,7 +18,6 @@ class ReactivePlusPlusConan(ConanFile):
         "declarative form."
     )
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/victimsnino/ReactivePlusPlus"
     topics = ("reactivex", "asynchronous", "event", "observable", "values-distributed-in-time")
     package_type = "header-library"

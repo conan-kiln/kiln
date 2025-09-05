@@ -17,7 +17,6 @@ class DpdkConan(ConanFile):
     description = "DPDK: a set of libraries and drivers for fast packet processing"
     # see https://github.com/DPDK/dpdk/blob/main/license/README
     license = "BSD-3-Clause AND LGPL-2.1-only AND GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://dpdk.org"
     topics = ("networking", "packets", "drivers")
 

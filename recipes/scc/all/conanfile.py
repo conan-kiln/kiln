@@ -17,7 +17,6 @@ class SystemcComponentsConan(ConanFile):
     name = "scc"
     description = "A light-weight productivity library for SystemC and TLM 2.0"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://minres.github.io/SystemC-Components"
     topics = ("systemc", "modeling", "tlm", "scc")
 

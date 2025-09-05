@@ -18,7 +18,6 @@ class CistaConan(ConanFile):
     license = "MIT"
     topics = ("cista", "serialization", "deserialization", "reflection")
     homepage = "https://github.com/felixguendling/cista"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -14,7 +14,6 @@ class LibproxyConan(ConanFile):
     name = "libproxy"
     description = "libproxy is a library that provides automatic proxy configuration management."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libproxy/libproxy"
     topics = ("proxy", "network")
     package_type = "library"

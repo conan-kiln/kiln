@@ -11,7 +11,6 @@ from conan.tools.microsoft import is_msvc
 class TcpcatConan(ConanFile):
     name = "ydcpp-tcpcat"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ydcpp/tcpcat"
     description = "Simple C++ TCP Server and Client library."
     topics = ("network", "tcp", "tcp-server", "tcp-client")

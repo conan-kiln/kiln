@@ -15,7 +15,6 @@ class SpdlogConan(ConanFile):
     name = "spdlog"
     package_type = "library"
     description = "Fast C++ logging library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gabime/spdlog"
     topics = ("logger", "logging", "log-filtering", "file sink", "header-only")
     license = "MIT"

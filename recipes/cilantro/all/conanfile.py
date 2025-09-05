@@ -13,7 +13,6 @@ class CilantroConan(ConanFile):
     name = "cilantro"
     description = "A lean C++ library for working with point cloud data"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "github.com/kzampog/cilantro"
     topics = ("point-cloud", "3d", "clustering", "registration", "segmentation", "convex-hull", "3d-reconstruction",
               "ransac", "visualization", "iterative-closest-point", "spectral-clustering", "model-fitting")

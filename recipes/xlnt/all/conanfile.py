@@ -17,7 +17,6 @@ class XlntConan(ConanFile):
     license = "MIT"
     topics = ("excel", "xlsx", "spreadsheet", "reader", "writer")
     homepage = "https://github.com/tfussell/xlnt"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

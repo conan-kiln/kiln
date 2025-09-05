@@ -19,7 +19,6 @@ class BotanConan(ConanFile):
     name = "botan"
     description = "Botan is a cryptography library written in modern C++."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/randombit/botan"
     topics = ("cryptography", "crypto", "c++11", "c++20", "tls")
 

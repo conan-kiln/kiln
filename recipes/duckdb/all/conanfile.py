@@ -15,7 +15,6 @@ class DuckdbConan(ConanFile):
     name = "duckdb"
     description = "DuckDB is an embeddable SQL OLAP Database Management System"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cwida/duckdb"
     topics = ("sql", "database", "olap", "embedded-database")
     package_type = "library"

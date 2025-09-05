@@ -18,7 +18,6 @@ class DirectfbConan(ConanFile):
     name = "directfb"
     description = "DirectFB is a graphics library which was designed with embedded systems in mind."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://directfb1.org/"
     topics = ("framebuffer", "graphics", "embedded")
     package_type = "shared-library"

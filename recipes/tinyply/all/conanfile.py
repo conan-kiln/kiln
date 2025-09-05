@@ -16,7 +16,6 @@ class TinyplyConan(ConanFile):
     license = ("Unlicense", "BSD-2-Clause")
     topics = ("tinyply", "ply", "geometry", "mesh", "file-format")
     homepage = "https://github.com/ddiakopoulos/tinyply"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

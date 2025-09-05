@@ -11,7 +11,6 @@ class SokolConan(ConanFile):
     name = "sokol"
     description = "Simple STB-style cross-platform libraries for C and C++, written in C."
     topics = ("sokol", "graphics", "3d")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/floooh/sokol"
     license = "Zlib"
     settings = "os", "arch", "compiler", "build_type"

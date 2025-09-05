@@ -14,7 +14,6 @@ class AudiowaveformConan(ConanFile):
     name = "audiowaveform"
     description = "C++ program to generate waveform data and render waveform images from audio files"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://waveform.prototyping.bbc.co.uk/"
     topics = ("audio", "c-plus-plus")
     package_type = "application"

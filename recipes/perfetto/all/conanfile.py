@@ -14,7 +14,6 @@ class PerfettoConan(ConanFile):
     name = "perfetto"
     description = "Performance instrumentation and tracing for Android, Linux and Chrome"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://perfetto.dev"
     topics = ("linux", "profiling", "tracing")
     package_type = "library"

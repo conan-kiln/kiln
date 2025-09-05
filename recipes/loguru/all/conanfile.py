@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class LoguruConan(ConanFile):
     name = "loguru"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/emilk/loguru"
     license = "Unlicense"
     topics = ("logging", "log", "fmt")

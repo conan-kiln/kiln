@@ -16,7 +16,6 @@ class AngelScriptConan(ConanFile):
         "allow applications to extend their functionality through external scripts."
     )
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.angelcode.com/angelscript"
     topics = ("angelcode", "embedded", "scripting", "language", "compiler", "interpreter")
 

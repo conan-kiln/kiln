@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class LibyuvConan(ConanFile):
     name = "libyuv"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://chromium.googlesource.com/libyuv/libyuv/"
     description = "libyuv is an open source project that includes YUV scaling and conversion functionality."
     topics = ["YUV", "libyuv", "google", "chromium"]

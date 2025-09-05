@@ -21,7 +21,6 @@ class GStPluginsRsConan(ConanFile):
     name = "gst-plugins-rs"
     description = "GStreamer plugins written in Rust"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs"
     topics = ("gstreamer", "multimedia", "video", "audio", "broadcasting", "framework", "media")
 

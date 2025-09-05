@@ -11,7 +11,6 @@ class UsrsctpConan(ConanFile):
     name = "usrsctp"
     description = " A portable SCTP userland stack"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sctplab/usrsctp"
     topics = ("network", "sctp")
 

@@ -14,7 +14,6 @@ class Md4cConan(ConanFile):
     name = "md4c"
     description = "C Markdown parser. Fast. SAX-like interface. Compliant to CommonMark specification."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mity/md4c"
     topics = ("markdown-parser", "markdown")
     package_type = "library"

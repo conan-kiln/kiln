@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class AmqpcppConan(ConanFile):
     name = "amqp-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CopernicaMarketingSoftware/AMQP-CPP"
     topics = ("amqp", "network", "queue")
     license = "Apache-2.0"

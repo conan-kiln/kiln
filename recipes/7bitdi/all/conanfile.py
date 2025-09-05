@@ -13,7 +13,6 @@ class SevenBitDIConan(ConanFile):
     name = "7bitdi"
     description = "a simple C++ dependency injection library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/7bitcoder/7bitDI"
     topics = ("cpp17", "dependency-injector", "injector", "header-only")
     package_type = "library"

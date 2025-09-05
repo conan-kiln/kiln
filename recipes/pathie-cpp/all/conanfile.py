@@ -11,7 +11,6 @@ class PathieCppConan(ConanFile):
     name = "pathie-cpp"
     description = "Small C++ library for crossplatform Unicode path management"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Quintus/pathie-cpp"
     topics = ("path", "unicode",)
     package_type = "library"

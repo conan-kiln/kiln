@@ -15,7 +15,6 @@ class TllistConan(ConanFile):
     name = "tllist"
     description = "A C header file only implementation of a typed linked list."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codeberg.org/dnkl/tllist"
     topics = ("list", "utils", "typed-linked-list", "header-only")
 

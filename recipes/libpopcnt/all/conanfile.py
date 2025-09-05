@@ -10,7 +10,6 @@ class LibPopcntConan(ConanFile):
     name = "libpopcnt"
     description = "Fast C/C++ bit population count library"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kimwalisch/libpopcnt"
     topics = ("popcnt", "popcount", "neon", "avx2", "avx512", "header-only")
     package_type = "header-library"

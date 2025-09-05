@@ -14,7 +14,6 @@ class KittenConan(ConanFile):
     name = "kitten"
     description = "A small C++ library inspired by Category Theory focused on functional composition."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rvarago/kitten"
     topics = ("category-theory", "composition", "monadic-interface", "declarative-programming", "header-only")
 

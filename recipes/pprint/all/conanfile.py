@@ -14,7 +14,6 @@ class PprintConan(ConanFile):
     name = "pprint"
     description = "Pretty Printer for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/pprint"
     topics = ("pretty", "printer", "header-only")
 

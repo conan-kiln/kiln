@@ -13,7 +13,6 @@ class Fp16Conan(ConanFile):
     license = "MIT"
     topics = ("half-precision-floating-point")
     homepage = "https://github.com/Maratyszcza/FP16"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

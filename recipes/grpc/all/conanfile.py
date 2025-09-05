@@ -19,7 +19,6 @@ class GrpcConan(ConanFile):
     name = "grpc"
     description = "Google's RPC (remote procedure call) library and framework."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/grpc/grpc"
     topics = ("rpc",)
 

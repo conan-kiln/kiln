@@ -15,7 +15,6 @@ required_conan_version = ">=2.4"
 class LibcapConan(ConanFile):
     name = "libcap"
     license = "BSD-3-Clause OR GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.kernel.org/pub/scm/libs/libcap/libcap.git"
     description = "This is a library for getting and setting POSIX.1e" \
                   " (formerly POSIX 6) draft 15 capabilities"

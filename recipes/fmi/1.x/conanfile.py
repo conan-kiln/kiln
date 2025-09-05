@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "fmi"
     description = "Functional Mock-up Interface (FMI) for Co-Simulation"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://fmi-standard.org"
     topics = ("fmi-standard", "co-simulation", "model-exchange", "header-only")
     package_type = "header-library"

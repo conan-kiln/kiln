@@ -14,7 +14,6 @@ class libdecorConan(ConanFile):
     name = "libdecor"
     description = "libdecor is a library that can help Wayland clients draw window decorations for them."
     topics = ("decoration", "wayland", "window")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/libdecor/libdecor"
     license = "MIT"
 

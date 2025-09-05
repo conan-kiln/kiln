@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class BooleanLiteConan(ConanFile):
     name = "boolean-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/boolean-lite"
     description = "boolean lite - A strong boolean type for C++98 and later in a single-file header-only library"
     topics = ("strong bool", "cpp98/11/17")

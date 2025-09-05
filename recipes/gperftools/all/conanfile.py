@@ -16,7 +16,6 @@ class GperftoolsConan(ConanFile):
     name = "gperftools"
     description = "High-performance multi-threaded malloc()"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gperftools/gperftools"
     topics = ("memory", "allocator", "tcmalloc", "google-perftools")
     package_type = "library"

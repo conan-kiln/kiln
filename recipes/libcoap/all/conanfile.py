@@ -13,7 +13,6 @@ class LibCoapConan(ConanFile):
     name = "libcoap"
     description = "A CoAP (RFC 7252) implementation in C"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/obgm/libcoap"
     topics = "coap"
     package_type = "library"

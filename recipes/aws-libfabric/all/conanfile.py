@@ -17,7 +17,6 @@ class LibfabricConan(ConanFile):
     name = "aws-libfabric"
     description = "AWS Libfabric"
     license = ("BSD-2-Clause", "GPL-2.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aws/libfabric"
     topics = ("fabric", "communication", "framework", "service")
 

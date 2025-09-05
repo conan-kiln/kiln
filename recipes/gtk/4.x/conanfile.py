@@ -20,7 +20,6 @@ class GtkConan(ConanFile):
     name = "gtk"
     description = "GTK is a multi-platform toolkit for creating graphical user interfaces"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gtk.org"
     topics = ("gui", "widgets", "gnome")
 

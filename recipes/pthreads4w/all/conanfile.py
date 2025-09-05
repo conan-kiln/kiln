@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class Pthreads4WConan(ConanFile):
     name = "pthreads4w"
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/pthreads4w/"
     description = "POSIX Threads for Windows"
     license = "Apache-2.0"

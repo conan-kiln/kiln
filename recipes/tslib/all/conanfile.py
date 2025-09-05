@@ -12,7 +12,6 @@ class TslibConan(ConanFile):
     name = "tslib"
     description = "C library for filtering touchscreen events"
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.tslib.org/"
     topics = ("touch-devices", "touchscreen", "embedded")
     package_type = "library"

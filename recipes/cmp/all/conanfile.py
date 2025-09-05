@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class CmpConan(ConanFile):
     name = "cmp"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://msgpack.org"
     description = "An implementation of the MessagePack serialization format in C / msgpack.org[C]"
     topics = ("msgpack", "serialization")

@@ -15,7 +15,6 @@ class MesaGluConan(ConanFile):
     name = "mesa-glu"
     description = "Mesa's implementation of the OpenGL utility library"
     license = ("SGI-B-1.1", "SGI-B-2.0", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.mesa3d.org/"
     topics = ("gl", "glu", "mesa", "opengl")
     package_type = "library"

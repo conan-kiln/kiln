@@ -13,7 +13,6 @@ class IosCMakeConan(ConanFile):
     name = "ios-cmake"
     description = "iOS CMake toolchain to (cross) compile macOS/iOS/watchOS/tvOS"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/leetal/ios-cmake"
     topics = ("apple", "ios", "cmake", "toolchain", "ios", "tvos", "watchos", "header-only")
 

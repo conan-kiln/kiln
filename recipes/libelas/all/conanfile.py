@@ -13,7 +13,6 @@ class LibelasConan(ConanFile):
     name = "libelas"
     description = "LIBELAS is a C++ library for computing disparity maps from rectified graylevel stereo pairs"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.cvlibs.net/software/libelas/"
     topics = ("computer-vision", "stereo-matching", "disparity", "depth")
 

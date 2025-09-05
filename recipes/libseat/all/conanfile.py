@@ -14,7 +14,6 @@ class LibseatConan(ConanFile):
     name = "libseat"
     description = ("A minimal seat management daemon, and a universal seat management library")
     topics = ("login", "session", "seat", "seatd")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sr.ht/~kennylevinsen/seatd/"
     license = "MIT"
     package_type = "library"

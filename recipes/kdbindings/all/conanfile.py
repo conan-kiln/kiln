@@ -12,7 +12,6 @@ class KDBindingsConan(ConanFile):
     name = "kdbindings"
     license = "MIT"
     description = "Reactive programming & data binding in C++"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/KDAB/KDBindings"
     topics = ("c++17", "reactive", "kdab", "header-only")
     package_type = "header-library"

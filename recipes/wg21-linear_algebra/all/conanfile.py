@@ -15,7 +15,6 @@ class LAConan(ConanFile):
     description = "Production-quality reference implementation of P1385: A proposal to add linear algebra support to the C++ standard library"
     topics = ("linear-algebra", "multi-dimensional", "maths")
     license = "NCSA"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "header-library"
     no_copy_source = True

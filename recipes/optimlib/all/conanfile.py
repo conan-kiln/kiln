@@ -13,7 +13,6 @@ class OptimLibConan(ConanFile):
     name = "optimlib"
     description = "OptimLib: a lightweight C++ library of numerical optimization methods for nonlinear functions"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kthohr/optim"
     topics = ("numerical-optimization", "optimization", "automatic-differentiation", "evolutionary-algorithms")
 

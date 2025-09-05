@@ -14,7 +14,6 @@ class Antlr4CppRuntimeConan(ConanFile):
     name = "antlr4-cppruntime"
     description = "C++ runtime support for ANTLR (ANother Tool for Language Recognition)"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/antlr/antlr4/tree/master/runtime/Cpp"
     topics = ("antlr", "parser", "runtime")
 

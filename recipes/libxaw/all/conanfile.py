@@ -16,7 +16,6 @@ class LibXawConan(ConanFile):
     name = "libxaw"
     description = "libXaw: X Athena Widget Set, based on the X Toolkit Intrinsics (Xt) Library"
     license = "MIT-open-group AND X11 AND HPND AND HPND-sell-variant AND SMLNJ AND NTP"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxaw"
     topics = ("xorg", "x11")
 

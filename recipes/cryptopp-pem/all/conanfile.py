@@ -19,7 +19,6 @@ class CryptoPPPEMConan(ConanFile):
                    "including encrypted private keys.")
     # TODO: Fix license syntax, this is not proper spdx terminology
     license = "DocumentRef-README.md:LicenseRef-Cryptopp-Pem-PublicDomain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.cryptopp.com/wiki/PEM_Pack"
     topics = ("cryptopp", "crypto", "cryptographic", "security", "PEM")
 

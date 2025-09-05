@@ -15,7 +15,6 @@ class HscppConan(ConanFile):
     name = "hscpp"
     description = "A library to hot-reload C++ at runtime"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jheruty/hscpp"
     topics = ("hot-reload", "hot-swapping", "live-coding", "gamedev", "header-only")
 

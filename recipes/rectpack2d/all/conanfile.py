@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class Rectpack2dConan(ConanFile):
     name = "rectpack2d"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TeamHypersomnia/rectpack2D"
     description = "C++17 rectangle packing library"
     topics = ("header-only", "rectpack2d", "graphical", "cpp17")

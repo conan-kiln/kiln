@@ -20,7 +20,6 @@ class Log4cppConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("logging", "log", "logging-library")
     homepage = "https://log4cpp.sourceforge.net/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -18,7 +18,6 @@ class LibUSBCompatConan(ConanFile):
     name = "libusb-compat"
     description = "A compatibility layer allowing applications written for libusb-0.1 to work with libusb-1.0"
     license = ("LGPL-2.1", "BSD-3-Clause")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libusb/libusb-compat-0.1"
     topics = ("libusb", "compatibility", "usb")
 

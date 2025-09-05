@@ -13,7 +13,6 @@ class ZppBitsConan(ConanFile):
     name = "zpp_bits"
     description = "A lightweight C++20 serialization and RPC library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eyalz800/zpp_bits"
     topics = ("serialization", "rpc", "header-only")
     package_type = "header-library"

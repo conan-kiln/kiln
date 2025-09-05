@@ -24,7 +24,6 @@ class GStPluginsGoodConan(ConanFile):
     name = "gst-plugins-good"
     description = "A set of good-quality plug-ins for GStreamer under GStreamer's preferred license, LGPL"
     topics = ("gstreamer", "multimedia", "video", "audio", "broadcasting", "framework", "media")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gstreamer.freedesktop.org/"
     license = "LGPL-2.1-or-later"
     settings = "os", "arch", "compiler", "build_type"

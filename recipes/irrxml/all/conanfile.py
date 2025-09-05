@@ -11,7 +11,6 @@ class IrrXMLConan(ConanFile):
     name = "irrxml"
     license = "ZLIB"
     homepage = "http://www.ambiera.com/irrxml"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "irrXML is a simple and fast open source xml parser for C++"
     topics = ("xml", "xml-parser", "parser", "xml-reader")
 

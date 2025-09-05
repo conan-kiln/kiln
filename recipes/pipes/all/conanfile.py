@@ -14,7 +14,6 @@ class PipesConan(ConanFile):
     name = "pipes"
     description = "Pipelines for expressive code on collections in C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/joboccara/pipes"
     topics = ("functional-programming", "header-only")
 

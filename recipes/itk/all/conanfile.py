@@ -14,7 +14,6 @@ class ITKConan(ConanFile):
     name = "itk"
     description = "Open-source, cross-platform toolkit for N-dimensional scientific image processing, segmentation, and registration"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.itk.org/"
     topics = ("medical-imaging", "scientific", "image", "processing")
     package_type = "library"

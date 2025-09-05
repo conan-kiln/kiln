@@ -13,7 +13,6 @@ class TaoCPPPEGTLConan(ConanFile):
     name = "taocpp-pegtl"
     description = "Parsing Expression Grammar Template Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/pegtl"
     topics = ("peg", "header-only", "cpp",
               "parsing", "cpp17", "cpp11", "grammar")

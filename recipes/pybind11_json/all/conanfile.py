@@ -11,7 +11,6 @@ class Pybind11JsonConan(ConanFile):
     name = "pybind11_json"
     description = "An nlohmann_json to pybind11 bridge"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pybind/pybind11_json"
     topics = ("header-only", "json", "nlohmann_json", "pybind11", "pybind11_json", "python", "python-binding")
 

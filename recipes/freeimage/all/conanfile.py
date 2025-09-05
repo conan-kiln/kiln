@@ -13,7 +13,6 @@ class FreeImageConan(ConanFile):
     description = "Open Source library project for developers who would like to support popular graphics image formats"\
                   "like PNG, BMP, JPEG, TIFF and others as needed by today's multimedia applications."
     homepage = "https://freeimage.sourceforge.io"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "FreeImage", "GPL-3.0-or-later", "GPL-2.0-or-later"
     topics = ("image", "decoding", "graphics")
 

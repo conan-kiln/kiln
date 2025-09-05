@@ -17,7 +17,6 @@ class MakeConan(ConanFile):
     )
     topics = ("make", "build", "makefile")
     homepage = "https://www.gnu.org/software/make/"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-3.0-or-later"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"

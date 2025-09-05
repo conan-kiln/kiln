@@ -12,7 +12,6 @@ class ExpectedLiteConan(ConanFile):
     name = "expected-lite"
     description = "expected lite - Expected objects in C++11 and later in a single-file header-only library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/expected-lite"
     topics = ("cpp11", "cpp14", "cpp17", "expected", "expected-implementations", "header-only")
     package_type = "header-library"

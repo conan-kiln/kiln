@@ -18,7 +18,6 @@ class CalcephConan(ConanFile):
     license = ("CECILL-C", "CECILL-B", "CECILL-2.1")
     topics = ("ephemeris", "astronomy", "space", "planet")
     homepage = "https://www.imcce.fr/inpop/calceph"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

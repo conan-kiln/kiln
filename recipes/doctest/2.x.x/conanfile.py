@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class DoctestConan(ConanFile):
     name = "doctest"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/onqtam/doctest"
     description = "C++11/14/17/20 single header testing framework"
     topics = ("header-only", "unit-test", "tdd")

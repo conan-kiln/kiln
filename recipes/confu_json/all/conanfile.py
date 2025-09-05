@@ -14,7 +14,6 @@ class ConfuJson(ConanFile):
     description = "Uses boost::fusion to help with serialization; json <-> user defined type"
     topics = ("json", "serialization", "user-defined-type", "header-only")
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 

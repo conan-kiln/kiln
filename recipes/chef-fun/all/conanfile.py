@@ -15,7 +15,6 @@ class ChefFunConan(ConanFile):
     homepage = "https://gitlab.com/libchef/chef-fun"
     description = "C++ Functional programming support library"
     topics = ("functional programming", "cpp", "library" )
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

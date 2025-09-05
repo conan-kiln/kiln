@@ -14,7 +14,6 @@ class Greg7mdpGtlConan(ConanFile):
     name = "greg7mdp-gtl"
     description = "Greg's Template Library of useful classes."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/greg7mdp/gtl"
     topics = ("bitset", "memoize", "containers", "bitvector", "unordered-set", "header-only")
     package_type = "header-library"

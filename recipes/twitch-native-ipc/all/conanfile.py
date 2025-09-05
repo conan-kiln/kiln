@@ -15,7 +15,6 @@ class TwitchNativeIpcConan(ConanFile):
     name = "twitch-native-ipc"
     description = "Twitch native IPC library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/twitchtv/twitch-native-ipc"
     topics = ("twitch", "ipc")
 

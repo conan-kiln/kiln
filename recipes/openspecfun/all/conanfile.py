@@ -11,7 +11,6 @@ class OpenSpecfunConan(ConanFile):
     name = "openspecfun"
     description = "OpenSpecfun provides a collection of special mathematical functions from the AMOS and Faddeeva libraries."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/JuliaMath/openspecfun"
     topics = ("math", "transcendental-functions", "complex-functions")
     package_type = "library"

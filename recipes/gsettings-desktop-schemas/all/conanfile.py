@@ -13,7 +13,6 @@ class GsettingsDesktopSchemasConan(ConanFile):
     name = "gsettings-desktop-schemas"
     description = "A collection of GSettings schemas for settings shared by various components of a desktop."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
     topics = ("gnome", "gsettings", "header-only")
     package_type = "header-library"

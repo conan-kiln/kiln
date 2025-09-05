@@ -12,7 +12,6 @@ class Function2Conan(ConanFile):
     name = "function2"
     description = "Improved and configurable drop-in replacement to std::function that supports move only types, multiple overloads and more"
     topics = ("function", "functional", "function-wrapper", "type-erasure", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Naios/function2"
     license = "BSL-1.0"
     package_type = "header-library"

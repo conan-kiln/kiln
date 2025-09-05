@@ -12,7 +12,6 @@ class LibBigWigConan(ConanFile):
     name = "libbigwig"
     description = "A C library for handling bigWig files"
     topics = ("bioinformatics", "bigwig", "bigbed")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dpryan79/libBigWig"
     license = "MIT"
     package_type = "library"

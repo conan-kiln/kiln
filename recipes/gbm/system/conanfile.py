@@ -10,7 +10,6 @@ class GbmSystemConan(ConanFile):
     version = "system"
     description = "Virtual Conan package for GBM support"
     topics = ("mesa", "graphics")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mesa3d.org/"
     license = "MIT"
     package_type = "shared-library"

@@ -12,7 +12,6 @@ class LibYAMLConan(ConanFile):
     name = "libyaml"
     description = "LibYAML is a YAML parser and emitter library."
     topics = ("yaml", "parser", "emitter")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yaml/libyaml"
     license = "MIT"
 

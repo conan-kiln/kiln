@@ -12,7 +12,6 @@ class WglextConan(ConanFile):
     name = "wglext"
     description = "WGL extension interfaces"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.khronos.org/registry/OpenGL/index_gl.php"
     topics = ("opengl", "gl", "wgl", "wglext", "header-only")
 

@@ -14,7 +14,6 @@ class ProtopufConan(ConanFile):
     name = "protopuf"
     description = "Protocol Puffers: A little, highly templated, and protobuf-compatible serialization/deserialization header-only library written in C++20"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/PragmaTwice/protopuf"
     topics = ("serialization", "protobuf", "metaprogramming", "header-only")
     settings = "os", "arch", "compiler", "build_type"

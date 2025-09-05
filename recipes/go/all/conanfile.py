@@ -12,7 +12,6 @@ class GoConan(ConanFile):
     description = "The Go programming language"
     license = "BSD-3-Clause"
     homepage = "https://go.dev/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("language", "compiler", "pre-built")
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"

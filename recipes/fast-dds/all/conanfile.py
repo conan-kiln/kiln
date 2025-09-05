@@ -15,7 +15,6 @@ class FastDDSConan(ConanFile):
     name = "fast-dds"
     license = "Apache-2.0"
     homepage = "https://fast-dds.docs.eprosima.com/"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "The most complete OSS DDS implementation for embedded systems."
     topics = ("dds", "middleware", "ipc")
     package_type = "library"

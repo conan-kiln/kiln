@@ -10,11 +10,10 @@ from conan.tools.scm import Version
 required_conan_version = ">=2.1"
 
 class WasmtimeCppConan(ConanFile):
-    name = 'wasmtime-cpp'
+    name = "wasmtime-cpp"
     description = "Standalone JIT-style runtime for WebAssembly, using Cranelift"
-    license = 'Apache-2.0'
-    url = 'https://github.com/conan-io/conan-center-index'
-    homepage = 'https://github.com/bytecodealliance/wasmtime-cpp'
+    license = "Apache-2.0"
+    homepage = "https://github.com/bytecodealliance/wasmtime-cpp"
     topics = ("webassembly", "wasm", "wasi", "header-only")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

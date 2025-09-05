@@ -19,7 +19,6 @@ class HarfbuzzConan(ConanFile):
     name = "harfbuzz"
     description = "HarfBuzz is an OpenType text shaping engine."
     topics = ("opentype", "text", "engine")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://harfbuzz.github.io/"
     license = "MIT"
     package_type = "library"

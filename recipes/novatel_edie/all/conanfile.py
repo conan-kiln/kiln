@@ -13,7 +13,6 @@ class NovatelEdieConan(ConanFile):
     name = "novatel_edie"
     description = ("EDIE (Encode Decode Interface Engine) is a C++ SDK that can encode and decode messages "
                    "from NovAtel's OEM7 receivers from one format into another.")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/novatel/novatel_edie"
     topics = ("gnss", "novatel")
     package_type = "library"

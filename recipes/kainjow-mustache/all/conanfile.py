@@ -11,7 +11,6 @@ class KainjowMustacheConan(ConanFile):
     name = "kainjow-mustache"
     description = "Mustache text templates for modern C++"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kainjow/Mustache"
     topics = ("mustache", "template", "header-only")
 

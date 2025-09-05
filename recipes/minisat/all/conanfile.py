@@ -11,7 +11,6 @@ class MiniSatConan(ConanFile):
     name = "minisat"
     description = "minimalistic SAT solver"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://minisat.se"
     topics = ("satisfiability", "solver")
     settings = "os", "arch", "compiler", "build_type"

@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 class ZlibConan(ConanFile):
     name = "zlib"
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://zlib.net"
     license = "Zlib"
     description = ("A Massively Spiffy Yet Delicately Unobtrusive Compression Library "

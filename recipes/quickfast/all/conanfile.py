@@ -13,7 +13,6 @@ class QuickfastConan(ConanFile):
     name = "quickfast"
     description = "QuickFAST is an Open Source native C++ implementation of the FAST Protocol"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/objectcomputing/quickfast"
     topics = ("fast-protocol", "fast", "fix-adapted-for-streaming", "fpl", "fix-protocol-limited")
 

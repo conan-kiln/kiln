@@ -12,7 +12,6 @@ class FensterConan(ConanFile):
     name = "fenster"
     description = "The most minimal cross-platform GUI library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zserge/fenster"
     topics = ("gui", "audio", "minimal")
     package_type = "header-library"

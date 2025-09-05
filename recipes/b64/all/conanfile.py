@@ -11,7 +11,6 @@ class B64Conan(ConanFile):
     name = "b64"
     description = "A library of ANSI C routines for fast encoding/decoding data into and from a base64-encoded format."
     license = "CC0-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libb64.sourceforge.net/"
     topics = ("base64", "codec", "encoder", "decoder")
     package_type = "library"

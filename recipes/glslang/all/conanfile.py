@@ -19,7 +19,6 @@ class GlslangConan(ConanFile):
     license = "DocumentRef-LICENSE.txt:LicenseRef-glslang"
     topics = ("glsl", "hlsl", "spirv", "spir-v", "validation", "translation")
     homepage = "https://github.com/KhronosGroup/glslang"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

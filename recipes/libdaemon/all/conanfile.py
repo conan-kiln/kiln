@@ -17,7 +17,6 @@ class LibDaemonConan(ConanFile):
     name = "libdaemon"
     description = "a lightweight C library that eases the writing of UNIX daemons"
     topics = ("daemon")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://0pointer.de/lennart/projects/libdaemon/"
     license = "LGPL-2.1-or-later"
 

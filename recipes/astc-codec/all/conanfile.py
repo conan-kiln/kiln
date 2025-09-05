@@ -12,7 +12,6 @@ class AstcCodecConan(ConanFile):
     name = "astc-codec"
     description = "A software ASTC decoder implementation which supports the ASTC LDR profile"
     homepage = "https://github.com/google/astc-codec"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
     topics = ("astc", "codec")
 

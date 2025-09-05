@@ -14,7 +14,6 @@ class SpdlogSetupConan(ConanFile):
     name = "gegles-spdlog_setup"
     description = "Setup spdlog via a TOML config file"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gegles/spdlog_setup"
     topics = ('spdlog', 'logging', 'header-only', 'toml', 'cpptoml')
     package_type = "header-library"

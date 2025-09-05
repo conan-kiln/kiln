@@ -11,7 +11,6 @@ class SdfConan(ConanFile):
     name = "sdf"
     description = "Signed Distance Field Builder for Contour Texturing"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/memononen/SDF"
     topics = ("sdf", "signed", "distance", "field", "contour")
     settings = "os", "arch", "compiler", "build_type"

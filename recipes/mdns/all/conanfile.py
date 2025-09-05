@@ -11,7 +11,6 @@ class MdnsConan(ConanFile):
     name = "mdns"
     description = "Public domain mDNS/DNS-SD library in C"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mjansson/mdns"
     topics = ("dns", "dns-sd", "multicast discovery", "discovery", "header-only")
 

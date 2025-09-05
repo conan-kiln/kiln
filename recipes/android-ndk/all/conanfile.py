@@ -17,7 +17,6 @@ class AndroidNDKConan(ConanFile):
         "in native code, using languages such as C and C++"
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://developer.android.com/ndk/"
     topics = ("android", "ndk", "toolchain", "compiler")
 

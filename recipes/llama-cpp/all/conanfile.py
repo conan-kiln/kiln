@@ -15,7 +15,6 @@ class LlamaCppConan(ConanFile):
     name = "llama-cpp"
     description = "Inference of LLaMA model in pure C/C++"
     topics = ("llama", "llm", "ai")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ggerganov/llama.cpp"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type", "cuda"

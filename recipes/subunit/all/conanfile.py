@@ -18,7 +18,6 @@ class SubunitConan(ConanFile):
     name = "subunit"
     description = "A streaming protocol for test results"
     license = ("Apache-2.0", "BSD-3-Clause")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://launchpad.net/subunit"
     topics = ("subunit", "streaming", "protocol", "test", "results")
 

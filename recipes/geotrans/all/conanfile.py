@@ -12,7 +12,6 @@ class GeotransConan(ConanFile):
     name = "geotrans"
     description = "MSP GEOTRANS is the NGA and DOD approved coordinate converter and datum translator."
     license = "NGA GEOTRANS ToS (https://earth-info.nga.mil/php/download.php?file=wgs-terms)"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://earth-info.nga.mil/"
     topics = ("geotrans", "geodesic", "geographic", "coordinate", "datum", "geodetic", "conversion", "transformation")
     package_type = "library"

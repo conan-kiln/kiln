@@ -10,7 +10,6 @@ class XorgConan(ConanFile):
     name = "xorg"
     description = "The X.Org project provides an open source implementation of the X Window System."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.x.org/"
     topics = ("xorg", "x11")
     settings = "os", "arch", "compiler", "build_type"

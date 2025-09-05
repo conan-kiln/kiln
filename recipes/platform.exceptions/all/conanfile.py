@@ -14,7 +14,6 @@ class PlatformExceptionsConan(ConanFile):
     name = "platform.exceptions"
     description = "platform.exceptions is one of the libraries of the LinksPlatform modular framework, to ensure exceptions"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linksplatform/Exceptions"
     topics = ("linksplatform", "cpp20", "exceptions", "any", "ranges", "native", "header-only")
 

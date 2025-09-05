@@ -18,7 +18,6 @@ class GNSSTkConan(ConanFile):
         "Common data formats such as RINEX are supported as well."
     )
     license = "LGPL-3.0-only", "GPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SGL-UT/gnsstk"
     topics = ("gnss", "gps", "rinex")
     package_type = "library"

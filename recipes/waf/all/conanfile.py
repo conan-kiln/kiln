@@ -12,7 +12,6 @@ class WafConan(ConanFile):
     name = "waf"
     description = "The Waf build system"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://waf.io"
     topics = ("buildsystem", "pre-built")
 

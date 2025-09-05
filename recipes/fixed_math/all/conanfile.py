@@ -14,7 +14,6 @@ class FixedMathConan(ConanFile):
     name = "fixed_math"
     description = "A High-Performance C++17 Library for Fixed-Point 48.16 Arithmetic"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/arturbac/fixed_math/"
     topics = ("mathematics", "fixed-point", "header-only")
     package_type = "header-library"

@@ -15,7 +15,6 @@ class ArrowConan(ConanFile):
     name = "arrow"
     description = "Apache Arrow is a cross-language development platform for in-memory data"
     license = ("Apache-2.0",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://arrow.apache.org/"
     topics = ("memory", "gandiva", "parquet", "skyhook", "acero", "hdfs", "csv", "cuda", "gcs", "json", "hive", "s3", "grpc")
     package_type = "library"

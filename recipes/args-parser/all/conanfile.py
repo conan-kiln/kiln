@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class ArgsParserConan(ConanFile):
     name = "args-parser"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/igormironchik/args-parser"
     license = "MIT"
     description = "Small C++ header-only library for parsing command line arguments."

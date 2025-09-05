@@ -15,7 +15,6 @@ class LibsassConan(ConanFile):
     name = "libsass"
     description = "A C/C++ implementation of a Sass compiler"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "libsass.org"
     topics = ("Sass", "compiler")
 

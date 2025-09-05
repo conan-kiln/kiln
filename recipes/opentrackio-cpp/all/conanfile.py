@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "opentrackio-cpp"
     description = "A Cpp helper library for usage with the OpenTrackIO protocol."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mosys/opentrackio-cpp"
     topics = ("opentrackio", "smpte")
     package_type = "library"

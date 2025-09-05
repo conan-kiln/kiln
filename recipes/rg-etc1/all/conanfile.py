@@ -12,7 +12,6 @@ class RgEtc1Conan(ConanFile):
     name = "rg-etc1"
     description = "A performant, easy to use, and high quality 4x4 pixel block packer/unpacker for the ETC1."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/richgel999/rg-etc1"
     topics = ("etc1", "packer", "unpacker")
 

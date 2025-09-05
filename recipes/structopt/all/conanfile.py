@@ -14,7 +14,6 @@ class StructoptConan(ConanFile):
     name = "structopt"
     description = "Parse command line arguments by defining a struct+"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/structopt"
     topics = ("argument-parser", "cpp17", "header-only", "single-header-lib", "command-line",
               "arguments", "mit-license", "modern-cpp", "lightweight", "reflection",

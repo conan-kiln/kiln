@@ -12,7 +12,6 @@ class PoplConan(ConanFile):
     name = "popl"
     description = "Header-only C++ command line arguments parser that supports the same set of options as GNU's getopt."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/badaix/popl"
     topics = ("cli", "command-line-arguments", "getopt", "header-only")
     package_type = "header-library"

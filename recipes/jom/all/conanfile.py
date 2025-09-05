@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 class JomInstallerConan(ConanFile):
     name = "jom"
     description = "jom is a clone of nmake to support the execution of multiple independent commands in parallel"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://wiki.qt.io/Jom"
     license = "GPL-3.0-only"
     topics = ("build", "make", "makefile", "nmake")

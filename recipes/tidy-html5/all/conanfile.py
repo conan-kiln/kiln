@@ -12,7 +12,6 @@ class TidyHtml5Conan(ConanFile):
     name = "tidy-html5"
     description = "The granddaddy of HTML tools, with support for modern standards"
     license = "HTMLTIDY"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.html-tidy.org"
     topics = ("html", "parser", "xml", "tools")
 

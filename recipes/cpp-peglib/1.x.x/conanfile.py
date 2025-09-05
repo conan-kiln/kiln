@@ -15,7 +15,6 @@ class CpppeglibConan(ConanFile):
     name = "cpp-peglib"
     description = "A single file C++11 header-only PEG (Parsing Expression Grammars) library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/yhirose/cpp-peglib"
     topics = ("peg", "parser", "header-only")
     package_type = "header-library"

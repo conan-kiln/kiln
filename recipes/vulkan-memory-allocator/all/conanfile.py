@@ -13,7 +13,6 @@ class VulkanMemoryAllocatorConan(ConanFile):
     name = "vulkan-memory-allocator"
     license = "MIT"
     homepage = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Easy to integrate Vulkan memory allocation library."
     topics = ("vulkan", "memory-allocator", "graphics")
     package_type = "header-library"

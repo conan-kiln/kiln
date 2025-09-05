@@ -13,7 +13,6 @@ class GlimPackage(ConanFile):
     name = "glim"
     description = "GLIM: versatile and extensible range-based 3D localization and mapping framework"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/koide3/glim"
     topics = ("localization", "mapping", "gpu", "ros", "imu", "lidar", "slam", "3d", "rgb-d")
 

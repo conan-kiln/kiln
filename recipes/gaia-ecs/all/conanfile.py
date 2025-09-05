@@ -15,7 +15,6 @@ class GaiaConan(ConanFile):
     description = "A simple and powerful entity component system (ECS) written in C++17 "
     topics = ("gamedev", "performance", "entity", "ecs")
     homepage = "https://github.com/richardbiely/gaia-ecs"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

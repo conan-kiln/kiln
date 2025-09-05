@@ -12,7 +12,6 @@ class PicoSHA2Conan(ConanFile):
     name = "picosha2"
     description = "a header-file-only, SHA256 hash generator in C++ "
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/okdshin/PicoSHA2"
     topics = ("sha256", "hash", "header-only")
     settings = "os", "arch", "compiler", "build_type"

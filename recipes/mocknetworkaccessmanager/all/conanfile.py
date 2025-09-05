@@ -12,7 +12,6 @@ class MockNetworkAccessManagerConan(ConanFile):
     name = "mocknetworkaccessmanager"
     description = "Mocking network communication for Qt applications"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/julrich/MockNetworkAccessManager"
     topics = ("qt", "mock", "network", "QNetworkAccessManager", "unit test", "test")
     package_type = "static-library"

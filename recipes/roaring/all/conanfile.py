@@ -14,7 +14,6 @@ class RoaringConan(ConanFile):
     name = "roaring"
     description = "Portable Roaring bitmaps in C and C++"
     license = ("Apache-2.0", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/RoaringBitmap/CRoaring"
     topics = ("bitset", "compression", "index", "format")
     package_type = "library"

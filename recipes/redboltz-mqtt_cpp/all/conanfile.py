@@ -12,7 +12,6 @@ class MqttCPPConan(ConanFile):
     name = "redboltz-mqtt_cpp"
     description = "MQTT client/server for C++14 based on Boost.Asio"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/redboltz/mqtt_cpp"
     topics = ("mqtt", "boost", "asio", "header-only")
 

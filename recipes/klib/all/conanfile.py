@@ -12,8 +12,7 @@ class KlibConan(ConanFile):
     name = "klib"
     description = "Klib: a Generic Library in C"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
-    homepage = "https://github.com/project/package"
+    homepage = "https://github.com/attractivechaos/klib"
     topics = ("algorithm", "avl-tree", "generic", "sorting", "hashtable", "b-tree")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

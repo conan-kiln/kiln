@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "objectbox-generator"
     description = "ObjectBox Generator based on FlatBuffers schema files (fbs) for C and C++"
     license = "GPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/objectbox/objectbox-generator"
     topics = ("database", "code-generator", "objectbox", "pre-built")
 

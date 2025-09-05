@@ -13,7 +13,6 @@ class FpgenConan(ConanFile):
     name = "fpgen"
     description = "Functional programming in C++ using C++20 coroutines."
     license = ["MPL2"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jay-tux/fpgen/"
     topics = ("generators", "coroutines", "c++20", "header-only", "functional-programming", "functional")
 

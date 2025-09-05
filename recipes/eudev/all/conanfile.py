@@ -16,7 +16,6 @@ class EudevConan(ConanFile):
     name = "eudev"
     description = "eudev is a standalone dynamic and persistent device naming support (aka userspace devfs) daemon that runs independently from the init system."
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eudev-project/eudev"
     topics = ("device", "udev")
     package_type = "library"

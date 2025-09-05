@@ -14,7 +14,6 @@ class GliConan(ConanFile):
     name = "gli"
     description = "OpenGL Image (GLI)"
     topics = ("opengl", "image")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/g-truc/gli"
     license = "LicenseRef-copying.txt"
     package_type = "header-library"

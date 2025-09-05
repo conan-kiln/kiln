@@ -14,7 +14,6 @@ class LibzenConan(ConanFile):
     name = "libzen"
     license = "ZLIB"
     homepage = "https://github.com/MediaArea/ZenLib"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Small C++ derivate classes to have an easier life"
     topics = ("c++", "helper", "util")
     package_type = "library"

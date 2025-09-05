@@ -9,7 +9,6 @@ class MavenConan(ConanFile):
     name = "maven"
     description = "Apache Maven is a software project management and comprehension tool."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://maven.apache.org/"
     topics = ("build", "project management")
     package_type = "application"

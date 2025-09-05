@@ -13,7 +13,6 @@ class TimsortConan(ConanFile):
     name = "timsort"
     description = "A C++ implementation of timsort"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/timsort/cpp-TimSort"
     topics = ("sorting", "algorithms", "header-only")
     package_type = "header-library"

@@ -13,7 +13,6 @@ class LibFtdiConan(ConanFile):
     name = "libftdi"
     description = "A library to talk to FTDI chips"
     license = ("LGPL-2.0-only", "GPLv2-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.intra2net.com/en/developer/libftdi/"
     topics = "ftdi"
 

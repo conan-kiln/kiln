@@ -16,7 +16,6 @@ class XcbUtilConan(ConanFile):
     name = "xcb-util"
     description = "XCB utility libraries"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-util"
     topics = ("xorg", "x11", "xcb")
 

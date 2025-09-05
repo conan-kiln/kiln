@@ -19,7 +19,6 @@ class GettextConan(ConanFile):
     name = "gettext"
     description = "An internationalization and localization system for multilingual programs"
     topics = ("intl", "libintl", "i18n")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/gettext"
     # The libintl library is LGPL, while the tools are GPL.
     # Marking the package as LGPL overall, since the tools won't be linked against.

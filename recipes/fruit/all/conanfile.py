@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 class FruitConan(ConanFile):
     name = "fruit"
     description = "C++ dependency injection framework"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/fruit"
     license = "Apache-2.0"
     topics = ("injection", "framework")

@@ -15,7 +15,6 @@ class CppSortConan(ConanFile):
     name = "cpp-sort"
     description = "Additional sorting algorithms & related tools"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Morwenn/cpp-sort"
     topics = ("sorting", "algorithms", "header-only")
     package_type = "header-library"

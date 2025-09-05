@@ -18,7 +18,6 @@ class LibiglConan(ConanFile):
     # As per https://libigl.github.io/license/, the library itself is MPL-2, components are not
     # No issue as we don't build them, but if done so in the future, please update this field!
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libigl.github.io/"
     topics = ("geometry", "matrices", "algorithms", "header-only")
 

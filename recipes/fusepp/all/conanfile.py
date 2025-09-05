@@ -14,7 +14,6 @@ class FuseppConan(ConanFile):
     name = "fusepp"
     description = "A simple C++ wrapper for the FUSE filesystem."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jachappell/Fusepp"
     topics = ("fuse", "wrapper", "filesystem")
 

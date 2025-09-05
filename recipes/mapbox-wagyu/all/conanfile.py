@@ -13,7 +13,6 @@ class MapboxWagyuConan(ConanFile):
     name = "mapbox-wagyu"
     description = "A general library for geometry operations of union, intersections, difference, and xor"
     license = "LicenseRef-mapbox-wagyu"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mapbox/wagyu/"
     topics = ("geometry", "clipping", "header-only")
     package_type = "header-library"

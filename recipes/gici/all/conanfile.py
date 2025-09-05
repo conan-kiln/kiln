@@ -16,7 +16,6 @@ class GiciConan(ConanFile):
                    "for Global Navigation Satellite System (GNSS), Inertial Navigation System (INS), "
                    "and Camera integrated navigation.")
     license = "GPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/chichengcn/gici-open"
     topics = ("gnss", "navigation", "state-estimation", "factor-graphs", "rtk", "ppp", "ins", "visual-odometry")
 

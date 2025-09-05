@@ -14,7 +14,6 @@ class ShaderConductorConan(ConanFile):
     name = "shader-conductor"
     description = "ShaderConductor is a tool designed for cross-compiling HLSL to other shading languages"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/ShaderConductor"
     topics = ("hlsl", "shader", "cross-compiler", "glsl", "essl", "msl")
     package_type = "library"

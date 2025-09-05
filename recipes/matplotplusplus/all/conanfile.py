@@ -13,7 +13,6 @@ class MatplotplusplusCppConan(ConanFile):
     name = "matplotplusplus"
     description = "Matplot++: A C++ Graphics Library for Data Visualization"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/alandefreitas/matplotplusplus"
     topics = ("visualization", "charts", "data-science", "charting-library", "plots", "graphics", "graphs",
               "data-visualization", "scientific-visualization", "scientific-computing", "data-analysis",

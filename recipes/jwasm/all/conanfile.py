@@ -13,7 +13,6 @@ class JwasmConan(ConanFile):
     license = "Watcom-1.0"
     topics = ("masm", "assembler")
     homepage = "https://github.com/JWasm/JWasm"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 

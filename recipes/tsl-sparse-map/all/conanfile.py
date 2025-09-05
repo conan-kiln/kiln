@@ -14,7 +14,6 @@ class TslSparseMapConan(ConanFile):
     description = "C++ implementation of a memory efficient hash map and hash set"
     topics = ("sparse-map", "structure", "hash map", "hash set")
     homepage = "https://github.com/Tessil/sparse-map"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

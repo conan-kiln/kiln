@@ -14,7 +14,6 @@ class QCoroConan(ConanFile):
     name = "qcoro"
     description = "C++ Coroutines for Qt."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/danvratil/qcoro"
     topics = ("coroutines", "qt")
     package_type = "library"

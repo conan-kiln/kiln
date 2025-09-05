@@ -15,7 +15,6 @@ class LibqasmConan(ConanFile):
     name = "libqasm"
     license = "Apache-2.0"
     homepage = "https://github.com/QuTech-Delft/libqasm"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Library to parse cQASM files"
     topics = ("code generation", "parser", "compiler", "quantum compilation", "quantum simulation")
     settings = "os", "arch", "compiler", "build_type"

@@ -11,7 +11,6 @@ class MailioConan(ConanFile):
     name = "mailio"
     description = "mailio is a cross platform C++ library for MIME format and SMTP, POP3 and IMAP protocols."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/karastojko/mailio"
     topics = ("smtp", "imap", "email", "mail", "libraries", "cpp")
     package_type = "library"

@@ -13,7 +13,6 @@ class LexborConan(ConanFile):
     name = "lexbor"
     description = "Lexbor is development of an open source HTML Renderer library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lexbor/lexbor/"
     topics = ("html5", "css", "parser", "renderer")
     package_type = "library"

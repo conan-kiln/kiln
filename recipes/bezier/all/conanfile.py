@@ -14,7 +14,6 @@ class BezierConan(ConanFile):
     name = "bezier"
     description = "A single header only C++ library for Bezier curve calculations and manipulations."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/oysteinmyrmo/bezier"
     topics = ("curve", "header-only")
     package_type = "header-library"

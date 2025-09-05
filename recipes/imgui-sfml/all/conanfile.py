@@ -12,7 +12,6 @@ class ImGuiSFMLConan(ConanFile):
     name = "imgui-sfml"
     description = "ImGui-SFML integrates Dear ImGui with SFML, enabling easy creation of GUIs for SFML applications."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/SFML/imgui-sfml"
     topics = ("gui", "graphical", "sfml", "imgui")
     package_type = "library"

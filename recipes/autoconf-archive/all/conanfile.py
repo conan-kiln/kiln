@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class AutoconfArchiveConan(ConanFile):
     name = "autoconf-archive"
     package_type = "build-scripts"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/autoconf-archive/"
     license = "GPL-2.0-or-later"
     description = "The GNU Autoconf Archive is a collection of more than 500 macros for GNU Autoconf"

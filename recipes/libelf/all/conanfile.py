@@ -15,7 +15,6 @@ required_conan_version = ">=2.1"
 class LibelfConan(ConanFile):
     name = "libelf"
     description = "ELF object file access library"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://directory.fsf.org/wiki/Libelf"
     license = "LGPL-2.0"
     topics = ("elf", "fsf", "libelf", "object-file")

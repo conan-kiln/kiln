@@ -19,7 +19,6 @@ class NetpbmConan(ConanFile):
         "and a toolkit for manipulation of graphic images, including conversion of images between a variety of different formats."
     )
     license = "IJG AND BSD-3-Clause AND GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://netpbm.sourceforge.net"
     topics = ("image", "graphics", "image-processing", "image-conversion", "ppm", "pgm", "pbm", "pnm")
 

@@ -16,7 +16,6 @@ class LibfontencConan(ConanFile):
     name = "libfontenc"
     description = "X font encoding library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libfontenc"
     topics = ("xorg", "x11")
 

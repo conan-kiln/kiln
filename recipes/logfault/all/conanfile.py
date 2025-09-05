@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "logfault"
     description = "Simple to use, header only C++ library for application-logging on all major platforms."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jgaa/logfault"
     topics = ("logging", "header-only")
     package_type = "header-library"

@@ -13,7 +13,6 @@ class BehaviorTreeCPPConan(ConanFile):
     name = "behaviortree.cpp"
     description = "This C++ library provides a framework to create BehaviorTrees"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/BehaviorTree/BehaviorTree.CPP"
     topics = ("ai", "robotics", "games", "coordination")
     package_type = "library"

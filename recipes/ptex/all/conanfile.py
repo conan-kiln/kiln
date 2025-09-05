@@ -14,7 +14,6 @@ class PtexConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("texture-mapping")
     homepage = "https://ptex.us"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

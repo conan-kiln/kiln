@@ -14,7 +14,6 @@ class TslHatTrieConan(ConanFile):
     description = "C++ implementation of a fast and memory efficient HAT-trie."
     topics = ("string", "trie", "structure", "hash map", "hash set")
     homepage = "https://github.com/Tessil/hat-trie"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 

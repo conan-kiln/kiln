@@ -12,7 +12,6 @@ class MagnumExtrasConan(ConanFile):
     name = "magnum-extras"
     description = "Extras for the Magnum C++11/C++14 graphics engine"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://magnum.graphics"
     topics = ("magnum", "graphics", "rendering", "3d", "2d", "opengl")
 

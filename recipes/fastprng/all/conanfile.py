@@ -16,7 +16,6 @@ class FastPRNGConan(ConanFile):
     )
     topics = ("random", "prng", "xorshift", "xoshiro", )
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/BrutPitt/fastPRNG"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

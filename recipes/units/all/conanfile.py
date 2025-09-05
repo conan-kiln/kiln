@@ -21,7 +21,6 @@ class UnitsConan(ConanFile):
               "template-metaprogramming", "compile-time", "header-only",
               "no-dependencies")
     homepage = "https://github.com/nholthaus/units"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

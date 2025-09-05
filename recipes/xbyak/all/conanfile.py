@@ -12,7 +12,6 @@ class XbyakConan(ConanFile):
     description = ("Xbyak is a C++ header library that enables dynamically to "
                    "assemble x86(IA32), x64(AMD64, x86-64) mnemonic.")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/herumi/xbyak"
     topics = ("jit", "assembler", "header-only")
     package_type = "header-library"

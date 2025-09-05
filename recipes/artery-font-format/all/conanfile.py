@@ -12,7 +12,6 @@ class ArteryFontFormatConan(ConanFile):
     name = "artery-font-format"
     description = "Artery Atlas Font format library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Chlumsky/artery-font-format"
     topics = ("artery", "font", "atlas", "header-only")
     package_type = "header-library"

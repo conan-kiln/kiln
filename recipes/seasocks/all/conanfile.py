@@ -13,7 +13,6 @@ class SeasocksConan(ConanFile):
     name = "seasocks"
     description = "A tiny embeddable C++ HTTP and WebSocket server for Linux"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mattgodbolt/seasocks"
     topics = ("embeddable", "webserver", "websockets")
     package_type = "library"

@@ -12,7 +12,6 @@ class PartioConan(ConanFile):
     name = "partio"
     description = "Library for easily reading/writing/manipulating common animation particle formats such as PDB, BGEO, PTC."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wdas/partio"
     topics = ("animation", "point-cloud", "particles", "houdini")
     settings = "os", "arch", "compiler", "build_type"

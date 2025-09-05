@@ -13,7 +13,6 @@ class QuillConan(ConanFile):
     name = "quill"
     description = "Asynchronous Low Latency C++ Logging Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/odygrd/quill/"
     topics = ("logging", "log", "async", "header-only")
     package_type = "header-library"

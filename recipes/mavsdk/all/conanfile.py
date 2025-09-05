@@ -14,7 +14,6 @@ class MavsdkConan(ConanFile):
     name = "mavsdk"
     description = "C++ library to interface with MAVLink systems"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mavsdk.mavlink.io/"
     topics = ("mavlink", "drones")
     package_type = "library"

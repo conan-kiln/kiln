@@ -14,7 +14,6 @@ class LibSoupConan(ConanFile):
     name = "libsoup"
     description = "HTTP client/server library for GNOME"
     license = "LGPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/libsoup"
     topics = ("http", "gnome", "gobject")
     package_type = "library"

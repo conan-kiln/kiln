@@ -12,7 +12,6 @@ class PolylineencoderConan(ConanFile):
     name = "polylineencoder"
     description = "Google Encoded Polyline Algorithm Format library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vahancho/polylineencoder"
     topics = ("gepaf", "encoded-polyline", "google-polyline")
     settings = "os", "arch", "compiler", "build_type"

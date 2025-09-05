@@ -13,7 +13,6 @@ class EarcutPackage(ConanFile):
     name = "earcut"
     description = "A C++ port of earcut.js, a fast, header-only polygon triangulation library."
     homepage = "https://github.com/mapbox/earcut.hpp"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "ISC"
     topics = ("algorithm", "cpp", "geometry", "rendering", "triangulation",
               "polygon", "header-only", "tessellation")

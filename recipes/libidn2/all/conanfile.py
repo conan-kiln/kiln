@@ -19,7 +19,6 @@ class LibIdn(ConanFile):
         " specifications."
     )
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/libidn/"
     topics = ("libidn", "encode", "decode", "internationalized", "domain", "name")
 

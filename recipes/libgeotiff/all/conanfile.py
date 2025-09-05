@@ -14,7 +14,6 @@ class LibgeotiffConan(ConanFile):
     license = ["MIT", "BSD-3-Clause"]
     topics = ("geotiff", "tiff")
     homepage = "https://github.com/OSGeo/libgeotiff"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

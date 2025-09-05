@@ -15,7 +15,6 @@ class BasicConanfile(ConanFile):
     homepage = "https://github.com/i-curve/copypp"
     description = "support field copy in different c++ struct."
     topics = ("copy", "struct", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

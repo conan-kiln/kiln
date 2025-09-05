@@ -11,7 +11,6 @@ class SvgwriteConan(ConanFile):
     name = "svgwrite"
     description = "a streaming svg library"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/dvd0101/svgwrite"
     topics = ("svg", "writer", "stream", "vector", "image")
     package_type = "library"

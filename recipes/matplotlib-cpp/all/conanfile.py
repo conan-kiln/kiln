@@ -12,7 +12,6 @@ class MatplotlibCppConan(ConanFile):
     name = "matplotlib-cpp"
     description = "Extremely simple yet powerful header-only C++ plotting library built on the popular matplotlib"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/lava/matplotlib-cpp"
 
     topics = ("plotting", "matplotlib", "visualization")

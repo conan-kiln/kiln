@@ -11,7 +11,6 @@ class TinydirConan(ConanFile):
     name = "tinydir"
     description = "Lightweight, portable and easy to integrate C directory and file reader"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cxong/tinydir"
     topics = ("portable", "filesystem", "directory", "posix", "header-only")
 

@@ -13,7 +13,6 @@ class JsoncppConan(ConanFile):
     name = "jsoncpp"
     description = "A C++ library for interacting with JSON."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/open-source-parsers/jsoncpp"
     topics = ("json", "parser", "config")
     package_type = "library"

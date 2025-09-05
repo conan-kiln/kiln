@@ -13,7 +13,6 @@ class DbgMacroConan(ConanFile):
     name = "dbg-macro"
     description = "A dbg(...) macro for C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sharkdp/dbg-macro"
     topics = ("debugging", "macro", "pretty-printing", "header-only")
     package_type = "header-library"

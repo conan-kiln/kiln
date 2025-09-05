@@ -12,7 +12,6 @@ class RestinioConan(ConanFile):
     name = "restinio"
     license = "BSD-3-Clause"
     homepage = "https://github.com/Stiffstream/restinio"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "RESTinio is a header-only C++17 library that gives you an embedded HTTP/Websocket server."
     topics = ("http-server", "websockets", "rest", "tls-support")
     package_type = "header-library"

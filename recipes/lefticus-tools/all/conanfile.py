@@ -17,7 +17,6 @@ class LefticusToolsConan(ConanFile):
     topics = ("tools", "cpp", "cmake")
     license = "MIT"
     homepage = "https://github.com/lefticus/tools"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

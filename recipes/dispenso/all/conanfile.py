@@ -14,7 +14,6 @@ class DispensoPackage(ConanFile):
     name = "dispenso"
     description = "Dispenso is a library for working with sets of tasks in parallel"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facebookincubator/dispenso"
     topics = ("tasks", "parallel", "threads")
     package_type = "library"

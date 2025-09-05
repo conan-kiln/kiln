@@ -13,7 +13,6 @@ required_conan_version = ">=2.4"
 class NASMConan(ConanFile):
     name = "nasm"
     package_type = "application"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.nasm.us"
     description = "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler"
     license = "BSD-2-Clause"

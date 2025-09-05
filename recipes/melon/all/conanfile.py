@@ -11,7 +11,6 @@ class PackageConan(ConanFile):
     name = "melon"
     description = "A modern and efficient graph library using C++20 ranges and concepts."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fhamonic/melon"
     topics = ("graph", "algorithm", "ranges", "c++20", "header-only")
     package_type = "header-library"

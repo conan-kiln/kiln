@@ -12,7 +12,6 @@ class MesonConan(ConanFile):
     name = "meson"
     description = "a project to create the best possible next-generation build system"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mesonbuild/meson"
     topics = ("mesonbuild", "build-system")
     package_type = "application"

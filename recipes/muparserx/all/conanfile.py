@@ -15,7 +15,6 @@ class MuparserxConan(ConanFile):
     license = "BSD-2-Clause"
     topics = ("math", "parser")
     homepage = "https://beltoforion.de/en/muparserx"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

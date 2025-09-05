@@ -13,7 +13,6 @@ class AwsCCal(ConanFile):
     name = "aws-c-cal"
     description = "Aws Crypto Abstraction Layer: Cross-Platform, C99 wrapper for cryptography primitives."
     topics = ("aws", "amazon", "cloud", "cal", "crypt", )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-cal"
     license = "Apache-2.0"
     package_type = "library"

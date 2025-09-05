@@ -11,7 +11,6 @@ required_conan_version = ">=2.4"
 class TermcapConan(ConanFile):
     name = "termcap"
     homepage = "https://www.gnu.org/software/termcap"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Enables programs to use display terminals in a terminal-independent manner"
     license = "GPL-2.0-or-later"
     topics = ("terminal", "display", "text", "writing")

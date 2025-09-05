@@ -18,7 +18,6 @@ class MagnumConan(ConanFile):
     name = "magnum"
     description = "Lightweight and modular C++11/C++14 graphics middleware for games and data visualization"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://magnum.graphics"
     topics = ("magnum", "graphics", "middleware", "graphics", "rendering", "gamedev", "opengl", "3d", "2d", "opengl", "game-engine", "pre-built")
 

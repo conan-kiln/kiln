@@ -13,7 +13,6 @@ class PlfqueueConan(ConanFile):
     license = "Zlib"
     topics = ("container", "queue", "header-only")
     homepage = "https://plflib.org/queue.htm"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

@@ -13,7 +13,6 @@ class CmockaConan(ConanFile):
     name = "cmocka"
     license = "Apache-2.0"
     homepage = "https://cmocka.org"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "A unit testing framework for C"
     topics = ("unit_test", "unittest", "test", "testing", "mock", "mocking")
 

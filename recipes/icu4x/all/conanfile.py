@@ -19,7 +19,6 @@ class ICU4XConan(ConanFile):
     description = "ICU4X provides components enabling wide range of software internationalization."
     license = "Unicode-3.0"
     homepage = "https://unicode-org.github.io/icu4x/cppdoc/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("unicode", "icu", "internationalization", "i18n", "l10n")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

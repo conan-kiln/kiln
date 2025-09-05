@@ -18,7 +18,6 @@ class LibSafeCConan(ConanFile):
     description = ("This library implements the secure C11 Annex K functions"
                    " on top of most libc implementations, which are missing from them.")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rurban/safeclib"
     topics = ("safec", "libc", "bounds-checking", "pre-built")
 

@@ -14,7 +14,6 @@ class MariadbConnectorCppRecipe (ConanFile):
     description = "MariaDB Connector/C++ is used to connect applications " \
                   "developed in C++ to MariaDB and MySQL databases."
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mariadb.com/docs/server/connect/programming-languages/cpp"
     topics = ("mariadb", "mysql", "database")
     package_type = "library"

@@ -17,7 +17,6 @@ class SystemcConan(ConanFile):
     description = ("SystemC is a set of C++ classes and macros which provide "
                    "an event-driven simulation interface.")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.accellera.org/"
     topics = ("simulation", "modeling", "esl", "tlm")
 

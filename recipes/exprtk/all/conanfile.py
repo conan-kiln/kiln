@@ -15,7 +15,6 @@ class ExprTkConan(ConanFile):
     license = "MIT"
     topics = ("math", "mathematics", "parser", "lexer", "numerical", "header-only")
     homepage = "https://www.partow.net/programming/exprtk/index.html"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

@@ -14,7 +14,6 @@ class EdynConan(ConanFile):
     name = "edyn"
     description = "Edyn is a real-time physics engine organized as an ECS"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xissburg/edyn"
     topics = ("physics", "game-development", "ecs")
     package_type = "library"

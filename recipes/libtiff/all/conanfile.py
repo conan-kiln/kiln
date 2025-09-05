@@ -14,7 +14,6 @@ required_conan_version = ">=2.1"
 class LibtiffConan(ConanFile):
     name = "libtiff"
     description = "Library for Tag Image File Format (TIFF)"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "libtiff"
     homepage = "http://www.simplesystems.org/libtiff"
     topics = ("tiff", "image", "bigtiff", "tagged-image-file-format")

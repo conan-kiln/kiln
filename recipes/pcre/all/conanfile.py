@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class PCREConan(ConanFile):
     name = "pcre"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.pcre.org"
     description = "Perl Compatible Regular Expressions"
     topics = ("regex", "regexp", "PCRE")

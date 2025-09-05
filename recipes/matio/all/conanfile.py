@@ -13,7 +13,6 @@ class MatioConan(ConanFile):
     name = "matio"
     description = "Matio is a C library for reading and writing binary MATLAB MAT files."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/matio/"
     topics = ("matlab", "mat-file", "file-format", "hdf5")
 

@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class TaoCPPSequencesonan(ConanFile):
     name = "taocpp-sequences"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/sequences"
     description = "Variadic templates and std::integer_sequence support library"
     topics = ("variadic-template", "template", "interger-sequence")

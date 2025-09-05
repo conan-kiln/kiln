@@ -14,7 +14,6 @@ class QScintillaConan(ConanFile):
     name = "qscintilla"
     description = "QScintilla is a Qt port of the Scintilla text editing component"
     license = "GPL-3.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://riverbankcomputing.com/software/qscintilla"
     topics = ("qt", "scintilla", "text-editor", "widget")
     package_type = "library"

@@ -13,7 +13,6 @@ class GflagsConan(ConanFile):
     name = "gflags"
     description = "The gflags package contains a C++ library that implements commandline flags processing"
     topics = ("cli", "flags", "commandline")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gflags/gflags"
     license = "BSD-3-Clause"
 

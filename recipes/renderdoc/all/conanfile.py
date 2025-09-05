@@ -12,7 +12,6 @@ class RenderdocConan(ConanFile):
     name = "renderdoc"
     description = "API for RenderDoc, a stand-alone graphics debugger"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://renderdoc.org/"
     topics = ("graphics", "debugging", "header-only")
     package_type = "header-library"

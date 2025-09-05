@@ -16,7 +16,6 @@ class ChaiScriptConan(ConanFile):
     homepage = "https://github.com/ChaiScript/ChaiScript"
     description = "Embedded Scripting Language Designed for C++."
     topics = ("embedded-scripting-language", "language")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-3-Clause"
     exports_sources = ["CMakeLists.txt"]
     settings = "os", "arch", "compiler", "build_type"

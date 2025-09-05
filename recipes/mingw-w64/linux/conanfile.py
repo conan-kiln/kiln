@@ -16,7 +16,6 @@ class MingwConan(ConanFile):
     description = ("This package provides a MinGW-w64 environment with a GCC toolchain "
                    "for cross-compilation of native Windows binaries from Linux.")
     license = ("ZPL-2.1", "MIT", "GPL-2.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.mingw-w64.org/"
     topics = ("gcc", "gnu", "unix", "mingw32", "binutils")
 

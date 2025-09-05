@@ -14,7 +14,6 @@ class RocketConan(ConanFile):
     name = "rocket"
     description = "Fast single header signal/slots library for C++"
     license = "DocumentRef-README.md:LicenseRef-Rocket-public-domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tripleslash/rocket"
     topics = ("signal-slots", "observer-pattern", "header-only")
     package_type = "header-library"

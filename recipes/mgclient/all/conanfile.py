@@ -11,7 +11,6 @@ class MGClientConan(ConanFile):
     name = "mgclient"
     description = "C/C++ Memgraph Client"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/memgraph/mgclient"
     topics = ("memgraph", "client")
     package_type = "library"

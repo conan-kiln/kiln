@@ -20,7 +20,6 @@ class OgreConanFile(ConanFile):
     name = "ogre"
     description = "A scene-oriented, flexible 3D engine written in C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/OGRECave/ogre"
     topics = ("graphics", "rendering", "engine", "c++")
 

@@ -17,7 +17,6 @@ class JsbsimConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("aircraft", "aerospace", "flight-dynamics", "flight-simulation")
     homepage = "https://github.com/JSBSim-Team/jsbsim"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

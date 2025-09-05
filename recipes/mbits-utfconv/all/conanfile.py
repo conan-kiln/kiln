@@ -13,7 +13,6 @@ class MBitsUtfConvConan(ConanFile):
     name = "mbits-utfconv"
     description = "Conversion library between string, u16string, u32string and u8string."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mbits-libs/utfconv"
     topics = ("utf-conversion", "utf", "conversion", "utfconv")
     settings = "os", "arch", "compiler", "build_type"

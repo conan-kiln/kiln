@@ -15,7 +15,6 @@ class OpenvinoConan(ConanFile):
 
     license = "Apache-2.0"
     homepage = "https://github.com/openvinotoolkit/openvino"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Open Visual Inference And Optimization toolkit for AI inference"
     topics = ("nlp", "natural-language-processing", "ai", "computer-vision", "deep-learning", "transformers", "inference",
               "speech-recognition", "yolo", "performance-boost", "diffusion-models", "recommendation-system", "stable-diffusion",

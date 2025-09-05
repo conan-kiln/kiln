@@ -11,7 +11,6 @@ class MarisaConan(ConanFile):
     name = "marisa"
     description = "Matching Algorithm with Recursively Implemented StorAge "
     license = ("BSD-2-Clause", "LGPL-2.1")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/s-yata/marisa-trie"
     topics = ("algorithm", "dictionary", "marisa")
 

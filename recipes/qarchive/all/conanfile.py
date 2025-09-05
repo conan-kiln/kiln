@@ -12,7 +12,6 @@ class QarchiveConan(ConanFile):
     name = "qarchive"
     license = "BSD-3-Clause"
     homepage = "https://antonyjr.in/QArchive/"
-    url = "https://github.com/conan-io/conan-center-index"
     description = (
         "QArchive is a cross-platform C++ library that modernizes libarchive, "
         "This library helps you to extract and compress archives supported by libarchive"

@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class CppOptparseConan(ConanFile):
     name = "cpp-optparse"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/weisslj/cpp-optparse"
     description = "Python's excellent OptionParser in C++"
     topics = ("cpp-optparse", "argument", "parsing")

@@ -16,7 +16,6 @@ class LibXcompositeConan(ConanFile):
     name = "libxcomposite"
     description = "libXcomposite: Xlib-based client library for the Composite extension to the X11 protocol"
     license = "MIT AND HPND-sell-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcomposite"
     topics = ("xorg", "x11")
 

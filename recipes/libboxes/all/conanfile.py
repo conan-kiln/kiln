@@ -13,7 +13,6 @@ class libboxesRecipe(ConanFile):
     description = "Boxes is a set of frequently used containers built on top of STL"
 
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/twdev_projects/boxes"
 
     topics = ("container", "utility")

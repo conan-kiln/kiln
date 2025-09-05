@@ -13,7 +13,6 @@ class BatteryEmbedConan(ConanFile):
     name = "battery-embed"
     description = "A CMake/C++20 library to embed resource files at compile time"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/batterycenter/embed"
     topics = ("embed")
     package_type = "build-scripts"

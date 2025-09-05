@@ -16,7 +16,6 @@ class BitmagicConan(ConanFile):
                   "promote combination of hardware optimizations and on the fly compression to fit " \
                   "inverted indexes and binary fingerprints into memory, minimize disk and network footprint."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://bitmagic.io"
     topics = ("information-retrieval", "algorithm", "bit-manipulation",
               "integer-compression", "sparse-vector", "sparse-matrix", "bit-array",

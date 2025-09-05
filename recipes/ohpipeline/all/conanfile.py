@@ -15,7 +15,6 @@ class OhPipelineConan(ConanFile):
     name = "ohpipeline"
     description = "OpenHome audio pipeline"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/openhome/ohPipeline"
     topics = ("openhome", "ohnet", "ohpipeline", "upnp")
 

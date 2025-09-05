@@ -15,7 +15,6 @@ class GnuGetoptConan(ConanFile):
     name = "gnu-getopt"
     description = "GNU getopt(1) command-line utility"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://frodo.looijaard.name/project/getopt"
     topics = ("gnu", "getopt", "utility", "command-line", "parsing")
 

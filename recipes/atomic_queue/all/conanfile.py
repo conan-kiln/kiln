@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class CxxOptsConan(ConanFile):
     name = "atomic_queue"
     homepage = "https://github.com/max0x7ba/atomic_queue"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Multiple-producer-multiple-consumer lock-free queues based on circular buffer and std::atomic."
     license = "MIT"
     topics = ("queue", "lockfree", "atomic")

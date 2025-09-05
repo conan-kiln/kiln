@@ -19,7 +19,6 @@ class MetalcppConan(ConanFile):
         "Header-only library to wrap Metal in C++ classes"
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://developer.apple.com/metal/cpp/"
     topics = ("metal", "gpu", "apple", "header-only")
 

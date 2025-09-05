@@ -15,7 +15,6 @@ class ArduinojsonConan(ConanFile):
     homepage = "https://github.com/bblanchon/ArduinoJson"
     topics = ("json", "msgpack", "message-pack", "arduino", "iot", "embedded", "esp8266")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

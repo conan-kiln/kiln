@@ -14,7 +14,6 @@ class IdnaConan(ConanFile):
     name = "idna"
     description = "C++ library implementing the to_ascii and to_unicode functions from the Unicode Technical Standard."
     license = ("Apache-2.0", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ada-url/idna/"
     topics = ("unicode", "icu")
     package_type = "static-library"

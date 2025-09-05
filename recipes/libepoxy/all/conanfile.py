@@ -15,7 +15,6 @@ class EpoxyConan(ConanFile):
     name = "libepoxy"
     description = "libepoxy is a library for handling OpenGL function pointer management"
     topics = ("opengl",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/anholt/libepoxy"
     license = "MIT"
 

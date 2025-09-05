@@ -14,7 +14,6 @@ class OnigurumaConan(ConanFile):
     license = "BSD-2-Clause"
     topics = ("oniguruma", "regex")
     homepage = "https://github.com/kkos/oniguruma"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

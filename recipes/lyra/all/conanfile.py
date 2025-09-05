@@ -14,7 +14,6 @@ class LyraConan(ConanFile):
     description = "A simple to use, composing, header only, command line arguments parser for C++ 11 and beyond."
     topics = ("cli", "cli-parser", "argparse", "commandline",
               "flags", "header-only", "no-dependencies", "c++11")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

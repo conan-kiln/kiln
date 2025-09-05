@@ -14,7 +14,6 @@ required_conan_version = ">=2.4"
 class LibsndioConan(ConanFile):
     name = "libsndio"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sndio.org/"
     topics = ("sndio", "sound", "audio", "midi")
     description = ("A small audio and MIDI framework that provides a lightweight audio & MIDI server "

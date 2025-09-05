@@ -14,7 +14,6 @@ class GtkDocStubConan(ConanFile):
     name = "gtk-doc-stub"
     homepage = "https://gitlab.gnome.org/GNOME/gtk-doc-stub"
     description = "Helper scripts for generating GTK documentation"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-2.0-or-later"
     topics = ("gtk", "documentation", "gtkdocize")
     package_type = "application"

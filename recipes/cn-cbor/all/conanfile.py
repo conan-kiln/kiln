@@ -12,7 +12,6 @@ class CnCborStackConan(ConanFile):
     name = "cn-cbor"
     description = "A constrained node implementation of CBOR in C"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jimsch/cn-cbor/"
     topics = ("cbor", "nodes", "messaging")
 

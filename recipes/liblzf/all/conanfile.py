@@ -14,7 +14,6 @@ class LiblzfConan(ConanFile):
         "compression algorithm. It is ideal for applications where you want to "
         "save *some* space but not at the cost of speed."
     )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://software.schmorp.de/pkg/liblzf.html"
     topics = ("lzf", "compression")
     license = "BSD-2-Clause", "GPL-2.0-or-later"

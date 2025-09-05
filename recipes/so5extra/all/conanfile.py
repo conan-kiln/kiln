@@ -14,7 +14,6 @@ class So5extraConan(ConanFile):
     name = "so5extra"
     description = "A collection of various SObjectizer's extensions."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Stiffstream/so5extra"
     topics = ("concurrency", "actor-framework", "actors", "agents", "sobjectizer", "header-only")
 

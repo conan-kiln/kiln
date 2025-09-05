@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 
 class LibgcryptConan(ConanFile):
     name = "libgcrypt"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnupg.org/download/index.html#libgcrypt"
     description = "Libgcrypt is a general purpose cryptographic library originally based on code from GnuPG"
     topics = ("gcrypt", "gnupg", "gpg", "crypto", "cryptography")

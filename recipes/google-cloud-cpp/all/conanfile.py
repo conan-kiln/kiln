@@ -22,7 +22,6 @@ class GoogleCloudCppConan(ConanFile):
         "google-cloud-pubsub", "google-cloud-spanner", "google-cloud-bigtable"
     )
     homepage = "https://github.com/googleapis/google-cloud-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

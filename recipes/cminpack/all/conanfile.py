@@ -9,7 +9,6 @@ required_conan_version = ">=2.4"
 
 class CMinpackConan(ConanFile):
     name = "cminpack"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "About A C/C++ rewrite of the MINPACK software (originally in FORTRAN)" \
                   "for solving nonlinear equations and nonlinear least squares problems"
     topics = ("nonlinear", "solver")

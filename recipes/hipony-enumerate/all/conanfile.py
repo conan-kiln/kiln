@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class HiponyEnumerateConan(ConanFile):
     name = "hipony-enumerate"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hipony/enumerate"
     description = "C++11 compatible version of enumerate"
     topics = ("enumerate", "header-only", "cpp",

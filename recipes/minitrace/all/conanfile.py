@@ -11,7 +11,6 @@ class MinitraceConan(ConanFile):
     name = "minitrace"
     description = "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer (about:tracing)."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hrydgard/minitrace"
     topics = ("trace", "chrome", "about:tracing")
     package_type = "library"

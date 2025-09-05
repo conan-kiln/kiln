@@ -13,7 +13,6 @@ class OCILIBConan(ConanFile):
     name = "ocilib"
     description = "An open source and cross platform Oracle Driver that delivers efficient access to Oracle databases."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/vrogier/ocilib"
     topics = ("database", "db", "sql", "oracle")
     package_type = "library"

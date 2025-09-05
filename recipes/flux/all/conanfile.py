@@ -17,7 +17,6 @@ class PackageConan(ConanFile):
                    "It offers similar facilities to C++20 ranges, D ranges, Python itertools, "
                    "Rust iterators and related libraries for other languages.")
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tcbrindle/flux"
     topics = ("algorithms", "collections", "sequences", "ranges", "header-only")
 

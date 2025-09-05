@@ -17,7 +17,6 @@ class VoroppConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("voro++", "voronoi-diagram", "tesselation")
     homepage = "http://math.lbl.gov/voro++"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

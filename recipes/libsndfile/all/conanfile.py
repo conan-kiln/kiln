@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 class LibsndfileConan(ConanFile):
     name = "libsndfile"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.mega-nerd.com/libsndfile"
     description = (
         "Libsndfile is a library of C routines for reading and writing files "

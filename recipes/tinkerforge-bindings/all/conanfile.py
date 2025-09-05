@@ -14,7 +14,6 @@ class TinkerforgeBindingsConan(ConanFile):
     name = "tinkerforge-bindings"
     description = "API bindings to control Tinkerforge's Bricks and Bricklets"
     license = "CC0 1.0 Universal"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.tinkerforge.com/"
     topics = ("iot", "maker", "bindings")
 

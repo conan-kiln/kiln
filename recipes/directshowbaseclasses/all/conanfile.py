@@ -17,7 +17,6 @@ class DirectShowBaseClassesConan(ConanFile):
         "utility functions designed for implementing DirectShow filters"
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://docs.microsoft.com/en-us/windows/desktop/directshow/directshow-base-classes"
     topics = ("directshow", "dshow")
 

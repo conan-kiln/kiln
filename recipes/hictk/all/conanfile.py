@@ -14,7 +14,6 @@ class HictkConan(ConanFile):
     name = "hictk"
     description = "Blazing fast toolkit to work with .hic and .cool files"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/paulsengroup/hictk"
     topics = "hictk", "bioinformatics", "hic"
     package_type = "header-library"

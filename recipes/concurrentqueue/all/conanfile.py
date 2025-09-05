@@ -12,7 +12,6 @@ class ConcurrentqueueConan(ConanFile):
     name = "concurrentqueue"
     description = "A fast multi-producer, multi-consumer lock-free concurrent queue for C++11"
     license = ["BSD-2-Clause", "BSL-1.0"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cameron314/concurrentqueue"
     topics = ("cpp11", "cpp14", "cpp17", "queue", "lock-free")
     package_type = "header-library"

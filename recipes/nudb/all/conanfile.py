@@ -12,7 +12,6 @@ class NudbConan(ConanFile):
     name = "nudb"
     description = "A fast key/value insert-only database for SSD drives in C++11"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CPPAlliance/NuDB"
     topics = ("header-only", "KVS", "insert-only")
 

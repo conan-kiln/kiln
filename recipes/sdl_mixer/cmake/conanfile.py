@@ -14,7 +14,6 @@ class SDLMixerConan(ConanFile):
     name = "sdl_mixer"
     description = "SDL_mixer is a sample multi-channel audio mixer library"
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.libsdl.org/projects/SDL_mixer/"
     topics = ("sdl2", "sdl", "mixer", "audio", "multimedia", "sound", "music")
 

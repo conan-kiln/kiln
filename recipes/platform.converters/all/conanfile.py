@@ -17,7 +17,6 @@ class PlatformConvertersConan(ConanFile):
         "modular framework, to provide conversions between different types"
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linksplatform/Converters"
     topics = ("linksplatform", "cpp20", "converters", "any", "native", "header-only")
 

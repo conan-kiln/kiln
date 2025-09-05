@@ -15,7 +15,6 @@ class Tinyxml2Conan(ConanFile):
     license = "Zlib"
     topics = ("tinyxml2", "xml", "parser")
     homepage = "https://github.com/leethomason/tinyxml2"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

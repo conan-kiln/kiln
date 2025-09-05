@@ -13,7 +13,6 @@ class FixedContainersConan(ConanFile):
     name = "fixed-containers"
     description = "C++ Fixed Containers"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/teslamotors/fixed-containers/"
     topics = ("constexpr", "containers", "compile-time", "header-only")
     package_type = "header-library"

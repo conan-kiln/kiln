@@ -14,7 +14,6 @@ class WasmerConan(ConanFile):
     name = "wasmer"
     description = "The leading WebAssembly Runtime supporting WASI and Emscripten"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/wasmerio/wasmer/"
     topics = ("webassembly", "wasm", "wasi", "emscripten")
     package_type = "library"

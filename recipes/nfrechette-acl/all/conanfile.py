@@ -14,7 +14,6 @@ class AclConan(ConanFile):
     name = "nfrechette-acl"
     description = "Animation Compression Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nfrechette/acl"
     topics = ("animation", "compression", "header-only")
 

@@ -18,7 +18,6 @@ class Gammaconan(ConanFile):
     license = "MIT"
     topics = ("signal-processing", "sound", "audio")
     homepage = "https://github.com/LancePutnam/Gamma"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

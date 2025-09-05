@@ -15,7 +15,6 @@ required_conan_version = ">=2.1"
 class SdbusCppConan(ConanFile):
     name = "sdbus-cpp"
     license = "LicenseRef-LGPL-2.1-or-later-WITH-sdbus-cpp-LGPL-exception-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Kistler-Group/sdbus-cpp"
     description = "High-level C++ D-Bus library for Linux designed" \
                   " to provide easy-to-use yet powerful API in modern C++"

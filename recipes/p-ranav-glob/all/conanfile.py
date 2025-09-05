@@ -14,7 +14,6 @@ class PRanavGlobConan(ConanFile):
     name = "p-ranav-glob"
     description = "Glob for C++17"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/glob"
     topics = ("c++17", "config", "filesystem", "header-only")
 

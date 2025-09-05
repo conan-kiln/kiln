@@ -12,7 +12,6 @@ class DBCpppConan(ConanFile):
     name = "dbcppp"
     description = ".dbc library for C/C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xR3b0rn/dbcppp"
     topics = ("can", "dbc", "network")
     package_type = "static-library"

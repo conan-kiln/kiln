@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 class TheoraConan(ConanFile):
     name = "theora"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xiph/theora"
     description = "Theora is a free and open video compression format from the Xiph.org Foundation"
     topics = "video", "video-compressor", "video-format"

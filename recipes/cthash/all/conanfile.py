@@ -14,7 +14,6 @@ class CtHashConan(ConanFile):
     name = "cthash"
     description = "constexpr implementation of SHA-2 and SHA-3 family of hashes"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hanickadot/cthash/"
     topics = ("constexpr", "xxhash", "sha", "header-only")
     package_type = "header-library"

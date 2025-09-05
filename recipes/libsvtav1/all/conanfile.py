@@ -13,7 +13,6 @@ class SVTAV1Conan(ConanFile):
     name = "libsvtav1"
     description = "An AV1-compliant software encoder/decoder library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/AOMediaCodec/SVT-AV1"
     topics = ("av1", "codec", "encoder", "decoder", "video")
     package_type = "library"

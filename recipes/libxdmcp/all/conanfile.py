@@ -16,7 +16,6 @@ class LibXdmcpConan(ConanFile):
     name = "libxdmcp"
     description = "libXdmcp: X Display Manager Control Protocol library"
     license = "MIT-open-group"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxdmcp"
     topics = ("xorg", "x11")
 

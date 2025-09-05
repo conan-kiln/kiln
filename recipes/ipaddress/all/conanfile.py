@@ -14,7 +14,6 @@ class IpAddressConan(ConanFile):
     name = "ipaddress"
     description = "A library for working and manipulating IPv4/IPv6 addresses and networks"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/VladimirShaleev/ipaddress"
     topics = ("ipv4", "ipv6", "ipaddress", "ip", "network", "header-only")
     package_type = "header-library"

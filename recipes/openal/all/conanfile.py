@@ -18,7 +18,6 @@ class OpenALConan(ConanFile):
     name = "openal"
     description = "OpenAL Soft is a software implementation of the OpenAL 3D audio API."
     topics = ("openal", "audio", "api")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://openal-soft.org/"
     license = "LGPL-2.0-or-later"
     package_type = "library"

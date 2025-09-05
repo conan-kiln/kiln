@@ -11,7 +11,6 @@ class NodejsConan(ConanFile):
     name = "nodejs"
     description = "Node.js is an open-source, cross-platform JavaScript runtime environment."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://nodejs.org"
     topics = ("node", "javascript", "runtime", "pre-built")
 

@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class XtransConan(ConanFile):
     name = "xtrans"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
     homepage = "https://www.x.org/wiki/"
     description = "X Network Transport layer shared code"

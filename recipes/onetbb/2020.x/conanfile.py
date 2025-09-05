@@ -24,7 +24,6 @@ class OneTBBConan(ConanFile):
         "are portable, composable and have future-proof scalability."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uxlfoundation/oneTBB"
     topics = ("tbb", "threading", "parallelism", "tbbmalloc")
 

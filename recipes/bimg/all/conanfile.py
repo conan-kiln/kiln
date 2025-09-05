@@ -16,7 +16,6 @@ class bimgConan(ConanFile):
     name = "bimg"
     license = "BSD-2-Clause"
     homepage = "https://github.com/bkaradzic/bimg"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Image library providing loading, saving, conversions and other utilities."
     topics = ("image", "graphics")
     settings = "os", "arch", "compiler", "build_type"

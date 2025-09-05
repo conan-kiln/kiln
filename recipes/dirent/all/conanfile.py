@@ -12,7 +12,6 @@ class DirEntConan(ConanFile):
     description = "Dirent is a C/C++ programming interface that allows programmers to retrieve information about " \
                   "files and directories under Linux/UNIX"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tronkko/dirent"
     topics = ("directory", "file system", "header-only")
     package_type = "header-library"

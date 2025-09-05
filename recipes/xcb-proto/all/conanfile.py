@@ -11,7 +11,6 @@ class XcbProtoConan(ConanFile):
     name = "xcb-proto"
     description = "XML-XCB protocol descriptions used by libxcb for the X11 protocol & extensions"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/proto/xcbproto"
     topics = ("xorg", "x11", "xcb")
 

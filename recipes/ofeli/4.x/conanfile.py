@@ -14,7 +14,6 @@ class OfeliConan(ConanFile):
     name = "ofeli"
     description = "An Object Finite Element Library"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://ofeli.org/index.html"
     topics = ("finite-element", "finite-element-library", "finite-element-analysis", "finite-element-solver")
 

@@ -19,7 +19,6 @@ class LibsamplerateConan(ConanFile):
     license = "BSD-2-Clause"
     topics = ("audio", "resample-audio-files")
     homepage = "https://github.com/libsndfile/libsamplerate"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

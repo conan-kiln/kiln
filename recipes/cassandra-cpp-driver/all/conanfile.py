@@ -14,7 +14,6 @@ class CassandraCppDriverConan(ConanFile):
     name = "cassandra-cpp-driver"
     description = "DataStax C/C++ Driver for Apache Cassandra and DataStax Products"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://docs.datastax.com/en/developer/cpp-driver/"
     topics = ("cassandra", "cpp-driver", "database")
     package_type = "library"

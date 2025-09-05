@@ -11,7 +11,6 @@ class UtfCppConan(ConanFile):
     name = "utfcpp"
     description = "UTF-8 with C++ in a Portable Way"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nemtrif/utfcpp"
     topics = ("utf", "utf8", "unicode", "text", "header-only")
     package_type = "header-library"

@@ -11,7 +11,6 @@ class ValijsonConan(ConanFile):
     name = "valijson"
     description = "Valijson is a header-only JSON Schema Validation library for C++11."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tristanpenman/valijson"
     topics = ("json", "validator", "header-only")
     package_type = "header-library"

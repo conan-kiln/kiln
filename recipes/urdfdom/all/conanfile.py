@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "urdfdom"
     description = "Data structures and parsers to access URDF files using the DOM model"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ros/urdfdom"
     topics = ("urdf", "ros", "robotics")
     package_type = "library"

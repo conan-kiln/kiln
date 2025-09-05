@@ -15,7 +15,6 @@ class LibgudevConan(ConanFile):
     name = "libgudev"
     description = "GObject bindings for libudev"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/libgudev/"
     topics = ("udev", "gobject")
     package_type = "library"

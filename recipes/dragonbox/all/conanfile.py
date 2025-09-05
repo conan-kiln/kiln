@@ -15,7 +15,6 @@ class DragonboxConan(ConanFile):
     name = "dragonbox"
     description = "Reference implementation of Dragonbox in C++"
     license = ("Apache-2.0", "LLVM-exception", "BSL-1.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jk-jeon/dragonbox"
     topics = ("float-to-string", "grisu", "grisu-exact")
     settings = "os", "arch", "compiler", "build_type"

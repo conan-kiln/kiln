@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "smtpclient"
     description = "An SMTP client library built in C++ that support authentication and secure connections"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jeremydumais/CPP-SMTPClient-library"
     topics = ("smtp", "email")
     package_type = "library"

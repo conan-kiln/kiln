@@ -14,7 +14,6 @@ class MsdfAtlasGenConan(ConanFile):
     name = "msdf-atlas-gen"
     description = "MSDF font atlas generator"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Chlumsky/msdf-atlas-gen"
     topics = ("msdf-atlas-gen", "msdf", "font", "atlas")
     package_type = "application"

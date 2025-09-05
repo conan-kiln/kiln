@@ -11,7 +11,6 @@ class MavlinkConan(ConanFile):
     name = "mavlink"
     description = "Marshalling / communication library for drones."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mavlink/mavlink"
     topics = ("mav", "drones", "marshalling", "communication")
     package_type = "header-library"

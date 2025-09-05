@@ -11,7 +11,6 @@ class AwsCSDKUtils(ConanFile):
     name = "aws-c-sdkutils"
     description = "C99 library implementing AWS SDK specific utilities. Includes utilities for ARN parsing, reading AWS profiles, etc..."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-sdkutils"
     topics = ("aws", "amazon", "cloud", "utility", "ARN")
     package_type = "library"

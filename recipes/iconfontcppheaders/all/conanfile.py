@@ -11,7 +11,6 @@ class FireHppConan(ConanFile):
     name = "iconfontcppheaders"
     description = "Headers for icon fonts Font Awesome, Fork Awesome, Google Material Design Icons, Google Material Design Symbols, Pictogrammers Material Design icons, Kenney game icons, Fontaudio, Codicons and Lucide."
     license = "Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/juliettef/IconFontCppHeaders"
     topics = ("icons", "fonts", "icon-fonts", "header-only")
     no_copy_source = True

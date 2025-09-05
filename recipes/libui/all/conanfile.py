@@ -13,7 +13,6 @@ class libuiConan(ConanFile):
     name = "libui"
     description = "Simple and portable GUI library in C that uses the native GUI technologies of each platform it supports."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/andlabs/libui"
     topics = ("ui", "gui")
 

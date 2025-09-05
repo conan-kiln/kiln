@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class DbusCXX(ConanFile):
     name = "dbus-cxx"
     license = "LGPL-3.0-only", "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://dbus-cxx.github.io"
     description = "DBus-cxx provides an object-oriented interface to DBus"
     topics = "bus", "interprocess", "message"

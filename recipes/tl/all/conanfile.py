@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class TlConan(ConanFile):
     name = "tl"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tl.tartanllama.xyz"
     description = "tl is a collection of generic C++ libraries"
     topics = ("c++", "utilities")

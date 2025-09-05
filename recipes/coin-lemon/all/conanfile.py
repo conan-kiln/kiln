@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class CoinLemonConan(ConanFile):
     name = "coin-lemon"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://lemon.cs.elte.hu"
     description = "LEMON stands for Library for Efficient Modeling and Optimization in Networks."
     topics = ("data structures", "algorithms", "graphs", "network")

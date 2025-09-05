@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class OpenTelemetryProtoConan(ConanFile):
     name = "opentelemetry-proto"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/open-telemetry/opentelemetry-proto"
     description = "Protobuf definitions for the OpenTelemetry protocol (OTLP)"
     topics = ("opentelemetry", "telemetry", "otlp", "pre-built")

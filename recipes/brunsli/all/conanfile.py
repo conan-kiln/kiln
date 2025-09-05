@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "brunsli"
     description = "Practical JPEG Repacker"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/brunsli"
     topics = ("jpeg", "repacker", "codec", "brotli", "wasm")
 

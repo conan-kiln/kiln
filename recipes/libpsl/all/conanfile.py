@@ -17,7 +17,6 @@ class LibPslConan(ConanFile):
     homepage = "https://github.com/rockdaboot/libpsl"
     topics = ("psl", "suffix", "TLD", "gTLD", ".com", ".net")
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

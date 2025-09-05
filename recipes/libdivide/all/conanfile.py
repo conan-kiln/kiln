@@ -13,7 +13,6 @@ class LibdivideConan(ConanFile):
     name = "libdivide"
     description = "Header-only C/C++ library for optimizing integer division."
     license = ["Zlib", "BSL-1.0"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://libdivide.com/"
     topics = ("libdivide", "division", "integer", "header-only")
 

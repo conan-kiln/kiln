@@ -15,7 +15,6 @@ class openfx(ConanFile):
     name = "openfx"
     description = "OpenFX image processing plug-in standard."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://openeffects.org"
     topics = ("image-processing", "standard")
 

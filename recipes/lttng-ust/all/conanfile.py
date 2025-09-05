@@ -15,7 +15,6 @@ class LTTngUSTConan(ConanFile):
     name = "lttng-ust"
     description = "The LTTng User Space Tracing (LTTng-UST) library allows any C/C++ application to be instrumented for and traced by LTTng."
     license = "LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://lttng.org/"
     topics = ("lttng", "tracing", "ust", "userspace")
     package_type = "shared-library"

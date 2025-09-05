@@ -13,7 +13,6 @@ class OggConan(ConanFile):
     name = "ogg"
     description = "The OGG library"
     topics = ("codec", "audio", "lossless")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xiph/ogg"
     license = "BSD-2-Clause"
 

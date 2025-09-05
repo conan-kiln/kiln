@@ -13,7 +13,6 @@ class LibnfnetlinkConan(ConanFile):
     name = "libnfnetlink"
     description = "low-level library for netfilter related kernel/userspace communication"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://netfilter.org/projects/libnfnetlink/index.html"
     topics = ("netlink", "netfilter")
 

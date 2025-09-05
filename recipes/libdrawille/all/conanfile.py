@@ -12,7 +12,6 @@ class LibdrawilleConan(ConanFile):
     name = "libdrawille"
     description = "C implementation of drawille library and extra drawing functionality"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Huulivoide/libdrawille/"
     topics = ("drawille")
     settings = "os", "arch", "compiler", "build_type"

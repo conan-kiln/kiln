@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class ObserverPtrLiteConan(ConanFile):
     name = "observer-ptr-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/observer-ptr-lite"
     description = ("observer-ptr is a single-file header-only library with a variant of \
                     std::experimental::observer_ptr for C++98 and later.")

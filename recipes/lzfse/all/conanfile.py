@@ -13,7 +13,6 @@ class LzfseConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("compression", "decompression")
     homepage = "https://github.com/lzfse/lzfse"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

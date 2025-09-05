@@ -14,7 +14,6 @@ class BasuConan(ConanFile):
     name = "basu"
     description = "The sd-bus library, extracted from systemd"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.sr.ht/~emersion/basu"
     topics = ("dbus", "sd-bus", "systemd")
     package_type = "library"

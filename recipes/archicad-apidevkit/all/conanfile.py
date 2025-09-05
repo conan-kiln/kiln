@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class ArchicadApidevkitConan(ConanFile):
     name = "archicad-apidevkit"
     description = "The General API Development Kit enables software developers to extend the functionality of Archicad"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://archicadapi.graphisoft.com/"
     license = "LicenseRef-LICENSE"
     topics = ("api", "archicad", "development", "pre-built")

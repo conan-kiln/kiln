@@ -15,7 +15,6 @@ class LibellConan(ConanFile):
     name = "libell"
     description = "The Embedded Linux Library (ELL) provides core, low-level functionality for system daemons."
     license = "LGPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.kernel.org/pub/scm/libs/ell/ell.git/about/"
     topics = ("linux", "embedded")
     package_type = "library"

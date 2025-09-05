@@ -15,7 +15,6 @@ class TcpWrappersConan(ConanFile):
     name = "tcp-wrappers"
     description = "A security tool which acts as a wrapper for TCP daemons"
     license = "TCP-wrappers"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://ftp.porcupine.org/pub/security/"
     topics = ("tcp", "ip", "daemon", "wrapper")
 

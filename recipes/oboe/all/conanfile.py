@@ -15,7 +15,6 @@ class OboeConan(ConanFile):
     license = "Apache-2.0"
     topics = ("android", "audio")
     homepage = "https://github.com/google/oboe"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

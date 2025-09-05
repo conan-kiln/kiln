@@ -14,7 +14,6 @@ class AdaConan(ConanFile):
     name = "ada"
     description = "WHATWG-compliant URL parser written in modern C++"
     license = ("Apache-2.0", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ada-url/ada"
     topics = ("url", "parser", "WHATWG")
     package_type = "library"

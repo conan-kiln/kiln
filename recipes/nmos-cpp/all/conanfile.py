@@ -15,7 +15,6 @@ class NmosCppConan(ConanFile):
     name = "nmos-cpp"
     description = "An NMOS C++ Implementation"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sony/nmos-cpp"
     topics = ("amwa", "nmos", "is-04", "is-05", "is-07", "is-08", "is-09", "broadcasting", "network", "media")
 

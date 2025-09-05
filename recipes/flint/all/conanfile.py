@@ -14,7 +14,6 @@ class FlintConan(ConanFile):
     name = "flint"
     description = "FLINT (Fast Library for Number Theory)"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.flintlib.org"
     topics = ("math", "numerical")
 

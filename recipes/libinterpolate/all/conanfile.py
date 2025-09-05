@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "libinterpolate"
     description = "A C++ interpolation library with a simple interface that supports multiple interpolation methods."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/CD3/libInterpolate"
     topics = ("math", "spline", "interpolation", "header-only")
     package_type = "header-library"

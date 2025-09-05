@@ -17,7 +17,6 @@ class Nmslib(ConanFile):
         "and a toolkit for evaluation of k-NN methods for generic non-metric spaces."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nmslib/nmslib"
     topics = ("knn-search", "non-metric", "neighborhood-graphs", "neighborhood-graphs", "vp-tree")
 

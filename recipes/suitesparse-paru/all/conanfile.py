@@ -12,7 +12,6 @@ class SuiteSparseParuConan(ConanFile):
     name = "suitesparse-paru"
     description = "ParU: Routines for solving sparse linear system via parallel multifrontal LU factorization algorithms in SuiteSparse"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "linear-system-solver", "lu-factorization")
 

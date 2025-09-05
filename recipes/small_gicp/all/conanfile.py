@@ -12,7 +12,6 @@ class IridescenceConan(ConanFile):
     name = "small_gicp"
     description = "Efficient and parallelized algorithms for point cloud registration"
     license = "MIT AND BSD" # BSD is from nanoflann and Sophus
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/koide3/small_gicp"
     topics = ("point-cloud", "icp", "registration", "scan-matching", "pcl")
 

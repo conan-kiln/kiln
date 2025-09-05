@@ -13,7 +13,6 @@ class tngConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("tng", "gromacs")
     homepage = "https://gitlab.com/gromacs/tng/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

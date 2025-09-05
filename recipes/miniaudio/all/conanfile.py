@@ -11,7 +11,6 @@ class MiniaudioConan(ConanFile):
     name = "miniaudio"
     description = "A single file audio playback and capture library."
     license = ["Unlicense", "MIT-0"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mackron/miniaudio"
     topics = ("audio", "header-only", "sound")
     package_type = "library"

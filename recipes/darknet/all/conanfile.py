@@ -13,7 +13,6 @@ class DarknetConan(ConanFile):
     name = "darknet"
     description = "Darknet is a neural network frameworks written in C"
     license = "YOLO"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://pjreddie.com/darknet/"
     topics = ("neural network", "deep learning")
     settings = "os", "arch", "compiler", "build_type"

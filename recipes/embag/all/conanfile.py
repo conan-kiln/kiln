@@ -13,7 +13,6 @@ class EmbagConan(ConanFile):
     name = "embag"
     description = "Schema and dependency free ROS bag reader"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/embarktrucks/embag"
     topics = ("rosbag", "ros", "robotics")
     package_type = "library"

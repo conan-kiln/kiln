@@ -11,7 +11,6 @@ class ItlibConan(ConanFile):
     name = "itlib"
     description = "A collection of small single-header C++ libraries similar to or extending the C++ standard library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/iboB/itlib"
     topics = ("template", "flatmatp", "static-vector", "header-only")
     package_type = "header-library"

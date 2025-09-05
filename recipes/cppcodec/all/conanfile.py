@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class CppcodecConan(ConanFile):
     name = "cppcodec"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tplgy/cppcodec"
     description = (
         "Header-only C++11 library to encode/decode base64, base64url, base32, "

@@ -14,7 +14,6 @@ class MeshOptimizerConan(ConanFile):
     description = "Mesh optimization library that makes meshes smaller and faster to render"
     topics = ("mesh", "optimizer", "3d")
     homepage = "https://github.com/zeux/meshoptimizer"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "MIT"
 
     package_type = "library"

@@ -14,7 +14,6 @@ class CqrlibConan(ConanFile):
     license = "LGPL-2.1-only"
     topics = ("cqrlib", "quaternion")
     homepage = "https://github.com/yayahjb/cqrlib"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

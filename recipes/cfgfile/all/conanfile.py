@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 
 class CfgfileConan(ConanFile):
     name = "cfgfile"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/igormironchik/cfgfile.git"
     license = "MIT"
     description = "Header-only library for reading/saving configuration files with schema defined in sources."

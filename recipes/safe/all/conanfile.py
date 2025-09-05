@@ -11,7 +11,6 @@ class SafeConan(ConanFile):
     name = "safe"
     description = "Header only read and write locks for mutexes"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/LouisCharlesC/safe"
     topics = ("multi-threading ", "lock", "guard", "raii", "thread-safety", "mutexes", "lock-guard", "header-only")
     package_type = "header-library"

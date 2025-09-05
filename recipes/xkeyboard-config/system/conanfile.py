@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class XkeyboardConfigConan(ConanFile):
     name = "xkeyboard-config"
     package_type = "application"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev"
     homepage = "https://www.freedesktop.org/wiki/Software/XKeyboardConfig/"
     description = "The non-arch keyboard configuration database for X Window."

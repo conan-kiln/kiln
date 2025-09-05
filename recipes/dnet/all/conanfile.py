@@ -13,7 +13,6 @@ class dnetConan(ConanFile):
     homepage = "https://github.com/ofalk/libdnet"
     topics = ("dnet", "libdnet", "libdumbnet")
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     options = {
         "shared": [True, False],

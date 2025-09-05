@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class Stlab(ConanFile):
     name = "stlab"
     description = "The Software Technology Lab libraries."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/stlab/libraries"
     license = "BSL-1.0"
     topics = "concurrency", "futures", "channels"

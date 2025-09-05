@@ -12,7 +12,6 @@ class LibIptConan(ConanFile):
     name = "libipt"
     description = "Intel(R) Processor Trace Decoder Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/libipt"
     topics = ("profiling", "tracing")
 

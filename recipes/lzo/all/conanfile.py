@@ -13,7 +13,6 @@ class LZOConan(ConanFile):
     name = "lzo"
     description = "lzo is a portable lossless data compression library written in ANSI C"
     license = "GPL-v2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.oberhumer.com/opensource/lzo/"
     topics = ("compression",)
 

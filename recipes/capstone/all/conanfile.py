@@ -16,7 +16,6 @@ class CapstoneConan(ConanFile):
         "TMS320C64x, Web Assembly, X86, X86_64, XCore) + bindings."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.capstone-engine.org"
     topics = (
         "reverse-engineering", "disassembler", "security", "framework", "arm", "arm64",

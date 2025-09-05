@@ -14,7 +14,6 @@ class AndreasbuhrCppCoroConan(ConanFile):
     name = "andreasbuhr-cppcoro"
     description = "A library of C++ coroutine abstractions for the coroutines TS"
     topics = ("cpp", "async", "coroutines")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/andreasbuhr/cppcoro"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

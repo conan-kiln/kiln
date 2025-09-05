@@ -17,7 +17,6 @@ class MicroprofileConan(ConanFile):
     name = "microprofile"
     license = "DocumentRef-README.md:LicenseRef-Unlicense"
     description = "Microprofile is a embeddable profiler in a few files, written in C++"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jonasmr/microprofile"
     topics = ("profiler", "embedded", "timer")
 

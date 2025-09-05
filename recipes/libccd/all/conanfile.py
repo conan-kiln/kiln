@@ -13,7 +13,6 @@ class LibccdConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("collision", "3d")
     homepage = "https://github.com/danfis/libccd"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

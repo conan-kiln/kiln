@@ -12,7 +12,6 @@ class upa_urlRecipe(ConanFile):
     name = "upa-url"
     description = "An implementation of the WHATWG URL Standard in C++"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/upa-url/upa"
     topics = ("url", "parser", "psl", "whatwg")
     package_type = "library"

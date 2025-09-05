@@ -13,7 +13,6 @@ class VulkanExtensionLayerConan(ConanFile):
     description = "Layer providing Vulkan features when native support is unavailable"
     license = "Apache-2.0"
     homepage = "https://github.com/KhronosGroup/Vulkan-ExtensionLayer"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("vulkan", "gpu")
     package_type = "application"  # only exports dynamically-linked libraries
     settings = "os", "arch", "compiler", "build_type"

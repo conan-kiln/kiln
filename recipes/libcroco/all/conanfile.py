@@ -15,7 +15,6 @@ class LibcrocoConan(ConanFile):
     name = "libcroco"
     description = "A CSS2 parsing and manipulation toolkit for GNOME. Archived and no longer maintained."
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.com/inkscape/libcroco"
     topics = ("css", "gnome")
     package_type = "library"

@@ -15,7 +15,6 @@ class PackageConan(ConanFile):
     name = "libplist"
     description = "A small portable C library to handle Apple Property List files in binary, XML, JSON, or OpenStep format."
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libimobiledevice/libplist"
     topics = ("plist", "apple", "property list", "binary", "xml", "json", "openstep")
 

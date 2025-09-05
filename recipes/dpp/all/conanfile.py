@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class DPPConan(ConanFile):
     name = "dpp"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/brainboxdotcc/DPP"
     description = "D++ is a lightweight and efficient library for Discord"
     topics = ("discord")

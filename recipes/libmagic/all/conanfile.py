@@ -16,7 +16,6 @@ class LibmagicConan(ConanFile):
     description = "Magic number recognition library - detect files with data in particular fixed formats."
     license = "DocumentRef-COPYING:LicenseRef-BSD-2-Clause-File"  # Modified BSD 2-Clause that states no restrictions on US export
     homepage = "https://www.darwinsys.com/file/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = "file", "format", "magic"
 
     package_type = "library"

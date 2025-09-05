@@ -15,7 +15,6 @@ class Argtable2Conan(ConanFile):
     name = "argtable2"
     description = "Argtable is an ANSI C library for parsing GNU style command line options with a minimum of fuss."
     license = "LGPL-2.0+"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://argtable.sourceforge.net/"
     topics = ("argument", "parsing", "getopt")
 

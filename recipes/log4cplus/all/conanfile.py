@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 class Log4cplusConan(ConanFile):
     name = "log4cplus"
     description = "simple to use C++ logging API, modelled after the Java log4j API"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/log4cplus/log4cplus"
     license = "BSD-2-Clause AND Apache-2.0"
     topics = ("logging", "log", "logging-library")

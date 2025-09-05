@@ -17,7 +17,6 @@ class QtKeychainConan(ConanFile):
     license = "BSD-3-Clause"
     description = "Platform-independent Qt API for storing passwords securely."
     homepage = "https://github.com/frankosterfeld/qtkeychain"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("qt", "keychain")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

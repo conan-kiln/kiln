@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class TzConan(ConanFile):
     name = "tz"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.iana.org/time-zones"
     description = "The Time Zone Database contains data that represent the history of local time for many representative locations around the globe."
     topics = ("tz", "tzdb", "time", "zone", "date")

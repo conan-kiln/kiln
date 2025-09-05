@@ -9,7 +9,6 @@ class NpcapConan(ConanFile):
     name = "npcap"
     description = "Windows port of the libpcap library"
     homepage = "https://npcap.com/"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "LicenseRef-NPCAP"
     topics = ("pcap", "windows", "packet-capture")
     settings = "os", "arch", "compiler", "build_type"

@@ -14,7 +14,6 @@ class WasmtimeConan(ConanFile):
     name = "wasmtime"
     description = "Standalone JIT-style runtime for WebAssembly, using Cranelift"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bytecodealliance/wasmtime"
     topics = ("webassembly", "wasm", "wasi")
     package_type = "library"

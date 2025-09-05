@@ -17,7 +17,6 @@ class NloptConan(ConanFile):
     license = ["LGPL-2.1-or-later", "MIT"]
     topics = ("optimization", "nonlinear")
     homepage = "https://github.com/stevengj/nlopt"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

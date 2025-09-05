@@ -12,7 +12,6 @@ class VswhereConan(ConanFile):
     name = "vswhere"
     description = "Locate Visual Studio 2017 and newer installations"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/microsoft/vswhere"
     topics = ("visual-studio",)
     package_type = "application"

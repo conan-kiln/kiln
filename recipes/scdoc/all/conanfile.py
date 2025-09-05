@@ -16,7 +16,6 @@ class ScdocInstallerConan(ConanFile):
     name = "scdoc"
     description = "scdoc is a simple man page generator for POSIX systems written in C99."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://git.sr.ht/~sircmpwn/scdoc"
     topics = ("manpage", "documentation", "posix")
 

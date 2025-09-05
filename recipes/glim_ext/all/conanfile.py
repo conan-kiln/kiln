@@ -14,7 +14,6 @@ class GlimExtPackage(ConanFile):
     name = "glim_ext"
     description = "glim_ext is a set of extension modules for GLIM, a 3D LiDAR mapping framework."
     license = ""
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/koide3/glim_ext"
     topics = ("localization", "mapping", "gpu", "ros", "imu", "lidar", "slam", "3d", "rgb-d")
 

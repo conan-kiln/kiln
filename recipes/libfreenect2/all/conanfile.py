@@ -17,7 +17,6 @@ class Libfreenect2Conan(ConanFile):
     name = "libfreenect2"
     description = "Open source drivers for the Kinect for Windows v2 device."
     license = ("Apache-2.0", "GPL-2.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/OpenKinect/libfreenect2"
     topics = ("usb", "camera", "kinect")
 

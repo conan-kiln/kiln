@@ -15,7 +15,6 @@ class BeautyConan(ConanFile):
     name = "beauty"
     description = "HTTP Server above Boost.Beast"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dfleury2/beauty"
     topics = ("http", "server", "boost.beast")
     package_type = "library"

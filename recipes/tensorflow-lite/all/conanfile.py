@@ -16,7 +16,6 @@ class TensorflowLiteConan(ConanFile):
     name = "tensorflow-lite"
     license = "Apache-2.0"
     homepage = "https://www.tensorflow.org/lite/guide"
-    url = "https://github.com/conan-io/conan-center-index"
     description = ("TensorFlow Lite is a set of tools that enables on-device machine learning "
                    "by helping developers run their models on mobile, embedded, and IoT devices.")
     topics = ("machine-learning", "neural-networks", "deep-learning")

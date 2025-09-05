@@ -12,7 +12,6 @@ class AccessPrivateConan(ConanFile):
     name = "access_private"
     description = "Access private members and statics of a C++ class"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martong/access_private"
     topics = ("access", "private", "header-only")
 

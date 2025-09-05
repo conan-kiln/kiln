@@ -25,7 +25,6 @@ class GStPluginsBadConan(ConanFile):
                    "They might be close to being good quality, but they're missing something - be it a good code review, "
                    "some documentation, a set of tests, a real live maintainer, or some actual wide use.")
     topics = ("gstreamer", "multimedia", "video", "audio", "broadcasting", "framework", "media")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gstreamer.freedesktop.org/"
     # Most, but not all, plugins are LGPL. For details, see:
     # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/raw/1.24.12/subprojects/gst-plugins-bad/docs/plugins/gst_plugins_cache.json

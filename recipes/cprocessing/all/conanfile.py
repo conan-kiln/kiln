@@ -15,7 +15,6 @@ class CProcessingConan(ConanFile):
     name = "cprocessing"
     description = "Processing programming for C++ "
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/maksmakuta/CProcessing"
     topics = ("processing", "opengl", "sketch", "header-only")
     package_type = "header-library"

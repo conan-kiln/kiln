@@ -14,7 +14,6 @@ class LibpropertiesConan(ConanFile):
         "It was writen in pure C and is fully compatible with the Java .properties file format."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tinyhubs/libproperties"
     topics = ("properties", "java", "pure-c")
 

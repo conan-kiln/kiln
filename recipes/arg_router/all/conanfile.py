@@ -12,7 +12,6 @@ class ArgRouterRecipe(ConanFile):
     name = "arg_router"
     license = "BSL-1.0"
     homepage = "https://github.com/cmannett85/arg_router"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "C++ command line argument parsing and routing."
     topics = ("cpp", "command-line", "argument-parser", "header-only")
     settings = "os", "arch", "compiler", "build_type"

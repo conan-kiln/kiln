@@ -14,7 +14,6 @@ class LibmadConan(ConanFile):
     name = "libmad"
     description = "MAD is a high-quality MPEG audio decoder."
     topics = ("mad", "MPEG", "audio", "decoder")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.underbit.com/products/mad/"
     license = "GPL-2.0-or-later"
     package_type = "library"

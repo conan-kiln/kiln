@@ -15,7 +15,6 @@ class GcemConan(ConanFile):
     license = "Apache-2.0"
     topics = ("math", "header-only")
     homepage = "https://github.com/kthohr/gcem"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

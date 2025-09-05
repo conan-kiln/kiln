@@ -15,7 +15,6 @@ class TileDBConan(ConanFile):
     description = ("TileDB is a powerful engine for storing and accessing dense and sparse multi-dimensional arrays, "
                    "which can help you model any complex data efficiently.")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/TileDB-Inc/TileDB"
     topics = ("data-science", "storage-engine", "s3", "sparse-data", "scientific-computing", "s3-storage",
               "arrays", "data-analysis", "dataframes", "dense-data", "sparse-arrays")

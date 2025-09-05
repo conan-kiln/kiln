@@ -14,7 +14,6 @@ class PackageConan(ConanFile):
     name = "manif"
     description = "A small C++11 header-only library for Lie theory"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://artivis.github.io/manif"
     topics = ("lie-groups", "state-estimation", "geometry", "robotics", "computer-vision", "header-only")
 

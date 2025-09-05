@@ -13,7 +13,6 @@ class SoPlexConan(ConanFile):
     name = "soplex"
     description = "SoPlex linear programming solver"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://soplex.zib.de"
     topics = ("simplex", "solver", "linear", "programming")
     settings = "os", "arch", "compiler", "build_type"

@@ -13,7 +13,6 @@ class OctoEncryptionCPPConan(ConanFile):
     name = "octo-encryption-cpp"
     description = "Octo encryption library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ofiriluz/octo-encryption-cpp"
     topics = ("cryptography", "cpp")
     package_type = "static-library"

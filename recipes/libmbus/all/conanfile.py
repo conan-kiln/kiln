@@ -12,7 +12,6 @@ class LibMbusConan(ConanFile):
     name = "libmbus"
     description = "Meter-bus library and utility programs"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rscada/libmbus"
     topics = ("mbus", "metering", "iot", "meter", "bus", "protocol")
 

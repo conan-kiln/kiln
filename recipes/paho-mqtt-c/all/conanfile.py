@@ -12,7 +12,6 @@ class PahoMqttcConan(ConanFile):
     name = "paho-mqtt-c"
     description = "Eclipse Paho MQTT C client library for Linux, Windows and MacOS"
     license = "EPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eclipse/paho.mqtt.c"
     topics = ("mqtt", "iot", "eclipse", "ssl", "tls", "paho")
     package_type = "library"

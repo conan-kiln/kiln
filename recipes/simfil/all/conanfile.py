@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class SimfilRecipe(ConanFile):
     name = "simfil"
     description = "simfil is a C++ 17 library and a language for querying structured map feature data. The library provides an efficient in-memory storage pool for map data, optimized for the simfil query language, along with a query interpreter to query the actual data."
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Klebert-Engineering/simfil"
     license = "BSD-3-Clause"
     package_type = "library"

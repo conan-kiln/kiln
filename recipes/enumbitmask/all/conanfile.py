@@ -14,7 +14,6 @@ class EnumBitmaskConan(ConanFile):
     name = "enumbitmask"
     description = "A C++ library to enable bitmask operators for an enum class type"
     license = "CC0-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Reputeless/EnumBitmask"
     topics = ("enum", "bitmask", "header-only")
     package_type = "header-library"

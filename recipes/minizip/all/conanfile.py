@@ -9,7 +9,6 @@ required_conan_version = ">=2.4"
 
 class MinizipConan(ConanFile):
     name = "minizip"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://zlib.net"
     license = "Zlib"
     description = "An experimental package to read and write files in .zip format, written on top of zlib"

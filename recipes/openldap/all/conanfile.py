@@ -16,7 +16,6 @@ class OpenldapConan(ConanFile):
     name = "openldap"
     description = "OpenLDAP C library"
     license = "OLDAP-2.8"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.openldap.org/"
     topics = ("ldap", "load-balancer", "directory-access")
 

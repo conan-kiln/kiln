@@ -14,7 +14,6 @@ class LevelZeroConan(ConanFile):
     description = "OneAPI Level Zero Specification Headers and Loader"
     license = "MIT"
     homepage = "https://github.com/oneapi-src/level-zero"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("api-headers", "loader", "level-zero", "oneapi")
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"

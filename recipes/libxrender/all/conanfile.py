@@ -17,7 +17,6 @@ class LibXrenderConan(ConanFile):
     name = "libxrender"
     description = "libXrender: Xlib-based render management library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxrender"
     topics = ("xorg", "x11")
 

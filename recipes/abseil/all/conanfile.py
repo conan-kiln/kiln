@@ -18,7 +18,6 @@ class AbseilConan(ConanFile):
     description = "Abseil Common Libraries (C++) from Google"
     topics = ("algorithm", "container", "google", "common", "utility")
     homepage = "https://github.com/abseil/abseil-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
 
     package_type = "library"

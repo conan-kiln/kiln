@@ -16,7 +16,6 @@ required_conan_version = ">=2.4"
 class PangoConan(ConanFile):
     name = "pango"
     license = "LGPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Internationalized text layout and rendering library"
     homepage = "https://www.pango.org/"
     topics = ("fontconfig", "fonts", "freedesktop")

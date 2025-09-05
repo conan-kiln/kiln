@@ -15,7 +15,6 @@ class PExportsConan(ConanFile):
     name = "pexports"
     description = "pexports is a program to extract exported symbols from a PE image (executable)."
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sourceforge.net/projects/mingw/files/MinGW/Extension/pexports/"
     topics = ("windows", "dll", "PE", "symbols", "import", "library")
 

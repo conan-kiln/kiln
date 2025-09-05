@@ -11,7 +11,6 @@ class CuteHeadersConan(ConanFile):
     name = "cute_headers"
     description = "Various single-file cross-platform C/C++ headers implementing self-contained libraries."
     topics = ("various", "pure-c")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/RandyGaul/cute_headers"
     license = "Unlicense"
     package_type = "header-library"

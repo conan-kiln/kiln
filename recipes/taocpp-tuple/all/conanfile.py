@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class TaoCPPTupleConan(ConanFile):
     name = "taocpp-tuple"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/tuple"
     description = "Compile-time-efficient proof-of-concept implementation for std::tuple"
     topics = ("template", "cpp11", "tuple")

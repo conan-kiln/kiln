@@ -12,7 +12,6 @@ class IowowConan(ConanFile):
     name = "iowow"
     description = "A C utility library and persistent key/value storage engine."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://iowow.softmotions.com/"
     topics = ("database", "nosql", "key-value", "kvstore", "skiplist", "ejdb")
     package_type = "library"

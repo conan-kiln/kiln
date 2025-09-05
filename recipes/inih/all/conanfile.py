@@ -19,7 +19,6 @@ class InihConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("ini", "configuration", "parser")
     homepage = "https://github.com/benhoyt/inih"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

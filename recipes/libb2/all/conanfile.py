@@ -15,7 +15,6 @@ class libb2Conan(ConanFile):
         "SHA-1, SHA-2, and SHA-3, yet is at least as secure as the latest standard SHA-3"
     )
     license = ["CC0-1.0", "OpenSSL", "APSL-2.0"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/BLAKE2/BLAKE2"
     topics = ("blake2", "hash")
 

@@ -13,7 +13,6 @@ class CppTomlConan(ConanFile):
     topics = ("toml", "header-only", "configuration")
     license = "MIT"
     homepage = "https://github.com/skystrife/cpptoml"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

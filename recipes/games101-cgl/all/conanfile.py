@@ -11,7 +11,6 @@ class Games101CglConan(ConanFile):
     name = "games101-cgl"
     description = "The package is for Games101's homework8 subproject"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/endingly/games101-cgl"
     topics = ("games101", "graphics")
     package_type = "library"

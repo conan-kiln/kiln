@@ -15,7 +15,6 @@ class BitserializerConan(ConanFile):
     name = "bitserializer"
     description = "Multi-format serialization library (JSON, XML, YAML, CSV, MsgPack)"
     topics = ("serialization", "json", "xml", "yaml", "csv", "msgpack")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/PavelKisliak/BitSerializer"
     license = "MIT"
     package_type = "header-library"

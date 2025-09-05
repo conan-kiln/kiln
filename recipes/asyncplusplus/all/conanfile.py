@@ -14,7 +14,6 @@ class AsyncplusplusConan(ConanFile):
     name = "asyncplusplus"
     description = "Async++ concurrency framework for C++11"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Amanieu/asyncplusplus"
     topics = ("async", "parallel", "task", "scheduler")
 

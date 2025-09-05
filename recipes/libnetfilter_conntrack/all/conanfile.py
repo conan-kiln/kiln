@@ -13,7 +13,6 @@ class Libnetfilter_conntrackConan(ConanFile):
     name = "libnetfilter_conntrack"
     description = "userspace library that provides an API to the in-kernel connection tracking state table"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://netfilter.org/projects/libnetfilter_conntrack/index.html"
     topics = ("netfilter",)
 

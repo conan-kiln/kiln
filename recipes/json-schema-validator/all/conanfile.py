@@ -15,7 +15,6 @@ class JsonSchemaValidatorConan(ConanFile):
     name = "json-schema-validator"
     description = "JSON schema validator for JSON for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pboettch/json-schema-validator"
     topics = ("modern-json", "schema-validation", "json")
     package_type = "library"

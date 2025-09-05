@@ -16,7 +16,6 @@ class CppSubprocess(ConanFile):
         " to the Python subprocess module in dealing with processes."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nextsilicon/cpp-subprocess"
     topics = ("subprocess", "os", "fork", "header-only")
 

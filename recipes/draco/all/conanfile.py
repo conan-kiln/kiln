@@ -17,7 +17,6 @@ class DracoConan(ConanFile):
     license = "Apache-2.0"
     topics = ("draco", "3d", "graphics", "mesh", "compression", "decompression")
     homepage = "https://google.github.io/draco/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

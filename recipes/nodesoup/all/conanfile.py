@@ -12,7 +12,6 @@ class NodesoupConan(ConanFile):
     license = "MIT",
     topics = ("graph", "visualization", "layout", "kamada", "kawai", "fruchterman", "reingold")
     homepage = "https://github.com/olvb/nodesoup"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"
     options = {

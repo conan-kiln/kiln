@@ -11,7 +11,6 @@ class Libiec61850Conan(ConanFile):
     name = "libiec61850"
     description = "An open-source library for the IEC 61850 protocols."
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libiec61850.com/libiec61850"
     topics = ("iec61850", "mms", "goose", "sampled values")
 

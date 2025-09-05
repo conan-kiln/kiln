@@ -15,7 +15,6 @@ class FlatccConan(ConanFile):
     name = "flatcc"
     description = "C language binding for Flatbuffers, an efficient cross platform serialization library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dvidelabs/flatcc"
     topics = ("flatbuffers", "serialization")
 

@@ -13,7 +13,6 @@ class PicobenchConan(ConanFile):
     name = "picobench"
     description = "A micro microbenchmarking library for C++11 in a single header file"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/iboB/picobench"
     topics = ("benchmark", "header-only")
     settings = "os", "arch", "compiler", "build_type"

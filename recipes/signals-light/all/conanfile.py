@@ -13,7 +13,6 @@ class SignalsLightConan(ConanFile):
     name = "signals-light"
     description = "Lightweight Signals & Slots Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/a-n-t-h-o-n-y/signals-light/"
     topics = ("signals", "slot", "header-only")
     package_type = "header-library"

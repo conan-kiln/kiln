@@ -19,7 +19,6 @@ class GoogleAPIS(ConanFile):
     package_type = "library"
     description = "Public interface definitions of Google APIs"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/googleapis/googleapis"
     topics = "google", "protos", "api"
     settings = "os", "arch", "compiler", "build_type"

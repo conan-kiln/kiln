@@ -13,7 +13,6 @@ class AwsLambdaRuntimeConan(ConanFile):
     name = "aws-lambda-cpp"
     description = "C++ implementation of the AWS Lambda runtime"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-lambda-cpp"
     topics = ("aws", "lambda")
     package_type = "library"

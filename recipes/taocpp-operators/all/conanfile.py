@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 class TaoCPPOperatorsConan(ConanFile):
     name = "taocpp-operators"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taocpp/operators"
     description = "A highly efficient, move-aware operators library"
     topics = ("cpp", "cpp11", "header-only", "operators")

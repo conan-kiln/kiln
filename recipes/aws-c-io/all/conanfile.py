@@ -11,7 +11,6 @@ class AwsCIO(ConanFile):
     name = "aws-c-io"
     description = "IO and TLS for application protocols"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-io"
     topics = ("aws", "amazon", "cloud", "io", "tls",)
     package_type = "library"

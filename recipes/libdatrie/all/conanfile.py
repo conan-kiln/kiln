@@ -18,7 +18,6 @@ class LibdatrieConan(ConanFile):
     description = "Implementation of double-array structure for representing tries"
     license = "LGPL-2.1-or-later"
     homepage = "https://linux.thai.net/projects/datrie"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("trie", "double-array-trie", "datrie")
 
     package_type = "library"

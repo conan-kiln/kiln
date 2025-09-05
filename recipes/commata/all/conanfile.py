@@ -14,7 +14,6 @@ class CommataConan(ConanFile):
     name = "commata"
     description = "Just another header-only C++17 CSV parser"
     license = "Unlicense"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/furfurylic/commata"
     topics = ("csv", "parser", "header-only")
     package_type = "header-library"

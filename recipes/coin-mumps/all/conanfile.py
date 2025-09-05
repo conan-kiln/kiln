@@ -17,7 +17,6 @@ class PackageConan(ConanFile):
     name = "coin-mumps"
     description = "MUltifrontal Massively Parallel sparse direct Solver (MUMPS)"
     license = "CECILL-C", "BSD 3-Clause", "EPL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or-tools/ThirdParty-Mumps"
     topics = ("solver", "sparse", "direct", "parallel", "linear-algebra")
 

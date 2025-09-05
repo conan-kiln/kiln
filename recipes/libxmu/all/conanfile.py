@@ -16,7 +16,6 @@ class LibXmuConan(ConanFile):
     name = "libxmu"
     description = "libXmu: X miscellaneous utility routines library"
     license = "MIT-open-group AND SMLNJ AND X11 AND ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxmu"
     topics = ("xorg", "x11")
 

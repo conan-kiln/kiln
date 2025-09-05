@@ -18,7 +18,6 @@ class LibrsvgConan(ConanFile):
     description = "A library to render SVG images to Cairo surfaces."
     license = "LGPL-2.0-or-later"
     homepage = "https://gitlab.gnome.org/GNOME/librsvg"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("svg", "vector-graphics", "cairo", "gnome")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

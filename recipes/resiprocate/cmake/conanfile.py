@@ -19,7 +19,6 @@ class ResiprocateConan(ConanFile):
         "and commercially usable implementation of SIP and a few related protocols."
     )
     license = "VSL-1.0", "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/resiprocate/resiprocate/wiki/"
     topics = ("sip", "voip", "communication", "signaling")
     package_type = "library"

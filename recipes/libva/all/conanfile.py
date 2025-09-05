@@ -17,7 +17,6 @@ class PackageConan(ConanFile):
     name = "libva"
     description = "Libva is an implementation for VA-API"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/libva"
     topics = ("VA-API", "Video", "Acceleration")
     provides = "vaapi"

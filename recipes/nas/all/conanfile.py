@@ -14,7 +14,6 @@ class NasRecipe(ConanFile):
     name = "nas"
     description = "The Network Audio System is a network transparent, client/server audio transport system."
     topics = ("audio", "sound")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.radscan.com/nas.html"
     license = "DocumentRef-wave.h:LicenseRef-MIT-advertising"
     settings = "os", "arch", "compiler", "build_type"

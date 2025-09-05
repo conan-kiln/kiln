@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 
 class TlOptionalConan(ConanFile):
     name = "tl-optional"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tl.tartanllama.xyz"
     description = "C++11/14/17 std::optional with functional-style extensions and reference support"
     topics = ("cpp11", "cpp14", "cpp17", "optional")

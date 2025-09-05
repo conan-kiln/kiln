@@ -15,7 +15,6 @@ class CrConan(ConanFile):
     name = "cr"
     description = "cr.h: A Simple C Hot Reload Header-only Library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fungos/cr"
     topics = ("hot-reload", "hot-swapping", "live-coding", "gamedev", "header-only")
 

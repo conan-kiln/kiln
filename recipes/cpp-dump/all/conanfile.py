@@ -14,7 +14,6 @@ class CppDumpConan(ConanFile):
     name = "cpp-dump"
     description = "An all-round dump function library for C++ that can print any type, even user-defined types."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/philip82148/cpp-dump"
     topics = ("debug", "dump", "header-only")
     package_type = "header-library"

@@ -97,7 +97,6 @@ class OpenCVConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://opencv.org"
     description = "OpenCV (Open Source Computer Vision Library)"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("computer-vision", "deep-learning", "image-processing")
 
     package_type = "library"

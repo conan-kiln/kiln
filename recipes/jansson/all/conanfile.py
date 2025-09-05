@@ -12,7 +12,6 @@ class JanssonConan(ConanFile):
     name = "jansson"
     description = "C library for encoding, decoding and manipulating JSON data"
     topics = ("json", "encoding", "decoding", "manipulation")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.digip.org/jansson/"
     license = "MIT"
 

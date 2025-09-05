@@ -15,7 +15,6 @@ class PciUtilsConan(ConanFile):
     name = "pciutils"
     description = "The PCI Utilities package contains a library for portable access to PCI bus"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pciutils/pciutils"
     topics = ("pci", "pci-bus", "hardware", "local-bus")
 

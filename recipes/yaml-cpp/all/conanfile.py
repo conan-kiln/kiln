@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 
 class YamlCppConan(ConanFile):
     name = "yaml-cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jbeder/yaml-cpp"
     topics = ("yaml", "yaml-parser", "serialization", "data-serialization")
     description = "A YAML parser and emitter in C++"

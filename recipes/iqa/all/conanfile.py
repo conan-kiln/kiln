@@ -11,7 +11,6 @@ class IqaConan(ConanFile):
     name = "iqa"
     description = "Image Quality Analysis Library"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tjdistler/iqa"
     topics = ("image", "quality", "analysis")
 

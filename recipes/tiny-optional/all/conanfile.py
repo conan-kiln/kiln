@@ -12,7 +12,6 @@ class TinyOptionalConan(ConanFile):
     name = "tiny-optional"
     description = "Replacement for std::optional that does not waste memory unnecessarily"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Sedeniono/tiny-optional"
     topics = ("optional", "memory-efficiency", "cache-friendly", "header-only")
     package_type = "header-library"

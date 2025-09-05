@@ -11,7 +11,6 @@ class SuiteSparseUmfpackConan(ConanFile):
     name = "suitesparse-umfpack"
     description = "UMFPACK: Routines solving sparse linear systems via LU factorization in SuiteSparse"
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "linear-system-solver", "lu-factorization")
 

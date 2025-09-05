@@ -12,7 +12,6 @@ class WuffsConan(ConanFile):
     name = "wuffs"
     description = "Wuffs is a memory-safe programming language for Wrangling Untrusted File Formats Safely."
     license = "Apache-2.0 OR MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/wuffs"
     topics = ("programming-language", "parsing", "memory-safety", "codec")
     package_type = "library"

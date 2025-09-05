@@ -15,7 +15,6 @@ class ReplxxConan(ConanFile):
     syntax highlighting, hints and Windows and is BSD licensed.
     """
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AmokHuginnsson/replxx"
     topics = ("readline", "libedit", "UTF-8")
     package_type = "library"

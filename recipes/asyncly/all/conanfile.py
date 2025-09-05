@@ -14,7 +14,6 @@ class AsynclyConan(ConanFile):
     name = "asyncly"
     description = "High level concurrency primitives for C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/goto-opensource/asyncly"
     topics = ("c++", "asynchronous", "communication")
     package_type = "library"

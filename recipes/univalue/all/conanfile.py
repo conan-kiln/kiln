@@ -16,7 +16,6 @@ class UnivalueConan(ConanFile):
     topics = ("universal", "json", "encoding", "decoding")
     license = "MIT"
     homepage = "https://github.com/jgarzik/univalue"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

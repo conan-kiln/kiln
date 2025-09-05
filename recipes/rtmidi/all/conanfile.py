@@ -11,7 +11,6 @@ required_conan_version = ">=2.1"
 
 class RtMidiConan(ConanFile):
     name = "rtmidi"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.music.mcgill.ca/~gary/rtmidi/"
     description = "Realtime MIDI input/output"
     topics = ("midi",)

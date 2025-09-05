@@ -18,7 +18,6 @@ class GlibmmConan(ConanFile):
     name = "glibmm"
     homepage = "https://gitlab.gnome.org/GNOME/glibmm"
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "glibmm is a C++ API for parts of glib that are useful for C++."
     topics = ("giomm",)
     package_type = "shared-library"

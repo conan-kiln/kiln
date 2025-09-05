@@ -14,7 +14,6 @@ class ZeroMQConan(ConanFile):
     name = "zeromq"
     description = "ZeroMQ is a community of projects focused on decentralized messaging and computing"
     license = ("DocumentRef-ZeroMQ:LicenseRef-LGPL-3.0-or-later-ZeroMQ-Linking-Exception", "MPL-2.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zeromq/libzmq"
     topics = ("zmq", "libzmq", "message-queue", "asynchronous")
     package_type = "library"

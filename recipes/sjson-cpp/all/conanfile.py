@@ -12,7 +12,6 @@ class SjsonCppConan(ConanFile):
     name = "sjson-cpp"
     description = "An Simplified JSON (SJSON) C++ reader and writer"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nfrechette/sjson-cpp"
     topics = ("json", "sjson", "simplified", "header-only")
 

@@ -10,7 +10,6 @@ class KaitaiStructCppStlRuntimeConan(ConanFile):
     name = "kaitai_struct_cpp_stl_runtime"
     description = "kaitai struct c++ runtime library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://kaitai.io/"
     topics = ("parsers", "streams", "dsl", "kaitai struct")
     package_type = "shared-library"

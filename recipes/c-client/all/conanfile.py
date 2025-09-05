@@ -16,7 +16,6 @@ required_conan_version = ">=2.1"
 class CclientConan(ConanFile):
     name = "c-client"
     description = "University of Washington IMAP toolkit"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uw-imap/imap"
     topics = "imap", "uw-imap", "tcp-ip"
     license = "Apache-2.0"

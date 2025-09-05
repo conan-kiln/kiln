@@ -15,7 +15,6 @@ class LinuxPamConan(ConanFile):
     name = "linux-pam"
     description = "Pluggable Authentication Modules for Linux"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/linux-pam/linux-pam"
     topics = ("pam", "pluggable-authentication-module", "authentication", "security")
 

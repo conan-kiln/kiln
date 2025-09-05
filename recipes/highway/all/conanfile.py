@@ -14,7 +14,6 @@ class HighwayConan(ConanFile):
     name = "highway"
     description = "Performance-portable, length-agnostic SIMD with runtime dispatch"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/highway"
     topics = ("simd", "neon", "avx", "sse",)
     package_type = "library"

@@ -11,7 +11,6 @@ class Djinni(ConanFile):
     name = "djinni-generator"
     description = "Djinni is a tool for generating cross-language type declarations and interface bindings."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://djinni.xlcpp.dev"
     topics = ("java", "Objective-C", "ios", "Android")
 

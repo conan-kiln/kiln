@@ -19,7 +19,6 @@ class LibmicrohttpdConan(ConanFile):
     homepage = "https://www.gnu.org/software/libmicrohttpd/"
     topics = ("httpd", "server", "service")
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

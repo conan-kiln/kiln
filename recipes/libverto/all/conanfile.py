@@ -18,7 +18,6 @@ class LibVertoConan(ConanFile):
     homepage = "https://github.com/latchset/libverto"
     topics = ("async", "eventloop")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

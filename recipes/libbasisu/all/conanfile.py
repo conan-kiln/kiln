@@ -14,7 +14,6 @@ class LibBasisUniversalConan(ConanFile):
     name = "libbasisu"
     description = "Basis Universal Supercompressed GPU Texture Codec"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/BinomialLLC/basis_universal"
     topics = ("basis", "textures", "compression")
 

@@ -13,7 +13,6 @@ class LibdwarfConan(ConanFile):
     name = "libdwarf"
     description = "A library and a set of command-line tools for reading and writing DWARF2"
     license = "LGPL-2.1-only"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.prevanders.net/dwarf.html"
     topics = ("debug", "dwarf", "dwarf2", "elf")
 

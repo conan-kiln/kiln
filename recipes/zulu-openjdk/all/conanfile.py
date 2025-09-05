@@ -12,7 +12,6 @@ class ZuluOpenJDK(ConanFile):
     name = "zulu-openjdk"
     description = "A OpenJDK distribution"
     license = "https://www.azul.com/products/zulu-and-zulu-enterprise/zulu-terms-of-use/"
-    url = "https://github.com/conan-io/conan-center-index/"
     homepage = "https://www.azul.com"
     topics = ("java", "jdk", "openjdk")
     package_type = "application"

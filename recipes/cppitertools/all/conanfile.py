@@ -14,7 +14,6 @@ class CppItertoolsConan(ConanFile):
     name = "cppitertools"
     description = "Implementation of python itertools and builtin iteration functions for C++17"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ryanhaining/cppitertools"
     topics = ("cpp17", "iter", "itertools", "header-only")
     package_type = "header-library"

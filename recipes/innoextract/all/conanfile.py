@@ -14,7 +14,6 @@ class InnoextractConan(ConanFile):
     license = "Zlib"
     topics = ("inno-setup", "decompression")
     homepage = "https://constexpr.org/innoextract"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 

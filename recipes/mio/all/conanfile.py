@@ -14,7 +14,6 @@ class MioConan(ConanFile):
     license = "MIT"
     topics = ("mmap", "memory-mapping", "fileviewer")
     homepage = "https://github.com/mandreyel/mio"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 

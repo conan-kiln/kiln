@@ -12,7 +12,6 @@ class ProtobufCConan(ConanFile):
     name = "protobuf-c"
     description = "Protocol Buffers implementation in C"
     license = "LicenseRef-LICENSE"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/protobuf-c/protobuf-c"
     topics = ("protocol-buffers", "protocol-compiler", "serialization", "protocol-compiler")
     # package_type = "library"

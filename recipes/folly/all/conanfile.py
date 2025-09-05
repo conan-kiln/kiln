@@ -17,7 +17,6 @@ class FollyConan(ConanFile):
     name = "folly"
     description = "An open-source C++ components library developed and used at Facebook"
     topics = ("facebook", "components", "core", "efficiency")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/facebook/folly"
     license = "Apache-2.0"
 

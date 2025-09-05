@@ -14,7 +14,6 @@ class CsmConan(ConanFile):
     license = "Unlicense"
     topics = ("sensor", "camera", "camera-model", "geospatial", "planetary", "planetary-data")
     homepage = "https://github.com/ngageoint/csm"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
 

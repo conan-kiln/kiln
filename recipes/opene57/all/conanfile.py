@@ -15,7 +15,6 @@ class Opene57Conan(ConanFile):
     name = "opene57"
     description = "A C++ library for reading and writing E57 files, a fork of the original libE57 (http://libe57.org)"
     license = ("MIT", "BSL-1.0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/openE57/openE57"
     topics = ("e57", "libe57", "3d", "astm")
 

@@ -14,7 +14,6 @@ class SerdeppConan(ConanFile):
     name = "serdepp"
     description = "c++ serialize and deserialize adaptor library like rust serde.rs"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/injae/serdepp"
     topics = ("yaml", "toml", "serialization", "json", "reflection", "header-only")
 

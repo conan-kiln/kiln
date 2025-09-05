@@ -12,7 +12,6 @@ class LibversionConan(ConanFile):
     name = "libversion"
     description = "Advanced version string comparison library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/repology/libversion"
     topics = ("versioning", "version")
 

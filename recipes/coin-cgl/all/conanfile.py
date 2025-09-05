@@ -16,7 +16,6 @@ class CoinCglConan(ConanFile):
     name = "coin-cgl"
     description = "COIN-OR Cut Generator Library"
     topics = ("cgl", "simplex", "solver", "linear", "programming")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/coin-or/Cgl"
     license = "EPL-2.0"
     package_type = "library"

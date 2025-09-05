@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class EffceeConan(ConanFile):
     name = "effcee"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/effcee/"
     description = "Effcee is a C++ library for stateful pattern matching" \
                   " of strings, inspired by LLVM's FileCheck"

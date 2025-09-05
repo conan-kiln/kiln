@@ -17,7 +17,6 @@ class ApriltagConan(ConanFile):
     homepage = "https://april.eecs.umich.edu/software/apriltag"
     topics = ("robotics", "computer-vision", "augmented-reality", "camera-calibration")
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

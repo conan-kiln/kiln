@@ -14,7 +14,6 @@ class CpppeglibConan(ConanFile):
     license = "MIT"
     topics = ("peg", "parser", "header-only")
     homepage = "https://github.com/yhirose/cpp-peglib"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

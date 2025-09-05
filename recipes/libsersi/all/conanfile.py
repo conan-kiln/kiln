@@ -14,7 +14,6 @@ class LibsersiConan(ConanFile):
     homepage = "https://github.com/crhowell3/libsersi"
     description = "Modern C++ implementation of IEEE 1278.1a-1998"
     topics = ("library", "protocol", "dis")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-2-Clause"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

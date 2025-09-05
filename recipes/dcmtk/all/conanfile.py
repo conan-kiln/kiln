@@ -15,7 +15,6 @@ required_conan_version = ">=2.1"
 class DCMTKConan(ConanFile):
     name = "dcmtk"
     description = "DCMTK is a collection of libraries and applications implementing large parts the DICOM standard"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://dicom.offis.de/dcmtk"
     license = "BSD-3-Clause"
     topics = ("dicom", "image")

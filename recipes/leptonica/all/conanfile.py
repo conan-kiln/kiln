@@ -12,7 +12,6 @@ required_conan_version = ">=2.4"
 
 class LeptonicaConan(ConanFile):
     name = "leptonica"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Library containing software that is broadly useful for " \
                   "image processing and image analysis applications."
     topics = ("image", "multimedia", "format", "graphics")

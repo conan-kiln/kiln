@@ -14,7 +14,6 @@ class sqlite3mc(ConanFile):
 
     license = "MIT"
     homepage = "https://github.com/utelle/SQLite3MultipleCiphers"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "The project SQLite3 Multiple Ciphers implements an encryption extension for SQLite with support for multiple ciphers."
     topics = ("sqlite", "sqlite3", "sqlite3-encryption", "database-encryption", "sqlite3-extension")
 

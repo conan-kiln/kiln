@@ -15,7 +15,6 @@ class RuntimeQml(ConanFile):
     homepage = "https://github.com/GIPdA/runtimeqml"
     description = "Enables hot-reloading qml files"
     topics = ("qt", "hot-reload", "qml", "gui")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSD-3-Clause"
     settings = "os", "arch", "compiler", "build_type"
 

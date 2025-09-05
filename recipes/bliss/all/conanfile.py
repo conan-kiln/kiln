@@ -13,7 +13,6 @@ class BlissConan(ConanFile):
     name = "bliss"
     description = "bliss is an open source tool for computing automorphism groups and canonical forms of graphs."
     topics = ("automorphism", "group", "graph")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://users.aalto.fi/~tjunttil/bliss"
     license = "GPL-3-or-later", "LGPL-3-or-later"
     package_type = "library"

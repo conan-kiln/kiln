@@ -15,7 +15,6 @@ class SonicCppConan(ConanFile):
     name = "sonic-cpp"
     description = "A fast JSON serializing & deserializing library, accelerated by SIMD."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bytedance/sonic-cpp"
     topics = ("json", "parser", "writer", "serializer", "deserializer", "header-only")
     package_type = "header-library"

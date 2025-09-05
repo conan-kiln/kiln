@@ -13,7 +13,6 @@ class TinyAlsaConan(ConanFile):
     name = "tinyalsa"
     description = "A small library to interface with ALSA in the Linux kernel"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tinyalsa/tinyalsa"
     topics = ("tiny", "alsa", "sound", "audio", "tinyalsa")
     package_type = "library"

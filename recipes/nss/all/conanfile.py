@@ -18,7 +18,6 @@ class NSSConan(ConanFile):
     name = "nss"
     license = "MPL-2.0"
     homepage = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "Network Security Services"
     topics = ("network", "security", "crypto", "ssl")
     package_type = "library"

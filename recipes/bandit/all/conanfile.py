@@ -11,7 +11,6 @@ class BanditConan(ConanFile):
     name = "bandit"
     description = "Human-friendly unit testing for C++11"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/banditcpp/bandit"
     topics = ("testing", "header-only")
     package_type = "header-library"

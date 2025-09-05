@@ -15,7 +15,6 @@ class IndicatorsConan(ConanFile):
     name = "indicators"
     description = "Activity Indicators for Modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/indicators"
     topics = ("activity", "indicator", "loading", "spinner", "animation", "progress", "header-only")
     package_type = "header-library"

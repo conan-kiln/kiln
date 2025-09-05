@@ -13,7 +13,6 @@ class SamariumConan(ConanFile):
     name = "samarium"
     description = "2-D physics simulation library"
     homepage = "https://jjbel.github.io/samarium/"
-    url = "https://github.com/conan-io/conan-center-index/"
     license = "MIT"
     topics = ("cpp20", "physics", "2d", "simulation")
 

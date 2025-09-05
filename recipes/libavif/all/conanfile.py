@@ -11,7 +11,6 @@ class LibAVIFConan(ConanFile):
     name = "libavif"
     description = "Library for encoding and decoding .avif files"
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/AOMediaCodec/libavif"
     topics = ("avif",)
     package_type = "library"

@@ -15,7 +15,6 @@ class Hfsm2Conan(ConanFile):
               "cpp11", "embedded-systems", "template-metaprogramming", "header-only",
               "mit-license", "fsm-library", "hierarchical-state-machine", "game-dev", "hfsm")
     homepage = "https://hfsm.dev/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

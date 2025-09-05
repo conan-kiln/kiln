@@ -16,7 +16,6 @@ class QCustomPlotConan(ConanFile):
     license = "GPL-3.0-only"
     topics = ("chart", "data-visualization", "graph", "plot", "qt")
     homepage = "https://www.qcustomplot.com"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

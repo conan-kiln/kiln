@@ -16,7 +16,6 @@ class LinmathConan(ConanFile):
     license = "WTFPL"
     topics = ("math", "graphics", "linear-algebra", "vector", "matrix", "quaternion")
     homepage = "https://github.com/datenwolf/linmath.h"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

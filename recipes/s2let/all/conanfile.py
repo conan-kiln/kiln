@@ -13,7 +13,6 @@ class S2let(ConanFile):
     name = "s2let"
     description = "Fast wavelets on the sphere"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/astro-informatics/s2let"
     topics = ("physics", "astrophysics", "radio interferometry")
 

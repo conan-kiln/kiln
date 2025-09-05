@@ -16,7 +16,6 @@ class PlfstackConan(ConanFile):
     license = "Zlib"
     topics = ("container", "stack", "header-only")
     homepage = "https://plflib.org/stack.htm"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

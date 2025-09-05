@@ -12,7 +12,6 @@ class MattiasgustavssonLibsConan(ConanFile):
     name = "mattiasgustavsson-libs"
     description = "Single-file public domain libraries for C/C++"
     license = ("Unlicense", "MIT")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mattiasgustavsson/libs"
     topics = ("utilities", "mattiasgustavsson", "libs", "header-only")
 

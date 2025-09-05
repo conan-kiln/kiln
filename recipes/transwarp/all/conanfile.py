@@ -14,7 +14,6 @@ class TranswarpConan(ConanFile):
     license = "MIT"
     topics = ("transwarp", "concurrency", "asynchronous")
     homepage = "https://github.com/bloomen/transwarp"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 

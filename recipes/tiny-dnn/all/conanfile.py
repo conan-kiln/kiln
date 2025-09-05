@@ -12,7 +12,6 @@ class TinyDnnConan(ConanFile):
     name = "tiny-dnn"
     description = "tiny-dnn is a C++14 implementation of deep learning."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/tiny-dnn/tiny-dnn"
     topics = ("header-only", "deep-learning", "embedded", "iot", "computational")
 

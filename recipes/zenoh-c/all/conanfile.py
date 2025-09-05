@@ -16,7 +16,6 @@ class ZenohCConan(ConanFile):
     name = "zenoh-c"
     description = "C API for Zenoh: a pub/sub/query protocol unifying data in motion, data at rest and computations"
     license = "Apache-2.0 OR EPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/eclipse-zenoh/zenoh-c"
     topics = ("networking", "pub-sub", "messaging", "robotics", "ros2", "iot", "edge-computing", "micro-controllers")
 

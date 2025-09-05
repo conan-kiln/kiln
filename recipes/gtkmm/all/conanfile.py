@@ -17,7 +17,6 @@ class GtkmmConan(ConanFile):
     name = "gtkmm"
     description = "gtkmm is a C++ wrapper for GTK, a library used to create graphical user interfaces."
     license = "LGPL-2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.gnome.org/GNOME/gtkmm"
     topics = "gtk", "wrapper", "gui", "widgets", "gnome"
     package_type = "library"

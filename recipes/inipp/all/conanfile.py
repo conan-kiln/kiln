@@ -13,7 +13,6 @@ class InippConan(ConanFile):
     name = "inipp"
     description = "Simple C++ ini parser."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mcmtroffaes/inipp"
     topics = ("ini", "header-only")
     package_type = "header-library"

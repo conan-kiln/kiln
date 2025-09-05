@@ -12,7 +12,6 @@ class GladConan(ConanFile):
     name = "glad"
     description = "Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs."
     topics = ("opengl",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Dav1dde/glad"
     license = "MIT"
     settings = "os", "arch", "compiler", "build_type"

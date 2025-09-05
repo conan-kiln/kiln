@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class ReadExcelConan(ConanFile):
     name = "read-excel"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/igormironchik/read-excel"
     license = "MIT"
     description = "This is very simple implementation of the Excel 97-2003 format (BIFF8) written in C++. Supported reading only."

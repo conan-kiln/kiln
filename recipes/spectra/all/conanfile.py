@@ -17,7 +17,6 @@ class SpectraConan(ConanFile):
     license = "MPL-2.0"
     topics = ("eigenvalue", "header-only")
     homepage = "https://spectralib.org"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True

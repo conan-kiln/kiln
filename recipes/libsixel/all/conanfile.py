@@ -17,7 +17,6 @@ class LibSixelConan(ConanFile):
     description = ("A SIXEL encoder/decoder implementation derived from kmiya's sixel"
                    " (https://github.com/saitoha/sixel).")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libsixel/libsixel"
     topics = "sixel"
 

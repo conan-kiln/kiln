@@ -16,7 +16,6 @@ class MariadbConnectorcConan(ConanFile):
     license = "LGPL-2.1-or-later"
     topics = ("mariadb", "mysql", "database")
     homepage = "https://mariadb.com/kb/en/mariadb-connector-c"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

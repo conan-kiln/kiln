@@ -25,7 +25,6 @@ class ICUConan(ConanFile):
     license = "Unicode-3.0"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("icu4c", "i see you", "unicode")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

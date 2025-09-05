@@ -14,7 +14,6 @@ class TqdmCppConan(ConanFile):
     name = "tqdm-cpp"
     description = "Easily display progress in C++17. Inspired by python's awesome tqdm library."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mraggi/tqdm-cpp"
     topics = ("progress", "progressbar", "command-line", "header-only")
 

@@ -13,7 +13,6 @@ class FoonathanLexyConan(ConanFile):
     name = "foonathan-lexy"
     description = "lexy is a parser combinator library for C++17 and onwards."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/foonathan/lexy"
     topics = ("parser", "parser-combinators", "grammar")
     package_type = "static-library"

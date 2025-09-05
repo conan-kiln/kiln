@@ -12,7 +12,6 @@ class TreeSitterCQLConan(ConanFile):
     name = "tree-sitter-cql"
     description = "Tree-sitter parser for Cassandra CQL language"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/shotover/tree-sitter-cql"
     topics = ("parser", "grammar", "tree", "CQL", "cassandra")
     package_type = "library"

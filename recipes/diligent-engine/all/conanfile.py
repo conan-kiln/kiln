@@ -16,7 +16,6 @@ class DiligentEngineConan(ConanFile):
     name = "diligent-engine"
     description = "Diligent Engine is a modern cross-platform low-level graphics library and rendering framework."
     license = "Apache-2.0 AND NCSA AND MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/DiligentGraphics/DiligentEngine"
     topics = ("graphics", "graphics-engine", "gamedev", "rendering", "ray-tracing")
     package_type = "static-library"

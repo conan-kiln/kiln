@@ -15,7 +15,6 @@ class XkeyboardConfigConan(ConanFile):
     name = "xkeyboard-config"
     description = "Keyboard configuration database for X11"
     license = "HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config"
     topics = ("xorg", "x11", "keyboard")
 

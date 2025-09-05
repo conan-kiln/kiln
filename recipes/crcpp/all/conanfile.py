@@ -12,7 +12,6 @@ class CRCPPConan(ConanFile):
     name = "crcpp"
     description = "Easy to use and fast C++ CRC library."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/d-bahr/CRCpp/"
     topics = ("crc",  "header-only")
     package_type = "header-library"

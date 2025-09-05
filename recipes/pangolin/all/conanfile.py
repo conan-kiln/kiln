@@ -17,7 +17,6 @@ class PangolinConan(ConanFile):
     description = "Pangolin is a lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input."
     license = "MIT"
     homepage = "https://github.com/stevenlovegrove/Pangolin"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = "computer-vision", "video", "camera", "3d", "visualization", "gui"
 
     package_type = "library"

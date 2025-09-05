@@ -12,7 +12,6 @@ class TweenersppConan(ConanFile):
     name = "tweenerspp"
     description = "Yet another C++ tweeners library"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/j-jorge/tweenerspp"
     topics = ("tweener", "header-only")
     package_type = "header-library"

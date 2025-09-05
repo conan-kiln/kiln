@@ -13,7 +13,6 @@ class LibslzConan(ConanFile):
     name = "libslz"
     description = "Simple, modern libpng alternative "
     license = "X11"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://www.libslz.org/"
     topics = ("zlib", "compression")
 

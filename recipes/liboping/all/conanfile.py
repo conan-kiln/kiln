@@ -16,7 +16,6 @@ class LibopingConan(ConanFile):
     name = "liboping"
     description = "A multi server ping library"
     license = ["LGPL-2.1", "GPL-2.0"]
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://noping.cc"
     topics = ("oping", "ping", "icmp", "pre-built")
 

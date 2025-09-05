@@ -12,7 +12,6 @@ class LibId3TagConan(ConanFile):
     name = "libid3tag"
     description = "ID3 tag manipulation library."
     license = "GPL-2.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://codeberg.org/tenacityteam/libid3tag/"
     topics = ("mad", "id3", "mp3", "MPEG", "audio", "decoder")
     generators = "CMakeDeps", "CMakeToolchain"

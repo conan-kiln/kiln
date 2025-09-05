@@ -15,7 +15,6 @@ class StduuidConan(ConanFile):
     description = "A C++17 cross-platform implementation for UUIDs"
     topics = ("uuid", "guid", "header-only")
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mariusbancila/stduuid"
     settings = "os", "arch", "compiler", "build_type"
     options = {

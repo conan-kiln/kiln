@@ -18,7 +18,6 @@ class SymengineConan(ConanFile):
     license = "MIT"
     topics = ("symbolic", "algebra")
     homepage = "https://symengine.org/"
-    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"
     options = {

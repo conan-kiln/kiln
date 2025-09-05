@@ -15,7 +15,6 @@ class DrLibsConan(ConanFile):
     name = "dr_libs"
     description = "Public domain, single file audio decoding libraries for C and C++."
     license = ("Unlicense", "MIT-0")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mackron/dr_libs"
     topics = ("audio", "encoding", "header-only")
     no_copy_source = True

@@ -12,7 +12,6 @@ class TypeSafe(ConanFile):
     name = "type_safe"
     description = "Zero overhead utilities for preventing bugs at compile time"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://type_safe.foonathan.net/"
     topics = ("c++", "strong typing", "vocabulary-types", "header-only")
 

@@ -17,7 +17,6 @@ class ShaderSlangConan(ConanFile):
         " performance on modern GPUs and graphics APIs."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/shader-slang/slang"
     topics = ("shaders", "vulkan", "glsl", "cuda", "hlsl", "d3d12")
     package_type = "shared-library"

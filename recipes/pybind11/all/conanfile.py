@@ -13,7 +13,6 @@ class PyBind11Conan(ConanFile):
     name = "pybind11"
     description = "Seamless operability between C++11 and Python"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pybind/pybind11"
     topics = ("pybind11", "python", "binding", "header-only")
     package_type = "header-library"

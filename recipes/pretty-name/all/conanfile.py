@@ -14,7 +14,6 @@ class PrettyNameConan(ConanFile):
     name = "pretty-name"
     description = "An easy and consistent way how to get type names in C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Rechip/pretty-name"
     topics = ("cpp", "typename", "header-only")
 

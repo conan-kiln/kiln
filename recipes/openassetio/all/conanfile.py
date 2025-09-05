@@ -16,7 +16,6 @@ class PackageConan(ConanFile):
     name = "openassetio"
     description = "An open-source interoperability standard for tools and content management systems used in media production."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/OpenAssetIO/OpenAssetIO"
     topics = ("asset-pipeline", "vfx", "cg", "assetmanager", "vfx-pipeline")
     package_type = "library"

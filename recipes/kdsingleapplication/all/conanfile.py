@@ -15,7 +15,6 @@ class KDSingleApplicationConan(ConanFile):
     topics = ("qt", "kdab")
     license = "MIT"
     homepage = "https://github.com/KDAB/KDSingleApplication"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

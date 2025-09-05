@@ -17,7 +17,6 @@ class MpcConan(ConanFile):
     description = "GNU MPC is a C library for the arithmetic of complex numbers with arbitrarily high precision " \
                   "and correct rounding of the result"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.multiprecision.org/"
     topics = ("multiprecision", "math", "mathematics")
     settings = "os", "arch", "compiler", "build_type"

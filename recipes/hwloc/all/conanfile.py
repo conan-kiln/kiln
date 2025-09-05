@@ -16,7 +16,6 @@ class HwlocConan(ConanFile):
     description = "Portable Hardware Locality (hwloc)"
     license = "BSD-3-Clause"
     homepage = "https://www.open-mpi.org/projects/hwloc/"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("hardware", "topology")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type", "cuda"

@@ -16,7 +16,6 @@ class AutoconfConan(ConanFile):
         "scripts to automatically configure software source code packages"
     )
     license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/autoconf/"
     topics = ("configure", "build")
 

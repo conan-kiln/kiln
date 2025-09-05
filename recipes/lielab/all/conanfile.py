@@ -13,7 +13,6 @@ required_conan_version = ">=2.1"
 
 class LielabConan(ConanFile):
     name = "lielab"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sandialabs/Lielab"
     description = "Lielab is a C++ library for numerical Lie-theory: Lie groups," \
                   " Lie algebras, homogeneous manifolds, and various functions and algorithms" \

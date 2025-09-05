@@ -13,7 +13,6 @@ class CrunchConan(ConanFile):
     description = "Advanced DXTc texture compression and transcoding library"
     homepage = "https://github.com/BinomialLLC/crunch"
     topics = ("DXTc", "texture", "compression", "decompression", "transcoding")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Zlib"
 
     settings = "os", "arch", "compiler", "build_type"

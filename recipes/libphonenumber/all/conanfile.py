@@ -16,7 +16,6 @@ class LibphonenumberConan(ConanFile):
     name = "libphonenumber"
     description = "Google's common C++ library for parsing, formatting, and validating international phone numbers"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/libphonenumber"
     topics = ("phone-numbers", "phone")
 

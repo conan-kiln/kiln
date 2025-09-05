@@ -17,7 +17,6 @@ class ZlibRsConan(ConanFile):
     name = "zlib-rs"
     description = "A safer zlib - Rust implementation of the zlib file format that is compatible with the zlib API"
     license ="Zlib"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/trifectatechfoundation/zlib-rs"
     topics = ("zlib", "rust", "compression")
     provides = "zlib"

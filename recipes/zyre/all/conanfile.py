@@ -12,7 +12,6 @@ class ZyreConan(ConanFile):
     name = "zyre"
     description = "Local Area Clustering for Peer-to-Peer Applications."
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/zeromq/zyre"
     topics = ("czmq", "zmq", "zeromq", "message-queue", "asynchronous")
 

@@ -14,7 +14,6 @@ class BisonConan(ConanFile):
     name = "bison"
     description = "Bison is a general-purpose parser generator"
     license = "GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.gnu.org/software/bison/"
     topics = ("bison", "parser")
     package_type = "application"

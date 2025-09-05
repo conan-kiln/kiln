@@ -13,7 +13,6 @@ class UnityConan(ConanFile):
     topics = ("unit-test", "tdd", "bdd", "testing")
     license = "MIT"
     homepage = "http://www.throwtheswitch.org"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

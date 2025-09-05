@@ -17,7 +17,6 @@ class MBedTLSConan(ConanFile):
         "cryptographic and SSL/TLS capabilities in their (embedded) products"
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://tls.mbed.org"
     topics = ("polarssl", "tls", "security")
 

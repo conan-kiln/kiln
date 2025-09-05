@@ -17,7 +17,6 @@ class LibMysqlClientCConan(ConanFile):
     name = "libmysqlclient"
     description = "A MySQL client library for C development."
     license = "GPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("mysql", "sql", "connector", "database")
     homepage = "https://dev.mysql.com/downloads/mysql/"
 

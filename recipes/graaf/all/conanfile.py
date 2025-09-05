@@ -14,7 +14,6 @@ class GraafConan(ConanFile):
         "Graaf: A Lightweight, Header-Only C++20 Graph Library."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/bobluppes/graaf"
     topics = ("graph", "header-only")
     settings = "compiler"

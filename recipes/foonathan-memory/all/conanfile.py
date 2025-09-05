@@ -14,7 +14,6 @@ class FoonathanMemoryConan(ConanFile):
     name = "foonathan-memory"
     license = "Zlib"
     homepage = "https://github.com/foonathan/memory"
-    url = "https://github.com/conan-io/conan-center-index"
     description = "STL compatible C++ memory allocator library"
     topics = ("memory", "STL", "RawAllocator")
     package_type = "library"

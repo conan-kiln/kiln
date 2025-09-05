@@ -13,7 +13,6 @@ class R8brainFreeSrcConan(ConanFile):
     name = "r8brain-free-src"
     description = "High-quality pro audio sample rate converter / resampler C++ library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/avaneev/r8brain-free-src"
     topics = ("audio", "sample-rate", "conversion", "audio-processing", "resampler")
     package_type = "library"

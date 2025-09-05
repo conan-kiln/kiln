@@ -12,7 +12,6 @@ class PranavCSV2Conan(ConanFile):
     name = "pranav-csv2"
     description = "Various header libraries mostly future std lib, replacements for(e.g. visit), or some misc"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/p-ranav/csv2"
     topics = ("csv", "iterator", "header-only")
 

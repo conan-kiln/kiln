@@ -17,7 +17,6 @@ class SteamworksSdkConan(ConanFile):
                    " build their games and get the most out of distributing on Steam.")
     license = "STEAMWORKS SDK license"
     _license_url = "https://partner.steamgames.com/documentation/sdk_access_agreement"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://partner.steamgames.com/doc/sdk"
     topics = ("game-dev", "steam", "sdk", "pre-built")
 

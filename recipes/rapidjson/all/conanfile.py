@@ -11,7 +11,6 @@ class RapidjsonConan(ConanFile):
     name = "rapidjson"
     description = "A fast JSON parser/generator for C++ with both SAX/DOM style API"
     topics = ("json", "parser", "generator")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://rapidjson.org"
     license = "MIT"
     package_type = "header-library"

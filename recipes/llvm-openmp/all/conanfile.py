@@ -20,7 +20,6 @@ class LLVMOpenMpConan(ConanFile):
                    "library routines, and environment variables that can be used to specify shared memory parallelism "
                    "in Fortran and C/C++ programs. This is the LLVM implementation.")
     license = "Apache-2.0 WITH LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/llvm/llvm-project/blob/main/openmp"
     topics = ("llvm", "openmp", "parallelism")
 

@@ -12,7 +12,6 @@ class SAILConan(ConanFile):
     name = "sail"
     package_type = "library"
     description = "The missing small and fast image decoding library for humans (not for machines)"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://sail.software"
     topics = ( "image", "encoding", "decoding", "graphics" )
     license = "MIT"

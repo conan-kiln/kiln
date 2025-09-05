@@ -16,7 +16,6 @@ class OzzAnimationConan(ConanFile):
     license = "MIT"
     topics = ("ozz", "animation", "skeletal")
     homepage = "https://github.com/guillaumeblanc/ozz-animation"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

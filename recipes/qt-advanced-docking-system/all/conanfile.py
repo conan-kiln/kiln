@@ -18,7 +18,6 @@ class QtADS(ConanFile):
         "Visual Studio."
     )
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System"
     topics = ("qt", "gui")
 

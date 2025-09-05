@@ -17,7 +17,6 @@ class PistacheConan(ConanFile):
     name = "pistache"
     description = "Pistache is a modern and elegant HTTP and REST framework for C++"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pistacheio/pistache"
     topics = ("http", "rest", "framework", "networking")
     package_type = "library"

@@ -18,7 +18,6 @@ class TaskflowConan(ConanFile):
         "programs with complex task dependencies."
     )
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/taskflow/taskflow"
     topics = ("tasking", "parallelism", "header-only")
     package_type = "header-library"

@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class BoostLEAFConan(ConanFile):
     name = "boost-leaf"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/boostorg/leaf"
     description = ("Lightweight Error Augmentation Framework")
     topics = ("multi-platform", "multi-threading", "cpp11", "error-handling",

@@ -12,7 +12,6 @@ class StrawberryPerlConan(ConanFile):
     description = "Strawberry Perl for Windows."
     license = ("Artistic-1.0", "GPL-1.0")
     homepage = "http://strawberryperl.com"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("perl", "interpreter", "windows")
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"

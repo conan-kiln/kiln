@@ -13,7 +13,6 @@ class awskvspicConan(ConanFile):
     name = "aws-kvs-pic"
     description = "Platform Independent Code for Amazon Kinesis Video Streams"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/amazon-kinesis-video-streams-pic"
     topics = ("aws", "kvs", "kinesis", "video", "stream")
 

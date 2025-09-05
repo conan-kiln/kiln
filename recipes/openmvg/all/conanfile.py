@@ -22,7 +22,6 @@ class OpenmvgConan(ConanFile):
     topics = ("computer-vision", "geometry", "structure-from-motion", "sfm",
               "multi-view-geometry", "photogrammetry", "3d-reconstruction")
     homepage = "https://github.com/openMVG/openMVG"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

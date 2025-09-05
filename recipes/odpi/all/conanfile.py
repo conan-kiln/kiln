@@ -13,7 +13,6 @@ class ODPIConan(ConanFile):
     name = "odpi"
     description = "Oracle Database Programming Interface for Drivers and Applications"
     license = "UPL-1.0 OR Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/oracle/odpi"
     topics = ("oracle", "database", "oci")
     package_type = "shared-library"

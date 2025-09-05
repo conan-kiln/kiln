@@ -13,7 +13,6 @@ class CpptraceConan(ConanFile):
     name = "cpptrace"
     description = "Simple, portable, and self-contained stacktrace library for C++11 and newer "
     license = ("MIT", "LGPL-2.1-only", "BSD-2-Clause-Views")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jeremy-rifkin/cpptrace"
     topics = ("stacktrace", "backtrace", "stack-trace", "back-trace", "trace", "utilities", "error-handling")
     package_type = "library"

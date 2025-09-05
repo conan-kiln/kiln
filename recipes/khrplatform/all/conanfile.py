@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class KhrplatformConan(ConanFile):
     name = "khrplatform"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.khronos.org/registry/EGL/"
     description = "Khronos EGL platform interfaces"
     topics = ("opengl", "gl", "egl", "khr", "khronos")

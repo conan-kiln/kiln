@@ -12,7 +12,6 @@ class GurkenlaeuferConan(ConanFile):
     name = "gurkenlaeufer"
     description = "Simple way to write cucumber tests for your C++ projects"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/paulelsner/gurkenlaeufer"
     topics = ("testing", "header-only", "cucumber", "gherkin")
     package_type = "header-library"

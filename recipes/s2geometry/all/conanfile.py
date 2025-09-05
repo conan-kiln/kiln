@@ -15,7 +15,6 @@ class S2GeometryConan(ConanFile):
     name = "s2geometry"
     description = "Computational geometry and spatial indexing on the sphere"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/google/s2geometry"
     topics = ("geometry", "spherical-geometry", "spatial-indexing")
     package_type = "library"

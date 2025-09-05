@@ -15,7 +15,6 @@ class SpirvtoolsConan(ConanFile):
     homepage = "https://github.com/KhronosGroup/SPIRV-Tools/"
     description = "Create and optimize SPIRV shaders"
     topics = ("spirv", "spirv-v", "vulkan", "opengl", "opencl", "hlsl", "khronos")
-    url = "https://github.com/conan-io/conan-center-index"
     license = "Apache-2.0"
 
     package_type = "library"

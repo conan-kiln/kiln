@@ -12,7 +12,6 @@ class ClipboardLiteConan(ConanFile):
     name = "clipboard_lite"
     description = "cross platform clipboard library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/smasherprog/clipboard_lite"
     topics = ("clipboard")
     package_type = "library"

@@ -16,7 +16,6 @@ class LibsrtpRecipe(ConanFile):
         "cryptographic kernel."
     )
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cisco/libsrtp"
     topics = ("srtp",)
     package_type = "library"

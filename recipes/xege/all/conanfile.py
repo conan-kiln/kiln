@@ -12,7 +12,6 @@ class XegeConan(ConanFile):
     name = "xege"
     description = "Easy Graphics Engine, a lite graphics library in Windows"
     license = "LGPLv2.1"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://xege.org/"
     topics = ("ege", "graphics", "gui")
 

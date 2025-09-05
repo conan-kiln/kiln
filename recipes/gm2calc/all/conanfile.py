@@ -13,7 +13,6 @@ class Gm2calcConan(ConanFile):
     name = "gm2calc"
     description = "C++ library to calculate the anomalous magnetic moment of the muon in the MSSM and 2HDM"
     license = "GPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/GM2Calc/GM2Calc"
     topics = ("high-energy", "physics", "hep", "magnetic moment", "muon", "mssm", "2hdm")
 

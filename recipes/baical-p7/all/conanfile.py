@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class BaicalP7Conan(ConanFile):
     name = "baical-p7"
     license = "LGPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://baical.net/p7.html"
     topics = ("p7", "baical", "logging", "telemetry")
     description = "Baical P7 client"

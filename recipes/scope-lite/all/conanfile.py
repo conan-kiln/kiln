@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class ScopeLiteConan(ConanFile):
     name = "scope-lite"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinmoene/scope-lite"
     description = "scope lite - A migration path to C++ library extensions scope_exit, scope_fail, \
                     scope_success, unique_resource in a single-file header-only library"

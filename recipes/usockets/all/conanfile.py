@@ -16,7 +16,6 @@ class UsocketsConan(ConanFile):
     name = "usockets"
     description = "Miniscule cross-platform eventing, networking & crypto for async applications"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/uNetworking/uSockets"
     topics = ("socket", "network", "web")
     package_type = "static-library"

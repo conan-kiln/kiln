@@ -16,7 +16,6 @@ class UncrustifyConan(ConanFile):
     license = "GPL-2.0-or-later"
     topics = "beautifier", "command-line"
     homepage = "https://github.com/uncrustify/uncrustify"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 

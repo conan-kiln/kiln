@@ -14,7 +14,6 @@ class NeargyeSemverConan(ConanFile):
     name = "neargye-semver"
     description = "Semantic Versioning for modern C++"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Neargye/semver"
     topics = ("semver", "semantic", "versioning", "header-only")
 

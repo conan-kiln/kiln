@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class XtlConan(ConanFile):
     name = "xtl"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/xtensor-stack/xtl"
     description = "The x template library"
     topics = ("templates", "containers", "algorithms")

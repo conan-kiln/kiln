@@ -15,7 +15,6 @@ class GnConan(ConanFile):
     name = "gn"
     description = "GN is a meta-build system that generates build files for Ninja."
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gn.googlesource.com/"
     topics = ("build system", "ninja")
     package_type = "application"

@@ -12,7 +12,6 @@ class LibconfigConan(ConanFile):
     name = "libconfig"
     description = "C/C++ library for processing configuration files"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://hyperrealm.github.io/libconfig/"
     topics = ("conf", "config", "cfg", "configuration")
     settings = "os", "arch", "compiler", "build_type"

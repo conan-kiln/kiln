@@ -21,7 +21,6 @@ class GStPluginsBaseConan(ConanFile):
     name = "gst-plugins-base"
     description = "Base GStreamer plug-ins and helper libraries"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gstreamer.freedesktop.org/"
     topics = ("gstreamer", "multimedia", "video", "audio", "broadcasting", "framework", "media")
 

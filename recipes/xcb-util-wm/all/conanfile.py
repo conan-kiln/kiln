@@ -16,7 +16,6 @@ class XcbUtilWmConan(ConanFile):
     name = "xcb-util-wm"
     description = "XCB client and window-manager helpers for ICCCM & EWMH"
     license = "X11-distribute-modifications-variant"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcb-wm"
     topics = ("xorg", "x11", "xcb")
 

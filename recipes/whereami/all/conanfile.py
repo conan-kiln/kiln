@@ -11,7 +11,6 @@ class WhereamiConan(ConanFile):
     name = "whereami"
     description = "Locate the current executable and the current module/library on the file system"
     license = ("MIT", "WTFPL")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/gpakosz/whereami"
     topics = ("whereami", "introspection", "getmodulefilename", "dladdr", "executable-path", "getexecutablepath")
 

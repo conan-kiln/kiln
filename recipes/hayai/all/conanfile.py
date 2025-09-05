@@ -11,7 +11,6 @@ class HayaiConan(ConanFile):
     name = "hayai"
     description = "C++ benchmarking framework"
     license = "Apache"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/nickbruun/hayai"
     topics = ("benchmarking",)
 

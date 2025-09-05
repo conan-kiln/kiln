@@ -13,7 +13,6 @@ class ScipPlusPlus(ConanFile):
     description = "SCIP++ is a C++ wrapper for SCIP's C interface"
     topics = ("mip", "solver", "linear", "programming")
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/scipopt/SCIPpp"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

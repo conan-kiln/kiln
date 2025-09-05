@@ -11,7 +11,6 @@ class MsgpackCXXConan(ConanFile):
     name = "msgpack-cxx"
     description = "The official C++ library for MessagePack"
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/msgpack/msgpack-c"
     topics = ("msgpack", "message-pack", "serialization", "header-only")
     package_type = "header-library"

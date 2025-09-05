@@ -16,7 +16,6 @@ class RecklessConan(ConanFile):
     license = "MIT"
     topics = ("logging",)
     homepage = "https://github.com/mattiasflodin/reckless"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -12,7 +12,6 @@ class MikeLankampFpmConan(ConanFile):
     name = "mikelankamp-fpm"
     description = "C++ header-only fixed-point math library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/MikeLankamp/fpm"
     topics = ("fixed-point", "math", "header-only")
     package_type = "header-library"

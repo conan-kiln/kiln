@@ -13,7 +13,6 @@ class CSVMONEKYConan(ConanFile):
     name = "csvmonkey"
     description = "Header-only vectorized, lazy-decoding, zero-copy CSV file parser"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/dw/csvmonkey/"
     topics = ("csv-parser", "header-only", "vectorized", "header-only")
     package_type = "header-library"

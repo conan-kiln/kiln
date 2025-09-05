@@ -14,7 +14,6 @@ class SobjectizerConan(ConanFile):
     name = "sobjectizer"
     license = "BSD-3-Clause"
     homepage = "https://github.com/Stiffstream/sobjectizer"
-    url = "https://github.com/conan-io/conan-center-index"
     description = (
             "A framework for simplification of development of sophisticated "
             "concurrent and event-driven applications in C++ "

@@ -14,7 +14,6 @@ class LibinputConan(ConanFile):
     name = "libinput"
     description = "libinput is a library that handles input devices for display servers and other applications that need to directly deal with input devices."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.freedesktop.org/wiki/Software/libinput/"
     topics = ("device", "display", "event", "input")
     package_type = "shared-library"

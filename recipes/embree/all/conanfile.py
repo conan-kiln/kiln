@@ -16,7 +16,6 @@ class EmbreeConan(ConanFile):
     name = "embree"
     description = "Intel's collection of high-performance ray tracing kernels."
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://embree.github.io/"
     topics = ("embree", "raytracing", "rendering")
     package_type = "library"

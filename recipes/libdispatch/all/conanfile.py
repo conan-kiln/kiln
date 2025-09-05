@@ -16,7 +16,6 @@ class LibDispatchConan(ConanFile):
         "for concurrent code execution on multicore hardware."
     )
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/apple/swift-corelibs-libdispatch"
     topics = ("apple", "GCD", "concurrency")
 

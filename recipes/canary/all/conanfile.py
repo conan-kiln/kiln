@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 class SocketcanCanaryConan(ConanFile):
     name = "canary"
     description = "A lightweight implementation of Linux SocketCAN bindings for ASIO/Boost.ASIO"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "BSL-1.0"
     homepage = "https://github.com/djarek/canary"
     topics = ("socketcan", "can-bus", "can")

@@ -20,7 +20,6 @@ class NettleConan(ConanFile):
     homepage = "https://www.lysator.liu.se/~nisse/nettle"
     topics = ("crypto", "low-level-cryptographic", "cryptographic")
     license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

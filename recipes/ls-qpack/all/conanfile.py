@@ -11,7 +11,6 @@ class LsQpackConan(ConanFile):
     name = "ls-qpack"
     description = "QPACK compression library for use with HTTP/3"
     license = "MIT",
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/litespeedtech/ls-qpack/"
     topics = ("compression", "quic", "http3", "qpack")
     settings = "os", "arch", "compiler", "build_type"

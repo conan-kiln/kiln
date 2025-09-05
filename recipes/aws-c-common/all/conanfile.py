@@ -16,7 +16,6 @@ class AwsCCommon(ConanFile):
         "primitives, configuration, data structures, and error handling."
     )
     topics = ("aws", "amazon", "cloud", )
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-common"
     license = "Apache-2.0"
 

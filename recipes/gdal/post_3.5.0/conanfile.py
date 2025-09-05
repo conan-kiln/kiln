@@ -18,7 +18,6 @@ class GdalConan(ConanFile):
     description = "GDAL is an open source X/MIT licensed translator library " \
                   "for raster and vector geospatial data formats."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/OSGeo/gdal"
     topics = ("osgeo", "geospatial", "raster", "vector")
 

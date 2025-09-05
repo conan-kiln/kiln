@@ -13,7 +13,6 @@ class Mosquitto(ConanFile):
     name = "mosquitto"
     description = """Eclipse Mosquitto MQTT library, broker and more"""
     license = "EPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://mosquitto.org"
     topics = ("MQTT", "IoT", "eclipse")
     package_type = "library"

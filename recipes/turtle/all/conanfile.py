@@ -12,7 +12,6 @@ class TurtleConan(ConanFile):
     name = "turtle"
     description = "Turtle is a C++ mock object library based on Boost with a focus on usability, simplicity and flexibility."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mat007/turtle"
     topics = ("mock", "test", "boost", "header-only")
     package_type = "header-library"

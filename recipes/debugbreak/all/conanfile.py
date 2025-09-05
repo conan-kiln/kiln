@@ -11,8 +11,7 @@ class DebugbreakConan(ConanFile):
     name = "debugbreak"
     description = "break into the debugger programmatically"
     license = "BSD-2-Clause"
-    url = "https://github.com/scottt/debugbreak"
-    homepage = "https://github.com/project/package"
+    homepage = "https://github.com/scottt/debugbreak"
     topics = ("debugging", "breakpoint", "header-only")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

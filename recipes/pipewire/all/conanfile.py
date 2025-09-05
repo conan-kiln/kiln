@@ -16,7 +16,6 @@ class PipeWireConan(ConanFile):
     name = "pipewire"
     description = "PipeWire is a server and user space API to deal with multimedia pipelines."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://pipewire.org/"
     topics = ("audio", "graph", "pipeline", "stream", "video")
     package_type = "shared-library"

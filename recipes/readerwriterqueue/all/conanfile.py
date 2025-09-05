@@ -9,7 +9,6 @@ required_conan_version = ">=2.1"
 
 class ReaderWriterQueue(ConanFile):
     name = "readerwriterqueue"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/cameron314/readerwriterqueue"
     description = "A fast single-producer, single-consumer lock-free queue for C++"
     topics = ("cpp11", "cpp14", "cpp17", "queue", "lock-free")

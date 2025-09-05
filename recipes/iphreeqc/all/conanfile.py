@@ -17,7 +17,6 @@ class IphreeqcConan(ConanFile):
         "minerals, ion exchangers, surface complexes, solid solutions, and gases."
     )
     license = "FSFUL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.usgs.gov/software/phreeqc-version-3"
     topics = ("geochemistry", "modeling")
     package_type = "library"

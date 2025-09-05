@@ -13,7 +13,6 @@ class UnleashConan(ConanFile):
     name = "unleash-client-cpp"
     description = "Unleash Client SDK for C++ projects."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/aruizs/unleash-client-cpp/"
     topics = ("unleash", "feature", "flag", "toggle")
     package_type = "library"

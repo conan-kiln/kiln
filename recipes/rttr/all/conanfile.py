@@ -12,7 +12,6 @@ class RTTRConan(ConanFile):
     name = "rttr"
     description = "Run Time Type Reflection library"
     topics = ("reflection",)
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/rttrorg/rttr"
     license = "MIT"
 

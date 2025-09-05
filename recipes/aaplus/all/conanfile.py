@@ -19,7 +19,6 @@ class Aaplusconan(ConanFile):
     license = "Unlicense"
     topics = ("aa+", "astronomy", "astronomical-algorithms", "orbital-mechanics")
     homepage = "http://www.naughter.com/aa.html"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

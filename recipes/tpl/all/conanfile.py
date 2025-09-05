@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "tpl"
     description = "A small binary serialization library for C"
     license = "BSD-1-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://troydhanson.github.io/tpl/"
     topics = ("serialization",)
 

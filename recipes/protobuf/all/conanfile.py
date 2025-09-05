@@ -19,7 +19,6 @@ class ProtobufConan(ConanFile):
     name = "protobuf"
     description = "Protocol Buffers - Google's data interchange format"
     topics = ("protocol-buffers", "protocol-compiler", "serialization", "rpc", "protocol-compiler")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/protocolbuffers/protobuf"
     license = "BSD-3-Clause"
     package_type = "library"

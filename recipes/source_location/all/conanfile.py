@@ -14,7 +14,6 @@ class SourceLocationConan(ConanFile):
     name = "source_location"
     description = "source_location header for some older compilers"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/Rechip/source_location"
     topics = ("cpp", "header-only")
 

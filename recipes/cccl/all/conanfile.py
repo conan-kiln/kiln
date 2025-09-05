@@ -14,7 +14,6 @@ class CcclConan(ConanFile):
     description = "Unix cc compiler to Microsoft's cl compiler wrapper"
     topics = ("msvc", "visual studio", "wrapper", "gcc")
     homepage = "https://github.com/swig/cccl/"
-    url = "https://github.com/conan-io/conan-center-index"
     license = "GPL-3.0-or-later"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "application"

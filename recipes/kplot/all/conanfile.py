@@ -13,7 +13,6 @@ class KplotConan(ConanFile):
     name = "kplot"
     description = "open source Cairo plotting library"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kristapsdz/kplot"
     topics = ("plot", "cairo", "chart")
     package_type = "library"

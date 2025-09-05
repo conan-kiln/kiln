@@ -12,7 +12,6 @@ class PoshlibConan(ConanFile):
     name = "poshlib"
     description = "Posh is a software framework used in cross-platform software development."
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/PhilipLudington/poshlib"
     topics = ("posh", "framework", "cross-platform")
 

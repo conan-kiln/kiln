@@ -16,7 +16,6 @@ class LibXtstConan(ConanFile):
     name = "libxtst"
     description = "libXtst: Xlib-based library for XTEST & RECORD extensions"
     license = "MIT-open-group AND HPND-sell-variant AND X11 AND HPND-doc AND HPND-doc-sell"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxtst"
     topics = ("xorg", "x11")
 

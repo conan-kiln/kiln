@@ -18,7 +18,6 @@ class LibGit2Conan(ConanFile):
         "provided as a re-entrant linkable library with a solid API"
     )
     license = "GPL-2.0-linking-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libgit2.org/"
     topics = ("git", "scm")
     package_type = "library"

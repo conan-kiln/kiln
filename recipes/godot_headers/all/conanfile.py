@@ -10,7 +10,6 @@ required_conan_version = ">=2.1"
 class GodotHeadersConan(ConanFile):
     name = "godot_headers"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/godotengine/godot_headers"
     description = "Godot Native interface headers"
     topics = ("game-engine", "game-development")

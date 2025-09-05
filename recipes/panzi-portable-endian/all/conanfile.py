@@ -12,7 +12,6 @@ class PanziPortableEndian(ConanFile):
     description = ("This provides the endian conversion functions from "
                    "endian.h on Windows, Linux, *BSD, and Mac OS X")
     license = "LicenseRef-panzi-portable-endian-public-domain"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://gist.github.com/panzi/6856583"
     topics = ("endian", "header-only")
 

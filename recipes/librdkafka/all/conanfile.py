@@ -18,7 +18,6 @@ class LibrdkafkaConan(ConanFile):
         "delivery reliability and high performance in mind."
     )
     license = "BSD-2-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/edenhill/librdkafka"
     topics = ("kafka", "consumer", "producer")
     package_type = "library"

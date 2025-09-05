@@ -14,7 +14,6 @@ class MgsConan(ConanFile):
     name = "mgs"
     description = "C++14 codec library"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://theodelrieu.github.io/mgs-docs"
     topics = ("codec", "base64", "base32", "base16", "header-only")
     package_type = "header-library"

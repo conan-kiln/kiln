@@ -10,7 +10,6 @@ required_conan_version = ">=2.4"
 
 class JBigConan(ConanFile):
     name = "jbig"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ImageMagick/jbig"
     description = "jbig for the Windows build of ImageMagick"
     topics = ("jbig", "imagemagick", "window", "graphic")

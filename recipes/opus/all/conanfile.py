@@ -14,7 +14,6 @@ class OpusConan(ConanFile):
     name = "opus"
     description = "Opus is a totally open, royalty-free, highly versatile audio codec."
     topics = ("opus", "audio", "decoder", "decoding", "multimedia", "sound")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://opus-codec.org"
     license = "BSD-3-Clause"
     package_type = "library"

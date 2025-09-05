@@ -18,7 +18,6 @@ class OnnxConan(ConanFile):
     license = "Apache-2.0"
     topics = ("machine-learning", "deep-learning", "neural-network")
     homepage = "https://github.com/onnx/onnx"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"

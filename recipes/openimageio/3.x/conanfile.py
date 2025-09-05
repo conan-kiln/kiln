@@ -22,7 +22,6 @@ class OpenImageIOConan(ConanFile):
     topics = ("vfx", "image", "picture")
     license = "Apache-2.0 AND BSD-3-Clause"
     homepage = "http://www.openimageio.org/"
-    url = "https://github.com/conan-io/conan-center-index"
 
     settings = "os", "arch", "compiler", "build_type", "cuda"
     options = {

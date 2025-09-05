@@ -15,7 +15,6 @@ class KokkosConan(ConanFile):
     name = "kokkos"
     description = "Kokkos Core implements a programming model for writing performance portable applications targeting all major HPC platforms."
     license = "Apache-2.0 WITH LLVM-exception"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/kokkos/kokkos"
     topics = ("hpc", "parallel", "cuda", "hip", "sycl", "hpx", "openmp")
 

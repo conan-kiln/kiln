@@ -15,7 +15,6 @@ class LibpqxxConan(ConanFile):
     name = "libpqxx"
     description = "The official C++ client API for PostgreSQL"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jtv/libpqxx"
     topics = ("libpqxx", "postgres", "postgresql", "database", "db")
 

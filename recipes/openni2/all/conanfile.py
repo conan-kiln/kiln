@@ -19,7 +19,6 @@ class Openni2Conan(ConanFile):
     description = "The OpenNI 2.0 API provides access to PrimeSense-compatible depth sensors"
     license = "Apache-2.0"
     homepage = "https://github.com/structureio/OpenNI2"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("rgb-d", "cameras", "driver", "computer-vision", "depth-sensor")
 
     package_type = "shared-library"

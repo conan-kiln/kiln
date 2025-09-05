@@ -12,7 +12,6 @@ required_conan_version = ">=2.1"
 
 class ApprovalTestsCppConan(ConanFile):
     name = "approvaltests.cpp"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/approvals/ApprovalTests.cpp"
     license = "Apache-2.0"
     description = "Approval Tests allow you to verify a chunk of output " \

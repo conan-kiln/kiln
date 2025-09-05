@@ -11,7 +11,6 @@ class AwsCS3(ConanFile):
     name = "aws-c-s3"
     description = "C99 implementation of the S3 client"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/awslabs/aws-c-s3"
     topics = ("aws", "amazon", "cloud", "s3")
     package_type = "library"

@@ -11,7 +11,6 @@ class LibdeflateConan(ConanFile):
     name = "libdeflate"
     description = "Heavily optimized library for DEFLATE/zlib/gzip compression and decompression."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ebiggers/libdeflate"
     topics = ("compression", "decompression", "deflate", "zlib", "gzip")
     package_type = "library"

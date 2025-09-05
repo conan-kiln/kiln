@@ -12,7 +12,6 @@ class PackageConan(ConanFile):
     name = "samurai"
     description = "Intervals coupled with algebra of set to handle adaptive mesh refinement and operators on it"
     license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/hpc-maths/samurai"
     topics = ("scientific computing", "adaptive mesh refinement", "header-only")
     package_type = "header-library"

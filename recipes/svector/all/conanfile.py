@@ -13,7 +13,6 @@ class PackageConan(ConanFile):
     name = "svector"
     description = "Compact SVO optimized vector for C++17 or higher"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/martinus/svector"
     topics = ("vector", "container", "small-vector", "header-only")
     settings = "os", "arch", "compiler", "build_type"

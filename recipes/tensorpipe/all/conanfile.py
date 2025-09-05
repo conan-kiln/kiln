@@ -17,7 +17,6 @@ class TensorpipeConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("tensor", "cuda", "machine-learning", "distributed-computing", "multi-gpu")
     homepage = "https://github.com/pytorch/tensorpipe"
-    url = "https://github.com/conan-io/conan-center-index"
 
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type", "cuda"

@@ -12,7 +12,6 @@ class CroncppConan(ConanFile):
     name = "croncpp"
     description = "A C++11/14/17 header-only cross-platform library for handling CRON expressions"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/mariusbancila/croncpp/"
     topics = ("cron", "header-only")
 

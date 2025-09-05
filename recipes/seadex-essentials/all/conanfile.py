@@ -15,7 +15,6 @@ class SeadexEssentialsConan(ConanFile):
     name = "seadex-essentials"
     description = "essentials is a small c++ library that offers very basic capabilities for applications and libraries."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://essentials.seadex.de/"
     topics = ("utility", "c++")
     package_type = "library"

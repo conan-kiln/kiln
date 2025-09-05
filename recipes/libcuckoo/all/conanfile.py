@@ -13,7 +13,6 @@ class LibCuckooConan(ConanFile):
     description = "A high-performance, concurrent hash table"
     license = "Apache-2.0"
     homepage = "https://github.com/efficient/libcuckoo"
-    url = "https://github.com/conan-io/conan-center-index"
     topics = ("concurrency", "hashmap", "header-only", "library", "cuckoo")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

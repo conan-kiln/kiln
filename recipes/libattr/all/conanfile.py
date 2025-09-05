@@ -15,7 +15,6 @@ class LibAttrConan(ConanFile):
     topics = ("attr", "filesystem")
     license = "GPL-2.0-or-later"
     homepage = "https://savannah.nongnu.org/projects/attr/"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

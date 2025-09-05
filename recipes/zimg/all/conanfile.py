@@ -17,7 +17,6 @@ class ZimgConan(ConanFile):
     name = "zimg"
     description = "Scaling, colorspace conversion, and dithering library"
     license = "WTFPL"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/sekrit-twc/zimg"
     topics = ("image", "manipulation")
     package_type = "library"

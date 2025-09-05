@@ -15,7 +15,6 @@ class MagnumConan(ConanFile):
     description = "Plugins for the Magnum C++11/C++14 graphics engine"
     license = "MIT"
     topics = ("magnum", "graphics", "rendering", "3d", "2d", "opengl")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://magnum.graphics"
 
     package_type = "library"

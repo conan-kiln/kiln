@@ -15,7 +15,6 @@ class CcfitsConan(ConanFile):
     license = "CFITSIO"
     topics = ("fits", "image", "nasa", "astronomy", "astrophysics", "space")
     homepage = "https://heasarc.gsfc.nasa.gov/fitsio/ccfits"
-    url = "https://github.com/conan-io/conan-center-index"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

@@ -11,7 +11,6 @@ class CachesConan(ConanFile):
     name = "caches"
     description = "Extensible cache templates."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/JoelLefkowitz/caches"
     topics = (
         "cache",

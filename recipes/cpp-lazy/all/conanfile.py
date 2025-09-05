@@ -13,7 +13,6 @@ class CpplazyConan(ConanFile):
     name = "cpp-lazy"
     description = "C++11/14/17/20 library for lazy evaluation "
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/MarcDirven/cpp-lazy"
     topics = ("lazy evaluation", "header-only")
     package_type = "header-library"

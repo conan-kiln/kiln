@@ -14,7 +14,6 @@ class EigenConan(ConanFile):
                    " numerical solvers, and related algorithms.")
     license = "MPL-2.0 AND BSD-3-Clause AND LGPL-2.1-or-later"
     topics = ("algebra", "linear-algebra", "matrix", "vector", "numerical", "header-only")
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://eigen.tuxfamily.org"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"

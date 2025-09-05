@@ -15,7 +15,6 @@ class CxxgraphConan(ConanFile):
     name = "cxxgraph"
     description = "Header-Only C++ Library for Graph Representation and Algorithms"
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/ZigRazor/CXXGraph/"
     topics = ("graph", "partitioning-algorithms", "dijkstra-algorithm", "graph-theory-algorithms", "header-only")
     package_type = "header-library"

@@ -10,7 +10,6 @@ class ShieldConan(ConanFile):
     name = "shield"
     description = "C++ warning suppression headers."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/holoplot/shield"
     topics = ("utility", "warnings", "suppression", "header-only")
     package_type = "header-library"

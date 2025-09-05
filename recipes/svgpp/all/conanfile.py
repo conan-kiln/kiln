@@ -13,7 +13,6 @@ class SvgPPConan(ConanFile):
     description = "SVG++ library contains parsers for various SVG syntaxes, " \
                   "adapters that simplify handling of parsed data and a lot of other utilities and helpers for the most common tasks."
     license = "BSL-1.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/svgpp/svgpp"
     topics = ("svgpp", "svg", "parser", "header-only")
     package_type = "header-library"

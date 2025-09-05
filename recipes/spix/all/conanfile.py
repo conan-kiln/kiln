@@ -13,7 +13,6 @@ class SpixConan(ConanFile):
     name = "spix"
     description = "UI test automation library for QtQuick/QML Apps"
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/faaxm/spix"
     topics = ("automation", "qt", "qml", "qt-quick", "qtquick", "automated-testing", "qt-qml", "qml-applications")
     settings = "os", "arch", "compiler", "build_type"

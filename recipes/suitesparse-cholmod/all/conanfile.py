@@ -13,7 +13,6 @@ class SuiteSparseCholmodConan(ConanFile):
     name = "suitesparse-cholmod"
     description = "CHOLMOD: Routines for factorizing sparse symmetric positive definite matrices in SuiteSparse"
     license = "LGPL-2.1-or-later AND Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://people.engr.tamu.edu/davis/suitesparse.html"
     topics = ("mathematics", "sparse-matrix", "linear-algebra", "matrix-factorization")
 

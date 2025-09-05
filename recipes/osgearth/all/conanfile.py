@@ -16,7 +16,6 @@ class OsgearthConan(ConanFile):
                    "point it at your map data, and go! osgEarth supports all kinds of data and comes with "
                    "lots of examples to help you get up and running quickly and easily.")
     license = "LGPL-3.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://osgearth.org/"
     topics = ("openscenegraph", "graphics")
 

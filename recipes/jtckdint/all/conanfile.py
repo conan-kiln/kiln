@@ -11,7 +11,6 @@ class JtckdintConan(ConanFile):
     name = "jtckdint"
     description = "C23 Checked Arithmetic"
     license = "ISC"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/jart/jtckdint"
     topics = ("integer", "checked", "arithmetic", "header-only")
     package_type = "header-library"

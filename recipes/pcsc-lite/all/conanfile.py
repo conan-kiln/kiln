@@ -14,7 +14,6 @@ class PCSCLiteConan(ConanFile):
     name = "pcsc-lite"
     description = "Middleware to access a smart card using SCard API (PC/SC)"
     license = "BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://pcsclite.apdu.fr/"
     topics = ("smartcard", "pcsc")
     package_type = "library"
