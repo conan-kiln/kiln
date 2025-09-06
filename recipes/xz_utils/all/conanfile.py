@@ -2,12 +2,9 @@ import os
 import textwrap
 
 from conan import ConanFile
-from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
+from conan.tools.cmake import CMakeToolchain, CMake
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc, is_msvc_static_runtime, MSBuild, MSBuildToolchain
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
@@ -20,170 +17,73 @@ class XZUtilsConan(ConanFile):
         "compression ratio. XZ Utils were written for POSIX-like systems, but also "
         "work on some not-so-POSIX systems. XZ Utils are the successor to LZMA Utils."
     )
+    license = "0BSD"
     homepage = "https://tukaani.org/xz"
     topics = ("lzma", "xz", "compression")
-    license = "Unlicense", "LGPL-2.1-or-later",  "GPL-2.0-or-later", "GPL-3.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
         "i18n": [True, False],
+        "tools": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "i18n": False,
+        "tools": False,
     }
     implements = ["auto_shared_fpic"]
     languages = ["C"]
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-        if self._use_msbuild:
-            del self.options.i18n
-
-    @property
-    def _effective_msbuild_type(self):
-        # treat "RelWithDebInfo" and "MinSizeRel" as "Release"
-        # there is no DebugMT configuration in upstream vcxproj, we patch Debug configuration afterwards
-        return "{}{}".format(
-            "Debug" if self.settings.build_type == "Debug" else "Release",
-            "MT" if is_msvc_static_runtime(self) and self.settings.build_type != "Debug" else "",
-        )
-
-    @property
-    def _msbuild_target(self):
-        return "liblzma_dll" if self.options.shared else "liblzma"
-
-    @property
-    def _use_msbuild(self):
-        assume_clang_cl = (self.settings.os == "Windows"
-                           and self.settings.compiler == "clang"
-                           and self.settings.get_safe("compiler.runtime") is not None)
-        return is_msvc(self) or assume_clang_cl
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def build_requirements(self):
-        if self.settings_build.os == "Windows" and not self._use_msbuild:
-            self.win_bash = True
-            if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/latest")
-        if self.options.get_safe("i18n"):
+        if self.options.i18n:
             self.tool_requires("gettext/[>=0.21 <1]", options={"tools": True})
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        if self._use_msbuild:
-            tc = MSBuildToolchain(self)
-            tc.configuration = self._effective_msbuild_type
-            tc.generate()
-        else:
-            env = VirtualBuildEnv(self)
-            env.generate()
-            tc = AutotoolsToolchain(self)
-            tc.configure_args.append("--disable-doc")
-            tc.configure_args.append("--enable-nls" if self.options.i18n else "--disable-nls")
-            if self.settings.build_type == "Debug":
-                tc.configure_args.append("--enable-debug")
-            tc.generate()
-
-    @property
-    def _msvc_sln_folder(self):
-        if Version(self.settings.compiler) >= 191:
-            return "vs2017"
-        return "vs2013"
-
-    def _build_msvc(self):
-        build_script_folder = os.path.join(self.source_folder, "windows", self._msvc_sln_folder)
-
-        #==============================
-        # TODO: to remove once https://github.com/conan-io/conan/pull/12817 available in conan client.
-        vcxproj_files = [
-            os.path.join(build_script_folder, "liblzma.vcxproj"),
-            os.path.join(build_script_folder, "liblzma_dll.vcxproj"),
-        ]
-        if is_msvc(self) and Version(self.settings.compiler) >= "191":
-            old_toolset = "v141"
-        else:
-            old_toolset = "v120"
-        new_toolset = MSBuildToolchain(self).toolset
-        conantoolchain_props = os.path.join(self.generators_folder, MSBuildToolchain.filename)
-        for vcxproj_file in vcxproj_files:
-            replace_in_file(
-                self, vcxproj_file,
-                f"<PlatformToolset>{old_toolset}</PlatformToolset>",
-                f"<PlatformToolset>{new_toolset}</PlatformToolset>",
-            )
-            replace_in_file(
-                self, vcxproj_file,
-                "<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-                f"<Import Project=\"{conantoolchain_props}\" /><Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-            )
-
-            if self.settings.arch == "armv8":
-                replace_in_file(self, vcxproj_file, "x64", "ARM64")
-
-        solution_file = os.path.join(build_script_folder, "xz_win.sln")
-        if self.settings.arch == "armv8":
-            replace_in_file(self, solution_file, "x64", "ARM64")
-
-        #==============================
-
-        msbuild = MSBuild(self)
-        msbuild.build_type = self._effective_msbuild_type
-        msbuild.platform = "Win32" if self.settings.arch == "x86" else msbuild.platform
-        msbuild.build(os.path.join(build_script_folder, solution_file), targets=[self._msbuild_target])
+        tc = CMakeToolchain(self)
+        tc.cache_variables["XZ_NLS"] = self.options.i18n
+        tc.cache_variables["XZ_TOOL_LZMADEC"] = self.options.tools
+        tc.cache_variables["XZ_TOOL_LZMAINFO"] = self.options.tools
+        tc.cache_variables["XZ_TOOL_LZMAINFO"] = self.options.tools
+        tc.cache_variables["XZ_TOOL_SCRIPTS"] = self.options.tools
+        tc.cache_variables["XZ_TOOL_XZ"] = self.options.tools
+        tc.cache_variables["XZ_TOOL_XZDEC"] = self.options.tools
+        tc.generate()
 
     def build(self):
-        if self._use_msbuild:
-            self._build_msvc()
-        else:
-            autotools = Autotools(self)
-            autotools.configure()
-            autotools.make()
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def package(self):
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        if self._use_msbuild:
-            inc_dir = os.path.join(self.source_folder, "src", "liblzma", "api")
-            copy(self, "*.h", src=inc_dir, dst=os.path.join(self.package_folder, "include"))
-            output_dir = os.path.join(self.source_folder, "windows")
-            copy(self, "*.lib", src=output_dir, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-            copy(self, "*.dll", src=output_dir, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-            rename(self, os.path.join(self.package_folder, "lib", "liblzma.lib"),
-                         os.path.join(self.package_folder, "lib", "lzma.lib"))
-        else:
-            autotools = Autotools(self)
-            autotools.install()
-            rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-            rmdir(self, os.path.join(self.package_folder, "share", "man"))
-            rm(self, "*.la", os.path.join(self.package_folder, "lib"))
-            fix_apple_shared_install_name(self)
-
-        self._create_cmake_module_variables(
-            os.path.join(self.package_folder, self._module_file_rel_path),
-        )
+        copy(self, "COPYING.0BSD", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        cmake = CMake(self)
+        cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "share", "doc"))
+        rmdir(self, os.path.join(self.package_folder, "share", "man"))
+        self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_file_rel_path))
 
     def _create_cmake_module_variables(self, module_file):
-        # TODO: also add LIBLZMA_HAS_AUTO_DECODER, LIBLZMA_HAS_EASY_ENCODER & LIBLZMA_HAS_LZMA_PRESET
         content = textwrap.dedent(f"""\
             set(LIBLZMA_FOUND TRUE)
-            if(DEFINED LibLZMA_INCLUDE_DIRS)
-                set(LIBLZMA_INCLUDE_DIRS ${{LibLZMA_INCLUDE_DIRS}})
-            endif()
-            if(DEFINED LibLZMA_LIBRARIES)
-                set(LIBLZMA_LIBRARIES ${{LibLZMA_LIBRARIES}})
-            endif()
             set(LIBLZMA_VERSION_MAJOR {Version(self.version).major})
             set(LIBLZMA_VERSION_MINOR {Version(self.version).minor})
             set(LIBLZMA_VERSION_PATCH {Version(self.version).patch})
             set(LIBLZMA_VERSION_STRING "{self.version}")
+            set(LIBLZMA_HAS_AUTO_DECODER TRUE)
+            set(LIBLZMA_HAS_EASY_ENCODER TRUE)
+            set(LIBLZMA_HAS_LZMA_PRESET TRUE)
         """)
         save(self, module_file, content)
 
@@ -195,12 +95,13 @@ class XZUtilsConan(ConanFile):
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "LibLZMA")
         self.cpp_info.set_property("cmake_target_name", "LibLZMA::LibLZMA")
+        self.cpp_info.set_property("cmake_additional_variables_prefixes", ["LIBLZMA"])
         self.cpp_info.set_property("cmake_build_modules", [self._module_file_rel_path])
         self.cpp_info.set_property("pkg_config_name", "liblzma")
         self.cpp_info.libs = ["lzma"]
-        if self.options.get_safe("i18n"):
+        if self.options.i18n:
             self.cpp_info.resdirs = ["share"]
         if not self.options.shared:
             self.cpp_info.defines.append("LZMA_API_STATIC")
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("pthread")
+            self.cpp_info.system_libs = ["pthread"]
