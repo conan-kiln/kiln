@@ -1,0 +1,7 @@
+sources:
+  "2.8.1":
+    url: "https://github.com/activescott/lessmsi/releases/download/v2.8.1/lessmsi-v2.8.1.zip"
+    sha256: "b94f88750bdff2c6e58359f3c9ee971f91e4871da2ceb88c0fba7671fc618a07"
+license:
+  - url: "https://raw.githubusercontent.com/activescott/lessmsi/refs/tags/v2.8.1/LICENSE"
+    sha256: "713580a82dcbd8dae6dc15f9b500304c080ac0f8654f919037eccee5ab9ba976"
