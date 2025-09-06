@@ -1,0 +1,15 @@
+sources:
+  "9.7.0":
+    Linux:
+      url: "https://www.fico.com/downloadxpress/xp9.7.0_linux_x86_64_setup.tar"
+      sha256: "5b90d5585d9c8444000b1a49f2d8b07f75b83a7b8441f88052ded520c1e4635f"
+    Windows:
+      url: "https://www.fico.com/downloadxpress/xp9.7.0_win_x86_64_setup.exe"
+      sha256: "49e0b4e073f89c12b4236b7aec6dcb2d560e99afdbf5395127bd5017d8750f89"
+    Macos:
+      armv8:
+        url: "https://www.fico.com/downloadxpress/FICO_Xpress_9.7.0_for_ARM_Mac_Installer.dmg"
+        sha256: "da22403e4e63cc7b99347ce6326c8e9dfe361345c182a42a34b84173993c6a00"
+      x86_64:
+        url: "https://www.fico.com/downloadxpress/FICO_Xpress_9.7.0_for_Intel_Mac_Installer.dmg"
+        sha256: "b9a064e90e8cdcb1dc3ddc38e00d406b3b9af5e016b9173266e5136c1b1fd5d6"
