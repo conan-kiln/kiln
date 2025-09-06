@@ -31,7 +31,6 @@ class GurobiConan(ConanFile):
         "cxx": True,
         "tools": False,
     }
-    implements = ["auto_shared_fpic"]
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
