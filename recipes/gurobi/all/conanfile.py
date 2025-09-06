@@ -1,5 +1,6 @@
 import os
 from functools import cached_property
+from pathlib import Path
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -68,34 +69,24 @@ class GurobiConan(ConanFile):
         if self.settings.os == "Windows":
             self.tool_requires("lessmsi/[*]")
 
-    def _extract_macos_pkg(self, path):
-        v = Version(self.version)
-        self.run(f"pkgutil --expand-full '{path}' .")
-        subdir = f"gurobi{self.version}_macos_universal2.component.pkg/Payload/Library/gurobi{v.major}{v.minor}{v.patch}/macos_universal2"
-        move_folder_contents(self, subdir, self.source_folder)
-
-    def _extract_windows_msi(self, path):
-        v = Version(self.version)
-        self.run(f'lessmsi x "{path}"')
-        subdir = f"gurobi/SourceDir/gurobi{v.major}{v.minor}{v.patch}/win64"
-        move_folder_contents(self, subdir, self.source_folder)
-
     def _source(self):
         if self.settings.os in ["Linux", "FreeBSD"]:
             info = self.conan_data["sources"][self.version]["Linux"][str(self.settings.arch)]
-            get(self, **info, destination=self.source_folder, strip_root=True)
-            subdir = "armlinux64" if self.settings.arch == "armv8" else "linux64"
-            move_folder_contents(self, os.path.join(self.source_folder, subdir), self.source_folder)
+            get(self, **info, strip_root=True)
         elif is_apple_os(self):
             info = self.conan_data["sources"][self.version]["Macos"]
-            path = os.path.join(self.source_folder, "gurobi.pkg")
+            path = "gurobi.pkg"
             download(self, **info, filename=path)
-            self._extract_macos_pkg(path)
+            self.run(f"pkgutil --expand-full '{path}' .")
+            os.unlink(path)
         else:
             info = self.conan_data["sources"][self.version]["Windows"]
-            path = os.path.join(self.source_folder, "gurobi.msi")
+            path = "gurobi.msi"
             download(self, **info, filename=path)
-            self._extract_windows_msi(path)
+            self.run(f'lessmsi x "{path}"')
+            os.unlink(path)
+        package_root = next(Path(self.build_folder).rglob("EULA.pdf")).parent
+        move_folder_contents(self, package_root, self.source_folder)
         if self.options.cxx:
             copy(self, "CMakeLists.txt", self.export_sources_folder, self.source_folder)
 
