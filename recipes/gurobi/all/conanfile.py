@@ -46,6 +46,8 @@ class GurobiConan(ConanFile):
         if not self.info.options.cxx:
             del self.info.settings.compiler
             del self.info.settings.build_type
+        if is_apple_os(self.info):
+            self.info.settings.arch = "armv8|x86_64"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
