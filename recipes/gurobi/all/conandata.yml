@@ -1,0 +1,43 @@
+sources:
+  "12.0.3":
+    Linux:
+      x86_64:
+        url: "https://packages.gurobi.com/12.0/gurobi12.0.3_linux64.tar.gz"
+        sha256: "21bdabbaaf83ce2da42a4f13ecde7a1fd17b6eec4d74c97bad8a051887d11021"
+      armv8:
+        url: "https://packages.gurobi.com/12.0/gurobi12.0.3_armlinux64.tar.gz"
+        sha256: "36b1f2b9d6a2a0f137e2aba5c1035edd1164e0a9e31531a62d18fc07d8c646ee"
+    Macos:
+      url: "https://packages.gurobi.com/12.0/gurobi12.0.3_macos_universal2.pkg"
+      sha256: "e1e771e9cf8aa7882b1cdc000be91c2b5fadd18f3fcdd00f2824dd207be09613"
+    Windows:
+      url: "https://packages.gurobi.com/12.0/Gurobi-12.0.3-win64.msi"
+      sha256: "79aa683de59e5e1ab4f214ba7bdf69e3f8ca436b723310a5850f35e68efadf00"
+  "11.0.3":
+    Linux:
+      x86_64:
+        url: "https://packages.gurobi.com/11.0/gurobi11.0.3_linux64.tar.gz"
+        sha256: "82a2c8671c234bbaa9dc64da22b1951abf41c62047fdf77004e65f24a91dfd13"
+      armv8:
+        url: "https://packages.gurobi.com/11.0/gurobi11.0.3_armlinux64.tar.gz"
+        sha256: "c1e739652b8cb69d812bf591cca046341fffb7899d09ed19a989fccc604b097e"
+    Macos:
+      url: "https://packages.gurobi.com/11.0/gurobi11.0.3_macos_universal2.pkg"
+      sha256: "e9ec2d444edb20a0acf13d7b5d086de6fac50e839dfc2e8b46d8546377dc429e"
+    Windows:
+      url: "https://packages.gurobi.com/11.0/Gurobi-11.0.3-win64.msi"
+      sha256: "e7e5b4836a5a917cc7c6920c812e5cedfdc34c684df3b9dc33f596d0a8907601"
+  "10.0.3":
+    Linux:
+      x86_64:
+        url: "https://packages.gurobi.com/10.0/gurobi10.0.3_linux64.tar.gz"
+        sha256: "82f916db110c42ce8ce13c10a14eba97c7acd63c3c0c59f98186c5085780ca83"
+      armv8:
+        url: "https://packages.gurobi.com/10.0/gurobi10.0.3_armlinux64.tar.gz"
+        sha256: "23adaa0f714f318a23ecbab14f6e7482c4719711825538da279eb7f6cc12db08"
+    Macos:
+      url: "https://packages.gurobi.com/10.0/gurobi10.0.3_macos_universal2.pkg"
+      sha256: "c2f5f73ab412f76551bd53c36d2c6bdc44d38673e5f9841771847d95a137b77a"
+    Windows:
+      url: "https://packages.gurobi.com/10.0/Gurobi-10.0.3-win64.msi"
+      sha256: "c542c6b4f158c06618ddf1b6d7c44aad0d190d2fb9713e46e07a73084148275e"
