@@ -13,13 +13,9 @@ class PopplerDataConan(ConanFile):
     license = "(GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause"
     homepage = "https://poppler.freedesktop.org/"
     topics = "poppler", "pdf", "rendering", "header-only"
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
-
-    def export_sources(self):
-        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -29,7 +25,6 @@ class PopplerDataConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -44,7 +39,7 @@ class PopplerDataConan(ConanFile):
         copy(self, "COPYING*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join("share", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "share", "pkgconfig"))
 
     @property
     def _poppler_datadir(self):
