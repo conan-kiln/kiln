@@ -1,4 +1,4 @@
 sources:
-  "9.10":
-    url: "https://github.com/google/or-tools/archive/refs/tags/v9.10.tar.gz"
-    sha256: "e7c27a832f3595d4ae1d7e53edae595d0347db55c82c309c8f24227e675fd378"
+  "9.14":
+    url: "https://github.com/google/or-tools/archive/refs/tags/v9.14.tar.gz"
+    sha256: "9019facf316b54ee72bb58827efc875df4cfbb328fbf2b367615bf2226dd94ca"
