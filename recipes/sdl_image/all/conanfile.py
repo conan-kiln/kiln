@@ -6,7 +6,7 @@ from conan.tools.apple import is_apple_os
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class SDLImageConan(ConanFile):
@@ -15,7 +15,6 @@ class SDLImageConan(ConanFile):
     topics = ("sdl2", "sdl", "images", "opengl")
     homepage = "https://www.libsdl.org/projects/SDL_image/"
     license = "MIT"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -64,9 +63,8 @@ class SDLImageConan(ConanFile):
         "imageio": False,
         "wic": False,
     }
-
-    def export_sources(self):
-        export_conandata_patches(self)
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -75,12 +73,6 @@ class SDLImageConan(ConanFile):
             del self.options.imageio
         if self.settings.os != "Windows":
             del self.options.wic
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -111,7 +103,6 @@ class SDLImageConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -138,15 +129,14 @@ class SDLImageConan(ConanFile):
         tc.cache_variables["SDL2IMAGE_BACKEND_WIC"] = self.options.get_safe("wic")
         tc.cache_variables["SDL2IMAGE_BACKEND_IMAGEIO"] = self.options.get_safe("imageio")
         tc.generate()
-        cd = CMakeDeps(self)
-        cd.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def build(self):
         rmdir(self, os.path.join(self.source_folder, "external"))
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
