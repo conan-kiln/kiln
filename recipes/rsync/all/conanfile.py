@@ -17,7 +17,6 @@ class RsyncConan(ConanFile):
     license = ("GPL-3.0", "LGPL-3.0")
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
-
     options = {
         "with_zlib": [True, False],
         "with_openssl": [True, False],
@@ -51,23 +50,18 @@ class RsyncConan(ConanFile):
     def requirements(self):
         if self.options.with_openssl:
             self.requires("openssl/[>=1.1 <4]")
-
         if self.options.with_zlib:
             self.requires("zlib-ng/[^2.0]")
-
         if self.options.with_zstd:
             self.requires("zstd/[~1.5]")
-
         if self.options.with_lz4:
             self.requires("lz4/[^1.9.4]")
-
         if self.options.with_xxhash:
             self.requires("xxhash/[>=0.8.1 <0.9]")
 
     def validate(self):
         if self.settings.os == "Windows":
             raise ConanInvalidConfiguration(f"{self.ref} is not supported on Windows.")
-
         if is_apple_os(self):
             raise ConanInvalidConfiguration(f"{self.ref} is not supported on Apple systems.")
 
@@ -84,13 +78,10 @@ class RsyncConan(ConanFile):
             f"--with-zstd={yes_no(self.options.with_zstd)}",
             f"--with-lz4={yes_no(self.options.with_lz4)}",
             f"--with-xxhash={yes_no(self.options.with_xxhash)}",
-
             "--enable-manpages=no",
         ])
-
         if self.settings.os == "Neutrino":
             tc.extra_defines.append("MAKEDEV_TAKES_3_ARGS")
-
         tc.generate()
 
     def build(self):
@@ -101,7 +92,6 @@ class RsyncConan(ConanFile):
     def package(self):
         autotools = Autotools(self)
         autotools.install()
-
         rmdir(self, os.path.join(self.package_folder, "share"))
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"), ignore_case=True)
 
