@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-06:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-07:
 
 - acl/2.3.2
 - adaptivecpp/24.10.0
@@ -431,6 +431,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ffnvcodec/12.2.72.0
 - ffnvcodec/13.0.19.0
 - ffts/0.9.0+git.20240906
+- fico-xpress/9.7.0
 - filament/1.5.3
 - firebird/5.0.0
 - flite/2.2
@@ -537,6 +538,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gtsam_gnss/0.0.0.cci.20250213
 - gtsam_points/1.1.0
 - gumbo-parser/0.13.0
+- gurobi/10.0.3
+- gurobi/11.0.3
+- gurobi/12.0.3
 - half/2.2.1
 - harfbuzz/10.4.0
 - harfbuzz/11.2.1
@@ -588,6 +592,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lapack/3.12.0
 - laszip/2.0.2
 - ldns/1.8.4
+- lessmsi/2.8.1
 - level-zero/1.22.4
 - libalsa/1.2.14
 - libavif/1.3.0
@@ -719,6 +724,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - llvm-openmp/19.1.7
 - lmdb/0.9.33
 - lttng-ust/2.13.9
+- lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
 - mathdx/25.06.0
@@ -970,7 +976,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - optix-headers/7.7.0
 - optix-headers/8.1.0
 - optix-headers/9.0.0
-- or-tools/9.10
+- or-tools/9.14
 - osgearth/3.7
 - osqp-eigen/0.10.1
 - osqp/1.0.0
@@ -1247,6 +1253,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - xpack/1.0.6
 - xpmem/2.6.5.cci.20240911
 - xtrans/1.5.0
+- xz_utils/5.8.1
 - yasm/1.3.0+git.20230922
 - zenoh-c/1.2.0
 - zenoh-c/1.3.2
