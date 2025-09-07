@@ -1,9 +1,7 @@
 import os
-import shutil
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -24,33 +22,46 @@ class CoinOsiConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "with_glpk": [True, False],
+        "with_soplex": [True, False],
+        "with_cplex": [True, False],
+        "with_mosek": [True, False],
+        "with_xpress": [True, False],
+        "with_gurobi": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "with_glpk": True,
+        "with_soplex": False,
+        "with_cplex": False,
+        "with_mosek": False,
+        "with_xpress": False,
+        "with_gurobi": False,
     }
     implements = ["auto_shared_fpic"]
-
-    def export_sources(self):
-        export_conandata_patches(self)
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("coin-utils/2.11.11")
+        self.requires("coin-utils/[^2.11.11]")
         self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_glpk:
-            self.requires("glpk/4.48")
-        # TODO: add support for: Cplex, Mosek, Xpress, Gurobi
-        # https://github.com/coin-or/Osi/blob/stable/0.108/Osi/configure.ac#L65-L77
-        # soplex support requires v4.0, which is not available on CCI and is distributed under ZIB Academic License
-        # https://github.com/coin-or-tools/ThirdParty-SoPlex/blob/master/INSTALL.SoPlex
+            self.requires("glpk/[<=4.48]")
+        if self.options.with_soplex:
+            self.requires("soplex/[<4]")
+        if self.options.with_cplex:
+            self.requires("cplex/[*]")
+        if self.options.with_mosek:
+            self.requires("mosek/[<10]")
+        if self.options.with_xpress:
+            self.requires("xpress/[*]")
+        if self.options.with_gurobi:
+            self.requires("gurobi/[*]")
 
     def build_requirements(self):
-        self.tool_requires("coin-buildtools/0.8.11")
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("coin-buildtools/[*]")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings_build.os == "Windows":
@@ -60,58 +71,65 @@ class CoinOsiConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        replace_in_file(self, "Osi/configure.ac", "coinsoplex < 1.7", "coinsoplex")
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
-        deps = PkgConfigDeps(self)
-        deps.generate()
-
-        def _add_pkg_config_alias(src_name, dst_name):
-            shutil.copy(os.path.join(self.generators_folder, f"{src_name}.pc"),
-                        os.path.join(self.generators_folder, f"{dst_name}.pc"))
-
-        _add_pkg_config_alias("openblas", "coinblas")
-        _add_pkg_config_alias("openblas", "coinlapack")
-        if self.options.with_glpk:
-            _add_pkg_config_alias("glpk", "coinglpk")
-
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
             # the coin*.pc pkg-config files are only used when set to BUILD
             "--with-blas=BUILD",
             "--with-lapack=BUILD",
             "--with-glpk=BUILD" if self.options.with_glpk else "--without-glpk",
-            "--with-soplex=no",
+            "--with-soplex=BUILD" if self.options.with_soplex else "--without-soplex",
             # These are only used for sample datasets
             "--without-netlib",
             "--without-sample",
             "--disable-dependency-linking",
             "F77=unavailable",
         ])
+
+        def _libflags(name):
+            dep_info = self.dependencies[name].cpp_info.aggregated_components()
+            flags = [f"-L{lib}" for lib in dep_info.libdirs]
+            flags += [f"-l{lib}" for lib in dep_info.libs]
+            flags += [f"-l{lib}" for lib in dep_info.system_libs]
+            return " ".join(flags)
+
+        if self.options.with_cplex:
+            tc.configure_args.append(f"--with-cplex-incdir={self.dependencies['cplex'].package_folder}/include/ilcplex")
+            tc.configure_args.append(f"--with-cplex-lib={_libflags('cplex')}")
+        if self.options.with_mosek:
+            tc.configure_args.append(f"--with-mosek-incdir={self.dependencies['mosek'].package_folder}/include")
+            tc.configure_args.append(f"--with-mosek-lib={_libflags('mosek')}")
+        if self.options.with_xpress:
+            tc.configure_args.append(f"--with-xpress-incdir={self.dependencies['xpress'].package_folder}/include")
+            tc.configure_args.append(f"--with-xpress-lib={_libflags('xpress')}")
+        if self.options.with_gurobi:
+            tc.configure_args.append(f"--with-gurobi-incdir={self.dependencies['gurobi'].package_folder}/include")
+            tc.configure_args.append(f"--with-gurobi-lib={_libflags('gurobi')}")
+
         if is_msvc(self):
             tc.extra_cxxflags.append("-EHsc")
             tc.configure_args.append(f"--enable-msvc={msvc_runtime_flag(self)}")
         env = tc.environment()
+        env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
             env.define("CC", "cl -nologo")
             env.define("CXX", "cl -nologo")
             env.define("LD", "link -nologo")
             env.define("AR", "lib -nologo")
-        if self.settings_build.os == "Windows":
-            # TODO: Something to fix in conan client or pkgconf recipe?
-            # This is a weird workaround when build machine is Windows. Here we have to inject regular
-            # Windows path to pc files folder instead of unix path flavor injected by AutotoolsToolchain...
-            env.define("PKG_CONFIG_PATH", self.generators_folder)
         tc.generate(env)
 
+        deps = PkgConfigDeps(self)
+        deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
+        deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
+        deps.set_property("soplex", "pkg_config_aliases", ["coinsoplex"])
+        deps.generate()
+
     def build(self):
-        copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
-             os.path.join(self.source_folder, "BuildTools"))
-        copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
-             os.path.join(self.source_folder, "Osi", "BuildTools"))
+        buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
+        copy(self, "*", buildtools, os.path.join(self.source_folder, "BuildTools"))
+        copy(self, "*", buildtools, os.path.join(self.source_folder, "Osi", "BuildTools"))
         for gnu_config in [
             self.conf.get("user.gnu-config:config_guess", check_type=str),
             self.conf.get("user.gnu-config:config_sub", check_type=str),
@@ -149,3 +167,28 @@ class CoinOsiConan(ConanFile):
             self.cpp_info.components["osi-glpk"].set_property("pkg_config_name", "osi-glpk")
             self.cpp_info.components["osi-glpk"].libs = ["OsiGlpk"]
             self.cpp_info.components["osi-glpk"].requires = ["libosi", "glpk::glpk"]
+
+        if self.options.with_soplex:
+            self.cpp_info.components["osi-soplex"].set_property("pkg_config_name", "osi-soplex")
+            self.cpp_info.components["osi-soplex"].libs = ["OsiSpx"]
+            self.cpp_info.components["osi-soplex"].requires = ["libosi", "soplex::soplex"]
+
+        if self.options.with_cplex:
+            self.cpp_info.components["osi-cplex"].set_property("pkg_config_name", "osi-cplex")
+            self.cpp_info.components["osi-cplex"].libs = ["OsiCpx"]
+            self.cpp_info.components["osi-cplex"].requires = ["libosi", "cplex::cplex_"]
+
+        if self.options.with_mosek:
+            self.cpp_info.components["osi-mosek"].set_property("pkg_config_name", "osi-mosek")
+            self.cpp_info.components["osi-mosek"].libs = ["OsiMsk"]
+            self.cpp_info.components["osi-mosek"].requires = ["libosi", "mosek::mosek"]
+
+        if self.options.with_xpress:
+            self.cpp_info.components["osi-xpress"].set_property("pkg_config_name", "osi-xpress")
+            self.cpp_info.components["osi-xpress"].libs = ["OsiXpr"]
+            self.cpp_info.components["osi-xpress"].requires = ["libosi", "xpress::xpress"]
+
+        if self.options.with_gurobi:
+            self.cpp_info.components["osi-gurobi"].set_property("pkg_config_name", "osi-gurobi")
+            self.cpp_info.components["osi-gurobi"].libs = ["OsiGrb"]
+            self.cpp_info.components["osi-gurobi"].requires = ["libosi", "gurobi::gurobi"]
