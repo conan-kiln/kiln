@@ -15,3 +15,48 @@ sources:
       x86_64:
         url: "https://download.mosek.com/stable/11.0.28/mosektoolswin64x86.zip"
         sha256: "d0b1108f002353a03c36b852c7c5426ec295f3b00a6544c13384f0647d6928c7"
+  "10.2.17":
+    Linux:
+      x86_64:
+        url: "https://download.mosek.com/stable/10.2.17/mosektoolslinux64x86.tar.bz2"
+        sha256: "20c842636e0b867c3e5938282a66735d9a5fa85f446f27cad230558ffe0b9f40"
+      armv8:
+        url: "https://download.mosek.com/stable/10.2.17/mosektoolslinuxaarch64.tar.bz2"
+        sha256: "eb706f706327de7e08dd8e2131de3e7972e969563a08bb5bfebd369f05052393"
+    Macos:
+      armv8:
+        url: "https://download.mosek.com/stable/10.2.17/mosektoolsosxaarch64.tar.bz2"
+        sha256: "d4d004927373a5c0aa6f9a36b52df73e7a60389fb5c142d3155c3f7d0a365a5e"
+    Windows:
+      x86_64:
+        url: "https://download.mosek.com/stable/10.2.17/mosektoolswin64x86.zip"
+        sha256: "ca03414808bb522af7848bdaf3a14298660fffcf02a0aacbbade2d6e41face9f"
+  "9.3.22":
+    Linux:
+      x86_64:
+        url: "https://download.mosek.com/stable/9.3.22/mosektoolslinux64x86.tar.bz2"
+        sha256: "44f6f8c8c998834e21df24158bef709b4b9a12d21aefaa441410d25a8a56e1ba"
+      armv8:
+        url: "https://download.mosek.com/stable/9.3.22/mosektoolslinuxaarch64.tar.bz2"
+        sha256: "0b39457509ea7002164c744d289af76cef6f22bd8fb44dd7c960002ab624f775"
+    Macos:
+      x86_64:
+        url: "https://download.mosek.com/stable/9.3.22/mosektoolsosx64x86.tar.bz2"
+        sha256: "c1124e83b1a2bbb69e0f4ab45f2d4a45e64a9437eb0edba25ca6b4a98229ea11"
+    Windows:
+      x86_64:
+        url: "https://download.mosek.com/stable/9.3.22/mosektoolswin64x86.zip"
+        sha256: "79fd09f43b27311727c2760d60e2f33324daca1b7e4be37b0d47c651314dea72"
+  "8.1.0.83":
+    Linux:
+      x86_64:
+        url: "https://download.mosek.com/stable/8.1.0.83/mosektoolslinux64x86.tar.bz2"
+        sha256: "77f4bf21a9664308b359867cf59b24528540697598b33bb0ef0fb0d15a7ed779"
+    Macos:
+      x86_64:
+        url: "https://download.mosek.com/stable/8.1.0.83/mosektoolsosx64x86.tar.bz2"
+        sha256: "06ba7a821a845898983449918f50e0c42c9bc9c6d120d5fd42f2483f91df12ac"
+    Windows:
+      x86_64:
+        url: "https://download.mosek.com/stable/8.1.0.83/mosektoolswin64x86.zip"
+        sha256: "fad4420a010327912efb178d5d7953dbb5c38e1b9cf0d90a73539de0b35c2508"

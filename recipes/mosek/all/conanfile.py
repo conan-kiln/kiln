@@ -53,30 +53,29 @@ class MosekConan(ConanFile):
         # libtbb.so.12 is required
         self.requires("onetbb/[>=2021]", headers=False)
 
-    def validate(self):
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            if self.settings.arch not in ["x86_64", "armv8"]:
-                raise ConanInvalidConfiguration("Only x86_64 and armv8 are supported on Linux")
-        elif self.settings.os == "Windows":
-            if self.settings.arch != "x86_64":
-                raise ConanInvalidConfiguration("Only x86_64 is supported on Windows")
-        elif is_apple_os(self):
-            if not "armv8" in str(self.settings.arch):
-                raise ConanInvalidConfiguration("Only armv8 is supported on macOS")
-        else:
-            raise ConanInvalidConfiguration("Only Linux, Windows and Macos are supported")
-        if self.options.fusion_cxx:
-            check_min_cppstd(self, 11)
-
-    def _source(self):
+    @cached_property
+    def _download_info(self):
         if self.settings.os in ["Linux", "FreeBSD"]:
             os_ = "Linux"
         elif is_apple_os(self):
             os_ = "Macos"
         else:
             os_ = "Windows"
-        arch = str(self.settings.arch) if not is_apple_os(self) else "armv8"
-        get(self, **self.conan_data["sources"][self.version][os_][arch], strip_root=True)
+        arch = str(self.settings.arch)
+        if "armv8" in arch:
+            arch = "armv8"
+        return self.conan_data["sources"][self.version].get(os_, {}).get(arch)
+
+    def validate(self):
+        if not self._download_info:
+            raise ConanInvalidConfiguration(
+                f"{self.settings.arch} {self.settings.os} is not supported for {self.ref}"
+            )
+        if self.options.fusion_cxx:
+            check_min_cppstd(self, 11)
+
+    def _source(self):
+        get(self, **self._download_info, strip_root=True)
         package_root = next(Path(self.build_folder).rglob("fusion_cxx")).parent.parent
         copy(self, "*/mosek-eula.pdf", self.build_folder, package_root, keep_path=False)
         move_folder_contents(self, package_root, self.source_folder)
@@ -115,8 +114,14 @@ class MosekConan(ConanFile):
             else:
                 copy(self, f"libmosek64{self._dll_suffix}.a", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
             copy(self, f"mosek64{self._dll_suffix}.dll", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "bin"))
+            if Version(self.version) < 10:
+                copy(self, "cilkrts.*", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
+                copy(self, "iomp5.*", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
         else:
             copy(self, "libmosek64.*", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
+            if Version(self.version) < 10:
+                copy(self, "libcilkrts.*", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
+                copy(self, "libiomp5.*", os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "lib"))
         if self.options.tools:
             rm(self, "*fusion64*", os.path.join(self.source_folder, "bin"))
             rm(self, "*mosek64*", os.path.join(self.source_folder, "bin"))
