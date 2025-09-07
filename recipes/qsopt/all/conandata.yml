@@ -1,0 +1,12 @@
+sources:
+  "1.01":
+    Linux:
+      lib:
+        url: "https://www.math.uwaterloo.ca/~bico/qsopt/downloads/codes/ubuntu/qsopt.a"
+        sha256: "5dcf323c7fce85e8b9de7ce79aabc17b672e224b77e2a89370c4e35da07434ee"
+      header:
+        url: "https://www.math.uwaterloo.ca/~bico/qsopt/downloads/codes/ubuntu/qsopt.h"
+        sha256: "647729f1bd77e1263ecf35e1897c705ef1cb45e2d65dbd9cb8fdf5df5ae65624"
+      executable:
+        url: "https://www.math.uwaterloo.ca/~bico/qsopt/downloads/codes/ubuntu/qsopt"
+        sha256: "545ddaedf0fcf07e57d799a584bad435686976ffc7e0d10495b48302cbc70d88"
