@@ -23,7 +23,7 @@ class MozillaBuildConan(ConanFile):
             raise ConanInvalidConfiguration("Only Windows supported")
 
     def build_requirements(self):
-        self.tool_requires("7zip/22.01")
+        self.tool_requires("7zip/[*]")
 
     def build(self):
         filename = "mozilla-build.exe"
