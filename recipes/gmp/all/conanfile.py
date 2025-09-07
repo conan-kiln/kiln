@@ -140,8 +140,6 @@ class GmpConan(ConanFile):
         fix_apple_shared_install_name(self)
 
     def package_info(self):
-        self.cpp_info.set_property("pkg_config_name", "none")
-
         self.cpp_info.components["libgmp"].set_property("pkg_config_name", "gmp")
         self.cpp_info.components["libgmp"].libs = ["gmp"]
         if self.settings.os != "Windows":
@@ -151,3 +149,5 @@ class GmpConan(ConanFile):
             self.cpp_info.components["gmpxx"].set_property("pkg_config_name", "gmpxx")
             self.cpp_info.components["gmpxx"].libs = ["gmpxx"]
             self.cpp_info.components["gmpxx"].requires = ["libgmp"]
+
+        self.cpp_info.set_property("pkg_config_name", "_gmp_aggregate_")
