@@ -12,8 +12,8 @@ from conan.tools.microsoft import is_msvc_static_runtime
 required_conan_version = ">=2.4"
 
 
-class FicoXpressConan(ConanFile):
-    name = "fico-xpress"
+class XpressConan(ConanFile):
+    name = "xpress"
     description = ("The FICO Xpress optimizer is a commercial optimization solver for linear programming (LP),"
                    " mixed integer linear programming (MILP), convex quadratic programming (QP),"
                    " convex quadratically constrained quadratic programming (QCQP),"
