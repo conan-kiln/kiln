@@ -114,5 +114,7 @@ class GlpkConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["glpk"]
+        if self.options.with_gmp:
+            self.cpp_info.requires = ["gmp::libgmp"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("m")
+            self.cpp_info.system_libs = ["m"]
