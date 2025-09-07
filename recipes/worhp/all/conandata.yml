@@ -1,0 +1,16 @@
+sources:
+  "1.16.3":
+    Linux:
+      x86_64:
+        url: "https://worhp.de/1.16/download/worhp_1.16-3~ubuntu2404.deb"
+        sha256: "6fd974c6cae7527d73024046bb7dcbb98a914f0f9345c066bfadff4071fb3dcb"
+    Windows:
+      x86_64:
+        url: "https://worhp.de/1.16/download/worhp_1.16-3_win64.zip"
+        sha256: "1079b6d9fceffb207fcbcffc50b0a2fa5455cbae56bbcbdd4444a44d29608407"
+      x86:
+        url: "https://worhp.de/1.16/download/worhp_1.16-3_win32.zip"
+        sha256: "57e55f4bdbd9c4bfe331c785d890e8974b8b7fa00a439ec21c09951346a231ea"
+worhpmonitor:
+  - url: "https://worhp.de/1.13/download/libworhpmonitor.dll"
+    sha256: "0622ddb641ce5d41329c73b157914e399b8ac42d3ce646d5e67ff4df077f9bb3"
