@@ -1,6 +1,4 @@
 sources:
   "25.01":
-    url:
-      - "https://www.7-zip.org/a/7z2501-src.tar.xz"
-      - "https://sourceforge.net/projects/sevenzip/files/7-Zip/25.00/7z2501-src.tar.xz"
-    sha256: "ed087f83ee789c1ea5f39c464c55a5c9d4008deb0efe900814f2df262b82c36e"
+    url: "https://github.com/ip7z/7zip/releases/download/25.01/7z2501-x64.msi"
+    sha256: "e7eb0b7ed5efa4e087b7b17f191797f7af5b7f442d1290c66f3a21777005ef57"
