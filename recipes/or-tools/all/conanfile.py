@@ -21,7 +21,6 @@ class OrToolsConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "build_lp_parser": [True, False],
         "with_coinor": [True, False],
         "with_glpk": [True, False],
         "with_highs": [True, False],
@@ -30,7 +29,6 @@ class OrToolsConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_lp_parser": False,
         "with_coinor": False,
         "with_glpk": False,
         "with_highs": False,
@@ -43,23 +41,23 @@ class OrToolsConan(ConanFile):
 
     def requirements(self):
         self.requires("zlib-ng/[^2.0]")
-        self.requires("protobuf/[>=3.29.4]")
+        self.requires("bzip2/[^1.0.8]")
+        self.requires("protobuf/[>=3.29.4]", transitive_headers=True, transitive_libs=True)
         self.requires("abseil/[>=20240116.2]", transitive_headers=True, transitive_libs=True)
         self.requires("eigen/3.4.0")
-        if self.options.build_lp_parser:
-            self.requires("re2/[>=20220601]")
+        self.requires("re2/[>=20220601]")
         if self.options.with_coinor:
-            self.requires("coin-utils/2.11.11")
-            self.requires("coin-osi/0.108.10")
-            self.requires("coin-clp/1.17.9")
-            self.requires("coin-cgl/0.60.8")
-            self.requires("coin-cbc/2.10.11")
+            self.requires("coin-utils/[^2]")
+            self.requires("coin-osi/[<1]")
+            self.requires("coin-clp/[^1]")
+            self.requires("coin-cgl/[<1]")
+            self.requires("coin-cbc/[^2]")
         if self.options.with_glpk:
-            self.requires("glpk/4.48")
+            self.requires("glpk/[>=4 <6]", transitive_headers=True, transitive_libs=True)
         if self.options.with_highs:
-            self.requires("highs/1.8.1")
+            self.requires("highs/[^1]", transitive_headers=True, transitive_libs=True)
         if self.options.with_scip:
-            self.requires("scip/9.2.0")
+            self.requires("scip/[>=8 <10]", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
         if is_msvc(self):
@@ -86,13 +84,12 @@ class OrToolsConan(ConanFile):
         tc.cache_variables["BUILD_SAMPLES"] = False
         tc.cache_variables["BUILD_EXAMPLES"] = False
         tc.cache_variables["BUILD_TESTING"] = False
-        tc.cache_variables["BUILD_LP_PARSER"] = self.options.build_lp_parser
         tc.cache_variables["USE_COINOR"] = self.options.with_coinor
         tc.cache_variables["USE_GLPK"] = self.options.with_glpk
         tc.cache_variables["USE_HIGHS"] = self.options.with_highs
         tc.cache_variables["USE_SCIP"] = self.options.with_scip
         tc.cache_variables["USE_CPLEX"] = False  # TODO
-        tc.cache_variables["BUILD_GLPK"] = False
+        tc.cache_variables["BUILD_DEPS"] = False
         protoc_path = os.path.join(self.dependencies.build["protobuf"].cpp_info.bindir, "protoc")
         tc.cache_variables["PROTOC_PRG"] = protoc_path.replace("\\", "/")
         tc.generate()
@@ -133,10 +130,11 @@ class OrToolsConan(ConanFile):
             "USE_GLOP",
             "USE_PDLP",
         ])
-        if self.options.shared:
-            self.cpp_info.defines.append("OR_TOOLS_AS_DYNAMIC_LIB")
-        if self.options.build_lp_parser:
-            self.cpp_info.defines.append("USE_LP_PARSER")
+        if self.options.shared and self.settings.compiler == "msvc":
+            self.cpp_info.defines.append("OR_BUILD_DLL")
+            self.cpp_info.defines.append("OR_PROTO_DLL=__declspec(dllimport)")
+        else:
+            self.cpp_info.defines.append("OR_PROTO_DLL=")
         if self.options.with_coinor:
             self.cpp_info.defines.extend(["USE_CBC", "USE_CLP"])
         if self.options.with_glpk:
@@ -149,4 +147,4 @@ class OrToolsConan(ConanFile):
         # self.cpp_info.defines.append("USE_GUROBI")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["m", "pthread", "dl"])
+            self.cpp_info.system_libs = ["m", "pthread", "dl"]
