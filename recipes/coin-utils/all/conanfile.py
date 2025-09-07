@@ -5,7 +5,7 @@ from conan import ConanFile
 from conan.tools import CppInfo
 from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
 from conan.tools.build import cross_building
-from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsDeps, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -38,9 +38,6 @@ class CoinUtilsConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -49,11 +46,12 @@ class CoinUtilsConan(ConanFile):
         self.requires("zlib-ng/[^2.0]")
         self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_glpk:
-            self.requires("glpk/4.48")  # v4.49+ are not supported due to dropped lpx_* functions
+            # v4.49+ are not supported due to dropped lpx_* functions
+            self.requires("glpk/[<=4.48]")
 
     def build_requirements(self):
-        self.tool_requires("coin-buildtools/0.8.11")
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("coin-buildtools/[*]")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings_build.os == "Windows":
@@ -63,12 +61,8 @@ class CoinUtilsConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
         if not cross_building(self):
             env = VirtualRunEnv(self)
             env.generate(scope="build")
