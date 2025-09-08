@@ -55,7 +55,7 @@ class NasRecipe(ConanFile):
         self.tool_requires("xorg-cf-files/1.0.8")
         self.tool_requires("xorg-makedepend/1.0.8")
         self.tool_requires("xorg-gccmakedep/1.0.3")
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version][0],  strip_root=True)

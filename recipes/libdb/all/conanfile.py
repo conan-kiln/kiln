@@ -79,7 +79,7 @@ class LibdbConan(ConanFile):
 
     def build_requirements(self):
         if not self.settings_build.os == "Windows":
-            self.tool_requires("gnu-config/cci.20210814")
+            self.tool_requires("gnu-config/[*]")
 
     def layout(self):
         if is_msvc(self):

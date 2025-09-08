@@ -40,7 +40,7 @@ class Libraw1394Conan(ConanFile):
             raise ConanInvalidConfiguration("Only Linux is supported")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

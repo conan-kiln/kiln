@@ -80,7 +80,7 @@ class ZbarConan(ConanFile):
             raise ConanInvalidConfiguration("Zbar can't be built static on macOS")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if Version(self.version) >= "0.22":

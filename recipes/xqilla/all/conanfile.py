@@ -50,7 +50,7 @@ class XqillaConan(ConanFile):
             raise ConanInvalidConfiguration("xqilla recipe doesn't support msvc build yet")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         self.tool_requires("libtool/[^2.4.7]")
         if self.settings_build.os == "Windows":
             self.win_bash = True

@@ -52,7 +52,7 @@ class OdbcConan(ConanFile):
             raise ConanInvalidConfiguration("odbc is a system lib on Windows")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

@@ -49,7 +49,7 @@ class LibUSBCompatConan(ConanFile):
             self.requires("dirent/1.24", transitive_headers=True, transitive_libs=True)
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         self.tool_requires("libtool/[^2.4.7]")
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")

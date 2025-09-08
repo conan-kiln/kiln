@@ -46,7 +46,7 @@ class LibtoolConan(ConanFile):
         self.tool_requires("automake/[^1.18.1]", visible=True)
         self.tool_requires("m4/[^1.4.20]", visible=True)
 
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

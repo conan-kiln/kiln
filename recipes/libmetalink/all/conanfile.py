@@ -43,7 +43,7 @@ class LibmetalinkConan(ConanFile):
             raise ConanInvalidConfiguration(f"{self.ref} does not support Visual Studio yet")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings_build.os == "Windows":

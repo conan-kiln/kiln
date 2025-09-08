@@ -67,7 +67,7 @@ class SqlcipherConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("tcl/[>=8.6 <10]")
         if not is_msvc(self):
-            self.tool_requires("gnu-config/cci.20210814")
+            self.tool_requires("gnu-config/[*]")
             if self.settings_build.os == "Windows":
                 self.win_bash = True
                 if not self.conf.get("tools.microsoft.bash:path", check_type=str):

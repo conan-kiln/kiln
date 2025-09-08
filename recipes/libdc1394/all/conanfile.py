@@ -45,7 +45,7 @@ class Libdc1394Conan(ConanFile):
             raise ConanInvalidConfiguration("Clang doesn't support VLA")
 
     def build_requirements(self):
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
 
