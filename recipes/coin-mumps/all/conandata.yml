@@ -1,10 +1,14 @@
 sources:
-  "3.0.5":
+  "3.0.10":
     source:
       url:
-        - "https://coin-or-tools.github.io/ThirdParty-Mumps/MUMPS_5.6.2.tar.gz"
-        - "http://mumps-solver.org/MUMPS_5.6.2.tar.gz"
-      sha256: "13a2c1aff2bd1aa92fe84b7b35d88f43434019963ca09ef7e8c90821a8f1d59a"
+        - "https://coin-or-tools.github.io/ThirdParty-Mumps/MUMPS_5.8.1.tar.gz"
+        - "http://mumps-solver.org/MUMPS_5.8.1.tar.gz"
+      sha256: "e91b6dcd93597a34c0d433b862cf303835e1ea05f12af073b06c32f652f3edd8"
     build_scripts:
-      url: "https://github.com/coin-or-tools/ThirdParty-Mumps/archive/refs/tags/releases/3.0.5.tar.gz"
-      sha256: "7010384ae705939d8e8bb784e96eb117f91e572f29fab14b72a1d86765cfde01"
+      url: "https://github.com/coin-or-tools/ThirdParty-Mumps/archive/refs/tags/releases/3.0.10.tar.gz"
+      sha256: "a93d19dac80dc1620fa7e3ca4621a5cb1e97c4d200aca7731f7ecc0b3548d514"
+patches:
+  "3.0.10":
+    - patch_file: "patches/3.0.10-mumps_mpi.patch"
+      patch_source: "https://github.com/coin-or-tools/ThirdParty-Mumps/blob/releases/3.0.10/mumps_mpi.patch"

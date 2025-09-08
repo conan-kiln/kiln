@@ -13,37 +13,24 @@ from conan.tools.layout import basic_layout
 required_conan_version = ">=2.4"
 
 
-class PackageConan(ConanFile):
+class CoinMumpsConan(ConanFile):
     name = "coin-mumps"
     description = "MUltifrontal Massively Parallel sparse direct Solver (MUMPS)"
-    license = "CECILL-C", "BSD 3-Clause", "EPL-1.0"
+    license = "CECILL-C AND EPL-1.0"
     homepage = "https://github.com/coin-or-tools/ThirdParty-Mumps"
     topics = ("solver", "sparse", "direct", "parallel", "linear-algebra")
-
-    # Always build as shared to avoid having to manage Fortran runtime library dependencies.
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
-        "fPIC": [True, False],
-        "intsize": [32, 64],
         "precision": ["single", "double", "all"],
-        "with_lapack": [True, False],
-        "with_metis": [True, False],
         "with_openmp": [True, False],
         "with_pthread": [True, False],
     }
     default_options = {
-        "shared": False,
-        "fPIC": True,
-        "intsize": 32,
         "precision": "double",
-        "with_lapack": True,
-        "with_metis": True,
         "with_openmp": True,
         "with_pthread": True,
     }
-    implements = ["auto_shared_fpic"]
     languages = ["C"]
 
     @property
@@ -51,33 +38,40 @@ class PackageConan(ConanFile):
         executables = self.conf.get("tools.build:compiler_executables", default={}, check_type=dict)
         return executables.get("fortran")
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openmpi/[^5.0.5]")
-        if self.options.with_lapack:
-            self.requires("openblas/[>=0.3.28 <1]")
-        if self.options.with_metis:
-            self.requires("metis/5.2.1")
+        self.requires("openmpi/[>=4 <6]")
+        self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("metis/[^5.2.1]")
         if self.options.with_openmp:
             self.requires("openmp/system")
-        if not self._fortran_compiler:
-            self.requires("gfortran/[*]", headers=False, libs=True)
 
     def validate(self):
-        if self.options.with_lapack and not self.dependencies["openblas"].options.build_lapack:
+        if not self.dependencies["openblas"].options.build_lapack:
             raise ConanInvalidConfiguration("MUMPS requires openblas with build_lapack=True")
 
     def build_requirements(self):
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
+
+    def validate_build(self):
         if not self._fortran_compiler:
-            self.tool_requires("gfortran/<host_version>")
+            raise ConanInvalidConfiguration(
+                "MUMPS requires a Fortran compiler. "
+                "Please provide one by setting tools.build:compiler_executables={'fortran': '...'}."
+            )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["build_scripts"], strip_root=True)
         get(self, **self.conan_data["sources"][self.version]["source"], destination="MUMPS", strip_root=True)
+        # https://github.com/coin-or-tools/ThirdParty-Mumps/blob/releases/3.0.10/get.Mumps#L65-L66
+        apply_conandata_patches(self)
+        os.rename("MUMPS/libseq/mpi.h", "MUMPS/libseq/mumps_mpi.h")
 
     def generate(self):
         if not cross_building(self):
@@ -86,18 +80,18 @@ class PackageConan(ConanFile):
 
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
+        int_size = 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
         tc.configure_args.extend([
+            "--with-lapack=yes",
+            "--with-metis=yes",
             f"--enable-pthread-mumps={yes_no(self.options.with_pthread)}",
             f"--enable-openmp={yes_no(self.options.with_openmp)}",
-            f"--with-lapack={yes_no(self.options.with_lapack)}",
-            f"--with-metis={yes_no(self.options.with_metis)}",
             f"--with-precision={self.options.precision}",
-            f"--with-intsize={self.options.intsize}",
+            f"--with-intsize={int_size}",
         ])
-        if self.options.with_lapack:
-            dep_info = self.dependencies["openblas"].cpp_info.aggregated_components()
-            lib_flags = " ".join([f"-l{lib}" for lib in dep_info.libs + dep_info.system_libs])
-            tc.configure_args.append(f"--with-lapack-lflags=-L{dep_info.libdir} {lib_flags}")
+        dep_info = self.dependencies["openblas"].cpp_info.aggregated_components()
+        lib_flags = " ".join([f"-l{lib}" for lib in dep_info.libs + dep_info.system_libs])
+        tc.configure_args.append(f"--with-lapack-lflags=-L{dep_info.libdir} {lib_flags}")
         if self._fortran_compiler:
             tc.configure_args.append(f"F77={self._fortran_compiler}")
         tc.generate()
@@ -105,14 +99,7 @@ class PackageConan(ConanFile):
         deps = PkgConfigDeps(self)
         deps.generate()
 
-    def _patch_sources(self):
-        # https://github.com/coin-or-tools/ThirdParty-Mumps/blob/releases/3.0.5/get.Mumps#L63-L67
-        patch(self, self.source_folder, os.path.join(self.source_folder, "mumps_mpi.patch"))
-        os.rename(os.path.join(self.source_folder, "MUMPS", "libseq", "mpi.h"),
-                  os.path.join(self.source_folder, "MUMPS", "libseq", "mumps_mpi.h"))
-
     def build(self):
-        self._patch_sources()
         autotools = Autotools(self)
         autotools.configure()
         autotools.make()
@@ -120,7 +107,7 @@ class PackageConan(ConanFile):
     def package(self):
         mkdir(self, os.path.join(self.package_folder, "licenses"))
         shutil.copy(os.path.join(self.source_folder, "LICENSE"),
-                    os.path.join(self.package_folder, "licenses", "LICENSE-ThirdParty-Mumps"))
+                    os.path.join(self.package_folder, "licenses", "LICENSE-coin-mumps"))
         shutil.copy(os.path.join(self.source_folder, "MUMPS", "LICENSE"),
                     os.path.join(self.package_folder, "licenses", "LICENSE-MUMPS"))
         autotools = Autotools(self)
@@ -132,18 +119,20 @@ class PackageConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "coinmumps")
         self.cpp_info.libs = ["coinmumps"]
-        self.cpp_info.includedirs.append(os.path.join("include", "coin-or"))
-        self.cpp_info.includedirs.append(os.path.join("include", "coin-or", "mumps"))
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["m"])
-            if self.options.with_pthread:
-                self.cpp_info.system_libs.extend(["pthread"])
+        self.cpp_info.includedirs.append("include/coin-or")
+        self.cpp_info.includedirs.append("include/coin-or/mumps")
+        if not self.options.get_safe("shared", True):
+            if self.settings.os in ["Linux", "FreeBSD"]:
+                self.cpp_info.system_libs.extend(["m"])
+                if self.options.with_pthread:
+                    self.cpp_info.system_libs.extend(["pthread"])
+            if "gfortran" in self._fortran_compiler:
+                self.cpp_info.system_libs.extend(["gfortran", "quadmath"])
 
-        self.cpp_info.requires = ["openmpi::ompi-c"]
-        if self.options.with_lapack:
-            self.cpp_info.requires.append("openblas::openblas")
-        if self.options.with_metis:
-            self.cpp_info.requires.append("metis::metis")
+        self.cpp_info.requires = [
+            "openmpi::ompi-c",
+            "openblas::openblas",
+            "metis::metis",
+        ]
         if self.options.with_openmp:
             self.cpp_info.requires.append("openmp::openmp")
-        # self.cpp_info.requires.extend(["gfortran::libgfortran", "gfortran::libquadmath"])
