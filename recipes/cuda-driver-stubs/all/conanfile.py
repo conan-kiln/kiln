@@ -78,7 +78,7 @@ class CudaDriverStubsConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("cmake_target_name", "CUDA::cuda_driver")
-        self.cpp_info.set_property("pkg_config_name", f"cudart-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_name", f"cuda-{self.cuda.version}")
         self.cpp_info.libs = ["cuda"]
 
         # Also install the wrapper for FindCUDAToolkit.cmake as cuda-driver-stubs is the root dependency for all other CUDA toolkit packages
