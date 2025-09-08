@@ -13,8 +13,9 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-07:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-08:
 
+- 7zip/25.01
 - acl/2.3.2
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
@@ -92,13 +93,14 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - coin-clp/1.17.9
 - coin-ipopt/3.14.13
 - coin-mumps/3.0.5
-- coin-osi/0.108.10
-- coin-utils/2.11.11
+- coin-osi/0.108.11
+- coin-utils/2.11.12
 - colmap/3.12.5
 - conan-cuda/latest
 - conan-gnu-triplet/latest
 - conan-utils/latest
 - cose-c/cci.20200603
+- cplex/22.1.2
 - cpp-validator/2.1.1
 - cppad/20250000.2
 - cppadcodegen/2.5.0
@@ -431,7 +433,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ffnvcodec/12.2.72.0
 - ffnvcodec/13.0.19.0
 - ffts/0.9.0+git.20240906
-- fico-xpress/9.7.0
 - filament/1.5.3
 - firebird/5.0.0
 - flite/2.2
@@ -505,8 +506,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - googleapis/cci.20250506
 - gpu.cpp/0.1.0
 - grass/8.5.0-cci.20240507
-- grpc/1.72.1
-- grpc/1.74.0
+- grpc/1.72.2
+- grpc/1.74.1
 - gsettings-desktop-schemas/48.0
 - gsl-lite/0.43.0
 - gsl-lite/1.0.1
@@ -748,6 +749,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mold/2.40.4
 - moltenvk/1.2.11
 - moltenvk/1.2.7
+- mosek/10.2.17
+- mosek/11.0.28
+- mosek/8.1.0.83
+- mosek/9.3.22
 - mpdecimal/4.0.1
 - mpg123/1.33.2
 - mrcal/2.4.1
@@ -1018,6 +1023,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - protobuf/4.31.1
 - protobuf/5.29.5
 - protobuf/6.31.1
+- protobuf/6.32.0
 - prrte/4.0.0
 - pthreadpool/cci.20250723
 - qcoro/0.10.0
@@ -1026,6 +1032,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
 - qscintilla/2.14.1
+- qsopt/1.01
 - qtawesome/6.5.1
 - qtkeychain/0.15.0
 - raft/25.08.00
@@ -1149,6 +1156,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sundials/5.8.0
 - sundials/6.7.0
 - sundials/7.4.0
+- superlu/6.0.1
+- superlu/7.0.1
 - swig/4.3.1
 - tcl/8.6.16
 - tcl/9.0.1
@@ -1227,6 +1236,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - vulkan-validationlayers/1.4.313.0
 - vulkan-validationlayers/1.4.321.0
 - wayland/1.24.0
+- worhp/1.16.3
 - wuffs/0.3.4
 - x86simdsortcpp/7.0
 - xbyak/7.26
@@ -1252,6 +1262,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - xorg/1.8.10
 - xpack/1.0.6
 - xpmem/2.6.5.cci.20240911
+- xpress/9.7.0
 - xtrans/1.5.0
 - xz_utils/5.8.1
 - yasm/1.3.0+git.20230922
