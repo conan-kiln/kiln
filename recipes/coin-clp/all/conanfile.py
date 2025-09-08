@@ -1,11 +1,9 @@
 import os
-import shutil
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
+from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps, AutotoolsDeps
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path, msvc_runtime_flag
 
@@ -23,32 +21,61 @@ class CoinClpConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "enable_aboca": [True, False],
+        "aboca_inherit": [True, False],
+        "with_cholmod": [True, False],
+        "with_amd": [True, False],
+        "with_glpk": [True, False],
+        "with_asl": [True, False],
+        "with_mumps": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
+        "enable_aboca": False,
+        "aboca_inherit": False,
+        "with_cholmod": True,  # LGPL
+        "with_amd": False,     # BSD
+        "with_glpk": False,    # GPL
+        "with_asl": False,     # BSD
+        "with_mumps": False,   # CeCILL
     }
     implements = ["auto_shared_fpic"]
+
+    def configure(self):
+        if self.options.shared:
+            del self.options.fPIC
+        if not self.options.enable_aboca:
+            del self.options.aboca_inherit
+        if self.options.with_glpk:
+            # Can't use GLPK without AMD or CHOLMOD
+            self.options.with_amd.value = True
+        if self.options.with_cholmod:
+            # AMD is a transitive dep of CHOLMOD anyway
+            self.options.with_amd.value = True
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
         # Symbols are exposed https://github.com/conan-io/conan-center-index/pull/16053#issuecomment-1512637106
-        self.requires("coin-utils/2.11.11", transitive_headers=True, transitive_libs=True)
-        self.requires("coin-osi/0.108.10", transitive_headers=True)
+        self.requires("coin-utils/[^2.11.11]", transitive_headers=True, transitive_libs=True)
+        self.requires("coin-osi/[>=0.108.10 <1]", transitive_headers=True)
         self.requires("openblas/[>=0.3.28 <1]")
-
-        # TODO:
-        # self.requires("metis/5.2.1")
-        # self.requires("coin-mumps/3.0.5")
-        # self.requires("suitesparse-amd/[^3.3.2]")
-        # self.requires("suitesparse-cholmod/[^5.2.1]")
-        # Not yet available on CCI: ASL, WSMP
+        if self.options.with_asl:
+            self.requires("asl/[^1]")
+        if self.options.with_glpk:
+            self.requires("glpk/[<=4.48]")
+        if self.options.with_mumps:
+            self.requires("coin-mumps/[^3.0.5]")
+        if self.options.with_amd:
+            self.requires("suitesparse-amd/[^3.3.2]")
+        if self.options.with_cholmod:
+            self.requires("suitesparse-cholmod/[^5.2.1]")
 
     def build_requirements(self):
-        self.tool_requires("coin-buildtools/0.8.11")
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("coin-buildtools/[*]")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings_build.os == "Windows":
@@ -60,31 +87,13 @@ class CoinClpConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
-        deps = PkgConfigDeps(self)
-        deps.generate()
-
-        def _add_pkg_config_alias(src_name, dst_name):
-            shutil.copy(os.path.join(self.generators_folder, f"{src_name}.pc"),
-                        os.path.join(self.generators_folder, f"{dst_name}.pc"))
-
-        _add_pkg_config_alias("openblas", "coinblas")
-        _add_pkg_config_alias("openblas", "coinlapack")
-
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
             # the coin*.pc pkg-config files are only used when set to BUILD
             "--with-blas=BUILD",
             "--with-lapack=BUILD",
-            "--with-glpk=no", # GLPK is used as a substitute for AMD, but fails with undefined symbols
-            # TODO
-            "--without-asl",
-            "--without-mumps",
+            "--without-metis",  # not really used
             "--without-wsmp",
-            "--disable-amd-libcheck",
-            "--disable-cholmod-libcheck",
             # These are only used for sample datasets
             "--without-netlib",
             "--without-sample",
@@ -92,17 +101,42 @@ class CoinClpConan(ConanFile):
             "F77=unavailable",
         ])
 
-        # TODO: add option
-        # 1 - build Abc serial but no inherit code
-        # 2 - build Abc serial and inherit code
-        # 3 - build Abc cilk parallel but no inherit code
-        # 4 - build Abc cilk parallel and inherit code
-        # [AC_HELP_STRING([--enable-aboca],[enables build of Aboca solver (set to 1,2,3,4)])],
+        def _libflags(name):
+            dep_info = self.dependencies[name].cpp_info.aggregated_components()
+            flags = [f"-L{unix_path(self, lib)}" for lib in dep_info.libdirs]
+            flags += [f"-l{lib}" for lib in dep_info.libs]
+            flags += [f"-l{lib}" for lib in dep_info.system_libs]
+            return " ".join(flags)
+
+        def _configure_dep(opt_name, dep):
+            inc_dir = self.dependencies[dep].cpp_info.includedirs[0]
+            if dep.startswith("suitesparse"):
+                inc_dir = os.path.join(inc_dir, "suitesparse")
+            tc.configure_args.append(f"--with-{opt_name}-incdir={unix_path(self, inc_dir)}")
+            tc.configure_args.append(f"--with-{opt_name}-lib={_libflags(dep)}")
+
+        if self.options.with_asl:
+            _configure_dep("asl", "asl")
+        if self.options.with_glpk:
+            _configure_dep("glpk", "glpk")
+        if self.options.with_mumps:
+            _configure_dep("mumps", "coin-mumps")
+        if self.options.with_amd:
+            _configure_dep("amd", "suitesparse-amd")
+        if self.options.with_cholmod:
+            _configure_dep("cholmod", "suitesparse-cholmod")
+
+        # TODO: package Cilk for parallelization support in the Aboca solver
+        if self.options.enable_aboca:
+            tc.configure_args.append(f"--enable-aboca={2 if self.options.aboca_inherit else 1}")
+        else:
+            tc.configure_args.append("--disable-aboca")
 
         if is_msvc(self):
             tc.extra_cxxflags.append("-EHsc")
             tc.configure_args.append(f"--enable-msvc={msvc_runtime_flag(self)}")
         env = tc.environment()
+        env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
             compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
             ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
@@ -111,18 +145,21 @@ class CoinClpConan(ConanFile):
             env.define("LD", f"{compile_wrapper} link -nologo")
             env.define("AR", f"{ar_wrapper} \"lib -nologo\"")
             env.define("NM", "dumpbin -symbols")
-        if self.settings_build.os == "Windows":
-            # TODO: Something to fix in conan client or pkgconf recipe?
-            # This is a weird workaround when build machine is Windows. Here we have to inject regular
-            # Windows path to pc files folder instead of unix path flavor injected by AutotoolsToolchain...
-            env.define("PKG_CONFIG_PATH", self.generators_folder)
         tc.generate(env)
 
+        deps = PkgConfigDeps(self)
+        deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
+        deps.set_property("asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
+        deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
+        deps.generate()
+
+        deps = AutotoolsDeps(self)
+        deps.generate()
+
     def build(self):
-        copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
-             os.path.join(self.source_folder, "BuildTools"))
-        copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
-             os.path.join(self.source_folder, "Clp", "BuildTools"))
+        buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
+        copy(self, "*", buildtools, os.path.join(self.source_folder, "BuildTools"))
+        copy(self, "*", buildtools, os.path.join(self.source_folder, "Clp", "BuildTools"))
         for gnu_config in [
             self.conf.get("user.gnu-config:config_guess", check_type=str),
             self.conf.get("user.gnu-config:config_sub", check_type=str),
@@ -150,9 +187,28 @@ class CoinClpConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.components["clp"].set_property("pkg_config_name", "clp")
-        self.cpp_info.components["clp"].libs = ["ClpSolver", "Clp"]
-        self.cpp_info.components["clp"].includedirs.append(os.path.join("include", "coin"))
-        self.cpp_info.components["clp"].requires = ["coin-utils::coin-utils", "openblas::openblas"]
+        self.cpp_info.components["clp"].libs = ["Clp"]
+        self.cpp_info.components["clp"].includedirs.append("include/coin")
+        self.cpp_info.components["clp"].requires = [
+            "solver",
+            "coin-utils::coin-utils",
+            "openblas::openblas",
+        ]
+        if self.options.with_mumps:
+            self.cpp_info.components["clp"].requires.append("coin-mumps::coin-mumps")
+        if self.options.with_amd:
+            self.cpp_info.components["clp"].requires.append("suitesparse-amd::suitesparse-amd")
+        if self.options.with_cholmod:
+            self.cpp_info.components["clp"].requires.append("suitesparse-cholmod::suitesparse-cholmod")
+
+        self.cpp_info.components["solver"].set_property("pkg_config_name", "clp-solver")
+        self.cpp_info.components["solver"].libs = ["Clp"]
+        self.cpp_info.components["solver"].includedirs.append("include/coin")
+        self.cpp_info.components["solver"].requires = ["coin-utils::coin-utils", "openblas::openblas"]
+        if self.options.with_asl:
+            self.cpp_info.components["solver"].requires.append("asl::asl2-mt")
+        if self.options.with_glpk:
+            self.cpp_info.components["solver"].requires.append("glpk::glpk")
 
         self.cpp_info.components["osi-clp"].set_property("pkg_config_name", "osi-clp")
         self.cpp_info.components["osi-clp"].libs = ["OsiClp"]
