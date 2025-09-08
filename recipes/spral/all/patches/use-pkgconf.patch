@@ -1,0 +1,94 @@
+--- a/meson.build
++++ b/meson.build
+@@ -49,60 +49,39 @@
+ build_tests = get_option('tests')
+ build_examples = get_option('examples')
+ build_openmp = get_option('openmp')
+-
+-libblas_name = get_option('libblas')
+-libblas_path = get_option('libblas_path')
+-libblas_include = include_directories(get_option('libblas_include'))
+-
+-liblapack_name = get_option('liblapack')
+-liblapack_path = get_option('liblapack_path')
+-
+-libhwloc_name = get_option('libhwloc')
+-libhwloc_path = get_option('libhwloc_path')
+-libhwloc_include = include_directories(get_option('libhwloc_include'))
+-
+-libmetis_name = get_option('libmetis')
+-libmetis_path = get_option('libmetis_path')
+ libmetis_version = get_option('libmetis_version')
+-metis64 = get_option('metis64')
+-
+-# Dependencies
+-if libblas_path == []
+-    libblas = dependency(libblas_name, required : false)
+-endif
+-if libblas_path != [] or not libblas.found()
+-    libblas = fc.find_library(libblas_name, dirs : libblas_path, required : true)
+-endif
+-if liblapack_path == []
+-  liblapack = dependency(liblapack_name, required : false)
+-endif
+-if liblapack_path != [] or not liblapack.found()
+-  liblapack = fc.find_library(liblapack_name, dirs : liblapack_path, required : true)
+-endif
+-libmetis = fc.find_library(libmetis_name, dirs : libmetis_path, required : true)
+-libhwloc = fc.find_library(libhwloc_name, dirs : libhwloc_path, required : false)
+-libcuda = dependency('cuda', version : '>=10', modules : ['cublas'], required : false)
+-lm = cc.find_library('m', required : false)
+-libspral_deps = [libblas, liblapack, libmetis, libhwloc, libcuda, lm]
++
++libblas   = dependency('blas', required: true)
++liblapack = dependency('lapack', required: true)
++libmetis  = dependency('metis', required: true)
++libhwloc  = dependency('hwloc', required: false)
++libcuda   = dependency('cublas', required : build_gpu)
++lm = cc.find_library('m', required: false)
++
++libspral_deps = [libblas, liblapack, libmetis]
++if libhwloc.found()
++  libspral_deps += libhwloc
++  add_global_arguments('-DHAVE_HWLOC', language : 'cpp')
++endif
++if libcuda.found()
++  libspral_deps += libcuda
++endif
++if lm.found()
++  libspral_deps += lm
++endif
+ 
+ # CBLAS
+-has_cblash = cc.has_header('cblas.h', include_directories : libblas_include)
++has_cblash = cc.has_header('cblas.h', dependencies : libblas)
+ 
+ # METIS
+-if metis64
++if get_option('metis64')
+   add_global_arguments('-DSPRAL_HAVE_METIS_H=1', language : 'fortran')
+   add_global_arguments('-DSIZEOF_IDX_T=8', language : 'fortran')
+ endif
+ 
+-# HWLOC
+-has_hwloch = cc.has_header('hwloc.h', include_directories : libhwloc_include)
+-if libhwloc.found() and has_hwloch
+-  add_global_arguments('-DHAVE_HWLOC', language : 'cpp')
+-endif
+-
+ # SCHED_GETCPU
+ if host_machine.system() == 'linux'
+-  add_global_arguments('-DHAVE_SCHED_GETCPU', language : 'cpp')
++  add_global_arguments('-DHAVE_SCHED_GETCPU', language: 'cpp')
+ endif
+ 
+ # OpenMP
+@@ -177,8 +158,6 @@
+ spral_headers = []
+ libspral_include = []
+ libspral_include += include_directories('include', 'src')
+-libspral_include += libhwloc_include
+-libspral_include += libblas_include
+ 
+ # Sources
+ subdir('include')

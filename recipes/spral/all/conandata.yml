@@ -1,0 +1,7 @@
+sources:
+  "2025.05.20":
+    url: "https://github.com/ralna/spral/archive/refs/tags/v2025.05.20.tar.gz"
+    sha256: "77c03b52b5f52b5dff7fb5338be7518e09b1bdf0c0c8899c8938377b9ff240da"
+patches:
+  "2025.05.20":
+    - patch_file: "patches/use-pkgconf.patch"
