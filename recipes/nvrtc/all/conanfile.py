@@ -85,6 +85,7 @@ class NvRtcConan(ConanFile):
         suffix = "" if self.options.shared else "_static"
         alias_suffix = "_static" if self.options.shared else ""
         self.cpp_info.components["nvrtc_"].set_property("pkg_config_name", f"nvrtc-{self.cuda.version}")
+        self.cpp_info.components["nvrtc_"].set_property("pkg_config_aliases", ["nvrtc"])  # unofficial
         self.cpp_info.components["nvrtc_"].set_property("component_version", str(self.cuda.version))
         self.cpp_info.components["nvrtc_"].set_property("cmake_target_name", f"CUDA::nvrtc{suffix}")
         if self.options.get_safe("cmake_alias"):

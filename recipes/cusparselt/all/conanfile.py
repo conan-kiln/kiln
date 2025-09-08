@@ -77,6 +77,7 @@ class CuSparseLtConan(ConanFile):
         if self.options.get_safe("cmake_alias"):
             alias = "cusparseLt_static" if self.options.get_safe("shared", True) else "cusparseLt"
             self.cpp_info.set_property("cmake_target_aliases", [f"CUDA::{alias}"])
+        self.cpp_info.set_property("pkg_config_name", "cusparseLt")  # unofficial
         self.cpp_info.libs = [f"cusparseLt{suffix}"]
         self.cpp_info.requires = ["cudart::cudart_", "cusparse::cusparse"]
         if self.settings.os == "Linux" and not self.options.shared:

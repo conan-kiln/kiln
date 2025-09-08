@@ -108,6 +108,7 @@ class CuDssConan(ConanFile):
         self.cpp_info.components["cudss_"].set_property("cmake_target_name", f"cudss{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.components["cudss_"].set_property("cmake_target_aliases", [f"cudss{alias_suffix}"])
+        self.cpp_info.components["cudss_"].set_property("pkg_config_name", "cudss")  # unofficial
         self.cpp_info.components["cudss_"].libs = [f"cudss{suffix}"]
         self.cpp_info.components["cudss_"].requires = ["cudart::cudart_", "cublas::cublas_"]
         self.cpp_info.components["cudss_"].srcdirs = ["share/cudss/src"]
@@ -118,14 +119,17 @@ class CuDssConan(ConanFile):
         if self.settings.os == "Linux":
             if self.options.commlayer_nccl:
                 self.cpp_info.components["cudss_commlayer_nccl"].set_property("cmake_target_name", "cudss_commlayer_nccl")
+                self.cpp_info.components["cudss_commlayer_nccl"].set_property("pkg_config_name", "cudss_commlayer_nccl")  # unofficial
                 self.cpp_info.components["cudss_commlayer_nccl"].libs = ["cudss_commlayer_nccl"]
                 self.cpp_info.components["cudss_commlayer_nccl"].requires = ["nccl::nccl"]
             if self.options.commlayer_mpi:
                 self.cpp_info.components["cudss_commlayer_mpi"].set_property("cmake_target_name", "cudss_commlayer_mpi")
+                self.cpp_info.components["cudss_commlayer_mpi"].set_property("pkg_config_name", "cudss_commlayer_mpi")  # unofficial
                 self.cpp_info.components["cudss_commlayer_mpi"].libs = ["cudss_commlayer_openmpi"]
                 self.cpp_info.components["cudss_commlayer_mpi"].requires = ["openmpi::openmpi"]
         if self.options.mtlayer_omp:
             self.cpp_info.components["cudss_mtlayer_omp"].set_property("cmake_target_name", "cudss_mtlayer_omp")
+            self.cpp_info.components["cudss_mtlayer_omp"].set_property("pkg_config_name", "cudss_mtlayer_omp")  # unofficial
             if self.settings.os == "Linux":
                 self.cpp_info.components["cudss_mtlayer_omp"].libs = ["cudss_mtlayer_gomp"]
                 self.cpp_info.components["cudss_mtlayer_omp"].system_libs = ["gomp"]

@@ -83,6 +83,7 @@ class NvCompConan(ConanFile):
         if self.options.get_safe("cmake_alias"):
             aliases.extend([f"nvcomp::nvcomp{alias_suffix}", f"CUDA::nvcomp{alias_suffix}"])
         self.cpp_info.components["nvcomp_"].set_property("cmake_target_aliases", aliases)
+        self.cpp_info.components["nvcomp_"].set_property("pkg_config_name", "nvcomp")  # unofficial
         self.cpp_info.components["nvcomp_"].libs = [f"nvcomp{suffix}"]
         if self.settings.os == "Linux" and not self.options.shared:
             self.cpp_info.components["nvcomp_"].system_libs = ["rt", "pthread", "m", "dl", "gcc_s", "stdc++"]
@@ -97,6 +98,7 @@ class NvCompConan(ConanFile):
         if self.options.get_safe("cmake_alias"):
             aliases.extend([f"nvcomp::nvcomp_cpu{alias_suffix}", f"CUDA::nvcomp_cpu{alias_suffix}"])
         self.cpp_info.components["nvcomp_cpu"].set_property("cmake_target_aliases", aliases)
+        self.cpp_info.components["nvcomp_cpu"].set_property("pkg_config_name", "nvcomp_cpu")  # unofficial
         self.cpp_info.components["nvcomp_cpu"].libs = [f"nvcomp_cpu{suffix}"]
         if self.settings.os == "Linux" and not self.options.shared:
             self.cpp_info.components["nvcomp_cpu"].system_libs = ["rt", "pthread", "m", "dl", "gcc_s", "stdc++"]
@@ -109,6 +111,7 @@ class NvCompConan(ConanFile):
             if self.options.get_safe("cmake_alias"):
                 aliases.extend(["nvcomp::nvcomp_device", "CUDA::nvcomp_device"])
             self.cpp_info.components["nvcomp_device"].set_property("cmake_target_aliases", aliases)
+            self.cpp_info.components["nvcomp_device"].set_property("pkg_config_name", "nvcomp_device")  # unofficial
             self.cpp_info.components["nvcomp_device"].libs = ["nvcomp_device_static"]
             self.cpp_info.components["nvcomp_device"].includedirs = ["include/nvcomp/device"]
             if self.settings.os == "Linux":

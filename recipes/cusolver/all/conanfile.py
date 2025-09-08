@@ -97,6 +97,7 @@ class CuSolverConan(ConanFile):
     def package_info(self):
         suffix = "" if self.options.get_safe("shared", True) else "_static"
         self.cpp_info.components["cusolver_"].set_property("pkg_config_name", f"cusolver-{self.cuda.version}")
+        self.cpp_info.components["cusolver_"].set_property("pkg_config_aliases", ["cusolver"])  # unofficial
         self.cpp_info.components["cusolver_"].set_property("component_version", str(self.cuda.version))
         self.cpp_info.components["cusolver_"].set_property("cmake_target_name", f"CUDA::cusolver{suffix}")
         if self.options.get_safe("cmake_alias"):

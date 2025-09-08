@@ -71,6 +71,7 @@ class NvmlStubsConan(ConanFile):
         suffix = "" if self.options.get_safe("shared", True) else "_static"
         alias_suffix = "_static" if self.options.get_safe("shared", True) else ""
         self.cpp_info.set_property("pkg_config_name", f"nvidia-ml-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["nvidia-ml"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::nvml{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.set_property("cmake_target_aliases", [f"CUDA::nvml{alias_suffix}"])

@@ -88,6 +88,7 @@ class CuRandConan(ConanFile):
         suffix = "" if self.options.get_safe("shared", True) else "_static"
         alias_suffix = "_static" if self.options.get_safe("shared", True) else ""
         self.cpp_info.set_property("pkg_config_name", f"curand-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["curand"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::curand{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.set_property("cmake_target_aliases", [f"CUDA::curand{alias_suffix}"])

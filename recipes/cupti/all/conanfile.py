@@ -74,6 +74,7 @@ class CuptiConan(ConanFile):
         self.cpp_info.components["cupti_"].set_property("cmake_target_name", f"CUDA::cupti{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.components["cupti_"].set_property("cmake_target_aliases", [f"CUDA::cupti{alias_suffix}"])
+        self.cpp_info.components["cupti_"].set_property("pkg_config_name", "cupti")  # unofficial
         self.cpp_info.components["cupti_"].libs = [f"cupti{suffix}"]
         if self.settings.os == "Linux" and not self.options.shared:
             self.cpp_info.components["cupti_"].system_libs = ["rt", "pthread", "m", "dl", "util", "gcc_s", "stdc++"]
@@ -83,6 +84,7 @@ class CuptiConan(ConanFile):
         self.cpp_info.components["nvperf_host"].set_property("cmake_target_name", f"CUDA::nvperf_host{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.components["nvperf_host"].set_property("cmake_target_aliases", [f"CUDA::nvperf_host{alias_suffix}"])
+        self.cpp_info.components["nvperf_host"].set_property("pkg_config_name", "nvperf_host")  # unofficial
         self.cpp_info.components["nvperf_host"].libs = [f"nvperf_host{suffix}"]
         if self.settings.os == "Linux" and not self.options.shared:
             self.cpp_info.components["nvperf_host"].system_libs = ["rt", "pthread", "m", "dl", "util", "gcc_s", "stdc++"]
@@ -90,14 +92,17 @@ class CuptiConan(ConanFile):
         if self.options.get_safe("shared", True):
             # nvperf_target
             self.cpp_info.components["nvperf_target"].set_property("cmake_target_name", "CUDA::nvperf_target")
+            self.cpp_info.components["nvperf_target"].set_property("pkg_config_name", "nvperf_target")  # unofficial
             self.cpp_info.components["nvperf_target"].libs = ["nvperf_target"]
 
             # pcsamplingutil
             self.cpp_info.components["pcsamplingutil"].set_property("cmake_target_name", "CUDA::pcsamplingutil")
+            self.cpp_info.components["pcsamplingutil"].set_property("pkg_config_name", "pcsamplingutil")  # unofficial
             self.cpp_info.components["pcsamplingutil"].libs = ["pcsamplingutil"]
             self.cpp_info.components["pcsamplingutil"].requires = ["cupti_"]
 
             # checkpoint
             self.cpp_info.components["checkpoint"].set_property("cmake_target_name", "CUDA::checkpoint")
+            self.cpp_info.components["checkpoint"].set_property("pkg_config_name", "checkpoint")  # unofficial
             self.cpp_info.components["checkpoint"].libs = ["checkpoint"]
             self.cpp_info.components["checkpoint"].requires = ["cupti_"]

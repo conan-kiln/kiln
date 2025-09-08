@@ -73,6 +73,7 @@ class NvTiffConan(ConanFile):
         alias_suffix = "_static" if self.options.get_safe("shared", True) else ""
         # Neither the CMake nor .pc name is official
         self.cpp_info.set_property("pkg_config_name", f"nvtiff-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["nvtiff"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::nvtiff{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.set_property("cmake_target_aliases", [f"CUDA::nvtiff{alias_suffix}"])

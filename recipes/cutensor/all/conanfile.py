@@ -106,6 +106,7 @@ class CuTensorConan(ConanFile):
         self.cpp_info.components["cutensor_"].set_property("cmake_target_name", f"CUDA::cutensor{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.components["cutensor_"].set_property("cmake_target_aliases", [f"CUDA::cutensor{alias_suffix}"])
+        self.cpp_info.components["cutensor_"].set_property("pkg_config_name", "cutensor")  # unofficial
         self.cpp_info.components["cutensor_"].libs = [f"cutensor{suffix}"]
         self.cpp_info.components["cutensor_"].requires = ["cublas::cublasLt"]
 
@@ -113,5 +114,6 @@ class CuTensorConan(ConanFile):
             self.cpp_info.components["cutensorMg"].set_property("cmake_target_name", f"CUDA::cutensorMg{suffix}")
             if self.options.get_safe("cmake_alias"):
                 self.cpp_info.components["cutensorMg"].set_property("cmake_target_aliases", [f"CUDA::cutensorMg{alias_suffix}"])
+            self.cpp_info.components["cutensorMg"].set_property("pkg_config_name", "cutensorMg")  # unofficial
             self.cpp_info.components["cutensorMg"].libs = [f"cutensorMg{suffix}"]
             self.cpp_info.components["cutensorMg"].requires = ["cutensor_"]

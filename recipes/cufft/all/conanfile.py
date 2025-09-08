@@ -106,6 +106,7 @@ class CuFFTConan(ConanFile):
             suffix = "_static"
 
         self.cpp_info.components["cufft_"].set_property("pkg_config_name", f"cufft-{self.cuda.version}")
+        self.cpp_info.components["cufft_"].set_property("pkg_config_aliases", ["cufft"])  # unofficial
         self.cpp_info.components["cufft_"].set_property("cmake_target_name", f"CUDA::cufft{suffix}")
         if self.options.get_safe("cmake_alias"):
             aliases = ["CUDA::cufft", "CUDA::cufft_static", "CUDA::cufft_static_nocallback"]
@@ -121,6 +122,7 @@ class CuFFTConan(ConanFile):
 
         suffix = "" if self.options.get_safe("shared", True) else "_static"
         self.cpp_info.components["cufftw"].set_property("pkg_config_name", f"cufftw-{self.cuda.version}")
+        self.cpp_info.components["cufftw"].set_property("pkg_config_aliases", ["cufftw"])  # unofficial
         self.cpp_info.components["cufftw"].set_property("cmake_target_name", f"CUDA::cufftw{suffix}")
         if self.options.get_safe("cmake_alias"):
             alias = "cufftw_static" if self.options.get_safe("shared", True) else "cufftw"

@@ -80,6 +80,7 @@ class NvFatbinConan(ConanFile):
         suffix = "" if self.options.shared else "_static"
         alias_suffix = "_static" if self.options.shared else ""
         self.cpp_info.set_property("pkg_config_name", f"nvfatbin-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["nvfatbin"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::nvfatbin{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.set_property("cmake_target_aliases", [f"CUDA::nvfatbin{alias_suffix}"])

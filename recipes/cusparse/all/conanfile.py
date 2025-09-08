@@ -94,6 +94,7 @@ class CuSparseConan(ConanFile):
     def package_info(self):
         suffix = "" if self.options.get_safe("shared", True) else "_static"
         self.cpp_info.set_property("pkg_config_name", f"cusparse-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["cusparse"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::cusparse{suffix}")
         if self.options.get_safe("cmake_alias"):
             alias = "cusparse_static" if self.options.get_safe("shared", True) else "cusparse"

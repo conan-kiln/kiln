@@ -108,6 +108,7 @@ class NppPlusConan(ConanFile):
             component.set_property("cmake_target_name", f"nppPlus::{name}{suffix}")
             if self.options.get_safe("cmake_alias"):
                 component.set_property("cmake_target_aliases", [f"nppPlus::{name}{alias_suffix}"])
+            component.set_property("pkg_config_name", name)  # unofficial
             component.libs = [f"{name}{suffix}"]
             if self.options.get_safe("use_stubs"):
                 component.libdirs = ["lib/stubs", "lib"]
@@ -121,6 +122,7 @@ class NppPlusConan(ConanFile):
         self.cpp_info.components["npp_plus_i"].set_property("cmake_target_name", f"nppPlus::npp_plus_i{suffix}")
         if self.options.get_safe("cmake_alias"):
             self.cpp_info.components["npp_plus_i"].set_property("cmake_target_aliases", [f"nppPlus::npp_plus_i{alias_suffix}"])
+        self.cpp_info.components["npp_plus_i"].set_property("pkg_config_name", "npp_plus_i")  # unofficial
         self.cpp_info.components["npp_plus_i"].requires = [
             name for name, _ in self.cpp_info.components.items() if name.startswith("npp_plus_i") and name != "npp_plus_i"
         ]

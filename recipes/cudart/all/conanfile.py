@@ -85,6 +85,7 @@ class CudartConan(ConanFile):
         self.cpp_info.components["cudart_"].set_property("cmake_target_name", f"CUDA::{lib}")
         v = Version(self.version)
         self.cpp_info.components["cudart_"].set_property("pkg_config_name", f"cudart-{v.major}.{v.minor}")
+        self.cpp_info.components["cudart_"].set_property("pkg_config_aliases", ["cudart"])  # unofficial
         if self.options.cmake_alias:
             alias = "cudart_static" if self.options.shared else "cudart"
             self.cpp_info.components["cudart_"].set_property("cmake_target_aliases", [f"CUDA::{alias}"])

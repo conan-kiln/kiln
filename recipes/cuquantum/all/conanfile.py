@@ -69,6 +69,7 @@ class CuQuantumConan(ConanFile):
 
         self.cpp_info.components["cudensitymat"].set_property("cmake_target_name", f"cuQuantum::cudensitymat{suffix}")
         self.cpp_info.components["cudensitymat"].set_property("cmake_target_aliases", [f"cuQuantum::cudensitymat{alias_suffix}"])
+        self.cpp_info.components["cudensitymat"].set_property("pkg_config_name", "cudensitymat")  # unofficial
         self.cpp_info.components["cudensitymat"].libs = [f"cudensitymat{suffix}"]
         self.cpp_info.components["cudensitymat"].requires = [
             "cutensornet",
@@ -82,6 +83,7 @@ class CuQuantumConan(ConanFile):
 
         self.cpp_info.components["custatevec"].set_property("cmake_target_name", f"cuQuantum::custatevec{suffix}")
         self.cpp_info.components["custatevec"].set_property("cmake_target_aliases", [f"cuQuantum::custatevec{alias_suffix}"])
+        self.cpp_info.components["custatevec"].set_property("pkg_config_name", "custatevec")  # unofficial
         self.cpp_info.components["custatevec"].libs = [f"custatevec{suffix}"]
         self.cpp_info.components["custatevec"].requires = [
             "cudart::cudart_",
@@ -90,6 +92,7 @@ class CuQuantumConan(ConanFile):
 
         self.cpp_info.components["cutensornet"].set_property("cmake_target_name", f"cuQuantum::cutensornet{suffix}")
         self.cpp_info.components["cutensornet"].set_property("cmake_target_aliases", [f"cuQuantum::cutensornet{alias_suffix}"])
+        self.cpp_info.components["cutensornet"].set_property("pkg_config_name", "cutensornet")  # unofficial
         self.cpp_info.components["cutensornet"].libs = [f"cutensornet{suffix}"]
         self.cpp_info.components["cutensornet"].requires = [
             "cudart::cudart_",

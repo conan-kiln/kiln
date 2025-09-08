@@ -86,6 +86,7 @@ class CuFileConan(ConanFile):
         if self.options.cmake_alias:
             self.cpp_info.components["cufile_"].set_property("cmake_target_aliases", [f"CUDA::cuFile{alias_suffix}"])
         self.cpp_info.components["cufile_"].set_property("pkg_config_name", f"cufile-{self.cuda.version}")
+        self.cpp_info.components["cufile_"].set_property("pkg_config_aliases", ["cufile"])  # unofficial
         self.cpp_info.components["cufile_"].set_property("component_version", str(self.cuda.version))
         self.cpp_info.components["cufile_"].libs = [f"cufile{suffix}"]
         if not self.options.shared:
@@ -97,6 +98,7 @@ class CuFileConan(ConanFile):
             if self.options.cmake_alias:
                 self.cpp_info.components["cufile_rdma"].set_property("cmake_target_aliases", [f"CUDA::cuFile_rdma{alias_suffix}"])
             self.cpp_info.components["cufile_rdma"].set_property("pkg_config_name", f"cufile_rdma-{self.cuda.version}")
+            self.cpp_info.components["cufile_rdma"].set_property("pkg_config_aliases", ["cufile_rdma"])  # unofficial
             self.cpp_info.components["cufile_rdma"].set_property("component_version", str(self.cuda.version))
             self.cpp_info.components["cufile_rdma"].libs = [f"cufile_rdma{suffix}"]
             self.cpp_info.components["cufile_rdma"].requires = [

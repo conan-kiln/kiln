@@ -84,6 +84,7 @@ class NvJitLinkConan(ConanFile):
     def package_info(self):
         suffix = "" if self.options.shared else "_static"
         self.cpp_info.set_property("pkg_config_name", f"nvjitlink-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["nvjitlink"])  # unofficial
         self.cpp_info.set_property("cmake_target_name", f"CUDA::nvJitLink{suffix}")
         if self.options.get_safe("cmake_alias"):
             alias_suffix = "_static" if self.options.shared else ""

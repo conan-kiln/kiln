@@ -62,5 +62,6 @@ class CudaOpenCLConan(ConanFile):
         self.cpp_info.set_property("cmake_module_file_name", "OpenCL")
         self.cpp_info.set_property("cmake_module_target_name", "OpenCL::OpenCL")
         self.cpp_info.set_property("pkg_config_name", f"opencl-{self.cuda.version}")
+        self.cpp_info.set_property("pkg_config_aliases", ["cuda-opencl"])  # unofficial
         self.cpp_info.libs = ["OpenCL"]
         self.cpp_info.bindirs = []

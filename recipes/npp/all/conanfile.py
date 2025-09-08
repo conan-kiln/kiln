@@ -98,6 +98,7 @@ class NppConan(ConanFile):
         ]:
             component = self.cpp_info.components[name]
             component.set_property("pkg_config_name", f"{name}-{self.cuda.version}")
+            component.set_property("pkg_config_aliases", [name])  # unofficial
             component.set_property("component_version", str(self.cuda.version))
             component.set_property("cmake_target_name", f"CUDA::{name}{suffix}")
             if self.options.get_safe("cmake_alias"):
