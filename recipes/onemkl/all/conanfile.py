@@ -1,12 +1,11 @@
-import json
 import os
-import urllib.parse
 from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import *
+from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.1"
@@ -85,6 +84,9 @@ class OneMKLConan(ConanFile):
         for opt in ["sdl", "interface_type", "threading", "blas95", "lapack95", "omp_offload", "blacs", "mpi"]:
             self.info.options.rm_safe(opt)
 
+    def layout(self):
+        basic_layout(self, src_folder="src")
+
     def requirements(self):
         if self.options.threading == "tbb":
             # Requires libonetbb.so.12
@@ -104,50 +106,35 @@ class OneMKLConan(ConanFile):
         if self.options.threading == "gnu" and self.settings.compiler not in ["gcc", "clang", "apple-clang"]:
             raise ConanInvalidConfiguration("threading=gnu option is only available with GCC or Clang compilers.")
 
-    @cached_property
-    def _extracted_installer_dir(self):
-        return next(Path(self.build_folder).glob("intel-onemkl-*"))
-
-    def _fix_package_symlinks(self):
-        filelist = json.loads(load(self, "filelist.json"))
-        for file_info in filelist["files"]:
-            if "sha384" not in file_info:
-                dst = file_info["fileName"]
-                src = load(self, dst).strip()
-                os.unlink(dst)
-                os.symlink(src, urllib.parse.unquote(dst))
-
-    def _extract_package(self, name):
-        package_dir = next(p for p in Path(self._extracted_installer_dir, "packages").glob(f"{name},*") if p.is_dir())
-        unzip(self, str(package_dir / "cupPayload.cup"), destination=self.build_folder, keep_permissions=True)
-        self._fix_package_symlinks()
+    def _download_and_extract_deb(self, info):
+        download(self, **info, filename="pkg.deb")
+        self.run(f"ar x pkg.deb")
+        self.run(f"tar -xf data.tar.*")
+        rm(self, "data.tar.*", self.build_folder)
+        os.unlink("pkg.deb")
 
     def build(self):
-        download(self, **self.conan_data["sources"][self.version][str(self.settings.os)], filename="installer.sh")
-        self.run(f"sh installer.sh -x -f .")
-        rm(self, "installer.sh", self.build_folder)
-        self._extract_package("intel.oneapi.lin.mkl.devel")
-        self._extract_package("intel.oneapi.lin.mkl.runtime")
-
-    @property
-    def _staging_dir(self):
-        return os.path.join(self.build_folder, "_installdir")
+        for info in self.conan_data["sources"][self.version][str(self.settings.os)]:
+            if "-devel" in info["url"] and self.options.get_safe("shared", True):
+                continue
+            if "-cluster" in info["url"] and not self.options.blacs:
+                continue
+            if "-sycl" in info["url"] and not self.options.sycl:
+                continue
+            self._download_and_extract_deb(info)
+        root = next(Path(self.build_folder).rglob(".toolkit_linking_tool")).parent
+        move_folder_contents(self, root, self.source_folder)
 
     def package(self):
-        copy(self, "license.txt", self._extracted_installer_dir, os.path.join(self.package_folder, "licenses"))
-        rmdir(self, self._extracted_installer_dir)
-        mkl_dir = next(Path(self._staging_dir, "mkl").iterdir())
-        move_folder_contents(self, mkl_dir, self.package_folder)
-        rm(self, "intel64", os.path.join(self.package_folder, "lib"))
-        rmdir(self, os.path.join(self.package_folder, ".toolkit_linking_tool"))
-        rmdir(self, os.path.join(self.package_folder, "env"))
-        rmdir(self, os.path.join(self.package_folder, "etc"))
-        rmdir(self, os.path.join(self.package_folder, "share", "doc"))
+        copy(self, "license.txt", os.path.join(self.source_folder, "share/doc/mkl/licensing"), os.path.join(self.package_folder, "licenses"))
+        mkdir(self, os.path.join(self.package_folder, "include"))
+        mkdir(self, os.path.join(self.package_folder, "lib"))
+        move_folder_contents(self, os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
+        move_folder_contents(self, os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-
-        if not self.options.sycl:
-            rm(self, "*_sycl*", os.path.join(self.package_folder, "lib"))
+        if os.path.exists(os.path.join(self.package_folder, "lib", "intel64")):
+            os.unlink(os.path.join(self.package_folder, "lib", "intel64"))
 
         # Keep only the libraries for the selected interface.
         # Could theoretically package both, but the other interface is just a gigabyte of dead weight.
