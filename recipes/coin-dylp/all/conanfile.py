@@ -69,7 +69,6 @@ class CoinDyLPConan(ConanFile):
 
     def build(self):
         buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
-        copy(self, "*", buildtools, os.path.join(self.source_folder, "BuildTools"))
         copy(self, "*", buildtools, os.path.join(self.source_folder, "DyLP", "BuildTools"))
         for gnu_config in [
             self.conf.get("user.gnu-config:config_guess", check_type=str),
@@ -77,8 +76,8 @@ class CoinDyLPConan(ConanFile):
         ]:
             copy(self, os.path.basename(gnu_config), src=os.path.dirname(gnu_config), dst=self.source_folder)
         autotools = Autotools(self)
-        autotools.autoreconf()
-        autotools.configure()
+        autotools.autoreconf(build_script_folder="DyLP")
+        autotools.configure(build_script_folder="DyLP")
         autotools.make()
 
     def package(self):
