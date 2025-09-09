@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-08:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-09:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -40,6 +40,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - asio-grpc/2.7.0
 - asio-grpc/2.9.2
 - asio-grpc/3.4.1
+- asl/1.0.1
 - au/0.4.1
 - autoconf-archive/2024.10.16
 - automake/1.18.1
@@ -90,7 +91,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - coin-buildtools/0.8.11
 - coin-cbc/2.10.11
 - coin-cgl/0.60.8
-- coin-clp/1.17.9
+- coin-clp/1.17.10
 - coin-ipopt/3.14.13
 - coin-mumps/3.0.5
 - coin-osi/0.108.11
@@ -738,6 +739,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mdspan/0.7.0-git.20250826
 - meshoptimizer/0.25
 - meson/1.6.1
+- meson/1.9.0
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
 - miniz/3.0.2-pytorch
@@ -944,7 +946,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - onednn/3.8.1
 - onednn/3.9.0
 - onemath/0.7
-- onemkl/2025.1.0
+- onemkl/2025.2.0
 - oniguruma/6.9.10
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
@@ -1101,6 +1103,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - spirv-tools/1.3.296.0
 - spirv-tools/1.4.321.0
 - splinter/3.0
+- spral/2025.05.20
 - stablehlo/1.10.0
 - stablehlo/1.6.3
 - stablehlo/1.8.11
