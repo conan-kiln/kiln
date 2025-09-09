@@ -25,6 +25,7 @@ class FaissRecipe(ConanFile):
         "lto": [True, False],
         "with_cuda": [True, False],
         "with_mkl": [True, False],
+        "with_cuvs": [True, False],
     }
     default_options = {
         "shared": False,
@@ -34,6 +35,7 @@ class FaissRecipe(ConanFile):
         "lto": False,
         "with_cuda": False,
         "with_mkl": False,
+        "with_cuvs": False,
     }
 
     python_requires = "conan-cuda/latest"
@@ -67,10 +69,12 @@ class FaissRecipe(ConanFile):
         else:
             self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_cuda:
-            self.cuda.requires("cudart")
-            self.cuda.requires("cublas")
+            self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
+            self.cuda.requires("cublas", transitive_headers=True, transitive_libs=True)
             self.cuda.requires("curand")
             self.cuda.requires("cuda-profiler-api")
+        if self.options.with_cuvs:
+            self.requires("cuvs/[*]", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
         check_min_cppstd(self, 17)
@@ -89,6 +93,7 @@ class FaissRecipe(ConanFile):
         replace_in_file(self, "faiss/gpu/CMakeLists.txt",
                         "set(CUDA_LIBS CUDA::cudart CUDA::cublas)",
                         "find_package(cuda-profiler-api REQUIRED)\n"
+                        "find_package(OpenMP REQUIRED)\n"
                         "set(CUDA_LIBS CUDA::cudart CUDA::cublas CUDA::curand cuda-profiler-api::cuda-profiler-api)")
         # Use the more precise MKL::MKL target instead of everything packaged by the onemkl recipe
         replace_in_file(self, "faiss/CMakeLists.txt", "${MKL_LIBRARIES}", "MKL::MKL")
@@ -96,9 +101,9 @@ class FaissRecipe(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["FAISS_OPT_LEVEL"] = self.options.get_safe("opt_level", "generic")
-        tc.cache_variables["FAISS_c_api"] = self.options.c_api
+        tc.cache_variables["FAISS_ENABLE_C_API"] = self.options.c_api
         tc.cache_variables["FAISS_ENABLE_GPU"] = self.options.with_cuda
-        tc.cache_variables["FAISS_ENABLE_CUVS"] = False  # TODO: rapidsai/cuvs
+        tc.cache_variables["FAISS_ENABLE_CUVS"] = self.options.with_cuvs
         tc.cache_variables["FAISS_ENABLE_MKL"] = self.options.with_mkl
         tc.cache_variables["FAISS_ENABLE_PYTHON"] = False
         tc.cache_variables["FAISS_ENABLE_EXTRAS"] = False
@@ -149,8 +154,12 @@ class FaissRecipe(ConanFile):
                     "curand::curand",
                     "cuda-profiler-api::cuda-profiler-api",
                 ])
+            if self.options.with_cuvs:
+                component.requires.append("cuvs::cuvs")
+                component.defines.append("USE_NVIDIA_CUVS=1")
             if self.settings.os in ["Linux", "FreeBSD"]:
                 component.system_libs.append("m")
+
             if self.options.c_api:
                 lib_c = "faiss_c" if level == "generic" else f"faiss_c_{level}"
                 component_c = self.cpp_info.components[lib_c]
