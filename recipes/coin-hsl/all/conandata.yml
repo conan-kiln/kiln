@@ -1,0 +1,7 @@
+sources:
+  "2024.05.15":
+    filename: "coinhsl-2024.05.15.tar.gz"
+    sha256: "2534807b4f6a4a69661c82dc0da7094f685f0fce6443a9147ee90a21caba9e63"
+patches:
+  "2024.05.15":
+    - patch_file: "patches/use-pkgconf.patch"

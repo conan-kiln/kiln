@@ -1,0 +1,35 @@
+--- a/meson.build
++++ b/meson.build
+@@ -24,15 +24,10 @@
+ endforeach
+ 
+ if full_install
+-  libblas_name = get_option('libblas')
+-  libblas_path = get_option('libblas_path')
+-
+-  liblapack_name = get_option('liblapack')
+-  liblapack_path = get_option('liblapack_path')
+-
+-  libmetis_name = get_option('libmetis')
+-  libmetis_path = get_option('libmetis_path')
+-  libmetis_include = include_directories(get_option('libmetis_include'))
++  libblas   = dependency('blas', required: true)
++  liblapack = dependency('lapack', required: true)
++  libmetis  = dependency('metis', required: true)
++  libmetis_include = []
+   libmetis_version = get_option('libmetis_version')
+ 
+   # C and Fortran compilers
+@@ -53,11 +48,7 @@
+     add_global_arguments('/Qopenmp', language : 'fortran')
+   endif
+ 
+-  libblas = fc.find_library(libblas_name, dirs : libblas_path, required : true)
+-  liblapack = fc.find_library(liblapack_name, dirs : liblapack_path, required : true)
+-
+-  libmetis = fc.find_library(libmetis_name, dirs : libmetis_path, required : false)
+-  has_metish = cc.has_header('metis.h', include_directories : libmetis_include)
++  has_metish = true
+ 
+   if fc.get_id() == 'gcc' and fc.version().version_compare('>=10.0')
+     add_global_arguments('-fallow-argument-mismatch', language : 'fortran')
