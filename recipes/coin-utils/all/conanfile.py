@@ -23,13 +23,15 @@ class CoinUtilsConan(ConanFile):
     topics = ("coin-or",)
     homepage = "https://github.com/coin-or/CoinUtils"
     license = "EPL-2.0"
-    package_type = "static-library"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "shared": [True, False],
         "fPIC": [True, False],
         "with_glpk": [True, False],
     }
     default_options = {
+        "shared": False,
         "fPIC": True,
         "with_glpk": False,
     }
