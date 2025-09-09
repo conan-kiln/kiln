@@ -51,7 +51,8 @@ class CoinOsiConan(ConanFile):
         if self.options.with_soplex:
             self.requires("soplex/[<4]")
         if self.options.with_cplex:
-            self.requires("cplex/[*]")
+            # Cbc expects cplex.h to be available
+            self.requires("cplex/[*]", transitive_headers=True)
         if self.options.with_mosek:
             self.requires("mosek/[<10]")
         if self.options.with_xpress:

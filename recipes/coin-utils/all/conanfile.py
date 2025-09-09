@@ -44,6 +44,8 @@ class CoinUtilsConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires("bzip2/[^1.0.8]")
+        self.requires("zlib-ng/[^2.0]")
         self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_glpk:
             self.requires("glpk/[<=4.48]")

@@ -27,7 +27,7 @@ class NautyConan(ConanFile):
     }
     default_options = {
         "fPIC": True,
-        "enable_tls": False,
+        "enable_tls": True,
         "tools": False,
     }
     implements = ["auto_shared_fpic"]
@@ -110,11 +110,11 @@ class NautyConan(ConanFile):
 
         add_component("nauty", [])
         add_component("nauty1", ["MAXN=WORDSIZE"])
-        add_component("nautyL1", ["WORDSIZE=64", "MAXN=WORDSIZE"])
+        add_component("nautyS", ["WORDSIZE=16"])
+        add_component("nautyW", ["WORDSIZE=32"])
         add_component("nautyL", ["WORDSIZE=64"])
-        add_component("nautyQ1", ["WORDSIZE=128", "MAXN=WORDSIZE"])
         add_component("nautyQ", ["WORDSIZE=128"])
         add_component("nautyS1", ["WORDSIZE=16", "MAXN=WORDSIZE"])
-        add_component("nautyS", ["WORDSIZE=16"])
         add_component("nautyW1", ["WORDSIZE=32", "MAXN=WORDSIZE"])
-        add_component("nautyW", ["WORDSIZE=32"])
+        add_component("nautyL1", ["WORDSIZE=64", "MAXN=WORDSIZE"])
+        add_component("nautyQ1", ["WORDSIZE=128", "MAXN=WORDSIZE"])
