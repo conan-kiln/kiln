@@ -65,12 +65,13 @@ class CoinCglConan(ConanFile):
             "--with-clp=yes",
             "--with-osiclp=yes",
             f"--with-osidylp={yes_no(self.options.with_dylp)}",
-            f"--with-osivol={yes_no(self.options.with_vol)}"
-            f"--with-osicplex={yes_no(osi.options.with_cplex)}"
-            f"--with-osiglpk={yes_no(osi.options.with_glpk)}"
-            f"--with-osigurobi={yes_no(osi.options.with_gurobi)}"
-            f"--with-osimosek={yes_no(osi.options.with_mosek)}"
-            f"--with-osixpress={yes_no(osi.options.with_xpress)}"
+            f"--with-osivol={yes_no(self.options.with_vol)}",
+            f"--with-osicplex={yes_no(osi.options.with_cplex)}",
+            f"--with-osiglpk={yes_no(osi.options.with_glpk)}",
+            f"--with-osigurobi={yes_no(osi.options.with_gurobi)}",
+            f"--with-osimosek={yes_no(osi.options.with_mosek)}",
+            f"--with-osisoplex={yes_no(osi.options.with_soplex)}"
+            f"--with-osixpress={yes_no(osi.options.with_xpress)}",
             "--without-sample",
             "--disable-dependency-linking",
             "F77=unavailable",
