@@ -61,7 +61,6 @@ class CoinClpConan(ConanFile):
         # Symbols are exposed https://github.com/conan-io/conan-center-index/pull/16053#issuecomment-1512637106
         self.requires("coin-utils/[^2.11.11]", transitive_headers=True, transitive_libs=True)
         self.requires("coin-osi/[>=0.108.10 <1]", transitive_headers=True)
-        self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_asl:
             self.requires("asl/[^1]")
         if self.options.with_glpk:
@@ -87,13 +86,17 @@ class CoinClpConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
+        yes_no = lambda v: "yes" if v else "no"
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
-            # the coin*.pc pkg-config files are only used when set to BUILD
-            "--with-blas=BUILD",
-            "--with-lapack=BUILD",
-            "--without-metis",  # not really used
+            f"--with-asl={yes_no(self.options.with_asl)}",
+            f"--with-glpk={yes_no(self.options.with_glpk)}",
+            f"--with-mumps={yes_no(self.options.with_mumps)}",
+            f"--with-mumps={yes_no(self.options.with_mumps)}",
+            f"--enable-amd-libcheck={yes_no(self.options.with_amd)}",
+            f"--enable-cholmod-libcheck={yes_no(self.options.with_cholmod)}",
             "--without-wsmp",
+            "--without-metis",  # not really used
             # These are only used for sample datasets
             "--without-netlib",
             "--without-sample",
@@ -191,7 +194,6 @@ class CoinClpConan(ConanFile):
         self.cpp_info.components["clp"].requires = [
             "solver",
             "coin-utils::coin-utils",
-            "openblas::openblas",
         ]
         if self.options.with_mumps:
             self.cpp_info.components["clp"].requires.append("coin-mumps::coin-mumps")
@@ -203,7 +205,7 @@ class CoinClpConan(ConanFile):
         self.cpp_info.components["solver"].set_property("pkg_config_name", "clp-solver")
         self.cpp_info.components["solver"].libs = ["Clp"]
         self.cpp_info.components["solver"].includedirs.append("include/coin")
-        self.cpp_info.components["solver"].requires = ["coin-utils::coin-utils", "openblas::openblas"]
+        self.cpp_info.components["solver"].requires = ["coin-utils::coin-utils"]
         if self.options.with_asl:
             self.cpp_info.components["solver"].requires.append("asl::asl2-mt")
         if self.options.with_glpk:
