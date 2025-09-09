@@ -1,9 +1,7 @@
 import os
-import shutil
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -36,17 +34,16 @@ class CoinCglConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("coin-utils/2.11.11")
-        self.requires("coin-osi/0.108.10")
-        self.requires("coin-clp/1.17.9")
+        self.requires("coin-utils/[^2.11.11]")
+        self.requires("coin-osi/[>=0.108.10 <1]")
+        self.requires("coin-clp/[^1.17.9]")
         if self.options.with_glpk:
-            self.requires("glpk/4.48")
-        # BLAS and LAPACK are not used
+            self.requires("glpk/[<=4.48]")
         # TODO: add support for: Cplex, Mosek, Xpress, Vol, DyLP
 
     def build_requirements(self):
-        self.tool_requires("coin-buildtools/0.8.11")
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires("coin-buildtools/[*]")
+        self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings_build.os == "Windows":
@@ -58,19 +55,6 @@ class CoinCglConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
-        deps = PkgConfigDeps(self)
-        deps.generate()
-
-        def _add_pkg_config_alias(src_name, dst_name):
-            shutil.copy(os.path.join(self.generators_folder, f"{src_name}.pc"),
-                        os.path.join(self.generators_folder, f"{dst_name}.pc"))
-
-        if self.options.with_glpk:
-            _add_pkg_config_alias("glpk", "coinglpk")
-
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
             "--with-osiglpk" if self.options.with_glpk else "--without-osiglpk",
@@ -88,24 +72,22 @@ class CoinCglConan(ConanFile):
             tc.extra_cxxflags.append("-EHsc")
             tc.configure_args.append(f"--enable-msvc={msvc_runtime_flag(self)}")
         env = tc.environment()
+        env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
             compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
             ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", f"{compile_wrapper} link -nologo")
-            env.define("AR", f"{ar_wrapper} \"lib -nologo\"")
+            env.define("AR", f'{ar_wrapper} "lib -nologo"')
             env.define("NM", "dumpbin -symbols")
-        if self.settings_build.os == "Windows":
-            # TODO: Something to fix in conan client or pkgconf recipe?
-            # This is a weird workaround when build machine is Windows. Here we have to inject regular
-            # Windows path to pc files folder instead of unix path flavor injected by AutotoolsToolchain...
-            env.define("PKG_CONFIG_PATH", self.generators_folder)
         tc.generate(env)
 
+        deps = PkgConfigDeps(self)
+        deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
+        deps.generate()
+
     def build(self):
-        copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
-             os.path.join(self.source_folder, "BuildTools"))
         copy(self, "*", self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0],
              os.path.join(self.source_folder, "Cgl", "BuildTools"))
         for gnu_config in [
@@ -114,8 +96,8 @@ class CoinCglConan(ConanFile):
         ]:
             copy(self, os.path.basename(gnu_config), src=os.path.dirname(gnu_config), dst=self.source_folder)
         autotools = Autotools(self)
-        autotools.autoreconf()
-        autotools.configure()
+        autotools.autoreconf(build_script_folder="Cgl")
+        autotools.configure(build_script_folder="Cgl")
         autotools.make()
 
     def package(self):
