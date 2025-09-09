@@ -1,11 +1,12 @@
 import os
+import shutil
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
+from conan.tools.build import stdcpp_library
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
+from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps, PkgConfig
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
 
@@ -15,29 +16,32 @@ required_conan_version = ">=2.1"
 class CoinClpConan(ConanFile):
     name = "coin-ipopt"
     description = "COIN-OR Interior Point Optimizer IPOPT"
-    topics = ("optimization", "interior-point", "nonlinear", "nonconvex")
-    homepage = "https://github.com/coin-or/Ipopt"
     license = "EPL-2.0"
-
+    homepage = "https://github.com/coin-or/Ipopt"
+    topics = ("optimization", "interior-point", "nonlinear-optimization", "nonconvex")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "intsize": [32, 64],
-        "precision": ["single", "double"],
-        "with_lapack": [True, False],
-        "with_mumps": [True, False],
         "build_sipopt": [True, False],
+        "precision": ["single", "double"],
+        "enable_inexact_solver": [True, False],
+        "with_asl": [True, False],
+        "with_mumps": [True, False],
+        "with_hsl": [True, False],
+        "with_spral": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "intsize": 32,
-        "precision": "double",
-        "with_lapack": True,
-        "with_mumps": True,
         "build_sipopt": True,
+        "precision": "double",
+        "enable_inexact_solver": False,
+        "with_asl": True,
+        "with_mumps": False,
+        "with_hsl": False,
+        "with_spral": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -45,19 +49,40 @@ class CoinClpConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        if self.options.with_lapack:
-            self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("openblas/[>=0.3.28 <1]")
+        if self.options.with_asl:
+            self.requires("asl/[^1]")
         if self.options.with_mumps:
             self.requires("coin-mumps/[^3.0.5]")
+        if self.options.with_hsl:
+            self.requires("coin-hsl/[*]")
+        if self.options.with_spral:
+            self.requires("spral/[*]")
+        # TODO: optionally use MKL instead of OpenBLAS for pardisomkl solver support
+
+    @property
+    def _int_size(self):
+        return 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
 
     def validate(self):
         if self.settings.os == "Windows" and self.options.shared:
             raise ConanInvalidConfiguration("Shared builds on Windows are not supported yet")
+        if self.options.with_asl and self.options.precision != "double":
+            raise ConanInvalidConfiguration("ASL solver requires double precision")
+        if self.options.with_spral and (self.options.precision != "double" or self._int_size != 32):
+            raise ConanInvalidConfiguration("SPRAL solver requires double precision and 32-bit integers")
 
-        if not self.options.with_mumps:
-            raise ConanInvalidConfiguration("At least one solver is required (currently only MUMPS is supported)")
+    def _flags_from_pc(self, name):
+        pc = PkgConfig(self, name, self.generators_folder)
+        cflags = list(pc.cflags)
+        cflags += [f"-I{inc}" for inc in pc.includedirs]
+        ldflags = list(pc.linkflags)
+        ldflags += [f"-L{libdir}" for libdir in pc.libdirs]
+        ldflags += [f"-l{lib}" for lib in pc.libs]
+        return " ".join(cflags), " ".join(ldflags)
 
     def build_requirements(self):
+        self.tool_requires("coin-buildtools/[*]")
         self.tool_requires("gnu-config/[*]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
@@ -72,28 +97,36 @@ class CoinClpConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
+        deps = PkgConfigDeps(self)
+        deps.set_property("asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
+        deps.generate()
 
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
+        int_size = 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
         tc.configure_args += [
+            "--with-lapack=yes",
+            f"--with-intsize={int_size}",
+            f"--with-precision={self.options.precision}",
+            f"--enable-inexact-solver={yes_no(self.options.enable_inexact_solver)}",
+            f"--enable-sipopt={yes_no(self.options.build_sipopt)}",
+            f"--with-asl={yes_no(self.options.with_asl)}",
+            f"--with-mumps={yes_no(self.options.with_mumps)}",
+            f"--with-hsl={yes_no(self.options.with_hsl)}",
+            f"--with-spral={yes_no(self.options.with_spral)}",
+            "--with-dot=no",
             "--disable-f77",
             "--disable-java",
-            f"--with-int={self.options.intsize}",
-            f"--with-precision={self.options.precision}",
-            f"--with-lapack={yes_no(self.options.with_lapack)}",
-            f"--with-mumps={yes_no(self.options.with_mumps)}",
-            f"--enable-sipopt={yes_no(self.options.build_sipopt)}",
-            "--with-asl=no",
-            "--with-hsl=no",
-            "--with-spral=no",
-            "--with-dot=no",
         ]
-        if self.options.with_lapack:
-            dep_info = self.dependencies["openblas"].cpp_info.aggregated_components()
-            lib_flags = " ".join([f"-l{lib}" for lib in dep_info.libs + dep_info.system_libs])
-            tc.configure_args.append(f"--with-lapack-lflags=-L{dep_info.libdir} {lib_flags}")
+
+        if self.options.with_spral:
+            cflags, ldflags = self._flags_from_pc("spral")
+            tc.configure_args.append(f"--with-spral-cflags={cflags}")
+            tc.configure_args.append(f"--with-spral-lflags={ldflags}")
+
+        cflags, ldflags = self._flags_from_pc("openblas")
+        tc.configure_args.append(f"--with-lapack-cflags={cflags}")
+        tc.configure_args.append(f"--with-lapack-lflags={ldflags}")
 
         env = tc.environment()
         if is_msvc(self):
@@ -109,23 +142,18 @@ class CoinClpConan(ConanFile):
             env.define("STRIP", ":")
         tc.generate(env)
 
-        deps = PkgConfigDeps(self)
-        deps.generate()
-
     def build(self):
-        if not is_msvc(self):
-            for gnu_config in [
-                self.conf.get("user.gnu-config:config_guess", check_type=str),
-                self.conf.get("user.gnu-config:config_sub", check_type=str),
-            ]:
-                if gnu_config:
-                    copy(self, os.path.basename(gnu_config), src=os.path.dirname(gnu_config), dst=self.source_folder)
+        buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
+        copy(self, "*", buildtools, os.path.join(self.source_folder, "BuildTools"))
+        for gnu_config in ["config_guess", "config_sub"]:
+            gnu_config = self.conf.get(f"user.gnu-config:{gnu_config}", check_type=str)
+            shutil.copy(gnu_config, self.source_folder)
         autotools = Autotools(self)
         autotools.configure()
         autotools.make()
 
     def package(self):
-        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         autotools = Autotools(self)
         autotools.install()
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
@@ -136,16 +164,29 @@ class CoinClpConan(ConanFile):
     def package_info(self):
         self.cpp_info.components["ipopt"].set_property("pkg_config_name", "ipopt")
         self.cpp_info.components["ipopt"].libs = ["ipopt"]
-        self.cpp_info.components["ipopt"].includedirs.append(os.path.join("include", "coin-or"))
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.components["ipopt"].system_libs.append("m")
-        if self.options.with_lapack:
-            self.cpp_info.components["ipopt"].requires.append("openblas::openblas")
+        self.cpp_info.components["ipopt"].includedirs.append("include/coin-or")
+        self.cpp_info.components["ipopt"].requires = ["openblas::openblas"]
         if self.options.with_mumps:
             self.cpp_info.components["ipopt"].requires.append("coin-mumps::coin-mumps")
+        if self.options.with_hsl:
+            self.cpp_info.components["ipopt"].requires.append("coin-hsl::coin-hsl")
+        if self.options.with_spral:
+            self.cpp_info.components["ipopt"].requires.append("spral::spral")
+        if not self.options.shared:
+            if self.settings.os in ["Linux", "FreeBSD"]:
+                self.cpp_info.components["ipopt"].system_libs = ["m", "dl"]
+            libcxx = stdcpp_library(self)
+            if libcxx:
+                self.cpp_info.components["ipopt"].system_libs.append(libcxx)
 
         if self.options.build_sipopt:
             self.cpp_info.components["sipopt"].set_property("pkg_config_name", "sipopt")
             self.cpp_info.components["sipopt"].libs = ["sipopt"]
-            self.cpp_info.components["sipopt"].includedirs.append(os.path.join("include", "coin-or"))
+            self.cpp_info.components["sipopt"].includedirs.append("include/coin-or")
             self.cpp_info.components["sipopt"].requires = ["ipopt"]
+
+        if self.options.with_asl:
+            self.cpp_info.components["ipoptamplinterface"].set_property("pkg_config_name", "ipoptamplinterface")
+            self.cpp_info.components["ipoptamplinterface"].libs = ["ipoptamplinterface"]
+            self.cpp_info.components["ipoptamplinterface"].includedirs.append("include/coin-or")
+            self.cpp_info.components["ipoptamplinterface"].requires = ["ipopt", "asl::asl2-mt"]
