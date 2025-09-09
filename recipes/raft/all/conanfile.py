@@ -45,7 +45,7 @@ class RaftConan(ConanFile):
     def requirements(self):
         self.requires("rmm/[*]", transitive_headers=True, transitive_libs=True)
         self.requires("rapids_logger/[>=0.1 <1]", transitive_headers=True)
-        self.requires("cutlass/[^3]", transitive_headers=True)
+        self.requires("cutlass/[>=3 <5]", transitive_headers=True)
         self.cuda.requires("cucollections", transitive_headers=True)
         self.cuda.requires("cusolver", transitive_headers=True, transitive_libs=True)
         self.cuda.requires("cusparse", transitive_headers=True, transitive_libs=True)

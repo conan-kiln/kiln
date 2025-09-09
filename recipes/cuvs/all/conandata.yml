@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/cuvs/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "38dc89b05989844c9facfae166a9d5dd0ebd09e392b76407912a837b2227b6b4"

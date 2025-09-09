@@ -17,6 +17,9 @@ class HnswlibConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -28,6 +31,7 @@ class HnswlibConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         # CMake v4 support
         replace_in_file(self, "CMakeLists.txt",
                         "cmake_minimum_required(VERSION 3.0...3.26)",
