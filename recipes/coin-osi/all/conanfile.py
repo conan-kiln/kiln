@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
@@ -31,7 +32,7 @@ class CoinOsiConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_glpk": True,
+        "with_glpk": False,
         "with_soplex": False,
         "with_cplex": False,
         "with_mosek": False,
@@ -45,7 +46,6 @@ class CoinOsiConan(ConanFile):
 
     def requirements(self):
         self.requires("coin-utils/[^2.11.11]")
-        self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_glpk:
             self.requires("glpk/[<=4.48]")
         if self.options.with_soplex:
@@ -74,17 +74,18 @@ class CoinOsiConan(ConanFile):
         replace_in_file(self, "Osi/configure.ac", "coinsoplex < 1.7", "coinsoplex")
 
     def generate(self):
+        yes_no = lambda v: "yes" if v else "no"
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
-            # the coin*.pc pkg-config files are only used when set to BUILD
-            "--with-blas=BUILD",
-            "--with-lapack=BUILD",
-            "--with-glpk=BUILD" if self.options.with_glpk else "--without-glpk",
-            "--with-soplex=BUILD" if self.options.with_soplex else "--without-soplex",
+            f"--with-glpk={yes_no(self.options.with_glpk)}",
+            f"--with-soplex={yes_no(self.options.with_soplex)}",
+            f"--enable-cplex-libcheck={yes_no(self.options.with_cplex)}",
+            f"--enable-mosek-libcheck={yes_no(self.options.with_mosek)}",
+            f"--enable-xpress-libcheck={yes_no(self.options.with_xpress)}",
+            f"--enable-gurobi-libcheck={yes_no(self.options.with_gurobi)}",
             # These are only used for sample datasets
             "--without-netlib",
             "--without-sample",
-            "--disable-dependency-linking",
             "F77=unavailable",
         ])
 
@@ -121,7 +122,6 @@ class CoinOsiConan(ConanFile):
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
-        deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
         deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
         deps.set_property("soplex", "pkg_config_aliases", ["coinsoplex"])
         deps.generate()
@@ -129,18 +129,16 @@ class CoinOsiConan(ConanFile):
     def build(self):
         buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
         copy(self, "*", buildtools, os.path.join(self.source_folder, "Osi", "BuildTools"))
-        for gnu_config in [
-            self.conf.get("user.gnu-config:config_guess", check_type=str),
-            self.conf.get("user.gnu-config:config_sub", check_type=str),
-        ]:
-            copy(self, os.path.basename(gnu_config), src=os.path.dirname(gnu_config), dst=self.source_folder)
+        for gnu_config in ["config_guess", "config_sub"]:
+            gnu_config = self.conf.get(f"user.gnu-config:{gnu_config}", check_type=str)
+            shutil.copy(gnu_config, os.path.join(self.source_folder, "Osi"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Osi")
         autotools.configure(build_script_folder="Osi")
         autotools.make()
 
     def package(self):
-        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         autotools = Autotools(self)
         autotools.install(args=["-j1"])
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
@@ -156,7 +154,7 @@ class CoinOsiConan(ConanFile):
         self.cpp_info.components["libosi"].set_property("pkg_config_name", "osi")
         self.cpp_info.components["libosi"].libs = ["Osi"]
         self.cpp_info.components["libosi"].includedirs = [os.path.join("include", "coin")]
-        self.cpp_info.components["libosi"].requires = ["coin-utils::coin-utils", "openblas::openblas"]
+        self.cpp_info.components["libosi"].requires = ["coin-utils::coin-utils"]
 
         self.cpp_info.components["osi-unittests"].set_property("pkg_config_name", "osi-unittests")
         self.cpp_info.components["osi-unittests"].libs = ["OsiCommonTests"]
