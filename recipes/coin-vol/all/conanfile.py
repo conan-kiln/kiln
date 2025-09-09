@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
@@ -75,12 +76,9 @@ class VolConan(ConanFile):
     def build(self):
         buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
         copy(self, "*", buildtools, os.path.join(self.source_folder, "Vol", "BuildTools"))
-        for gnu_config in [
-            self.conf.get("user.gnu-config:config_guess", check_type=str),
-            self.conf.get("user.gnu-config:config_sub", check_type=str),
-        ]:
-            if gnu_config:
-                copy(self, os.path.basename(gnu_config), src=os.path.dirname(gnu_config), dst=self.source_folder)
+        for gnu_config in ["config_guess", "config_sub"]:
+            gnu_config = self.conf.get(f"user.gnu-config:{gnu_config}", check_type=str)
+            shutil.copy(gnu_config, os.path.join(self.source_folder, "Vol"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Vol")
         autotools.configure(build_script_folder="Vol")
