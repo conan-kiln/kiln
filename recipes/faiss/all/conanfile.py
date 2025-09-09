@@ -31,7 +31,7 @@ class FaissRecipe(ConanFile):
         "shared": False,
         "fPIC": True,
         "opt_level": "avx2",
-        "c_api": False,
+        "c_api": True,
         "lto": False,
         "with_cuda": False,
         "with_mkl": False,
