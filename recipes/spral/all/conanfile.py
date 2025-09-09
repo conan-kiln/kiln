@@ -2,7 +2,7 @@ import os
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.build import check_min_cppstd, check_min_cstd, can_run
+from conan.tools.build import check_min_cppstd, check_min_cstd, can_run, stdcpp_library
 from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
@@ -63,6 +63,8 @@ class SpralConan(ConanFile):
             self.requires("hwloc/[^2.0]")
         if self.options.with_cuda:
             self.cuda.requires("cublas")
+        if self.options.with_openmp:
+            self.requires("openmp/system")
 
     def validate(self):
         check_min_cppstd(self, 11)
@@ -86,6 +88,8 @@ class SpralConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        # Fortran as the only link_language is not correct and breaks C++ linking for static builds
+        replace_in_file(self, "meson.build", "link_language : 'fortran',", "")
 
     def generate(self):
         tc = MesonToolchain(self)
@@ -122,10 +126,17 @@ class SpralConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["spral"]
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs = ["m"]
         self.cpp_info.requires = ["openblas::openblas", "metis::metis"]
         if self.options.with_hwloc:
             self.cpp_info.requires.append("hwloc::hwloc")
         if self.options.with_cuda:
             self.cpp_info.requires.append("cublas::cublas_")
+        if self.options.with_openmp:
+            self.cpp_info.requires.append("openmp::openmp")
+        if not self.options.shared:
+            if self.settings.os in ["Linux", "FreeBSD"]:
+                self.cpp_info.system_libs = ["m", "mvec"]
+            if stdcpp_library(self):
+                self.cpp_info.system_libs.append(stdcpp_library(self))
+            if "gfortran" in self._fortran_compiler:
+                self.cpp_info.system_libs.append("gfortran")
