@@ -40,7 +40,7 @@ class AcadoConan(ConanFile):
 
     def requirements(self):
         # Note: ACADO also separately vendors and exports qpOASES v1.3 for code generation.
-        self.requires("qpoases/3.2.1")
+        self.requires("qpoases/[^3.2.1]")
 
     def validate(self):
         if is_msvc(self) and self.options.shared:

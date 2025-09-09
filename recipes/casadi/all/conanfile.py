@@ -163,7 +163,7 @@ class PackageConan(ConanFile):
         # qpOASES is always built by the project
         # TODO: maybe unvendor it
         # if self.options.with_qpoases:
-        #     self.requires("qpoases/3.2.1")
+        #     self.requires("qpoases/[^3.2.1]")
 
         # FIXME: unvendor simde
         # if self.options.with_proxqp:
