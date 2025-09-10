@@ -63,7 +63,7 @@ class CoinClpConan(ConanFile):
         self.requires("coin-utils/[^2.11.11]", transitive_headers=True, transitive_libs=True)
         self.requires("coin-osi/[>=0.108.10 <1]", transitive_headers=True)
         if self.options.with_asl:
-            self.requires("asl/[^1]")
+            self.requires("ampl-asl/[^1]")
         if self.options.with_glpk:
             self.requires("glpk/[<=4.48]")
         if self.options.with_mumps:
@@ -120,7 +120,7 @@ class CoinClpConan(ConanFile):
             tc.configure_args.append(f"--with-{opt_name}-lib={_libflags(dep)}")
 
         if self.options.with_asl:
-            _configure_dep("asl", "asl")
+            _configure_dep("asl", "ampl-asl")
         if self.options.with_glpk:
             _configure_dep("glpk", "glpk")
         if self.options.with_mumps:
@@ -153,7 +153,7 @@ class CoinClpConan(ConanFile):
 
         deps = PkgConfigDeps(self)
         deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
-        deps.set_property("asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
+        deps.set_property("ampl-asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
         deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
         deps.generate()
 
@@ -206,7 +206,7 @@ class CoinClpConan(ConanFile):
         self.cpp_info.components["solver"].includedirs.append("include/coin")
         self.cpp_info.components["solver"].requires = ["coin-utils::coin-utils"]
         if self.options.with_asl:
-            self.cpp_info.components["solver"].requires.append("asl::asl2-mt")
+            self.cpp_info.components["solver"].requires.append("ampl-asl::asl2-mt")
         if self.options.with_glpk:
             self.cpp_info.components["solver"].requires.append("glpk::glpk")
 

@@ -8,8 +8,8 @@ from conan.tools.microsoft import is_msvc_static_runtime
 required_conan_version = ">=2.1"
 
 
-class AslConan(ConanFile):
-    name = "asl"
+class AmplAslConan(ConanFile):
+    name = "ampl-asl"
     description = "AMPL Solver Library - C library interface between AMPL modeling language and optimization solvers"
     license = "BSD-3-Clause AND SMLNJ"
     homepage = "https://github.com/ampl/asl"

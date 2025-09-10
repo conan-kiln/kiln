@@ -49,7 +49,7 @@ class CoinCouenneConan(ConanFile):
         if self.options.with_scip:
             self.requires("scip/[*]", transitive_headers=True, transitive_libs=True)
         if self.options.with_asl:
-            self.requires("asl/[^1]")
+            self.requires("ampl-asl/[^1]")
 
     def build_requirements(self):
         self.tool_requires("coin-buildtools/[*]")
@@ -84,7 +84,7 @@ class CoinCouenneConan(ConanFile):
 
     def generate(self):
         deps = PkgConfigDeps(self)
-        deps.set_property("asl", "pkg_config_name", "coinasl")
+        deps.set_property("ampl-asl", "pkg_config_name", "coinasl")
         deps.set_property("scip", "pkg_config_name", "coinscip")
         deps.generate()
 
@@ -180,4 +180,4 @@ class CoinCouenneConan(ConanFile):
             self.cpp_info.components["couenneinterfaces"].set_property("pkg_config_name", "couenneinterfaces")  # unofficial
             self.cpp_info.components["couenneinterfaces"].libs = ["CouenneInterfaces"]
             self.cpp_info.components["couenneinterfaces"].includedirs.append("include/coin")
-            self.cpp_info.components["couenneinterfaces"].requires = ["libcouenne", "asl::asl"]
+            self.cpp_info.components["couenneinterfaces"].requires = ["libcouenne", "ampl-asl::asl"]

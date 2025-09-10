@@ -51,7 +51,7 @@ class CoinCbcConan(ConanFile):
         self.requires("coin-cgl/[>=0.60.8 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("coin-clp/[^1.17.9]", transitive_headers=True, transitive_libs=True)
         if self.options.with_asl:
-            self.requires("asl/[^1]")
+            self.requires("ampl-asl/[^1]")
         if self.options.with_nauty:
             self.requires("nauty/[^2.9.1]")
         if self.options.with_dylp:
@@ -139,7 +139,7 @@ class CoinCbcConan(ConanFile):
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
-        deps.set_property("asl", "pkg_config_aliases", ["coinasl"])
+        deps.set_property("ampl-asl", "pkg_config_aliases", ["coinasl"])
         deps.generate()
 
     def build(self):
@@ -193,7 +193,7 @@ class CoinCbcConan(ConanFile):
         self.cpp_info.components["solver"].libs = ["CbcSolver"]
         self.cpp_info.components["solver"].requires = ["libcbc"]
         if self.options.with_asl:
-            self.cpp_info.components["solver"].requires.append("asl::asl")
+            self.cpp_info.components["solver"].requires.append("ampl-asl::asl")
 
         self.cpp_info.components["osi-cbc"].set_property("pkg_config_name", "osi-cbc")
         self.cpp_info.components["osi-cbc"].libs = ["OsiCbc"]

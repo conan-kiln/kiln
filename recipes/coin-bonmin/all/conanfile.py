@@ -43,7 +43,7 @@ class BonminConan(ConanFile):
         self.requires("coin-clp/[^1.17.9]")
         self.requires("coin-ipopt/[^3.14.19]")
         if self.options.with_asl:
-            self.requires("asl/[^1]")
+            self.requires("ampl-asl/[^1]")
         # Optionally also supports FilterSQP commercial software
 
     def build_requirements(self):
@@ -70,7 +70,7 @@ class BonminConan(ConanFile):
 
     def generate(self):
         deps = PkgConfigDeps(self)
-        deps.set_property("asl", "pkg_config_name", "coinasl")
+        deps.set_property("ampl-asl", "pkg_config_name", "coinasl")
         deps.generate()
 
         tc = AutotoolsToolchain(self)
@@ -147,4 +147,4 @@ class BonminConan(ConanFile):
             self.cpp_info.components["bonminamplinterface"].set_property("pkg_config_name", "bonminamplinterface")
             self.cpp_info.components["bonminamplinterface"].libs = ["bonminampl"]
             self.cpp_info.components["bonminamplinterface"].includedirs.append("include/coin")
-            self.cpp_info.components["bonminamplinterface"].requires = ["libbonmin", "asl::asl"]
+            self.cpp_info.components["bonminamplinterface"].requires = ["libbonmin", "ampl-asl::asl"]

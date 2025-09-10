@@ -51,7 +51,7 @@ class CoinClpConan(ConanFile):
     def requirements(self):
         self.requires("openblas/[>=0.3.28 <1]")
         if self.options.with_asl:
-            self.requires("asl/[^1]")
+            self.requires("ampl-asl/[^1]")
         if self.options.with_mumps:
             self.requires("coin-mumps/[^3.0.5]")
         if self.options.with_hsl:
@@ -98,7 +98,7 @@ class CoinClpConan(ConanFile):
 
     def generate(self):
         deps = PkgConfigDeps(self)
-        deps.set_property("asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
+        deps.set_property("ampl-asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
         deps.generate()
 
         tc = AutotoolsToolchain(self)
@@ -189,4 +189,4 @@ class CoinClpConan(ConanFile):
             self.cpp_info.components["ipoptamplinterface"].set_property("pkg_config_name", "ipoptamplinterface")
             self.cpp_info.components["ipoptamplinterface"].libs = ["ipoptamplinterface"]
             self.cpp_info.components["ipoptamplinterface"].includedirs.append("include/coin-or")
-            self.cpp_info.components["ipoptamplinterface"].requires = ["ipopt", "asl::asl2-mt"]
+            self.cpp_info.components["ipoptamplinterface"].requires = ["ipopt", "ampl-asl::asl2-mt"]
