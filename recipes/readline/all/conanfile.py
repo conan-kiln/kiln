@@ -10,7 +10,7 @@ from conan.tools.gnu import AutotoolsToolchain, AutotoolsDeps, Autotools
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class ReadLineConan(ConanFile):
@@ -19,7 +19,6 @@ class ReadLineConan(ConanFile):
     topics = ("cli", "terminal", "command")
     license = "GPL-3.0-only"
     homepage = "https://tiswww.case.edu/php/chet/readline/rltop.html"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -32,22 +31,17 @@ class ReadLineConan(ConanFile):
         "fPIC": True,
         "with_library": "termcap",
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+    def export_sources(self):
+        export_conandata_patches(self)
 
     def requirements(self):
         if self.options.with_library == "termcap":
             self.requires("termcap/1.3.1")
         elif self.options.with_library == "curses":
             self.requires("ncurses/[^6.4]", transitive_headers=True, transitive_libs=True)
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
 
     def validate(self):
         if is_msvc(self):
@@ -58,6 +52,7 @@ class ReadLineConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
 
     def generate(self):
         if not cross_building(self):
@@ -68,22 +63,24 @@ class ReadLineConan(ConanFile):
 
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
+            "--disable-install-examples",
             "--with-curses={}".format("yes" if self.options.with_library == "curses" else "no"),
         ])
         if cross_building(self):
             tc.configure_args.append("bash_cv_wcwidth_broken=yes")
-
-        tc.configure_args.append("--disable-install-examples")
-
         tc.generate()
+
         deps = AutotoolsDeps(self)
         deps.generate()
 
     def _patch_sources(self):
         if self.options.with_library == "termcap":
-            replace_in_file(self, os.path.join(self.source_folder, "shlib", "Makefile.in"), "-o $@ $(SHARED_OBJ) $(SHLIB_LIBS)",
-                              "-o $@ $(SHARED_OBJ) $(SHLIB_LIBS) -ltermcap")
-            replace_in_file(self, os.path.join(self.source_folder, "Makefile.in"), "@TERMCAP_LIB@", "-ltermcap")
+            replace_in_file(self, os.path.join(self.source_folder, "shlib", "Makefile.in"),
+                            "-o $@ $(SHARED_OBJ) $(SHLIB_LIBS)",
+                            "-o $@ $(SHARED_OBJ) $(SHLIB_LIBS) -ltermcap")
+            replace_in_file(self, os.path.join(self.source_folder, "Makefile.in"),
+                            "@TERMCAP_LIB@",
+                            "-ltermcap")
 
     def build(self):
         self._patch_sources()
@@ -95,7 +92,6 @@ class ReadLineConan(ConanFile):
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
         autotools = Autotools(self)
         autotools.install()
-
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
