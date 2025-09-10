@@ -1,0 +1,7 @@
+sources:
+  "git.20180716":
+    url: "https://github.com/skarupke/flat_hash_map/archive/2c4687431f978f02a3780e24b8b701d22aa32d9c.tar.gz"
+    sha256: "606aef45bb69d2fd8247b872919dc01607fe4477df28d6e0b4e686b1b6651980"
+license:
+  - url: "http://www.boost.org/LICENSE_1_0.txt"
+    sha256: "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
