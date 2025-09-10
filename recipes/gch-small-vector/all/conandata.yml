@@ -1,0 +1,4 @@
+sources:
+  "0.10.2":
+    url: "https://github.com/gharveymn/small_vector/archive/refs/tags/v0.10.2.tar.gz"
+    sha256: "1c60159ad0572580a39f71f21af5a5adddd21c5278656b9d1ed75fd277ce3b90"
