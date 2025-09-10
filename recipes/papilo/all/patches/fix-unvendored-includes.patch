@@ -1,0 +1,190 @@
+diff --git a/src/convMPS.cpp b/src/convMPS.cpp
+index 22c89b6..eb80776 100644
+--- a/src/convMPS.cpp
++++ b/src/convMPS.cpp
+@@ -33,7 +33,7 @@
+ #include "papilo/misc/Hash.hpp"
+ #include "papilo/misc/Vec.hpp"
+ #include "papilo/misc/fmt.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ 
+ using namespace papilo;
+ 
+diff --git a/src/duplicates.cpp b/src/duplicates.cpp
+index da121cf..5d20dd2 100644
+--- a/src/duplicates.cpp
++++ b/src/duplicates.cpp
+@@ -31,7 +31,7 @@
+ #ifdef PAPILO_TBB
+ #include "papilo/misc/tbb.hpp"
+ #endif
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include <algorithm>
+ #include <sys/stat.h>
+ 
+diff --git a/src/papilo/core/Components.hpp b/src/papilo/core/Components.hpp
+index 6a0b027..e5a6d01 100644
+--- a/src/papilo/core/Components.hpp
++++ b/src/papilo/core/Components.hpp
+@@ -24,7 +24,7 @@
+ #define _PAPILO_CORE_COMPONENTS_HPP_
+ 
+ #include "papilo/core/Problem.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/misc/Hash.hpp"
+ #include "papilo/misc/Vec.hpp"
+ #include <boost/pending/disjoint_sets.hpp>
+diff --git a/src/papilo/core/SparseStorage.hpp b/src/papilo/core/SparseStorage.hpp
+index ce4c79a..d624f2c 100644
+--- a/src/papilo/core/SparseStorage.hpp
++++ b/src/papilo/core/SparseStorage.hpp
+@@ -23,7 +23,7 @@
+ #ifndef _PAPILO_CORE_SPARSE_STORAGE_HPP_
+ #define _PAPILO_CORE_SPARSE_STORAGE_HPP_
+ 
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/misc/MultiPrecision.hpp"
+ #include "papilo/misc/Vec.hpp"
+ #include <algorithm>
+diff --git a/src/papilo/interfaces/RoundingsatInterface.hpp b/src/papilo/interfaces/RoundingsatInterface.hpp
+index 374bec0..b1a6b0b 100644
+--- a/src/papilo/interfaces/RoundingsatInterface.hpp
++++ b/src/papilo/interfaces/RoundingsatInterface.hpp
+@@ -23,10 +23,10 @@
+ #ifndef _PAPILO_INTERFACES_ROUNDINGSAT_INTERFACE_HPP_
+ #define _PAPILO_INTERFACES_ROUNDINGSAT_INTERFACE_HPP_
+ 
+-#include "auxiliary.hpp"
+-#include "globals.hpp"
+-#include "parsing.hpp"
+-#include "run.hpp"
++#include "roundingsat/auxiliary.hpp"
++#include "roundingsat/globals.hpp"
++#include "roundingsat/parsing.hpp"
++#include "roundingsat/run.hpp"
+ #include <csignal>
+ #include <fstream>
+ #include <memory>
+diff --git a/src/papilo/io/MpsParser.hpp b/src/papilo/io/MpsParser.hpp
+index 334303e..ac9569d 100644
+--- a/src/papilo/io/MpsParser.hpp
++++ b/src/papilo/io/MpsParser.hpp
+@@ -28,7 +28,7 @@
+ #include "papilo/core/Objective.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/VariableDomains.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/io/BoundType.hpp"
+ #include "papilo/io/ParseKey.hpp"
+ #include "papilo/misc/Flags.hpp"
+diff --git a/src/papilo/io/OpbParser.hpp b/src/papilo/io/OpbParser.hpp
+index e59a9bd..033f1d8 100644
+--- a/src/papilo/io/OpbParser.hpp
++++ b/src/papilo/io/OpbParser.hpp
+@@ -28,7 +28,7 @@
+ #include "papilo/core/Objective.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/VariableDomains.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/io/BoundType.hpp"
+ #include "papilo/io/ParseKey.hpp"
+ #include "papilo/misc/Flags.hpp"
+diff --git a/src/papilo/misc/DependentRows.hpp b/src/papilo/misc/DependentRows.hpp
+index 32a913c..0f43209 100644
+--- a/src/papilo/misc/DependentRows.hpp
++++ b/src/papilo/misc/DependentRows.hpp
+@@ -28,7 +28,7 @@
+ #ifdef PAPILO_HAVE_LUSOL
+ extern "C"
+ {
+-#include "papilo/external/lusol/clusol.h"
++#include "clusol.h"
+ }
+ #endif
+ 
+diff --git a/src/papilo/misc/Hash.hpp b/src/papilo/misc/Hash.hpp
+index badb1bf..634f6ce 100644
+--- a/src/papilo/misc/Hash.hpp
++++ b/src/papilo/misc/Hash.hpp
+@@ -26,7 +26,7 @@
+ #include "papilo/Config.hpp"
+ 
+ #ifndef PAPILO_USE_STANDARD_HASHMAP
+-#include "papilo/external/ska/bytell_hash_map.hpp"
++#include "bytell_hash_map.hpp"
+ #else
+ #include <unordered_map>
+ #include <unordered_set>
+diff --git a/src/papilo/misc/fmt.hpp b/src/papilo/misc/fmt.hpp
+index a5239cc..ea97030 100644
+--- a/src/papilo/misc/fmt.hpp
++++ b/src/papilo/misc/fmt.hpp
+@@ -45,8 +45,8 @@
+ #define PAPILO_DEFINED_NOGDI
+ #endif
+ 
+-#include "papilo/external/fmt/format.h"
+-#include "papilo/external/fmt/ostream.h"
++#include "fmt/format.h"
++#include "fmt/ostream.h"
+ 
+ #ifdef PAPILO_DEFINED_NOGDI
+ #undef NOGDI
+diff --git a/src/papilo/presolvers/FreeVarSubstitution.hpp b/src/papilo/presolvers/FreeVarSubstitution.hpp
+index 3490f8b..13bd03d 100644
+--- a/src/papilo/presolvers/FreeVarSubstitution.hpp
++++ b/src/papilo/presolvers/FreeVarSubstitution.hpp
+@@ -27,7 +27,7 @@
+ #include "papilo/core/PresolveMethod.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/ProblemUpdate.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/misc/Num.hpp"
+ #include "papilo/misc/fmt.hpp"
+ #include <boost/dynamic_bitset.hpp>
+diff --git a/src/papilo/presolvers/ParallelColDetection.hpp b/src/papilo/presolvers/ParallelColDetection.hpp
+index c4ac88b..54e9221 100644
+--- a/src/papilo/presolvers/ParallelColDetection.hpp
++++ b/src/papilo/presolvers/ParallelColDetection.hpp
+@@ -27,7 +27,7 @@
+ #include "papilo/core/PresolveMethod.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/ProblemUpdate.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/misc/Hash.hpp"
+ #ifdef PAPILO_TBB
+ #include "papilo/misc/tbb.hpp"
+diff --git a/src/papilo/presolvers/ParallelRowDetection.hpp b/src/papilo/presolvers/ParallelRowDetection.hpp
+index af1896b..88d941b 100644
+--- a/src/papilo/presolvers/ParallelRowDetection.hpp
++++ b/src/papilo/presolvers/ParallelRowDetection.hpp
+@@ -27,7 +27,7 @@
+ #include "papilo/core/PresolveMethod.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/ProblemUpdate.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include "papilo/misc/Hash.hpp"
+ #ifdef PAPILO_TBB
+ #include "papilo/misc/tbb.hpp"
+diff --git a/src/papilo/presolvers/SimplifyInequalities.hpp b/src/papilo/presolvers/SimplifyInequalities.hpp
+index b2578cf..ba8ca37 100644
+--- a/src/papilo/presolvers/SimplifyInequalities.hpp
++++ b/src/papilo/presolvers/SimplifyInequalities.hpp
+@@ -27,7 +27,7 @@
+ #include "papilo/core/PresolveMethod.hpp"
+ #include "papilo/core/Problem.hpp"
+ #include "papilo/core/ProblemUpdate.hpp"
+-#include "papilo/external/pdqsort/pdqsort.h"
++#include "pdqsort.h"
+ #include <boost/integer/common_factor.hpp>
+ 
+ namespace papilo

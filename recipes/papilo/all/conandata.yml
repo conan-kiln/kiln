@@ -1,0 +1,8 @@
+sources:
+  "2.4.3":
+    url: "https://github.com/scipopt/papilo/archive/refs/tags/v2.4.3.tar.gz"
+    sha256: "49e990e6ed86a3ef189aa6c31051b6a58f717b5653652ace4514674bdf6098c6"
+patches:
+  "2.4.3":
+    - patch_file: "patches/cmake-fixes.patch"
+    - patch_file: "patches/fix-unvendored-includes.patch"
