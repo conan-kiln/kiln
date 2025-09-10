@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-09:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-10:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -88,14 +88,19 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/4.0.3
 - cnmem/1.0.0+git.20181128
 - cocoapi/0.0.0+git.20200220
+- coin-bonmin/1.8.9
 - coin-buildtools/0.8.11
-- coin-cbc/2.10.11
-- coin-cgl/0.60.8
+- coin-cbc/2.10.12
+- coin-cgl/0.60.9
 - coin-clp/1.17.10
-- coin-ipopt/3.14.13
+- coin-dylp/1.10.4
+- coin-hsl/2024.05.15
+- coin-ipopt/3.14.19
 - coin-mumps/3.0.5
 - coin-osi/0.108.11
+- coin-symphony/5.7.2
 - coin-utils/2.11.12
+- coin-vol/1.5.4
 - colmap/3.12.5
 - conan-cuda/latest
 - conan-gnu-triplet/latest
@@ -385,6 +390,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cutlass/2.11.0
 - cutlass/3.9.2
 - cutlass/4.1.0
+- cuvs/25.08.00
 - cuxxfilt/13.0.85
 - cv-cuda/0.15.0
 - daggy/2.1.3
@@ -564,6 +570,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hdf5/1.8.21
 - hlslpp/3.5.3
 - hnswlib/0.8.0
+- hnswlib/0.8.0-cuvs
 - hscpp/1.0.0-alpha
 - hwloc/2.12.1
 - icu4x/1.4.1
@@ -769,6 +776,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nanoflann/1.6.3
 - nanopb/0.4.9.1
 - nasm/2.16.03
+- nauty/2.9.1
 - ncbi-cxx-toolkit/29.0.0
 - nccl/2.27.7.1
 - netcdf/4.9.3
@@ -1033,6 +1041,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - qhull/7.3.2
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
+- qpoases/3.2.2
 - qscintilla/2.14.1
 - qsopt/1.01
 - qtawesome/6.5.1
@@ -1082,6 +1091,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - small_gicp/0.1.2
 - smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
+- soplex/3.1.1
 - spectra/1.1.0
 - speech-dispatcher/0.12
 - spirv-cross/1.3.290.0
