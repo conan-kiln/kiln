@@ -1,0 +1,4 @@
+sources:
+  "3.6.2":
+    url: "https://github.com/scipopt/zimpl/archive/refs/tags/v362.tar.gz"
+    sha256: "d99bdfa227d8871560b92dd90026280b185ce8f28b0d3fe295b871f0eca8d4f1"
