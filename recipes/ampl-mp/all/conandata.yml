@@ -1,0 +1,4 @@
+sources:
+  "4.0.3":
+    url: "https://github.com/ampl/mp/archive/refs/tags/v4.0.3.tar.gz"
+    sha256: "229c2e82110a8a1c1a845b14e5faa960785c07e2df673bd366f755aca431c1a9"
