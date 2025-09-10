@@ -2,3 +2,7 @@ sources:
   "cci.20161001":
     url: "https://github.com/tinycthread/tinycthread/archive/6957fc8383d6c7db25b60b8c849b29caab1caaee.tar.gz"
     sha256: "7068d21ddffaab68eea6d41a39ea8b6597984ef2436eee3d4bcf664ec67528f9"
+patches:
+  - patch_file: "patches/fix-thread-local-for-c11.patch"
+    patch_description: "make sure _Thread_local is also defined for C >= 11"
+    patch_source: "https://github.com/scipopt/scip/commit/6053c67da81b94d6e74a8f55cba9e6873bf4e571"

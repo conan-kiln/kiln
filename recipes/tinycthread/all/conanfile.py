@@ -4,7 +4,8 @@ from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
+
 
 class TinycthreadConan(ConanFile):
     name = "tinycthread"
@@ -14,16 +15,20 @@ class TinycthreadConan(ConanFile):
     topics = ("thread", "c11", "portable")
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
+    languages = ["C"]
 
-    def configure(self):
-        self.settings.compiler.rm_safe("libcxx")
-        self.settings.compiler.rm_safe("cppstd")
+    def export_sources(self):
+        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 2.8.4)",
+                        "cmake_minimum_required(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -39,7 +44,6 @@ class TinycthreadConan(ConanFile):
     def _extract_license(self):
         file = os.path.join(self.source_folder, "source", "tinycthread.h")
         file_content = load(self, file)
-
         license_start = file_content.find("Copyright")
         license_end = file_content.find("*/")
         license_contents = file_content[license_start:license_end]
