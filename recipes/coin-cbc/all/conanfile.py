@@ -79,12 +79,7 @@ class CoinCbcConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        replace_in_file(self, "Cbc/src/CbcSymmetry.hpp",
-                        '#include "nauty/',
-                        '#include "')
-        replace_in_file(self, "Cbc/src/CbcModel.cpp",
-                        '#include "cplex.h"',
-                        '#include "ilcplex/cplex.h"')
+        replace_in_file(self, "Cbc/src/CbcSymmetry.hpp", '#include "nauty/', '#include "')
 
     @property
     def _nauty_lib(self):

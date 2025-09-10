@@ -76,7 +76,6 @@ class SymphonyConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        replace_in_file(self, "SYMPHONY/include/sym_lp_solver.h", "cplex.h", "ilcplex/cplex.h")
 
     def generate(self):
         tc = AutotoolsToolchain(self)

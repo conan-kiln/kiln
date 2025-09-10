@@ -22,9 +22,11 @@ class CplexConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "tools": [True, False],
+        "prefixless_includes": [True, False],
     }
     default_options = {
         "tools": False,
+        "prefixless_includes": True,
     }
 
     def config_options(self):
@@ -37,23 +39,24 @@ class CplexConan(ConanFile):
     def package_id(self):
         del self.info.settings.compiler
         del self.info.settings.build_type
+        del self.info.options.prefixless_includes
 
     @property
     def _file_pattern(self):
         v = Version(self.version)
-        major_minor = f"{v.major}.{v.minor}"
+        prefix = f"cos_installer_preview-{v.major}.{v.minor}.*"
         if self.settings.os in ["Linux", "FreeBSD"]:
             if self.settings.arch == "x86_64":
-                return f"cos_installer_preview-{major_minor}.*-linux-x86-64.bin"
+                return f"{prefix}-linux-x86-64.bin"
             elif self.settings.arch == "armv8":
-                return f"cos_installer_preview-{major_minor}.*-linux-arm64.bin"
+                return f"{prefix}-linux-arm64.bin"
         elif is_apple_os(self):
             if self.settings.arch == "x86_64":
-                return f"cos_installer_preview-{major_minor}.*-osx.zip"
+                return f"{prefix}-osx.zip"
             elif "armv8" in str(self.settings.arch):
-                return f"cos_installer_preview-{major_minor}.*-osx-arm64.zip"
+                return f"{prefix}-osx-arm64.zip"
         elif self.settings.os == "Windows" and self.settings.arch == "x86_64":
-            return f"cos_installer_preview-{major_minor}.*-win-x86-64.exe"
+            return f"{prefix}-win-x86-64.exe"
         return None
 
     def validate(self):
@@ -107,7 +110,7 @@ class CplexConan(ConanFile):
         return f"{v.major}{v.minor}{v.patch}"
 
     def package(self):
-        copy(self, "*", os.path.join(self.source_folder, "licenses"), os.path.join(self.package_folder, "licenses"))
+        copy(self, "*", os.path.join(self.source_folder, "license"), os.path.join(self.package_folder, "licenses"))
         for subdir in ["opl", "concert", "cplex", "cpoptimizer"]:
             copy(self, "*", os.path.join(self.source_folder, subdir, "include"), os.path.join(self.package_folder, "include"))
         if self.settings.os in ["Linux", "FreeBSD"]:
@@ -158,6 +161,14 @@ class CplexConan(ConanFile):
 
         self.cpp_info.components["opl"].set_property("cmake_target_aliases", ["opl"])
         self.cpp_info.components["opl"].libs = ["opl"]
+
+        if self.options.prefixless_includes:
+            self.cpp_info.components["cplex_"].includedirs.append("include/ilcplex")
+            self.cpp_info.components["ilocplex"].includedirs.append("include/ilcplex")
+            self.cpp_info.components["concert"].includedirs.append("include/ilconcert")
+            self.cpp_info.components["cp"].includedirs.append("include/ilcp")
+            self.cpp_info.components["iljs"].includedirs.append("include/ilopl")
+            self.cpp_info.components["opl"].includedirs.append("include/ilopl")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
             for _, c in self.cpp_info.components.items():
