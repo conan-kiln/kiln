@@ -1,0 +1,23 @@
+sources:
+  "4.38.1":
+    Linux:
+      x86_64:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-linux-x86_64.zip"
+        sha256: "6e33f2100fd676fcb09300a39fd279102555fb64e2ce6d25e2975a75223744cd"
+      armv8:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-linux-arm64.zip"
+        sha256: "f178425afd61b752f55519360789d02cf1fc6f74d266c3d1497989766cd622e3"
+    Macos:
+      x86_64:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-macos-x86_64.zip"
+        sha256: "34f4f40688931ace26867f82a267bafbd6b74aac0a1328b651d307cb20a12c01"
+      armv8:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-macos-arm64.zip"
+        sha256: "6e62deb85ef55546db74be36977b3062331a8e6dd3ad1c3eb4001264262cec76"
+    Windows:
+      x86_64:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-win-x86_64.zip"
+        sha256: "887d284255a30ba870dd38d01669454cd97543d789256bd0f903f08de39c466a"
+      x86:
+        url: "https://d37drm4t2jghv5.cloudfront.net/conopt/4.38.1/conopt-4_38_1-win-i386.zip"
+        sha256: "ab82fc9ea593aa6068b303c9f6bf9a834e83545f63373241f8256748de380953"
