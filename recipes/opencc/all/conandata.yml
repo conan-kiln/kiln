@@ -1,0 +1,4 @@
+sources:
+  "1.1.9":
+    url: "https://github.com/BYVoid/OpenCC/archive/refs/tags/ver.1.1.9.tar.gz"
+    sha256: "ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99"
