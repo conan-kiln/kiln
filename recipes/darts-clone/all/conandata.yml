@@ -1,0 +1,4 @@
+sources:
+  "0.32h":
+    url: "https://github.com/s-yata/darts-clone/archive/refs/tags/v0.32h.tar.gz"
+    sha256: "5d4fa1e103f6d543208b75fc06c2001533fa8c20a3470e43860aba56ee7888a3"
