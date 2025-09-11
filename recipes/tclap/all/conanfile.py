@@ -7,9 +7,9 @@ from conan.tools.layout import basic_layout
 
 class TclapConan(ConanFile):
     name = "tclap"
+    description = "Templatized Command Line Argument Parser"
     license = "MIT"
     homepage = "https://sourceforge.net/projects/tclap/"
-    description = "Templatized Command Line Argument Parser"
     topics = ("parser", "command-line", "header-only")
     settings = "os", "arch", "compiler", "build_type"
     package_type = "header-library"
@@ -25,8 +25,8 @@ class TclapConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def package(self):
-        copy(self, pattern="COPYING", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
-        copy(self, pattern="*.h", dst=os.path.join(self.package_folder, "include"), src=os.path.join(self.source_folder, "include"))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*.h", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
         self.cpp_info.bindirs = []
