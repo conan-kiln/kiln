@@ -4,7 +4,6 @@ from conan import ConanFile
 from conan.tools.build import stdcpp_library
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -33,16 +32,6 @@ class MeshOptimizerConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        # CMake v4 support
-        if Version(self.version) < "0.20":
-            replace_in_file(self, "CMakeLists.txt",
-                            "cmake_minimum_required(VERSION 3.0)",
-                            "cmake_minimum_required(VERSION 3.5)")
-        # No warnings as errors - now fine in 0.19 and up
-        if Version(self.version) < "0.19":
-            cmakelists = os.path.join(self.source_folder, "CMakeLists.txt")
-            replace_in_file(self, cmakelists, "add_compile_options(/W4 /WX)", "")
-            replace_in_file(self, cmakelists, "-Werror", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -69,5 +58,7 @@ class MeshOptimizerConan(ConanFile):
             libcxx = stdcpp_library(self)
             if libcxx:
                 self.cpp_info.system_libs.append(libcxx)
-        if self.options.shared and self.settings.os == "Windows":
-            self.cpp_info.defines = ["MESHOPTIMIZER_API=__declspec(dllimport)"]
+        if self.options.shared:
+            self.cpp_info.defines = ["MESHOPTIMIZER_ALLOC_EXPORT"]
+            if self.settings.os == "Windows":
+                self.cpp_info.defines.append("MESHOPTIMIZER_API=__declspec(dllimport)")
