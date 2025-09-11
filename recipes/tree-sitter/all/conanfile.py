@@ -3,14 +3,14 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class TreeSitterConan(ConanFile):
     name = "tree-sitter"
-    description = "Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited."
+    description = ("Tree-sitter is a parser generator tool and an incremental parsing library. "
+                   "It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.")
     license = "MIT"
     homepage = "https://tree-sitter.github.io/tree-sitter"
     topics = ("parser", "incremental", "rust")
@@ -24,24 +24,13 @@ class TreeSitterConan(ConanFile):
         "fPIC": True,
         "shared": False,
     }
-
-    def export_sources(self):
-        if Version(self.version) < "0.24.1":
-            copy(self, "CMakeLists.txt", src=self.recipe_folder, dst=self.export_sources_folder)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-            if Version(self.version) >= "0.24.1":
-                self.package_type = "static-library"
+    languages = ["C"]
 
     def configure(self):
-        if Version(self.version) >= "0.24.1" and self.settings.os == "Windows":
-            self.options.rm_safe("shared")
-        if self.options.get_safe("shared"):
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+            self.options.shared.value = False
+            self.package_type = "static-library"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -51,32 +40,20 @@ class TreeSitterConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        if Version(self.version) < "0.24.1":
-            tc.variables["TREE_SITTER_SRC_DIR"] = self.source_folder.replace("\\", "/")
-            tc.variables["TREE_SITTER_VERSION"] = str(self.version)
-        else:
-            tc.cache_variables["BUILD_SHARED_LIBS"] = self.options.get_safe("shared", False)
+        tc.cache_variables["BUILD_SHARED_LIBS"] = self.options.shared
         tc.generate()
 
     def build(self):
         cmake = CMake(self)
-        if Version(self.version) < "0.24.1":
-            cmake.configure(build_script_folder="..")
-        else:
-            cmake.configure(build_script_folder="lib")
+        cmake.configure(build_script_folder="lib")
         cmake.build()
 
     def package(self):
-        copy(
-            self,
-            "LICENSE",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses"),
-        )
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"),)
         cmake = CMake(self)
         cmake.install()
-
         rmdir(self, os.path.join(self.package_folder, "share"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         self.cpp_info.libs = ["tree-sitter"]
