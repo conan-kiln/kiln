@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(conoptcpp CXX)
 
-include_directories(include src/cpp)
+include_directories(src/cpp include)
 link_directories(lib)
 
 file(GLOB CXX_SOURCES src/cpp/*.cpp)
@@ -12,8 +12,10 @@ set_target_properties(conoptcpp PROPERTIES
 )
 if(WIN32)
     set_target_properties(conoptcpp PROPERTIES OUTPUT_NAME conoptcpp${SOVERSION})
+    target_link_libraries(conoptcpp PRIVATE conopt${SOVERSION})
+else()
+    target_link_libraries(conoptcpp PRIVATE conopt)
 endif()
-target_link_libraries(conoptcpp PRIVATE conopt)
 
 include(GNUInstallDirs)
 install(TARGETS conoptcpp

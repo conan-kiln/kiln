@@ -57,6 +57,16 @@ class ConoptConan(ConanFile):
 
     def _source(self):
         get(self, **self._download_info, strip_root=True, destination=self.source_folder)
+        # Default COI_API to dllimport for consuming code
+        replace_in_file(self, os.path.join(self.source_folder, "include/conopt.h"),
+                        "__declspec(dllexport)",
+                        "__declspec(dllimport)")
+        if self.settings.os == "Windows":
+            # Mark C++ symbols for export when building the C++ interface library
+            replace_in_file(self, os.path.join(self.source_folder, "src/cpp/conopt.hpp"),
+                            '#include "conopt.h"',
+                            '#include "conopt.h"\n'
+                            "#define COI_API __declspec(dllexport)")
 
     @property
     def _soversion(self):
