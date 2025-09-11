@@ -1,0 +1,38 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -11,28 +11,13 @@
+ 
+ if (KAFKA STREQUAL "y")
+ 	find_package(ZLIB REQUIRED)
+-	include_directories(${ZLIB_INCLUDE_DIRS})
+-
+-	find_path(SNAPPY_INCLUDE_PATH NAMES snappy.h)
+-	find_library(SNAPPY_LIB NAMES snappy)
+-	if ((NOT SNAPPY_INCLUDE_PATH) OR (NOT SNAPPY_LIB))
+-		message(FATAL_ERROR "Fail to find snappy with KAFKA=y")
+-	endif ()
+-	include_directories(${SNAPPY_INCLUDE_PATH})
+-
+-	find_path(ZSTD_INCLUDE_PATH NAMES zstd.h)
+-	find_library(ZSTD_LIB NAMES zstd)
+-	if ((NOT ZSTD_INCLUDE_PATH) OR (NOT ZSTD_LIB))
+-		message(FATAL_ERROR "Fail to find zstd with KAFKA=y")
+-	endif ()
+-	include_directories(${ZSTD_INCLUDE_PATH})
+-
+-	find_path(LZ4_INCLUDE_PATH NAMES lz4.h)
+-	find_library(LZ4_LIB NAMES lz4)
+-	if ((NOT LZ4_INCLUDE_PATH) OR (NOT LZ4_LIB))
+-		message(FATAL_ERROR "Fail to find lz4 with KAFKA=y")
+-	endif ()
+-	include_directories(${LZ4_INCLUDE_PATH})
++	find_package(Snappy REQUIRED)
++	find_package(ZSTD REQUIRED)
++	find_package(lz4 REQUIRED)
++	set(LZ4_LIB lz4::lz4)
++	set(ZSTD_LIB zstd::zstd)
++	set(SNAPPY_LIB Snappy::snappy)
++	include_directories(${Snappy_INCLUDE_DIRS})
+ endif ()
+ 
+ add_subdirectory(kernel)

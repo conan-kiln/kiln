@@ -1,0 +1,7 @@
+sources:
+  "0.11.10":
+    url: "https://github.com/sogou/workflow/archive/refs/tags/v0.11.10.tar.gz"
+    sha256: "a881fa00083829597450b579dbeb4d334d935e7f54e63564722771431ad1a615"
+patches:
+  "0.11.10":
+    - patch_file: "patches/cmake-fixes.patch"
