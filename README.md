@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-10:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-11:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -21,6 +21,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
+- ampl-asl/1.0.1
+- ampl-mp/4.0.3
 - antlr4/4.13.2
 - apr-util/1.6.3
 - apr/1.7.6
@@ -40,7 +42,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - asio-grpc/2.7.0
 - asio-grpc/2.9.2
 - asio-grpc/3.4.1
-- asl/1.0.1
 - au/0.4.1
 - autoconf-archive/2024.10.16
 - automake/1.18.1
@@ -93,6 +94,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - coin-cbc/2.10.12
 - coin-cgl/0.60.9
 - coin-clp/1.17.10
+- coin-couenne/0.5.8
 - coin-dylp/1.10.4
 - coin-hsl/2024.05.15
 - coin-ipopt/3.14.19
@@ -477,6 +479,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gcc/14.3.0
 - gcc/8.5.0
 - gcc/9.5.0
+- gch-small-vector/0.10.2
 - gdalcpp/1.3.0
 - gdk-pixbuf/2.42.12
 - gdrcopy/2.5
@@ -1002,6 +1005,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pangolin/0.9.3
 - pangomm/2.46.4
 - pangomm/2.54.0
+- papilo/2.4.3
 - partio/1.19.0
 - patchelf/0.12
 - patchelf/0.13
@@ -1053,13 +1057,15 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rapids_logger/0.1.1
 - rdma-core/59.0
 - re2/20220601
-- readline/8.0
+- readline/8.3.1
 - reduct-cpp/1.14.0
 - renderdoc/1.37
 - rmlui/5.1
 - rmm/25.06.00
 - rmm/25.08.00
 - rosx_introspection/1.0.2
+- roundingsat/0.0.0+git.20240602
+- roundingsat/0.0.0+git.20250909
 - rsync/3.4.1
 - rust-bindgen/0.71.1
 - rust/1.72.1
@@ -1072,6 +1078,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sbepp/1.5.1
 - sbepp/1.6.0
 - scdoc/1.11.3
+- sdl/2.30.9
+- sdl/2.32.8
 - sdl_image/2.8.8
 - sdl_mixer/2.8.1
 - sdl_ttf/2.0.15
@@ -1086,6 +1094,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - shader-slang/2024.11.1
 - shaderc/2025.2
 - shaderc/2025.3
+- skarupke-flat-hash-map/git.20180716
 - skia/132
 - sleef/3.9.0
 - small_gicp/0.1.2
@@ -1283,6 +1292,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - zenoh-c/1.3.2
 - zenoh-cpp/1.3.2
 - zenoh-pico/1.3.2
+- zimpl/3.6.2
 - zint/2.13.0
 - zlib-ng/2.0.7
 - zlib-ng/2.1.7
