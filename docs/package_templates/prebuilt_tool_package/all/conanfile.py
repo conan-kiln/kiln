@@ -25,7 +25,7 @@ class PackageConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version][str(self.settings.os)][str(self.settings.arch)], strip_root=True)
 
     def package(self):
-        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*.exe", self.source_folder, os.path.join(self.package_folder, "bin"))
         copy(self, "foo", self.source_folder, os.path.join(self.package_folder, "bin"))
 
