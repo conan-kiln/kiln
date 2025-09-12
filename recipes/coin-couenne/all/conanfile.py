@@ -68,11 +68,6 @@ class CoinCouenneConan(ConanFile):
         replace_in_file(self, "Couenne/configure.ac", "AC_COIN_PROG_F77", "")
         replace_in_file(self, "Couenne/configure.ac", "AC_COIN_F77_WRAPPERS", "")
 
-    @property
-    def _nauty_lib(self):
-        # Use Nauty with 32-bit word size and thread-local storage
-        return "nautyTW1" if self.dependencies["nauty"].options.enable_tls else "nautyW1"
-
     def _flags_from_pc(self, name):
         pc = PkgConfig(self, name, self.generators_folder)
         cflags = list(pc.cflags)
@@ -109,7 +104,7 @@ class CoinCouenneConan(ConanFile):
 
         if self.options.with_nauty:
             nauty_info = self.dependencies["nauty"].cpp_info
-            tc.configure_args.append(f"--with-nauty-lib=-l{self._nauty_lib} -L{unix_path(self, nauty_info.libdir)}")
+            tc.configure_args.append(f"--with-nauty-lib=-l{nauty_info.libs[0]} -L{unix_path(self, nauty_info.libdir)}")
             tc.configure_args.append(f"--with-nauty-incdir={unix_path(self, nauty_info.includedir)}")
 
         # Drop deprecated `register` keywords
@@ -172,7 +167,7 @@ class CoinCouenneConan(ConanFile):
             "coin-osi::coin-osi",
         ]
         if self.options.with_nauty:
-            self.cpp_info.components["libcouenne"].requires.append(f"nauty::{self._nauty_lib}")
+            self.cpp_info.components["libcouenne"].requires.append("nauty::nauty")
         if self.options.with_scip:
             self.cpp_info.components["libcouenne"].requires.append("scip::scip")
 

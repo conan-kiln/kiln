@@ -81,11 +81,6 @@ class CoinCbcConan(ConanFile):
         apply_conandata_patches(self)
         replace_in_file(self, "Cbc/src/CbcSymmetry.hpp", '#include "nauty/', '#include "')
 
-    @property
-    def _nauty_lib(self):
-        # Use Nauty with 32-bit word size and thread-local storage
-        return "nautyTW1" if self.dependencies["nauty"].options.enable_tls else "nautyW1"
-
     def generate(self):
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
@@ -112,7 +107,7 @@ class CoinCbcConan(ConanFile):
         ]
         if self.options.with_nauty:
             nauty_info = self.dependencies["nauty"].cpp_info
-            tc.configure_args.append(f"--with-nauty-lib=-l{self._nauty_lib} -L{unix_path(self, nauty_info.libdir)}")
+            tc.configure_args.append(f"--with-nauty-lib=-l{nauty_info.libs[0]} -L{unix_path(self, nauty_info.libdir)}")
             tc.configure_args.append(f"--with-nauty-incdir={unix_path(self, nauty_info.includedir)}")
         if is_msvc(self):
             tc.extra_cxxflags.append("-EHsc")
@@ -181,7 +176,7 @@ class CoinCbcConan(ConanFile):
             "coin-clp::osi-clp",
         ]
         if self.options.with_nauty:
-            self.cpp_info.components["libcbc"].requires.append(f"nauty::{self._nauty_lib}")
+            self.cpp_info.components["libcbc"].requires.append("nauty::nauty")
         if self.options.with_dylp:
             self.cpp_info.components["libcbc"].requires.append("coin-dylp::coin-dylp")
         if self.options.with_vol:
