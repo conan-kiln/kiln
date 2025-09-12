@@ -37,6 +37,7 @@ class SundialsConan(ConanFile):
         "with_lapack": [True, False],
         "with_mpi": [True, False],
         "with_openmp": [True, False],
+        "with_superlumt": [True, False],
         "index_size": [32, 64],
         "precision": ["single", "double", "extended"],
     }
@@ -55,6 +56,7 @@ class SundialsConan(ConanFile):
         "with_lapack": True,
         "with_mpi": False,
         "with_openmp": True,
+        "with_superlumt": True,
         "index_size": 64,
         "precision": "double",
     }
@@ -100,6 +102,8 @@ class SundialsConan(ConanFile):
             self.requires("openmpi/[^4.1.6]", transitive_headers=True, transitive_libs=True, options={"enable_cxx": True})
         if self.options.with_openmp:
             self.requires("openmp/system")
+        if self.options.with_superlumt:
+            self.requires("superlu_mt/[^4.0.1]", transitive_headers=True, transitive_libs=True)
         if self.options.with_cuda:
             self.cuda.requires("cudart")
             if self.options.index_size == 32:
@@ -175,7 +179,8 @@ class SundialsConan(ConanFile):
         tc.variables["GINKGO_WORKS"] = True
         tc.variables["ENABLE_MAGMA"] = False
         tc.variables["ENABLE_SUPERLUDIST"] = False
-        tc.variables["ENABLE_SUPERLUMT"] = False
+        tc.variables["ENABLE_SUPERLUMT"] = self.options.with_superlumt
+        tc.variables["SUPERLUMT_WORKS"] = True
         tc.variables["ENABLE_KLU"] = self.options.with_klu
         tc.variables["KLU_WORKS"] = True
         tc.variables["ENABLE_HYPRE"] = False
@@ -205,6 +210,8 @@ class SundialsConan(ConanFile):
 
         deps = CMakeDeps(self)
         deps.set_property("suitesparse-klu", "cmake_target_name", "SUNDIALS::KLU")
+        deps.set_property("superlu_mt", "cmake_file_name", "SUPERLUMT")
+        deps.set_property("superlu_mt", "cmake_target_name", "SUNDIALS::SUPERLUMT")
         deps.generate()
 
         if self.options.with_cuda:
@@ -314,6 +321,8 @@ class SundialsConan(ConanFile):
         if self.options.with_lapack:
             _add_lib("sunlinsollapackband", requires=["sunmatrixband", "openblas::openblas"])
             _add_lib("sunlinsollapackdense", requires=["sunmatrixdense", "openblas::openblas"])
+        if self.options.with_superlumt:
+            _add_lib("sunlinsolsuperlumt", requires=["sunmatrixsparse", "superlu_mt::superlu_mt"])
 
         _add_lib("sunnonlinsolfixedpoint")
         _add_lib("sunnonlinsolnewton")
