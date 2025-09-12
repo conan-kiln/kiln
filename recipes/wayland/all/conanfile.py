@@ -8,7 +8,6 @@ from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
 
@@ -77,8 +76,9 @@ class WaylandConan(ConanFile):
         tc.project_options["libraries"] = self.options.enable_libraries
         tc.project_options["dtd_validation"] = self.options.enable_dtd_validation
         tc.project_options["documentation"] = False
-        if Version(self.version) >= "1.18.91":
-            tc.project_options["scanner"] = True
+        if not can_run(self):
+            tc.project_options["build.pkg_config_path"] = self.generators_folder
+        tc.project_options["scanner"] = True
         tc.generate()
 
         deps = PkgConfigDeps(self)
@@ -141,7 +141,7 @@ class WaylandConan(ConanFile):
                 self.cpp_info.components["wayland-server"].system_libs = ["pthread", "m"]
 
             self.cpp_info.components["wayland-server"].resdirs = ["share"]
-            if self.version >= Version("1.21.0") and self.settings.os == "Linux":
+            if self.settings.os == "Linux":
                 self.cpp_info.components["wayland-server"].system_libs += ["rt"]
             self.cpp_info.components["wayland-server"].set_property("component_version", self.version)
             pkgconfig_variables = {
@@ -158,7 +158,7 @@ class WaylandConan(ConanFile):
             if self.settings.os in ["Linux", "FreeBSD"]:
                 self.cpp_info.components["wayland-client"].system_libs = ["pthread", "m"]
             self.cpp_info.components["wayland-client"].resdirs = ["share"]
-            if self.version >= Version("1.21.0") and self.settings.os == "Linux":
+            if self.settings.os == "Linux":
                 self.cpp_info.components["wayland-client"].system_libs += ["rt"]
             self.cpp_info.components["wayland-client"].set_property("component_version", self.version)
             pkgconfig_variables = {
