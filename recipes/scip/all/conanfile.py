@@ -1,12 +1,12 @@
-from os.path import join
+import os
+from pathlib import Path
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.microsoft import check_min_vs, is_msvc
+from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
@@ -23,137 +23,240 @@ class SCIPConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "tools": [True, False],
+        "threading": ["none", "omp", "tny"],
+        "sym": ["none", "bliss", "sbliss", "nauty", "snauty"],
+        "lp_solver": ["clp", "cplex", "gurobi", "highs", "mosek", "xpress", "soplex"],
+        "with_ampl": [True, False],
         "with_gmp": [True, False],
-        "with_tpi": [False, "omp", "tny"],
-        "with_sym": [False, "bliss", "snauty"],
+        "with_ipopt": [True, False],
+        "with_lapack": [True, False],
+        "with_papilo": [True, False],
+        "with_readline": [True, False],
+        "with_worhp": [True, False],
+        "with_zimpl": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
+        "tools": False,
+        "threading": "omp",
+        "sym": "snauty",
+        "lp_solver": "soplex",
+        "with_ampl": False,
         "with_gmp": True,
-        "with_tpi": False
+        "with_ipopt": True,
+        "with_lapack": True,
+        "with_papilo": True,
+        "with_readline": False,
+        "with_worhp": False,
+        "with_zimpl": False,
     }
-
-    @property
-    def _min_cppstd(self):
-        return 14
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "gcc": "5",
-            "clang": "4",
-            "apple-clang": "7",
-        }
 
     def export_sources(self):
         export_conandata_patches(self)
 
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+        if Version(self.version) < "9.0":
+            # snauty is not available for older versions
+            self.options.sym = "sbliss"
+            del self.options.lapack
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+        self.options["soplex"].with_gmp = self.options.with_gmp
+        if self.options.with_papilo:
+            self.options["boost"].with_iostreams = True
+            self.options["boost"].with_program_options = True
+            self.options["boost"].with_serialization = True
+
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+
+    def requirements(self):
+        self.requires("zlib-ng/[^2.0]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_ampl:
+            self.requires("ampl-mp/[^4]")
+        if self.options.with_ipopt:
+            self.requires("coin-ipopt/[^3]")
+        if self.options.with_gmp:
+            self.requires("gmp/[^6.3.0]")
+        if self.options.get_safe("with_lapack"):
+            self.requires("openblas/[<1]")
+        if self.options.with_papilo:
+            self.requires("papilo/[^2]")
+        if self.options.with_readline:
+            self.requires("readline/[^8.1]")
+        if self.options.with_worhp:
+            self.requires("worhp/[^1]")
+        if self.options.with_zimpl:
+            self.requires("zimpl/[^3]")
+        # For an upcoming release
+        # if self.options.with_conopt:
+        #     self.requires("conopt/[^4.0]")
+
+        # LP Solver dependencies
+        if self.options.lp_solver == "clp":
+            self.requires("coin-clp/[^1]")
+        elif self.options.lp_solver == "cplex":
+            self.requires("cplex/[*]")
+        elif self.options.lp_solver == "gurobi":
+            self.requires("gurobi/[*]")
+        elif self.options.lp_solver == "highs":
+            self.requires("highs/[^1]")
+        elif self.options.lp_solver == "mosek":
+            self.requires("mosek/[*]")
+        elif self.options.lp_solver == "soplex":
+            self.requires("soplex/[*]")
+        elif self.options.lp_solver == "xpress":
+            self.requires("xpress/[*]")
+
+        # Symmetry computation dependencies
+        if self.options.sym in ["bliss", "sbliss"]:
+            self.requires("bliss/[>=0.77 <1]")
+        elif self.options.sym in ["nauty", "snauty"]:
+            self.requires("nauty/[^2.9.1]")
+        if self.options.sym in ["sbliss", "snauty"]:
+            self.requires("sassy/[*]", transitive_headers=True)
+
+        # Threading dependencies
+        if self.options.threading == "omp":
+            self.requires("openmp/system")
+        # tinycthread is used even if not enabled
+        self.requires("tinycthread/[*]")
+
+        # CppAD cannot be unvendored as it's quite old (20180000.0) and with modifications
+
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        check_min_vs(self, 191)
-        if not is_msvc(self):
-            minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-            if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-                raise ConanInvalidConfiguration(
-                    f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-                )
+        check_min_cppstd(self, 14)
         if is_msvc(self) and self.options.shared:
-            raise ConanInvalidConfiguration(f"{self.ref} cannot be built as shared on Visual Studio and msvc.")
-        if self.options.shared and self.options.with_sym == "bliss":
-            raise ConanInvalidConfiguration("Bliss is not supported in shared mode.")
-        comp = self.settings.compiler
-        if self.options.with_sym == "bliss" and comp == 'clang' and comp.libcxx and comp.libcxx == 'libc++':
-            raise ConanInvalidConfiguration("Bliss does not support libc++.")
-        if self.dependencies["soplex"].options.with_gmp and not self.options.with_gmp:
-            raise ConanInvalidConfiguration("The options 'with_gmp' should be aligned with 'soplex:with_gmp' too.")
-        if Version(self.version) >= "9.0.1" and is_msvc(self) and self.settings.build_type == "Debug":
-            # lpi_spx2.cpp : error C1128: number of sections exceeded object file format limit: compile with /bigobj
-            raise ConanInvalidConfiguration(f"{self.ref} cannot be build in Debug with MSVC.")
+            raise ConanInvalidConfiguration(f"{self.ref} cannot be built as shared on MSVC.")
+        if self.options.lp_solver == "soplex":
+            if self.dependencies["soplex"].options.with_gmp and not self.options.with_gmp:
+                raise ConanInvalidConfiguration("The options 'with_gmp' should be aligned with 'soplex:with_gmp' too.")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
 
-    def requirements(self):
-        def _mapping_requires(dep, **kwargs):
-            required_version = self.conan_data["version_mappings"][self.version][dep]
-            self.requires(f"{dep}/{required_version}", **kwargs)
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD", "# set(CMAKE_CXX_STANDARD")
 
-        if self.options.with_gmp:
-            self.requires("gmp/[^6.3.0]")
-        if self.options.with_sym == "bliss":
-            self.requires("bliss/0.77")
-        _mapping_requires("soplex")
-        self.requires("zlib-ng/[^2.0]")
-        if self.options.with_tpi == "omp":
-            # used only in .c files
-            self.requires("openmp/system")
+        # Remove all non-sanitizer find modules
+        for f in Path("cmake/Modules").glob("Find*.cmake"):
+            if "San" not in f.name:
+                f.unlink()
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-        if self.options.with_sym == None:
-            self.options.with_sym = self.conan_data["version_mappings"][self.version]["default_sym"]
+        # Unvendor
+        rmdir(self, "src/amplmp")
+        rmdir(self, "src/nauty")
+        rmdir(self, "src/sassy")
+        rmdir(self, "src/tinycthread")
+        replace_in_file(self, "src/CMakeLists.txt", "install(FILES ${tinycthreadheader}", "# ")
 
-    def configure(self):
-        self.options["soplex"].with_gmp = self.options.with_gmp
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
+        tny_files = [
+            "src/lpi/lpi_grb.c",
+            "src/lpi/lpi_msk.c",
+            "src/lpi/lpi_xprs.c",
+            "src/tpi/type_tpi_tnycthrd.h",
+        ]
+        if Version(self.version) >= "9.0":
+            tny_files += [
+                "src/tpi/tpi_tnycthrd.c",
+                "src/symmetry/compute_symmetry_nauty.c",
+                "src/symmetry/compute_symmetry_sassy_nauty.cpp",
+            ]
+        for f in tny_files:
+            replace_in_file(self, f, "tinycthread/tinycthread.h", "tinycthread.h")
 
-    def layout(self):
-        cmake_layout(self, src_folder="src")
+        replace_in_file(self, "src/symmetry/compute_symmetry_nauty.c", "nauty/", "")
+        if Version(self.version) >= "9.0":
+            replace_in_file(self, "src/symmetry/compute_symmetry_sassy_nauty.cpp", "nauty/", "")
 
-    @staticmethod
-    def _to_cmake(*arrays):
-        return ";".join(item.replace("\\", "/") for sublist in arrays for item in sublist)
+        # Don't embed build-time paths in RPATHS
+        replace_in_file(self, "src/CMakeLists.txt", "INSTALL_RPATH_USE_LINK_PATH TRUE", "")
+        replace_in_file(self, "src/CMakeLists.txt", "set_target_properties(scip PROPERTIES", "message(TRACE ")
+
+    @property
+    def _lp_solver(self):
+        return {
+            "clp": "clp",
+            "cplex": "cpx",
+            "gurobi": "grb",
+            "highs": "highs",
+            "mosek": "msk",
+            "soplex": "spx",
+            "xpress": "xprs",
+        }[str(self.options.lp_solver)]
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["SHARED"] = self.options.shared
-        tc.variables["READLINE"] = False  # required for interactive stuff
-        tc.variables["GMP"] = self.options.with_gmp
-        tc.variables["TPI"] = self.options.with_tpi or "none"
-        tc.variables["LPS"] = "spx"
-        tc.variables["SYM"] = self.options.with_sym or "none"
-        tc.variables["SOPLEX_INCLUDE_DIRS"] = self._to_cmake(self.dependencies["soplex"].cpp_info.includedirs)
-        if self.options.shared:
-            # CMakeLists accesses different variables for SoPlex depending on the SHARED option
-            tc.variables["SOPLEX_PIC_LIBRARIES"] = "soplex"
-        if self.dependencies["soplex"].options.with_boost:
-            # INFO: docu states BOOST_ROOT, yet that does not exist in CMakeLists
-            tc.variables["SOPLEX_INCLUDE_DIRS"] = self._to_cmake(
-                self.dependencies["soplex"].cpp_info.includedirs,
-                self.dependencies["boost"].cpp_info.includedirs
-            )
-        tc.variables["PAPILO"] = False  # LGPL
-        tc.variables["ZIMPL"] = False  # LPGL
-        tc.variables["IPOPT"] = False  # no such coin package on conan center yet
-        tc.variables["BUILD_TESTING"] = False  # do not build documentation and examples
+        tc.cache_variables["AUTOBUILD"] = False
+        tc.cache_variables["BUILD_TESTING"] = False
+        tc.cache_variables["SHARED"] = self.options.shared
+        tc.cache_variables["ZLIB"] = True
+        tc.cache_variables["READLINE"] = self.options.get_safe("with_readline", False)
+        tc.cache_variables["GMP"] = self.options.with_gmp
+        tc.cache_variables["STATIC_GMP"] = self.options.with_gmp and not self.dependencies["gmp"].options.shared
+        tc.cache_variables["PAPILO"] = self.options.with_papilo
+        tc.cache_variables["ZIMPL"] = self.options.with_zimpl
+        tc.cache_variables["AMPL"] = self.options.with_ampl
+        tc.cache_variables["IPOPT"] = self.options.with_ipopt
+        tc.cache_variables["LAPACK"] = self.options.get_safe("with_lapack", False)
+        tc.cache_variables["WORHP"] = self.options.with_worhp
+        tc.cache_variables["CONOPT"] = self.options.get_safe("with_conopt", False)
+        tc.cache_variables["THREADSAFE"] = True
+        tc.cache_variables["LPS"] = self._lp_solver
+        tc.cache_variables["SYM"] = self.options.sym
+        tc.cache_variables["TPI"] = self.options.threading
+        tc.cache_variables["MT"] = is_msvc_static_runtime(self)
+        tc.cache_variables["Readline_LIBRARY"] = "readline::readline"
+        tc.cache_variables["SOPLEX_INCLUDE_DIRS"] = ";"
+        tc.cache_variables["SOPLEX_LIBRARIES"] = "soplex"
+        tc.cache_variables["SOPLEX_PIC_LIBRARIES"] = "soplex"
         tc.generate()
+
         deps = CMakeDeps(self)
-        deps.set_property("sopex", "cmake_file_name", "SOPEX")
+        deps.set_property("coin-clp", "cmake_file_name", "CLP")
+        deps.set_property("cplex", "cmake_file_name", "CPLEX")
         deps.set_property("gmp", "cmake_file_name", "GMP")
+        deps.set_property("gurobi", "cmake_file_name", "GUROBI")
+        deps.set_property("coin-ipopt", "cmake_file_name", "IPOPT")
+        deps.set_property("mosek", "cmake_file_name", "MOSEK")
+        deps.set_property("or-tools", "cmake_file_name", "GLOP")
+        deps.set_property("papilo", "cmake_file_name", "PAPILO")
+        deps.set_property("qsopt", "cmake_file_name", "QSO")
+        deps.set_property("readline", "cmake_file_name", "Readline")
+        deps.set_property("soplex", "cmake_file_name", "SOPLEX")
+        deps.set_property("worhp", "cmake_file_name", "WORHP")
+        deps.set_property("xpress", "cmake_file_name", "XPRESS")
         deps.generate()
 
+    def _patch_sources(self):
+        if not self.options.tools:
+            replace_in_file(self, os.path.join(self.source_folder, "src/CMakeLists.txt"),
+                            "install(TARGETS scip libscip",
+                            "install(TARGETS libscip")
+
     def build(self):
+        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
-        cmake.build(target="libscip")
+        if self.options.tools:
+            cmake.build()
+        else:
+            cmake.build(target="libscip")
 
     def package(self):
-        copy(self, pattern="LICENSE", src=self.source_folder, dst=join(self.package_folder, "licenses"))
-        # cmake install is not used as this requires the command line tools to be built, which we do not do
-        copy(self, pattern="*.h", src=join(self.source_folder, "src"), dst=join(self.package_folder, "include"))
-        copy(self, pattern="*.h", src=join(self.build_folder, "scip"), dst=join(self.package_folder, "include", "scip"))
-        if self.options.shared:
-            copy(self, pattern="*.so*", src=join(self.build_folder, "lib"), dst=join(self.package_folder, "lib"))
-            copy(self, pattern="*.dylib*", src=join(self.build_folder, "lib"), dst=join(self.package_folder, "lib"))
-        else:
-            copy(self, pattern="*.a", src=join(self.build_folder, "lib"), dst=join(self.package_folder, "lib"))
-            copy(self, pattern="*.lib", src=join(self.build_folder, "lib"), dst=join(self.package_folder, "lib"), keep_path=False)
-            copy(self, pattern="*.lib", src=self.build_folder, dst=join(self.package_folder, "lib"), keep_path=False)
-        fix_apple_shared_install_name(self)
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        cmake = CMake(self)
+        cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "scip")
+        self.cpp_info.set_property("cmake_additional_variables_prefixes", ["SCIP"])
+        self.cpp_info.set_property("cmake_target_aliases", ["libscip"])
         self.cpp_info.libs = ["libscip" if is_msvc(self) else "scip"]

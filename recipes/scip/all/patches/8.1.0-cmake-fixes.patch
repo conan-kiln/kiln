@@ -1,0 +1,124 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -129,44 +129,17 @@
+     message(STATUS "Support SYM: bliss")
+     set(sym symmetry/compute_symmetry_bliss.cpp)
+ 
+-    # modify configuration for bliss
+-    set(BUILD_SHARED_LIBS OFF)
+-    set(TMPFLAGS ${CMAKE_C_FLAGS})
+-    set(TMXFLAGS ${CMAKE_CXX_FLAGS})
+-    set(CMAKE_C_FLAGS -w)
+-    set(CMAKE_CXX_FLAGS -w)
+-
+-    add_subdirectory(src/bliss EXCLUDE_FROM_ALL)
+-
+-    # undo modification
+-    set(CMAKE_C_FLAGS ${TMPFLAGS})
+-    set(CMAKE_CXX_FLAGS ${TMXFLAGS})
+-    set(BUILD_SHARED_LIBS ${SHARED})
+-
+-    set(BLISS_TARGET libbliss)
+-    set(SYM_LIBRARIES libbliss)
+-    set(SYM_PIC_LIBRARIES libbliss)
++    find_package(bliss REQUIRED)
++    set(SYM_LIBRARIES bliss::bliss)
++    set(SYM_PIC_LIBRARIES bliss::bliss)
+ elseif(SYM STREQUAL "sbliss")
+     message(STATUS "Support SYM: sbliss")
+     set(sym symmetry/compute_symmetry_sassy.cpp)
+ 
+-    # sassy is currently based on bliss, so configure bliss
+-    set(BUILD_SHARED_LIBS OFF)
+-    set(TMPFLAGS ${CMAKE_C_FLAGS})
+-    set(TMXFLAGS ${CMAKE_CXX_FLAGS})
+-    set(CMAKE_C_FLAGS -w)
+-    set(CMAKE_CXX_FLAGS -w)
+-
+-    add_subdirectory(src/bliss)
+-
+-    # undo modification
+-    set(CMAKE_C_FLAGS ${TMPFLAGS})
+-    set(CMAKE_CXX_FLAGS ${TMXFLAGS})
+-    set(BUILD_SHARED_LIBS ${SHARED})
+-
+-    set(BLISS_TARGET libbliss)
+-    set(SYM_LIBRARIES libbliss)
+-    set(SYM_PIC_LIBRARIES libbliss)
++    find_package(bliss REQUIRED)
++    find_package(sassy REQUIRED)
++    set(SYM_LIBRARIES bliss::bliss sassy::sassy)
++    set(SYM_PIC_LIBRARIES bliss::bliss sassy::sassy)
+ 
+     # sassy needs C++-17
+     set(CMAKE_CXX_STANDARD 17)
+@@ -185,6 +158,7 @@
+     else()
+         set(PIC_FLAG "")
+     endif()
++    if(0)
+     file(GLOB files ${CMAKE_CURRENT_SOURCE_DIR}/src/nauty/*)
+     # add custom command to build the library using configure and make
+     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lib/libnauty.a
+@@ -203,10 +177,10 @@
+     add_dependencies(libnauty libnauty_target)
+     set_target_properties(libnauty PROPERTIES 
+         IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/lib/libnauty.a)
+-
+-    set(NAUTY_TARGET libnauty)
+-    set(SYM_LIBRARIES libnauty)
+-    set(SYM_PIC_LIBRARIES libnauty)
++    endif()
++    find_package(nauty REQUIRED)
++    set(SYM_LIBRARIES nauty::nauty)
++    set(SYM_PIC_LIBRARIES nauty::nauty)
+ 
+ elseif(SYM STREQUAL "none")
+     message(STATUS "Support SYM: OFF")
+@@ -299,22 +273,19 @@
+ endif()
+ 
+ #set sources files, libraries and defines for tpi
++find_package(tinycthread REQUIRED)
++link_libraries(tinycthread::tinycthread)
+ if(TPI STREQUAL "none")
+     set(tpisources tpi/tpi_none.c)
+     set(THREAD_LIBRARIES "")
+     set(TPI_NONE on)
+ elseif(TPI STREQUAL "tny")
+     set(TPI_TNY on)
+-    set(tpisources tpi/tpi_tnycthrd.c tinycthread/tinycthread.c)
+-    find_package(Threads REQUIRED)
+-    set(THREAD_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+ elseif(TPI STREQUAL "omp")
+     set(TPI_OMP on)
+     set(tpisources tpi/tpi_openmp.c)
+     find_package(OpenMP REQUIRED)
+-    set(THREAD_LIBRARIES "")
+-    add_compile_options("$<$<COMPILE_LANGUAGE:C>:${OpenMP_C_FLAGS}>$<$<COMPILE_LANGUAGE:CXX>:${OpenMP_CXX_FLAGS}>")
+-    add_link_options("${OpenMP_CXX_FLAGS}")
++    link_libraries(OpenMP::OpenMP_CXX)
+ else()
+     message(FATAL_ERROR "TPI option has wrong value")
+ endif()
+@@ -429,6 +400,7 @@
+ if(PAPILO_FOUND)
+     message(STATUS "Finding PAPILO - found")
+     set(SCIP_WITH_PAPILO ON)
++    link_libraries(papilo::papilo)
+ else()
+     message(STATUS "Support PAPILO: OFF")
+     set(PAPILO_IMPORTED_TARGETS "")
+@@ -622,8 +594,9 @@
+ 
+ if(AMPL)
+     set(SCIP_WITH_AMPL ON)
+-    include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/src/amplmp/include)
+-    set(amplsrc scip/reader_nl.cpp amplmp/src/format.cpp amplmp/src/expr-info.cpp amplmp/src/nl-reader.cpp amplmp/src/os.cpp amplmp/src/posix.cpp)
++    find_package(ampl-mp REQUIRED)
++    link_libraries(ampl-mp::ampl-mp)
++    set(amplsrc scip/reader_nl.cpp)
+ else()
+     message(STATUS "Support AMPL: OFF")
+     set(SCIP_WITH_AMPL OFF)
