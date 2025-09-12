@@ -1,0 +1,4 @@
+sources:
+  "1.23":
+    url: "https://github.com/dimpase/autocliquer/releases/download/v1.23/cliquer-1.23.tar.gz"
+    sha256: "c1d7cc927b7efe76ff4f11e1f01bee473e37360fb54843b16b287e3ad161287b"
