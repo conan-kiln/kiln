@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-11:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-12:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -65,6 +65,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - casadi/3.7.0
 - catalyst/2.0.0
 - ccache/4.11.3
+- cello/2.1.0+git.20241201
 - ceres-solver/2.3.0-git.20250817
 - cgltf/1.15
 - cgns/4.4.0
@@ -107,6 +108,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - conan-cuda/latest
 - conan-gnu-triplet/latest
 - conan-utils/latest
+- conopt/4.38.1
 - cose-c/cci.20200603
 - cplex/22.1.2
 - cpp-validator/2.1.1
@@ -398,6 +400,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - daggy/2.1.3
 - daggy/2.2.3
 - dali/1.51.0
+- darts-clone/0.32h
 - dav1d/1.5.1
 - dawn/cci.20240726
 - dbus/1.16.2
@@ -687,7 +690,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libudev/255.18
 - libunistring/1.3
 - libusb/1.0.29
-- libuv/1.51.0
 - libv4l/1.28.1
 - libva/2.22.0
 - libwacom/2.15.0
@@ -739,6 +741,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
+- marisa/0.3.1
 - mathdx/25.06.0
 - matplotlib-cpp/cci.20210423
 - matplotplusplus/1.2.0
@@ -747,7 +750,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mavlink/1.0.12.cci.20241205
 - mavsdk/2.13.0
 - mdspan/0.7.0-git.20250826
-- meshoptimizer/0.25
+- meshoptimizer/0.15
+- meshoptimizer/0.23
 - meson/1.6.1
 - meson/1.9.0
 - metavision-sdk/4.6.2
@@ -961,6 +965,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - oniguruma/6.9.10
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
+- opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
 - opencl-clhpp-headers/2025.07.22
 - opencl-headers/2024.10.24
@@ -1090,6 +1095,16 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - secsipidx/1.3.2
 - serf/1.3.10
 - sfcgal/1.5.0
+- sfl/1.2.3
+- sfl/1.3.0
+- sfl/1.3.1
+- sfl/1.4.0
+- sfl/1.5.0
+- sfl/1.6.0
+- sfl/1.7.0
+- sfl/1.8.0
+- sfl/1.8.2
+- sfl/1.9.0
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
 - shaderc/2025.2
@@ -1201,6 +1216,13 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
 - tracy/0.11.1
+- tree-sitter/0.20.8
+- tree-sitter/0.21.0
+- tree-sitter/0.22.1
+- tree-sitter/0.22.5
+- tree-sitter/0.22.6
+- tree-sitter/0.23.0
+- tree-sitter/0.23.1
 - tsid/1.8.0
 - tz/2024b
 - ucc/1.5.0
@@ -1257,8 +1279,24 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - vulkan-validationlayers/1.4.309.0
 - vulkan-validationlayers/1.4.313.0
 - vulkan-validationlayers/1.4.321.0
+- wayland-protocols/1.21
+- wayland-protocols/1.23
+- wayland-protocols/1.24
+- wayland-protocols/1.25
+- wayland-protocols/1.26
+- wayland-protocols/1.27
+- wayland-protocols/1.31
+- wayland-protocols/1.32
+- wayland-protocols/1.36
+- wayland-protocols/1.42
+- wayland/1.18.0
+- wayland/1.19.0
+- wayland/1.20.0
+- wayland/1.21.0
+- wayland/1.23.0
 - wayland/1.24.0
 - worhp/1.16.3
+- workflow/0.11.10
 - wuffs/0.3.4
 - x86simdsortcpp/7.0
 - xbyak/7.26
