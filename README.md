@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-12:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-13:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -74,6 +74,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cimg/3.5.5
 - clang/19.1.7
 - clang/20.1.7
+- cliquer/1.23
 - cloudini/0.3.0
 - cmake/3.19.8
 - cmake/3.20.6
@@ -90,12 +91,15 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/4.0.3
 - cnmem/1.0.0+git.20181128
 - cocoapi/0.0.0+git.20200220
+- coin-alps/1.5.12
+- coin-alps/2.0.2
 - coin-bonmin/1.8.9
 - coin-buildtools/0.8.11
 - coin-cbc/2.10.12
 - coin-cgl/0.60.9
 - coin-clp/1.17.10
 - coin-couenne/0.5.8
+- coin-dip/0.95.1
 - coin-dylp/1.10.4
 - coin-hsl/2024.05.15
 - coin-ipopt/3.14.19
@@ -482,6 +486,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gcc/14.3.0
 - gcc/8.5.0
 - gcc/9.5.0
+- gcg/3.7.2
 - gch-small-vector/0.10.2
 - gdalcpp/1.3.0
 - gdk-pixbuf/2.42.12
@@ -1079,6 +1084,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rust/1.81.0
 - rust/1.84.0
 - rust/1.85.1
+- sassy/git.20250312
 - sbepp/1.4.2
 - sbepp/1.5.1
 - sbepp/1.6.0
@@ -1108,7 +1114,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
 - shaderc/2025.2
-- shaderc/2025.3
 - skarupke-flat-hash-map/git.20180716
 - skia/132
 - sleef/3.9.0
@@ -1195,6 +1200,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sundials/7.4.0
 - superlu/6.0.1
 - superlu/7.0.1
+- superlu_mt/4.0.1
 - swig/4.3.1
 - tcl/8.6.16
 - tcl/9.0.1
