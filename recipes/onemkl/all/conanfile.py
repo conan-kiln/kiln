@@ -73,6 +73,8 @@ class OneMKLConan(ConanFile):
             self.options.rm_safe("omp_offload")
         if not self.options.blacs:
             del self.options.mpi
+        else:
+            self.provides = ["onemkl", "blacs", "scalapack"]
 
     def package_id(self):
         del self.info.settings.compiler
