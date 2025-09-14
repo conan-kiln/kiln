@@ -1,0 +1,8 @@
+sources:
+  "0.11.1":
+    cpp:
+      url: "https://github.com/oxfordcontrol/Clarabel.cpp/archive/refs/tags/v0.11.1.tar.gz"
+      sha256: "efa90703958075cc59afe8f54ca164eff057f0fcf9877291bbef11cf960f80c8"
+    rust:
+      url: "https://github.com/oxfordcontrol/Clarabel.rs/archive/refs/tags/v0.11.1.tar.gz"
+      sha256: "3cd1c08ec8d890113dc68255db759175ad776da3675b40558748a65a624688ec"
