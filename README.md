@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-13:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-14:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -51,12 +51,14 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - binutils/2.41
 - binutils/2.44
 - bison/3.5.3
+- blasfeo/0.1.4.2
 - blis/0.9.0
 - bluez/5.83
 - boost/1.71.0
 - boost/1.74.0
 - boostdep/1.88.0
 - boxfort/0.1.4
+- bqpd_jll/1.0.0
 - cairo/1.18.4
 - capnproto/1.0.1.1
 - cargo-c/0.10.12
@@ -103,7 +105,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - coin-dylp/1.10.4
 - coin-hsl/2024.05.15
 - coin-ipopt/3.14.19
-- coin-mumps/3.0.5
+- coin-mumps/3.0.10
 - coin-osi/0.108.11
 - coin-symphony/5.7.2
 - coin-utils/2.11.12
@@ -603,6 +605,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - jrl-cmakemodules/cci.20250623
 - json-glib/1.10.6
 - jsonifier/0.9.98
+- julia/1.11.6
 - kdsingleapplication/1.1.0
 - kineto/0.4.0+git.20250826
 - kleidiai/1.9.0
@@ -1088,6 +1091,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sbepp/1.4.2
 - sbepp/1.5.1
 - sbepp/1.6.0
+- scalapack/2.2.2
 - scdoc/1.11.3
 - sdl/2.30.9
 - sdl/2.32.8
@@ -1234,6 +1238,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ucc/1.5.0
 - ucxx/0.45.01
 - ufbx/0.18.2
+- uno/2.0.3
 - usearch/2.9.1
 - userspace-rcu/0.15.3
 - utf8proc/2.10.0
