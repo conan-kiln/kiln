@@ -55,6 +55,7 @@ class SuiteSparseConfigConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
+        deps.set_property("openblas", "cmake_file_name", "BLAS")
         deps.generate()
 
     def build(self):
