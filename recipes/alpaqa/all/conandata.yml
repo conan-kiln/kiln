@@ -1,0 +1,7 @@
+sources:
+  "1.1.0a1":
+    url: "https://github.com/kul-optec/alpaqa/archive/refs/tags/1.1.0a1.tar.gz"
+    sha256: "07984bd09a473dd4f9555ec412e3e7ce567cbf6b74f57f179f56e3608faf9968"
+patches:
+  "1.1.0a1":
+    - patch_file: "patches/1.1.0-use-external-lbfgsb.patch"
