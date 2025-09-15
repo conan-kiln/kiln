@@ -4,6 +4,7 @@ from functools import cached_property
 from conan import ConanFile
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -55,9 +56,10 @@ class CuSparseLtConan(ConanFile):
     def build(self):
         self.cuda.download_package("libcusparse_lt")
         # Fix C compatibility
-        replace_in_file(self, os.path.join(self.source_folder, "include", "cusparseLt.h"),
-                        "#include <cstddef>",
-                        "#include <stddef.h>")
+        if Version(self.version) < "0.8":
+            replace_in_file(self, os.path.join(self.source_folder, "include", "cusparseLt.h"),
+                            "#include <cstddef>",
+                            "#include <stddef.h>")
 
     def package(self):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
