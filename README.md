@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-14:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-15:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -76,6 +76,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cimg/3.5.5
 - clang/19.1.7
 - clang/20.1.7
+- clarabel.cpp/0.11.1
 - cliquer/1.23
 - cloudini/0.3.0
 - cmake/3.19.8
@@ -406,6 +407,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - daggy/2.1.3
 - daggy/2.2.3
 - dali/1.51.0
+- daqp/0.7.1
 - darts-clone/0.32h
 - dav1d/1.5.1
 - dawn/cci.20240726
@@ -441,6 +443,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - f2c/20240312
 - faiss/1.12.0
 - fast_double_parser/0.8.1
+- fatrop/0.0.4+git.20250805
 - fbgemm/1.3.0
 - fenster/0.1.0
 - ffmpeg/4.4.6
@@ -584,6 +587,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hlslpp/3.5.3
 - hnswlib/0.8.0
 - hnswlib/0.8.0-cuvs
+- hpipm/0.1.3+git.20250822
 - hscpp/1.0.0-alpha
 - hwloc/2.12.1
 - icu4x/1.4.1
@@ -973,6 +977,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - oniguruma/6.9.10
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
+- ooqp/0.99.27
 - opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
 - opencl-clhpp-headers/2025.07.22
@@ -1051,6 +1056,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - protobuf/5.29.5
 - protobuf/6.31.1
 - protobuf/6.32.0
+- proxsuite/0.7.2
 - prrte/4.0.0
 - pthreadpool/cci.20250723
 - qcoro/0.10.0
