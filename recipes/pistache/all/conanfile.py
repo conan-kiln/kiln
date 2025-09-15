@@ -31,7 +31,7 @@ class PistacheConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "with_ssl": False,
-        "with_libevent": True
+        "with_libevent": False
     }
     implements = ["auto_shared_fpic"]
 
@@ -56,7 +56,8 @@ class PistacheConan(ConanFile):
         self.requires("date/[^3.0]")
         if self.options.with_ssl:
             self.requires("openssl/[>=1.1 <4]")
-        if self.options.get_safe("with_libevent", True):
+        if self.settings.os != "Linux" or self.options.get_safe("with_libevent"):
+            # INFO: meson.build:188: Linux can use native epoll support. Other OS need libevent always
             self.requires("libevent/[^2.1.12]")
 
     def validate(self):
@@ -80,12 +81,12 @@ class PistacheConan(ConanFile):
     def generate(self):
         tc = MesonToolchain(self)
         tc.project_options["auto_features"] = "enabled"
-        tc.project_options["PISTACHE_USE_SSL"] = self.options.with_ssl
+        tc.project_options["PISTACHE_USE_SSL"] = bool(self.options.with_ssl)
         tc.project_options["PISTACHE_BUILD_EXAMPLES"] = False
         tc.project_options["PISTACHE_BUILD_TESTS"] = False
         tc.project_options["PISTACHE_BUILD_DOCS"] = False
-        if self._supports_libevent:
-            tc.project_options["PISTACHE_FORCE_LIBEVENT"] = self.options.get_safe("with_libevent", True)
+        if self.settings.os == "Linux" and self._supports_libevent:
+            tc.project_options["PISTACHE_FORCE_LIBEVENT"] = bool(self.options.with_libevent)
         tc.generate()
         deps = PkgConfigDeps(self)
         deps.set_property("rapidjson", "pkg_config_name", "RapidJSON")
