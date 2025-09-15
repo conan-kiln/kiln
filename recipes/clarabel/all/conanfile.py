@@ -12,9 +12,9 @@ from conan.tools.gnu import GnuToolchain, PkgConfigDeps
 required_conan_version = ">=2.4"
 
 
-class ClarabelCppConan(ConanFile):
-    name = "clarabel.cpp"
-    description = "Clarabel.cpp: C/C++ interface to the Clarabel Interior-point solver for convex conic optimisation problems."
+class ClarabelConan(ConanFile):
+    name = "clarabel"
+    description = "Clarabel: C/C++ interface to the Clarabel Interior-point solver for convex conic optimisation problems."
     license = "Apache-2.0"
     homepage = "https://github.com/oxfordcontrol/Clarabel.cpp"
     topics = ("optimization", "linear-programming", "semidefinite-programming", "optimization-algorithms", "quadratic-programming", "convex-optimization", "interior-point-method", "conic-programs", "conic-optimization")
@@ -22,22 +22,16 @@ class ClarabelCppConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
-        "fPIC": [True, False],
         "serde": [True, False],
         "faer_sparse": [True, False],
         "with_blas": ["none", "accelerate", "netlib", "openblas", "mkl", "r"],
     }
     default_options = {
         "shared": False,
-        "fPIC": True,
         "serde": True,
         "faer_sparse": False,
         "with_blas": "none",
     }
-
-    def config_options(self):
-        # The library is always built as PIC
-        del self.options.fPIC
 
     def layout(self):
         cmake_layout(self, src_folder="src")

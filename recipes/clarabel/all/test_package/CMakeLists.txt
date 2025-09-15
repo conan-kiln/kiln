@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(test_package LANGUAGES C CXX)
 
-find_package(clarabel.cpp REQUIRED CONFIG)
+find_package(clarabel REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE clarabel.cpp::clarabel.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE clarabel::clarabel)
