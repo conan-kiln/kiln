@@ -67,11 +67,11 @@ def get_package_versions(conanfile: ConanFile):
     return versions
 
 
-def validate_package(conanfile: ConanFile, package_name: str):
+def validate_package(conanfile: ConanFile, package_name: str, ignore_version=False):
     platform_id = get_platform_id(conanfile, conanfile.settings)
     if platform_id is None:
         raise ConanInvalidConfiguration(f"Unsupported platform: {conanfile.settings.os}/{conanfile.settings.arch}")
-    package_info = get_package_info(conanfile, package_name)
+    package_info = get_package_info(conanfile, package_name, ignore_version)
     if "cuda_variant" in package_info:
         cuda_major = conanfile.settings.cuda.version.value.split(".")[0]
         if cuda_major not in package_info["cuda_variant"]:

@@ -138,6 +138,20 @@ def get_version_range(_: ConanFile, package_name, cuda_version):
             return "*"
         else:
             return "<0.8"
+    if package_name == "cutensor":
+        if cuda_major >= 13:
+            return "^2.3"
+        elif cuda_major == 12:
+            return ">=1 <3"
+        else:
+            return "<2.3"
+    if package_name == "cutensornet":
+        if cuda_major >= 13:
+            return "^2.9"
+        elif cuda_major == 12:
+            return ">=2 <3"
+        else:
+            return "<2.9.0"
     if package_name == "nvcomp":
         if cuda_major >= 13:
             return ">=5"
