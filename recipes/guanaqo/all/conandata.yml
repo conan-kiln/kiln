@@ -1,0 +1,7 @@
+sources:
+  "1.0.0-alpha.17":
+    url: "https://github.com/tttapa/guanaqo/archive/refs/tags/1.0.0-alpha.17.tar.gz"
+    sha256: "2af928dd186922969f04d790af5e94df3b96e0095d126e8523fd6dce9adb6397"
+license:
+  - url: "https://raw.githubusercontent.com/kul-optec/alpaqa/refs/tags/1.1.0a1/LICENSE"
+    sha256: "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
