@@ -4,9 +4,8 @@ from conan import ConanFile
 from conan.tools.build import stdcpp_library
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class NloptConan(ConanFile):
@@ -14,33 +13,32 @@ class NloptConan(ConanFile):
     description = "Library for nonlinear optimization, wrapping many " \
                   "algorithms for global and local, constrained or " \
                   "unconstrained, optimization."
-    license = ["LGPL-2.1-or-later", "MIT"]
+    license = "MIT"
     topics = ("optimization", "nonlinear")
     homepage = "https://github.com/stevengj/nlopt"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "enable_cxx_routines": [True, False],
+        "cxx": [True, False],
+        "enable_luksan_solvers": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "enable_cxx_routines": True,
+        "cxx": True,
+        "enable_luksan_solvers": True,  # LGPL
     }
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+    implements = ["auto_shared_fpic"]
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        if not self.options.enable_cxx_routines:
-            self.settings.rm_safe("compiler.cppstd")
-            self.settings.rm_safe("compiler.libcxx")
+        if not self.options.cxx:
+            self.languages = ["C"]
+        if self.options.enable_luksan_solvers:
+            self.license = "MIT AND LGPL-2.1-or-later"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -50,7 +48,8 @@ class NloptConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["NLOPT_CXX"] = self.options.enable_cxx_routines
+        tc.variables["NLOPT_CXX"] = self.options.cxx
+        tc.variables["NLOPT_LUKSAN"] = self.options.enable_luksan_solvers
         tc.variables["NLOPT_FORTRAN"] = False
         tc.variables["NLOPT_PYTHON"] = False
         tc.variables["NLOPT_OCTAVE"] = False
@@ -61,36 +60,17 @@ class NloptConan(ConanFile):
         tc.variables["WITH_THREADLOCAL"] = True
         tc.generate()
 
-    def _patch_sources(self):
-        # don't force PIC
-        if Version(self.version) < Version("2.8.0"):
-            cmakelists = os.path.join(self.source_folder, "CMakeLists.txt")
-            replace_in_file(self, cmakelists, "set (CMAKE_C_FLAGS \"-fPIC ${CMAKE_C_FLAGS}\")", "")
-            replace_in_file(self, cmakelists, "set (CMAKE_CXX_FLAGS \"-fPIC ${CMAKE_CXX_FLAGS}\")", "")
-
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        algs_licenses = [
-            {"subdir": "ags"   , "license_name": "COPYRIGHT"},
-            {"subdir": "bobyqa", "license_name": "COPYRIGHT"},
-            {"subdir": "cobyla", "license_name": "COPYRIGHT"},
-            {"subdir": "direct", "license_name": "COPYING"  },
-            {"subdir": "esch"  , "license_name": "COPYRIGHT"},
-            {"subdir": "luskan", "license_name": "COPYRIGHT"},
-            {"subdir": "newuoa", "license_name": "COPYRIGHT"},
-            {"subdir": "slsqp" , "license_name": "COPYRIGHT"},
-            {"subdir": "stogo" , "license_name": "COPYRIGHT"},
-        ]
-        for alg_license in algs_licenses:
-            copy(self, alg_license["license_name"],
-                      src=os.path.join(self.source_folder, "src", "algs", alg_license["subdir"]),
-                      dst=os.path.join(self.package_folder, "licenses", alg_license["subdir"]))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*/COPYING", os.path.join(self.source_folder, "src/algs"), os.path.join(self.package_folder, "licenses"), keep_path=True)
+        copy(self, "*/COPYRIGHT", os.path.join(self.source_folder, "src/algs"), os.path.join(self.package_folder, "licenses"), keep_path=True)
+        if not self.options.enable_luksan_solvers:
+            rmdir(self, os.path.join(self.package_folder, "licenses", "luksan"))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
@@ -102,16 +82,11 @@ class NloptConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "NLopt")
         self.cpp_info.set_property("cmake_target_name", "NLopt::nlopt")
         self.cpp_info.set_property("pkg_config_name", "nlopt")
-
-        self.cpp_info.components["nloptlib"].set_property("cmake_target_name", "NLopt::nlopt")
-        self.cpp_info.components["nloptlib"].set_property("pkg_config_name", "nlopt")
-
-        self.cpp_info.components["nloptlib"].libs = ["nlopt"]
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.components["nloptlib"].system_libs.append("m")
-        if not self.options.shared and self.options.enable_cxx_routines:
-            libcxx = stdcpp_library(self)
-            if libcxx:
-                self.cpp_info.components["nloptlib"].system_libs.append(libcxx)
+        self.cpp_info.libs = ["nlopt"]
         if self.settings.os == "Windows" and self.options.shared:
-            self.cpp_info.components["nloptlib"].defines.append("NLOPT_DLL")
+            self.cpp_info.defines.append("NLOPT_DLL")
+        if not self.options.shared:
+            if self.settings.os in ["Linux", "FreeBSD"]:
+                self.cpp_info.system_libs = ["m"]
+            if self.options.cxx and stdcpp_library(self):
+                self.cpp_info.system_libs.append(stdcpp_library(self))
