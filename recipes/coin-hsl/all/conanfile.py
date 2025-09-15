@@ -15,7 +15,7 @@ class CoinHslConan(ConanFile):
     description = "Coin-HSL: a collection of HSL linear solvers for IPOPT"
     license = "DocumentRef-LICENCE:LicenseRef-HSL-2.0"
     homepage = "https://licences.stfc.ac.uk/product/coin-hsl"
-    topics = ("optimization", "linear-solver", "linear-algebra", "coin-or")
+    topics = ("optimization", "linear-solver", "linear-algebra", "coin-or", "ma27", "ma28", "ma57", "ma77", "ma86", "ma97", "mc19", "mc68")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
