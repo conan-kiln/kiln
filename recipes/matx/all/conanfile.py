@@ -81,8 +81,8 @@ class MatXConan(ConanFile):
         elif self.options.blas == "openblas":
             self.requires("openblas/[<1]")
         if self.options.with_cutensor:
+            self.cuda.requires("cutensornet")
             self.cuda.requires("cutensor")
-            # self.cuda.requires("cuquantum")
         if self.options.with_cudss:
             self.cuda.requires("cudss")
         if self.options.get_safe("with_fftw"):
