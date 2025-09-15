@@ -89,13 +89,11 @@ class GuanaqoConan(ConanFile):
 
     @property
     def _lib_suffix(self):
-        if self.settings.build_type == "Debug":
-            return "_d"
-        if self.settings.build_type == "RelWithDebInfo":
-            return "_rd"
-        if self.settings.build_type == "MinSizeRel":
-            return "_rs"
-        return ""
+        return {
+            "Debug": "_d",
+            "RelWithDebInfo": "_rd",
+            "MinSizeRel": "_rs",
+        }.get(str(self.settings.build_type), "")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "guanaqo")
