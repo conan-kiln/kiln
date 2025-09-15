@@ -1,0 +1,4 @@
+sources:
+  "0.4.0":
+    url: "https://github.com/yixuan/LBFGSpp/archive/refs/tags/v0.4.0.tar.gz"
+    sha256: "39c4aaebd8b94ccdc98191d51913a31cddd618cc0869d99f07a4b6da83ca6254"
