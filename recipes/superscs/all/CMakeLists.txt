@@ -74,7 +74,6 @@ endif()
 # GPU solver library
 if(GPU)
     find_package(CUDAToolkit REQUIRED)
-    enable_language(CUDA)
     add_compile_definitions(GPU=1)
     add_library(scsgpu ${SCS_SOURCES} linsys/gpu/private.c)
     target_include_directories(scsgpu PUBLIC linsys/gpu)

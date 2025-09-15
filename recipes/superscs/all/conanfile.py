@@ -55,6 +55,10 @@ class SuperSCSConan(ConanFile):
         if not self.options.with_cuda:
             del self.settings.cuda
 
+    def package_id(self):
+        if self.info.options.with_cuda:
+            del self.info.settings.cuda
+
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -74,10 +78,6 @@ class SuperSCSConan(ConanFile):
             check_min_cstd(self, 99)
         if not self.options.build_direct and not self.options.build_indirect:
             raise ConanInvalidConfiguration("At least one of build_direct or build_indirect must be enabled")
-
-    def build_requirements(self):
-        if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -100,10 +100,6 @@ class SuperSCSConan(ConanFile):
 
         deps = CMakeDeps(self)
         deps.generate()
-
-        if self.options.with_cuda:
-            cuda_tc = self.cuda.CudaToolchain()
-            cuda_tc.generate()
 
     def build(self):
         cmake = CMake(self)
