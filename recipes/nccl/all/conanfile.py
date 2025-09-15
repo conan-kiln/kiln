@@ -78,6 +78,7 @@ class NcclConan(ConanFile):
             incflags += [f"-I{p}" for p in dep.cpp_info.includedirs]
             ldflags += [f"-L{p}" for p in dep.cpp_info.libdirs]
         incflags.append(f"-I{self.source_folder}/src/include")
+        incflags.append(f"-I{self.source_folder}/src/include/plugin/")
         incflags.append(f"-I{self.source_folder}/src/device")
         incflags.append(f"-I{self.source_folder}/build/include")
         incflags = " ".join(incflags)
