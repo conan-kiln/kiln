@@ -4,7 +4,7 @@ from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class EcosConan(ConanFile):
@@ -13,56 +13,29 @@ class EcosConan(ConanFile):
     license = "GPL-3.0-or-later"
     topics = ("ecos", "conic-solver")
     homepage = "https://github.com/embotech/ecos"
-
+    package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
-        "fPIC": [True, False],
         "use_long": [True, False],
     }
     default_options = {
-        "shared": False,
-        "fPIC": True,
         "use_long": True,
     }
-
-    def export_sources(self):
-        export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-
-    def configure(self):
-        if self.options.shared:
-            try:
-                del self.options.fPIC
-            except Exception:
-                pass
-        try:
-            del self.settings.compiler.libcxx
-        except Exception:
-            pass
-        try:
-            del self.settings.compiler.cppstd
-        except Exception:
-            pass
+    languages = ["C"]
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        # TODO: unvendor suitesparse
+        # Uses a modified version of suitesparse-ldl, which cannot be unvendored
         pass
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["USE_LONG"] = self.options.use_long
-        tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
         tc.generate()
 
     def build(self):
