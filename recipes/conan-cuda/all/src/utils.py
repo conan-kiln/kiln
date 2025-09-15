@@ -108,6 +108,13 @@ def get_version_range(_: ConanFile, package_name, cuda_version):
             return ">=1.5 <1.15"
         else:
             return "<1.5"
+    if package_name == "cuquantum":
+        if cuda_major >= 13:
+            return ">=25.09"
+        elif cuda_major == 12:
+            return "*"
+        else:
+            return "<25.09"
     if package_name == "curand":
         if cuda_major >= 13:
             return "~10.4"
