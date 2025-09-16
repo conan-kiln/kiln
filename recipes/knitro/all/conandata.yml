@@ -1,0 +1,21 @@
+sources:
+  "15.0.1":
+    Linux:
+      x86_64:
+        filename: "knitro-15.0.1-Linux64.tar.gz"
+        url: "https://www.artelys.com/download-manager/get-file/knitro-15-0-1-linux64-tar-gz"
+        sha256: "a7febf1847268d9c69f4b0c942b534b6fdb195801c3dd96c6fc1cc3f66352646"
+    Macos:
+      armv8:
+        filename: "knitro-15.0.1-ARM-MacOS.tar.gz"
+        url: "https://www.artelys.com/download-manager/get-file/knitro-15-0-1-arm-macos-tar-gz"
+        sha256: "01758bbc2b6a984616370233ff09385cc4564a8c623a68881b2d5f3dfea5e0b3"
+      x86_64:
+        filename: "knitro-15.0.1-MacOS64.tar.gz"
+        url: "https://www.artelys.com/download-manager/get-file/knitro-15-0-1-macos64-tar-gz"
+        sha256: "665efbfaa5af97590cc7d91773a884354f07a5b6f1205cf995254f2e6c33cb6a"
+    Windows:
+      x86_64:
+        filename: "knitro-15.0.1-Win64.zip"
+        url: "https://www.artelys.com/download-manager/get-file/knitro-15-0-1-win64-zip"
+        sha256: "2183e9fabf06e67aeca68638c995ccc1ee3b1e5d3ed63a711fb2c69ceadd8fb1"
