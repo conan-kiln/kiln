@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-15:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-16:
 
 - 7zip/25.01
 - acl/2.3.2
@@ -21,6 +21,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
+- alpaqa/1.1.0a1
 - ampl-asl/1.0.1
 - ampl-mp/4.0.3
 - antlr4/4.13.2
@@ -76,7 +77,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cimg/3.5.5
 - clang/19.1.7
 - clang/20.1.7
-- clarabel.cpp/0.11.1
+- clarabel/0.11.1
 - cliquer/1.23
 - cloudini/0.3.0
 - cmake/3.19.8
@@ -163,6 +164,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cublasmp/0.3.1.663
 - cublasmp/0.4.0.789
 - cublasmp/0.5.1.65
+- cublasmp/0.6.0.84
 - cucollections/0.0.1+git.20250529
 - cucollections/0.0.1+git.20250822
 - cuda-api-wrappers/0.6.9
@@ -292,6 +294,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudnn/9.10.2.21
 - cudnn/9.11.1.4
 - cudnn/9.12.0.46
+- cudnn/9.13.0.50
 - cudnn/9.2.1.18
 - cudnn/9.3.0.75
 - cudnn/9.4.0.58
@@ -365,6 +368,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cupti/13.0.85
 - cuquantum/25.03.0.11
 - cuquantum/25.06.0.10
+- cuquantum/25.09.0.7
 - curand/10.2.10.91
 - curand/10.3.10.19
 - curand/10.4.0.35
@@ -392,12 +396,16 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cusparselt/0.5.2.1
 - cusparselt/0.6.3.2
 - cusparselt/0.7.1.0
-- cusparselt/0.8.0.4
+- cusparselt/0.8.1.1
 - cutensor/1.7.0.1
 - cutensor/2.0.2.5
 - cutensor/2.1.0.9
 - cutensor/2.2.0.0
-- cutensor/2.3.0.6
+- cutensor/2.3.1.0
+- cutensornet/2.7.0
+- cutensornet/2.8.0
+- cutensornet/2.9.0
+- cutest/2.5.8
 - cutlass/2.11.0
 - cutlass/3.9.2
 - cutlass/4.1.0
@@ -446,7 +454,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - fatrop/0.0.4+git.20250805
 - fbgemm/1.3.0
 - fenster/0.1.0
-- ffmpeg/4.4.6
 - ffmpeg/5.1.7
 - ffmpeg/6.1.3
 - ffnvcodec/10.0.26.2
@@ -532,6 +539,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - grpc/1.72.2
 - grpc/1.74.1
 - gsettings-desktop-schemas/48.0
+- gsi-hpc-simd/0.0.0+git.20250901
 - gsl-lite/0.43.0
 - gsl-lite/1.0.1
 - gsl/2.8
@@ -561,6 +569,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gtsam/4.3-a0
 - gtsam_gnss/0.0.0.cci.20250213
 - gtsam_points/1.1.0
+- guanaqo/1.0.0-alpha.17
 - gumbo-parser/0.13.0
 - gurobi/10.0.3
 - gurobi/11.0.3
@@ -590,6 +599,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hpipm/0.1.3+git.20250822
 - hscpp/1.0.0-alpha
 - hwloc/2.12.1
+- hyhound/1.0.1
 - icu4x/1.4.1
 - icu4x/1.5.1
 - ideep/3.9.0.4
@@ -616,8 +626,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - klib/cci.20250205
 - kokkos/4.7.00
 - kvikio/25.08.00
+- ladel/0.0.4
 - lapack/3.12.0
 - laszip/2.0.2
+- lbfgsb/3.0
+- lbfgspp/0.4.0
 - ldns/1.8.4
 - lessmsi/2.8.1
 - level-zero/1.22.4
@@ -797,7 +810,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nasm/2.16.03
 - nauty/2.9.1
 - ncbi-cxx-toolkit/29.0.0
-- nccl/2.27.7.1
+- nccl/2.28.3.1
 - netcdf/4.9.3
 - netpbm/11.6.0
 - ng-log/0.8.2
@@ -1064,6 +1077,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - qhull/7.3.2
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
+- qpalm/1.2.6
 - qpoases/3.2.2
 - qscintilla/2.14.1
 - qsopt/1.01
@@ -1086,6 +1100,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - roundingsat/0.0.0+git.20240602
 - roundingsat/0.0.0+git.20250909
 - rsync/3.4.1
+- rumoca/0.5.0
 - rust-bindgen/0.71.1
 - rust/1.72.1
 - rust/1.75.0
@@ -1127,6 +1142,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - skarupke-flat-hash-map/git.20180716
 - skia/132
 - sleef/3.9.0
+- sleqp/1.0.2
+- slicot/5.9
 - small_gicp/0.1.2
 - smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
@@ -1211,6 +1228,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - superlu/6.0.1
 - superlu/7.0.1
 - superlu_mt/4.0.1
+- superscs/1.3.3+git.20210825
 - swig/4.3.1
 - tcl/8.6.16
 - tcl/9.0.1
@@ -1239,6 +1257,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - tree-sitter/0.22.6
 - tree-sitter/0.23.0
 - tree-sitter/0.23.1
+- trlib/0.4+git.20240730
 - tsid/1.8.0
 - tz/2024b
 - ucc/1.5.0
