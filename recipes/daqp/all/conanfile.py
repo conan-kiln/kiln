@@ -3,6 +3,7 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -27,14 +28,24 @@ class DaqpConan(ConanFile):
         "soft_weights": False,
         "with_eigen": True,
     }
-    implements = ["auto_shared_fpic"]
-    languages = ["C"]
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+        if Version(self.version) < "0.7":
+            del self.options.with_eigen
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+        if not self.options.get_safe("with_eigen"):
+            self.languages = ["C"]
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if self.options.with_eigen:
+        if self.options.get_safe("with_eigen"):
             self.requires("eigen/3.4.0", transitive_headers=True)
 
     def source(self):
@@ -48,7 +59,7 @@ class DaqpConan(ConanFile):
         tc.cache_variables["PROFILING"] = False
         tc.cache_variables["MATLAB"] = False
         tc.cache_variables["JULIA"] = False
-        tc.cache_variables["EIGEN"] = self.options.with_eigen
+        tc.cache_variables["EIGEN"] = self.options.get_safe("with_eigen")
         tc.cache_variables["SOFT_WEIGHTS"] = self.options.soft_weights
         tc.generate()
 
@@ -78,12 +89,17 @@ class DaqpConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "daqp")
-        self.cpp_info.set_property("cmake_target_name", "daqp")
-        self.cpp_info.set_property("cmake_target_aliases", ["daqpstat"])
-        self.cpp_info.libs = ["daqp" if self.options.shared else "daqpstat"]
-        self.cpp_info.includedirs = ["include"]
+        self.cpp_info.components["core"].set_property("cmake_target_name", "daqp")
+        self.cpp_info.components["core"].set_property("cmake_target_aliases", ["daqpstat"])
+        self.cpp_info.components["core"].libs = ["daqp" if self.options.shared else "daqpstat"]
+        self.cpp_info.components["core"].includedirs = ["include"]
         if self.options.soft_weights:
-            self.cpp_info.defines.append("SOFT_WEIGHTS")
+            self.cpp_info.components["core"].defines.append("SOFT_WEIGHTS")
         if not self.options.shared:
             if self.settings.os in ["Linux", "FreeBSD"]:
-                self.cpp_info.system_libs = ["m"]
+                self.cpp_info.components["core"].system_libs = ["m"]
+
+        if self.options.get_safe("with_eigen"):
+            self.cpp_info.components["daqp_eigen"].set_property("cmake_target_name", "daqp_eigen")
+            self.cpp_info.components["daqp_eigen"].libs = ["daqp_eigen"]
+            self.cpp_info.components["daqp_eigen"].requires = ["core"]
