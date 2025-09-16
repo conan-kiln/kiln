@@ -1,0 +1,7 @@
+sources:
+  "3.2.8":
+    url: "https://github.com/cvxgrp/scs/archive/refs/tags/3.2.8.tar.gz"
+    sha256: "22d2d785b7c7a9ee8a260d2684cf17ae4733271b8421fdbc78f281d19910ca1b"
+patches:
+  "3.2.8":
+    - patch_file: "patches/mkl-support.patch"

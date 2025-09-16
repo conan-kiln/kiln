@@ -1,0 +1,48 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -166,7 +166,8 @@
+ 
+ if(USE_LAPACK)
+   set(COMPILER_OPTS "-DUSE_LAPACK ${COMPILER_OPTS}")
+-  list(APPEND LAPACK_LINK_LIBRARIES "blas" "lapack")
++  find_package(LAPACK REQUIRED)
++  set(LAPACK_LINK_LIBRARIES LAPACK::LAPACK)
+ endif()
+ 
+ if(USE_OPENMP)
+@@ -368,10 +369,7 @@
+ # ##############################################################################
+ 
+ # If MKLROOT is defined, then we install the MKL version.
+-if(DEFINED ENV{MKLROOT})
+-
+-  message(STATUS "MKLROOT set to $ENV{MKLROOT}")
+-  message(STATUS "Will install SCS-MKL (libscsmkl).")
++if(USE_MKL)
+ 
+   set(MKLSRC ${LINSYS}/mkl/direct)
+ 
+@@ -394,21 +392,8 @@
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/scs>")
+ 
+   target_compile_definitions(${${PROJECT_NAME}_MKL} PRIVATE ${COMPILER_OPTS})
+-  # See:
+-  # https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-link-line-advisor.html
+-  # This is probably not correct for other systems. TODO: make SCS-MKL work for
+-  # all combinations of platform / compiler / threading options.
+-  target_link_options(${${PROJECT_NAME}_MKL} PRIVATE "LINKER:--no-as-needed")
+-  target_link_directories(${${PROJECT_NAME}_MKL} PRIVATE $ENV{MKLROOT}/lib)
+-  target_link_libraries(
+-    ${${PROJECT_NAME}_MKL}
+-    PRIVATE m
+-            mkl_rt
+-            mkl_gnu_thread
+-            mkl_core
+-            gomp
+-            pthread
+-            dl)
++  find_package(MKL REQUIRED)
++  target_link_libraries(${${PROJECT_NAME}_MKL} PRIVATE MKL::MKL)
+ 
+   # Set some properties
+   set_target_properties(
