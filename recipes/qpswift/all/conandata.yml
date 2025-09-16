@@ -1,0 +1,7 @@
+sources:
+  "0.0.2":
+    url: "https://github.com/qpSWIFT/qpSWIFT/archive/refs/tags/v0.0.2.tar.gz"
+    sha256: "0688e13e5602af0cc545070c1653c78ef01958be5997ede89029caa103abba8d"
+patches:
+  "0.0.2":
+    - patch_file: "patches/cmake-fixes.patch"
