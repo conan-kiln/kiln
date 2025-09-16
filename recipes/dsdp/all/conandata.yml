@@ -1,0 +1,10 @@
+sources:
+  "5.8":
+    url: "https://www.mcs.anl.gov/hs/software/DSDP/DSDP5.8.tar.gz"
+    sha256: "26aa624525a636de272c0b329e2dfd01a0d5b7827f1c1c76f393d71e37dead70"
+patches:
+  "5.8":
+    - patch_file: "patches/malloc.patch"
+      patch_source: "https://github.com/sagemath/sage/blob/master/build/pkgs/dsdp/patches/conda-forge-malloc.patch"
+    - patch_file: "patches/debian-type-mismatch.patch"
+      patch_source: "https://github.com/sagemath/sage/blob/master/build/pkgs/dsdp/patches/debian-type-mismatch.patch"
