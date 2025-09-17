@@ -1,7 +1,0 @@
-versions:
-  "3.0.2":
-    folder: 2.x
-  "2.0.5":
-    folder: 2.x
-  "1.0.1":
-    folder: 1.x

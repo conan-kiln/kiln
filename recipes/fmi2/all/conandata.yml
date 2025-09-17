@@ -1,0 +1,4 @@
+sources:
+  "2.0.5":
+    url: "https://github.com/modelica/fmi-standard/releases/download/v2.0.5/FMI-Standard-2.0.5.zip"
+    sha256: "2695efc7f3aac3443957b0784880e16eec84013558995547f5d706cbf2104909"

@@ -8,7 +8,7 @@ required_conan_version = ">=2.1"
 
 
 class PackageConan(ConanFile):
-    name = "fmi"
+    name = "fmi3"
     description = "Functional Mock-up Interface (FMI)"
     license = "BSD-2-Clause"
     homepage = "https://fmi-standard.org"
