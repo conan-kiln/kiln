@@ -41,6 +41,10 @@ class OsqpConan(ConanFile):
         self.requires("qdldl/[>=0.1 <1]")
         self.requires("suitesparse-amd/[*]")
 
+    @property
+    def _for_casadi(self):
+        return "casadi" in self.version
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         # CMake v4 support
@@ -49,6 +53,7 @@ class OsqpConan(ConanFile):
                         "cmake_minimum_required (VERSION 3.5)")
         # Make shared builds conditional
         replace_in_file(self, "CMakeLists.txt",
+                        "NOT PYTHON AND NOT MATLAB AND NOT R_LANG" if self._for_casadi else
                         "NOT PYTHON AND NOT MATLAB AND NOT R_LANG AND NOT EMBEDDED",
                         "BUILD_SHARED_LIBS")
         # Unvendor QDLDL and AMD
@@ -71,9 +76,9 @@ class OsqpConan(ConanFile):
         tc.variables["OSQP_BUILD_DEMO_EXE"] = False
         tc.variables["COVERAGE"] = False
         tc.variables["UNITTESTS"] = False
-        tc.variables["PRINTING"] = True
+        tc.variables["PRINTING"] = not self._for_casadi
         tc.variables["PROFILING"] = False
-        tc.variables["CTRLC"] = True
+        tc.variables["CTRLC"] = not self._for_casadi
         tc.variables["DFLOAT"] = self.options.float32
         tc.variables["DLONG"] = not self.options.int32
         tc.generate()
