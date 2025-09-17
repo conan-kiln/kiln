@@ -41,7 +41,7 @@ class BonminConan(ConanFile):
     def requirements(self):
         self.requires("coin-cbc/[^2.10.12]")
         self.requires("coin-clp/[^1.17.9]")
-        self.requires("coin-ipopt/[^3.14.19]")
+        self.requires("coin-ipopt/[^3.14.19]", transitive_headers=True, transitive_libs=True)
         if self.options.with_asl:
             self.requires("ampl-asl/[^1]")
         # Optionally also supports FilterSQP commercial software
