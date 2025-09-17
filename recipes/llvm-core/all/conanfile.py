@@ -261,6 +261,7 @@ class LLVMCoreConan(ConanFile):
         # https://releases.llvm.org/19.1.0/docs/CMake.html
         # Enables LLVM to find conan libraries during try_compile
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
+        tc.cache_variables["LINKER_SUPPORTS_COLOR_DIAGNOSTICS"] = False  # breaks with mold
 
         # LLVM has two separate concepts of a "shared library build".
         # "BUILD_SHARED_LIBS" builds shared versions of all components instead of static.
