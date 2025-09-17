@@ -1,0 +1,45 @@
+diff --git a/src/experimental/usd/CMakeLists.txt b/src/experimental/usd/CMakeLists.txt
+--- a/src/experimental/usd/CMakeLists.txt
++++ b/src/experimental/usd/CMakeLists.txt
+@@ -166,6 +166,7 @@
+ )
+ target_include_directories(${MJCF_PLUGIN_TARGET_NAME} PRIVATE
+   "${CMAKE_CURRENT_SOURCE_DIR}/plugins"
++  "${CMAKE_SOURCE_DIR}/include"
+ )
+ 
+ ## mjcPhysics
+diff --git a/src/user/user_mesh.cc b/src/user/user_mesh.cc
+--- a/src/user/user_mesh.cc
++++ b/src/user/user_mesh.cc
+@@ -33,7 +33,7 @@
+ 
+ #include <mujoco/mjspec.h>
+ #include "user/user_api.h"
+-#include <TriangleMeshDistance/include/tmd/TriangleMeshDistance.h>
++#include <tmd/TriangleMeshDistance.h>
+ 
+ #ifdef MUJOCO_TINYOBJLOADER_IMPL
+ #define TINYOBJLOADER_IMPLEMENTATION
+@@ -68,7 +68,7 @@
+ #include "user/user_util.h"
+ 
+ extern "C" {
+-#include "qhull_ra.h"
++#include "libqhull_r/qhull_ra.h"
+ }
+ 
+ namespace {
+diff --git a/cmake/MujocoLinkOptions.cmake b/cmake/MujocoLinkOptions.cmake
+--- a/cmake/MujocoLinkOptions.cmake
++++ b/cmake/MujocoLinkOptions.cmake
+@@ -22,7 +22,8 @@
+   else()
+     set(EXTRA_LINK_OPTIONS)
+ 
+-    if(WIN32)
++    if(1)
++    elseif(0)
+       set(CMAKE_REQUIRED_FLAGS "-fuse-ld=lld-link")
+       check_c_source_compiles("int main() {}" SUPPORTS_LLD)
+       if(SUPPORTS_LLD)

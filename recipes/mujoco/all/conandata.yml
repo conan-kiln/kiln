@@ -1,0 +1,7 @@
+sources:
+  "3.3.6":
+    url: "https://github.com/google-deepmind/mujoco/archive/refs/tags/3.3.6.tar.gz"
+    sha256: "1592c33d37a090d1c301a774dc1a020b5a822717a14415fd0c9ac37d6a80ee6b"
+patches:
+  "3.3.6":
+    - patch_file: "patches/3.3.6-build-fixes.patch"
