@@ -129,3 +129,4 @@ class WorhpConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "WORHP::WORHP")
         self.cpp_info.set_property("nosoname", True)
         self.cpp_info.libs = ["worhp"]
+        self.cpp_info.includedirs.append("include/worhp")
