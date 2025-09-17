@@ -6,6 +6,7 @@ from conan.tools.apple import is_apple_os
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -176,12 +177,20 @@ class OpenTelemetryCppConan(ConanFile):
         if self._needs_proto:
             protos_path = self.dependencies.build["opentelemetry-proto"].conf_info.get("user.opentelemetry-proto:proto_root").replace("\\", "/")
             protos_cmake_path = os.path.join(self.source_folder, "cmake", "opentelemetry-proto.cmake")
-            replace_in_file(self, protos_cmake_path,
-                            "if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opentelemetry-proto/.git)",
-                            "if(1)")
-            replace_in_file(self, protos_cmake_path,
-                            '"${CMAKE_CURRENT_SOURCE_DIR}/third_party/opentelemetry-proto")',
-                            f'"{protos_path}")')
+            if Version(self.version) < "1.22.0":
+                replace_in_file(self, protos_cmake_path,
+                                "if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opentelemetry-proto/.git)",
+                                "if(1)")
+                replace_in_file(self, protos_cmake_path,
+                                '"${CMAKE_CURRENT_SOURCE_DIR}/third_party/opentelemetry-proto")',
+                                f'"{protos_path}")')
+            else:
+                replace_in_file(self, protos_cmake_path,
+                                "elseif(EXISTS ${OPENTELEMETRY_PROTO_SUBMODULE}/.git)",
+                                "elseif(1)")
+                replace_in_file(self, protos_cmake_path,
+                                'SOURCE_DIR ${OPENTELEMETRY_PROTO_SUBMODULE}',
+                                f'SOURCE_DIR ${protos_path}')
 
     def build(self):
         self._patch_sources()
