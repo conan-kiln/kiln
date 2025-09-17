@@ -7,6 +7,7 @@ from conan.tools.files import *
 
 required_conan_version = ">=2.1"
 
+
 class EiquadprogConan(ConanFile):
     name = "eiquadprog"
     description = (
@@ -26,7 +27,6 @@ class EiquadprogConan(ConanFile):
         "shared": False,
         "fPIC": True
     }
-
     implements = ["auto_shared_fpic"]
 
     def layout(self):
@@ -56,11 +56,12 @@ class EiquadprogConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "COPYING*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "eiquadprog")
