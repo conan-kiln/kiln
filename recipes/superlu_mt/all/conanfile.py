@@ -15,7 +15,7 @@ class SuperLuMtConan(ConanFile):
     license = "BSD-3-Clause"
     homepage = "https://github.com/xiaoyeli/superlu_mt"
     topics = ("linear-algebra", "sparse-matrix", "lu-factorization", "scientific-computing", "parallel")
-    provides = ["superlu"]
+    # provides = ["superlu"]
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
