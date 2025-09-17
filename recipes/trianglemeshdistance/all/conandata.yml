@@ -1,0 +1,4 @@
+sources:
+  "1.0.0+git.20240817":
+    url: "https://github.com/InteractiveComputerGraphics/TriangleMeshDistance/archive/2cb643de1436e1ba8e2be49b07ec5491ac604457.tar.gz"
+    sha256: "0221ec6446c1305aa9a9e2ec2e149dbb3993211c77c1f770ad4273ea10035a75"
