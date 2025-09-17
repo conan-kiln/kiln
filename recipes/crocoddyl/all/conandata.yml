@@ -1,0 +1,7 @@
+sources:
+  "3.0.1":
+    url: "https://github.com/loco-3d/crocoddyl/releases/download/v3.0.1/crocoddyl-3.0.1.tar.gz"
+    sha256: "dcbb1245eccf22597bd21472d1e7267ebbf27f491bb440a3618f225800f8f790"
+patches:
+  "3.0.1":
+    - patch_file: "patches/dont-install-cmake-modules.patch"

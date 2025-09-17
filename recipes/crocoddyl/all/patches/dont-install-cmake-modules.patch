@@ -1,0 +1,13 @@
+--- a/cmake/package-config.cmake
++++ b/cmake/package-config.cmake
+@@ -108,10 +108,6 @@
+     set(
+       _PACKAGE_CONFIG_DEPENDENCIES_FIND_EXTERNAL
+       "${_PACKAGE_CONFIG_DEPENDENCIES_FIND_EXTERNAL}\n  ${_ext_path}"
+-    )
+-    install(
+-      DIRECTORY "${PROJECT_JRL_CMAKE_MODULE_DIR}/${_ext}"
+-      DESTINATION "${CONFIG_INSTALL_DIR}/find-external"
+     )
+   endif()
+   _ADD_TO_LIST_IF_NOT_PRESENT(
