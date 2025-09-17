@@ -1,0 +1,4 @@
+sources:
+  "1.4.0":
+    url: "https://github.com/asherikov/qpmad/archive/refs/tags/1.4.0.tar.gz"
+    sha256: "6034bfd895bda550d3e1d5906634bc34b90f21d390c2662ac33ea5024cbfa4ed"
