@@ -19,17 +19,16 @@ add_compile_definitions(
     COPYAMATRIX=1
 )
 if(FLOAT)
-    add_compile_definitions(FLOAT=1)
+    add_compile_definitions(SCS_FLOAT=1)
 endif()
-if(NOT DLONG)
-    add_compile_definitions(DLONG=0)
+if(DLONG)
+    add_compile_definitions(SCS_DLONG=1)
 endif()
 if(BLAS64)
     add_compile_definitions(BLAS64=1)
 endif()
 
 # Find dependencies
-find_package(LDL REQUIRED)
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 add_compile_definitions(USE_LAPACK=1 LAPACK_LIB_FOUND=1)
@@ -57,6 +56,7 @@ set(SCS_SOURCES
 
 # Direct solver library
 if(BUILD_DIRECT)
+    find_package(LDL REQUIRED)
     add_library(scsdir ${SCS_SOURCES} linsys/direct/private.c)
     target_link_libraries(scsdir PUBLIC SuiteSparse::LDL)
     target_include_directories(scsdir PUBLIC linsys/direct)

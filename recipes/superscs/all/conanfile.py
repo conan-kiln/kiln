@@ -20,6 +20,7 @@ class SuperSCSConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "casadi_compatibility": [True, False],
         "build_direct": [True, False],
         "build_indirect": [True, False],
         "float32": [True, False],
@@ -30,6 +31,7 @@ class SuperSCSConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
+        "casadi_compatibility": False,
         "build_direct": True,
         "build_indirect": True,
         "float32": False,
@@ -47,6 +49,7 @@ class SuperSCSConan(ConanFile):
         return self.python_requires["conan-cuda"].module.Interface(self)
 
     def export_sources(self):
+        export_conandata_patches(self)
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def configure(self):
@@ -54,6 +57,13 @@ class SuperSCSConan(ConanFile):
             self.options.rm_safe("fPIC")
         if not self.options.with_cuda:
             del self.settings.cuda
+        if self.options.casadi_compatibility:
+            # https://github.com/chrhansk/sleqp/compare/master...jgillis:sleqp:master
+            self.options.build_indirect.value = True
+            self.options.build_direct.value = False
+            self.options.int32.value = False
+            self.options.float32.value = False
+            self.options.with_cuda.value = False
 
     def package_id(self):
         if self.info.options.with_cuda:
@@ -81,6 +91,7 @@ class SuperSCSConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         rmdir(self, "linsys/direct/external")
         replace_in_file(self, "linsys/direct/private.h", '#include "external/', '#include "')
         # Ensure the correct define value is used in public headers
@@ -96,6 +107,8 @@ class SuperSCSConan(ConanFile):
         tc.cache_variables["DLONG"] = not self.options.int32
         tc.cache_variables["BLAS64"] = self.dependencies["openblas"].options.interface == "ilp64"
         tc.cache_variables["GPU"] = self.options.with_cuda
+        if self.options.casadi_compatibility:
+            tc.preprocessor_definitions["SCS_CASADI"] = "1"
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -110,10 +123,6 @@ class SuperSCSConan(ConanFile):
         copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        rmdir(self, os.path.join(self.package_folder, "share"))
-        rm(self, "*.pdb", self.package_folder, recursive=True)
 
     def package_info(self):
         if self.options.build_direct:
@@ -134,6 +143,13 @@ class SuperSCSConan(ConanFile):
             self.cpp_info.components["scsgpu"].requires = ["cudart::cudart_", "cublas::cublas_", "cusparse::cusparse"]
 
         for _, component in self.cpp_info.components.items():
+            component.includedirs.append("include/superscs")
+            if not self.options.int32:
+                component.defines.append("SCS_DLONG=1")
+            if self.options.float32:
+                component.defines.append("SCS_FLOAT=1")
+            if self.options.casadi_compatibility:
+                component.defines.append("SCS_CASADI=1")
             if self.settings.os in ["Linux", "FreeBSD"]:
                 component.system_libs.extend(["m", "rt"])
             component.requires.append("openblas::openblas")

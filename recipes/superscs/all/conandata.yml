@@ -2,3 +2,8 @@ sources:
   "1.3.3+git.20210825":
     url: "https://github.com/kul-optec/superscs/archive/ff0ee5b457d062d5aa0f5f2c27c384f9a161a9a2.tar.gz"
     sha256: "7d232599e94ed8a789543a76e042df1b6976492d7caaa6efc84ddc41ce00152c"
+patches:
+  "1.3.3+git.20210825":
+    - patch_file: "patches/casadi-compat.patch"
+      patch_description: "Add CasADi compatibility and use namespaced defines"
+      patch_source: "https://github.com/kul-optec/superscs/commit/a02fcda292953ebec94dd7067ad889f28ca8f73b"
