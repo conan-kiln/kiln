@@ -46,6 +46,7 @@ class SuperLuMtConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires("suitesparse-colamd/[*]")
         self.requires("openblas/[*]")
         if self.options.threading == "openmp":
             self.requires("openmp/system")
@@ -59,6 +60,10 @@ class SuperLuMtConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        rm(self, "colamd.*", "SRC")
+        save(self, "SRC/CMakeLists.txt",
+             "\nfind_package(COLAMD REQUIRED)\n"
+             "target_link_libraries (superlu_mt${PLAT} PRIVATE SuiteSparse::COLAMD)\n", append=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
