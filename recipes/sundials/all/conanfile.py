@@ -68,11 +68,15 @@ class SundialsConan(ConanFile):
     def cuda(self):
         return self.python_requires["conan-cuda"].module.Interface(self)
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
         elif Version(self.version) < "6.0":
             del self.options.with_ginkgo
+            self.options.with_cuda.value = False
         if not self.options.with_cuda:
             del self.settings.cuda
         if not self.options.with_cuda and not self.options.with_mpi:
@@ -132,7 +136,23 @@ class SundialsConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         save(self, "examples/CMakeLists.txt", "")
+        if Version(self.version) < "3.0":
+            replace_in_file(self, "CMakeLists.txt", "CMAKE_MINIMUM_REQUIRED(VERSION 2.8.1)", "CMAKE_MINIMUM_REQUIRED(VERSION 3.5)")
+            save(self, "config/SundialsLapack.cmake", "find_package(LAPACK REQUIRED)")
+            save(self, "config/SundialsFortran.cmake", "")
+            save(self, "config/SundialsFortran90.cmake", "")
+            save(self, "config/SundialsSuperLUMT.cmake", "find_package(SUPERLUMT REQUIRED)")
+            save(self, "config/SundialsKLU.cmake", "find_package(KLU REQUIRED)")
+            for f in [
+                "config/SundialsMPIC.cmake",
+                "config/SundialsMPICXX.cmake",
+                "config/SundialsMPIF.cmake",
+                "config/SundialsMPIF90.cmake",
+            ]:
+                save(self, f, "find_package(MPI REQUIRED)")
+            replace_in_file(self, "CMakeLists.txt", "INCLUDE_DIRECTORIES(${KLU_INCLUDE_DIR})", "link_libraries(SUNDIALS::KLU)")
 
     @property
     def _ginkgo_backends(self):
@@ -147,64 +167,76 @@ class SundialsConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["CMAKE_Fortran_COMPILER"] = ""
-        tc.variables["EXAMPLES_ENABLE_C"] = False
-        tc.variables["EXAMPLES_ENABLE_CXX"] = False
-        tc.variables["EXAMPLES_INSTALL"] = False
-        tc.variables["BUILD_BENCHMARKS"] = False
-        tc.variables["SUNDIALS_TEST_UNITTESTS"] = False
+        tc.cache_variables["CMAKE_Fortran_COMPILER"] = ""
+        tc.cache_variables["EXAMPLES_ENABLE_C"] = False
+        tc.cache_variables["EXAMPLES_ENABLE_CXX"] = False
+        tc.cache_variables["EXAMPLES_INSTALL"] = False
+        tc.cache_variables["BUILD_BENCHMARKS"] = False
+        tc.cache_variables["SUNDIALS_TEST_UNITTESTS"] = False
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
 
         # https://github.com/LLNL/sundials/blob/v7.1.1/cmake/SundialsBuildOptionsPre.cmake
-        tc.variables["BUILD_STATIC_LIBS"] = not self.options.shared
-        tc.variables["SUNDIALS_INDEX_SIZE"] = self.options.index_size
-        tc.variables["SUNDIALS_PRECISION"] = str(self.options.precision).upper()
-        tc.variables["BUILD_ARKODE"] = self.options.build_arkode
-        tc.variables["BUILD_CVODE"] = self.options.build_cvode
-        tc.variables["BUILD_CVODES"] = self.options.build_cvodes
-        tc.variables["BUILD_IDA"] = self.options.build_ida
-        tc.variables["BUILD_IDAS"] = self.options.build_idas
-        tc.variables["BUILD_KINSOL"] = self.options.build_kinsol
+        tc.cache_variables["BUILD_STATIC_LIBS"] = not self.options.shared
+        tc.cache_variables["BUILD_SHARED_LIBS"] = self.options.shared
+        tc.cache_variables["SUNDIALS_INDEX_SIZE"] = self.options.index_size
+        tc.cache_variables["SUNDIALS_PRECISION"] = str(self.options.precision).upper()
+        tc.cache_variables["BUILD_ARKODE"] = self.options.build_arkode
+        tc.cache_variables["BUILD_CVODE"] = self.options.build_cvode
+        tc.cache_variables["BUILD_CVODES"] = self.options.build_cvodes
+        tc.cache_variables["BUILD_IDA"] = self.options.build_ida
+        tc.cache_variables["BUILD_IDAS"] = self.options.build_idas
+        tc.cache_variables["BUILD_KINSOL"] = self.options.build_kinsol
 
         # https://github.com/LLNL/sundials/blob/v7.1.1/cmake/SundialsTPLOptions.cmake
-        tc.variables["ENABLE_MPI"] = self.options.with_mpi
-        tc.variables["ENABLE_OPENMP"] = self.options.with_openmp
-        tc.variables["ENABLE_CUDA"] = self.options.with_cuda
-        tc.variables["ENABLE_HIP"] = False
-        tc.variables["ENABLE_SYCL"] = False
-        tc.variables["ENABLE_LAPACK"] = self.options.with_lapack
-        tc.variables["LAPACK_WORKS"] = True
-        tc.variables["ENABLE_GINKGO"] = self.options.get_safe("with_ginkgo", False)
-        tc.variables["SUNDIALS_GINKGO_BACKENDS"] = ";".join(self._ginkgo_backends)
-        tc.variables["GINKGO_WORKS"] = True
-        tc.variables["ENABLE_MAGMA"] = False
-        tc.variables["ENABLE_SUPERLUDIST"] = False
-        tc.variables["ENABLE_SUPERLUMT"] = self.options.with_superlumt
-        tc.variables["SUPERLUMT_WORKS"] = True
-        tc.variables["ENABLE_KLU"] = self.options.with_klu
-        tc.variables["KLU_WORKS"] = True
-        tc.variables["ENABLE_HYPRE"] = False
-        tc.variables["ENABLE_PETSC"] = False
-        tc.variables["ENABLE_RAJA"] = False
-        tc.variables["ENABLE_TRILINOS"] = False
-        tc.variables["ENABLE_XBRAID"] = False
-        tc.variables["ENABLE_ONEMKL"] = False
-        tc.variables["ENABLE_CALIPER"] = False
-        tc.variables["ENABLE_ADIAK"] = False
-        tc.variables["ENABLE_KOKKOS"] = False
+        tc.cache_variables["ENABLE_MPI"] = self.options.with_mpi
+        tc.cache_variables["ENABLE_OPENMP"] = self.options.with_openmp
+        tc.cache_variables["ENABLE_CUDA"] = self.options.with_cuda
+        tc.cache_variables["ENABLE_HIP"] = False
+        tc.cache_variables["ENABLE_SYCL"] = False
+        tc.cache_variables["ENABLE_LAPACK"] = self.options.with_lapack
+        tc.cache_variables["LAPACK_WORKS"] = True
+        tc.cache_variables["ENABLE_GINKGO"] = self.options.get_safe("with_ginkgo", False)
+        tc.cache_variables["SUNDIALS_GINKGO_BACKENDS"] = ";".join(self._ginkgo_backends)
+        tc.cache_variables["GINKGO_WORKS"] = True
+        tc.cache_variables["ENABLE_MAGMA"] = False
+        tc.cache_variables["ENABLE_SUPERLUDIST"] = False
+        tc.cache_variables["ENABLE_SUPERLUMT"] = self.options.with_superlumt
+        tc.cache_variables["SUPERLUMT_WORKS"] = True
+        tc.cache_variables["ENABLE_KLU"] = self.options.with_klu
+        tc.cache_variables["KLU_WORKS"] = True
+        tc.cache_variables["ENABLE_HYPRE"] = False
+        tc.cache_variables["ENABLE_PETSC"] = False
+        tc.cache_variables["ENABLE_RAJA"] = False
+        tc.cache_variables["ENABLE_TRILINOS"] = False
+        tc.cache_variables["ENABLE_XBRAID"] = False
+        tc.cache_variables["ENABLE_ONEMKL"] = False
+        tc.cache_variables["ENABLE_CALIPER"] = False
+        tc.cache_variables["ENABLE_ADIAK"] = False
+        tc.cache_variables["ENABLE_KOKKOS"] = False
 
         # https://github.com/LLNL/sundials/blob/v7.1.1/cmake/SundialsBuildOptionsPost.cmake
-        tc.variables["BUILD_SUNMATRIX_CUSPARSE"] = self.options.get_safe("with_cuda", False) and self.options.index_size == 32
-        tc.variables["BUILD_SUNLINSOL_CUSOLVERSP"] = self.options.get_safe("with_cuda", False) and self.options.index_size == 32
+        tc.cache_variables["BUILD_SUNMATRIX_CUSPARSE"] = self.options.get_safe("with_cuda", False) and self.options.index_size == 32
+        tc.cache_variables["BUILD_SUNLINSOL_CUSOLVERSP"] = self.options.get_safe("with_cuda", False) and self.options.index_size == 32
 
         # Configure default LAPACK naming conventions for OpenBLAS.
         # Needed to avoid a Fortran compiler requirement to detect the correct name mangling scheme.
         # https://github.com/LLNL/sundials/blob/v7.1.1/cmake/SundialsSetupCompilers.cmake#L269-L360
-        tc.variables["SUNDIALS_LAPACK_CASE"] = "lower"
-        tc.variables["SUNDIALS_LAPACK_UNDERSCORES"] = "one"
+        tc.cache_variables["SUNDIALS_LAPACK_CASE"] = "lower"
+        tc.cache_variables["SUNDIALS_LAPACK_UNDERSCORES"] = "one"
 
         if self.options.with_cuda:
             tc.cache_variables["CMAKE_CUDA_ARCHITECTURES"] = str(self.settings.cuda.architectures).replace(",", ";")
+
+        if Version(self.version) < "3.0":
+            tc.cache_variables["LAPACK_ENABLE"] = self.options.with_lapack
+            tc.cache_variables["SUPERLUMT_ENABLE"] = self.options.with_superlumt
+            tc.cache_variables["KLU_ENABLE"] = self.options.with_klu
+            tc.cache_variables["MPI_ENABLE"] = self.options.with_mpi
+            tc.cache_variables["OPENMP_ENABLE"] = self.options.with_openmp
+            tc.cache_variables["PTHREAD_ENABLE"] = False
+            tc.cache_variables["HYPRE_ENABLE"] = False
+            tc.cache_variables["PETSC_ENABLE"] = False
+            tc.cache_variables["EXAMPLES_ENABLE"] = False
 
         tc.generate()
 
@@ -242,6 +274,10 @@ class SundialsConan(ConanFile):
                 shutil.move(dll_path, os.path.join(self.package_folder, "bin", os.path.basename(dll_path)))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         fix_apple_shared_install_name(self)
+        if Version(self.version) < "3.0":
+            # For CasADi
+            shutil.copy(os.path.join(self.source_folder, "src/kinsol/kinsol_spils_impl.h"),
+                        os.path.join(self.package_folder, "include/kinsol/kinsol_spils_impl.h"))
 
     def package_info(self):
         # https://github.com/LLNL/sundials/blob/v7.1.1/cmake/SUNDIALSConfig.cmake.in
@@ -299,6 +335,16 @@ class SundialsConan(ConanFile):
             _add_lib("nvecmanyvector", requires=["openmpi::openmpi"])
         if self.options.with_openmp:
             _add_lib("nvecopenmp", requires=["openmp::openmp"])
+
+        if Version(self.version) < "3.0":
+            for _, component in self.cpp_info.components.items():
+                if self.options.with_klu:
+                    component.requires.append("suitesparse-klu::suitesparse-klu")
+                if self.options.with_lapack:
+                    component.requires.append("openblas::openblas")
+                if self.options.with_superlumt:
+                    component.requires.append("superlu_mt::superlu_mt")
+            return
 
         _add_lib("sunmatrixband")
         _add_lib("sunmatrixdense")

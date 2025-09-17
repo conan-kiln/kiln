@@ -1,0 +1,112 @@
+diff --git a/src/idas/idaa.c b/src/idas/idaa.c
+--- a/src/idas/idaa.c
++++ b/src/idas/idaa.c
+@@ -274,6 +274,11 @@
+   IDAADJ_mem->ia_nckpnts = 0;
+   IDAADJ_mem->ia_ckpntData = NULL;
+ 
++  /* Initialize wrapper function workspace to NULL for safe deletion if unused */
++  IDAADJ_mem->ia_yyTmp = NULL;
++  IDAADJ_mem->ia_ypTmp = NULL;
++  IDAADJ_mem->ia_yySTmp = NULL;
++  IDAADJ_mem->ia_ypSTmp = NULL;
+ 
+   /* Initialization of interpolation data. */
+   IDAADJ_mem->ia_interpType = interp;
+@@ -3110,7 +3115,7 @@
+ {
+   IDAadjMem IDAADJ_mem;
+   IDAMem IDA_mem;
+-  static long int ilast;
++  long int ilast;
+   DtpntMem *dt_mem;
+   int sign;
+   booleantype to_left, to_right;
+@@ -3129,6 +3134,8 @@
+     ilast     = np-1;
+     *newpoint = TRUE;
+     newData   = FALSE;
++  } else {
++    ilast     = IDAADJ_mem->ilast;
+   }
+ 
+   /* Search for indx starting from ilast */
+@@ -3155,6 +3162,7 @@
+     if ( *indx == 0 ) {
+       /* t is beyond leftmost limit. Is it too far? */  
+       if ( SUNRabs(t - dt_mem[0]->t) > FUZZ_FACTOR * uround ) {
++        IDAADJ_mem->ilast = ilast;
+         return(IDA_GETY_BADT);
+       }
+     }
+@@ -3178,6 +3186,8 @@
+     *indx = ilast;
+ 
+   }
++
++  IDAADJ_mem->ilast = ilast;
+   return(IDA_SUCCESS);
+ }
+ 
+diff --git a/src/cvodes/cvodea.c b/src/cvodes/cvodea.c
+--- a/src/cvodes/cvodea.c
++++ b/src/cvodes/cvodea.c
+@@ -2188,7 +2188,7 @@
+                         long int *indx, booleantype *newpoint)
+ {
+   CVadjMem ca_mem;
+-  static long int ilast;
++  long int ilast;
+   DtpntMem *dt_mem;
+   int sign;
+   booleantype to_left, to_right;
+@@ -2206,6 +2206,8 @@
+     ilast     = np-1;
+     *newpoint = TRUE;
+     IMnewData   = FALSE;
++  } else {
++    ilast     = ca_mem->ilast;
+   }
+ 
+   /* Search for indx starting from ilast */
+@@ -2232,6 +2234,7 @@
+     if ( *indx == 0 ) {
+       /* t is beyond leftmost limit. Is it too far? */  
+       if ( SUNRabs(t - dt_mem[0]->t) > FUZZ_FACTOR * uround ) {
++        ca_mem->ilast = ilast;
+         return(CV_GETY_BADT);
+       }
+     }
+@@ -2257,6 +2260,8 @@
+ 
+   }
+ 
++  ca_mem->ilast = ilast;
++
+   return(CV_SUCCESS);
+ 
+ 
+diff --git a/src/cvodes/cvodes_impl.h b/src/cvodes/cvodes_impl.h
+--- a/src/cvodes/cvodes_impl.h
++++ b/src/cvodes/cvodes_impl.h
+@@ -736,6 +736,8 @@
+   N_Vector ca_ytmp;
+ 
+   N_Vector *ca_yStmp;
++
++  long int ilast;
+     
+ };
+   
+diff --git a/src/idas/idas_impl.h b/src/idas/idas_impl.h
+--- a/src/idas/idas_impl.h
++++ b/src/idas/idas_impl.h
+@@ -743,6 +743,8 @@
+   /* Workspace for wrapper functions */
+   N_Vector ia_yyTmp, ia_ypTmp;
+   N_Vector *ia_yySTmp, *ia_ypSTmp;
++
++  long int ilast;
+     
+ };
+ 
