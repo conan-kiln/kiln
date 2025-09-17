@@ -13,9 +13,11 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-16:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-17:
 
 - 7zip/25.01
+- acados-qpoases/3.1+git.20240910
+- acados/0.5.1
 - acl/2.3.2
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
@@ -53,6 +55,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - binutils/2.44
 - bison/3.5.3
 - blasfeo/0.1.4.2
+- blasfeo/0.1.4.2+git.20250704
 - blis/0.9.0
 - bluez/5.83
 - boost/1.71.0
@@ -415,7 +418,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - daggy/2.1.3
 - daggy/2.2.3
 - dali/1.51.0
-- daqp/0.7.1
+- daqp/0.4.2-acados
+- daqp/0.7.2
 - darts-clone/0.32h
 - dav1d/1.5.1
 - dawn/cci.20240726
@@ -432,6 +436,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - dotconf/1.4.1
 - double-conversion/3.3.1
 - dpdk/24.07
+- dsdp/5.8
 - dynolog/0.5.0
 - dynolog/0.5.1-git.20250624
 - egl-headers/20220525
@@ -597,6 +602,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hnswlib/0.8.0
 - hnswlib/0.8.0-cuvs
 - hpipm/0.1.3+git.20250822
+- hpmpc/0.2+git.20250628
 - hscpp/1.0.0-alpha
 - hwloc/2.12.1
 - hyhound/1.0.1
@@ -624,6 +630,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - kineto/0.4.0+git.20250826
 - kleidiai/1.9.0
 - klib/cci.20250205
+- knitro/15.0.1
 - kokkos/4.7.00
 - kvikio/25.08.00
 - ladel/0.0.4
@@ -635,7 +642,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lessmsi/2.8.1
 - level-zero/1.22.4
 - libalsa/1.2.14
-- libavif/1.3.0
 - libbasisu/1.16.4
 - libbpf/1.4.6
 - libbsd/0.12.2
@@ -795,6 +801,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mosek/8.1.0.83
 - mosek/9.3.22
 - mpdecimal/4.0.1
+- mpfr/4.0.2
+- mpfr/4.1.0
 - mpg123/1.33.2
 - mrcal/2.4.1
 - msys2/latest
@@ -1050,6 +1058,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - piex/0.27
 - pinocchio/3.7.0
 - pipewire/1.4.2
+- piqp/0.6.1
 - pistache/0.4.26
 - pkgconf/2.4.3
 - plf_list/2.77
@@ -1078,7 +1087,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
 - qpalm/1.2.6
+- qpdunes/git.20171214
 - qpoases/3.2.2
+- qpswift/0.0.2
 - qscintilla/2.14.1
 - qsopt/1.01
 - qtawesome/6.5.1
@@ -1114,6 +1125,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sbepp/1.6.0
 - scalapack/2.2.2
 - scdoc/1.11.3
+- scs/3.2.8
 - sdl/2.30.9
 - sdl/2.32.8
 - sdl_image/2.8.8
