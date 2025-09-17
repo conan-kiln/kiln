@@ -2,6 +2,11 @@ sources:
   "1.1.0a1":
     url: "https://github.com/kul-optec/alpaqa/archive/refs/tags/1.1.0a1.tar.gz"
     sha256: "07984bd09a473dd4f9555ec412e3e7ce567cbf6b74f57f179f56e3608faf9968"
+  "1.0.0-casadi.20230731":
+    url: "https://github.com/jgillis/alpaqa/archive/bf9f87d59640501ea72f94aa6e2d4e62b20c677b.tar.gz"
+    sha256: "8b280bf49d117e7e489bcb31bb9fd70b0ad730296f0195d3b51fa3ba7cef4d25"
 patches:
   "1.1.0a1":
     - patch_file: "patches/1.1.0-use-external-lbfgsb.patch"
+  "1.0.0-casadi.20230731":
+    - patch_file: "patches/1.0.0-casadi-use-external-lbfgsb.patch"
