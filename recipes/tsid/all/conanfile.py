@@ -24,20 +24,24 @@ class TsidConan(ConanFile):
         "fPIC": [True, False],
         "python_bindings": [True, False],
         "with_osqp": [True, False],
+        "with_proxqp": [True, False],
+        "with_qpmad": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "python_bindings": False,
         "with_osqp": True,
+        "with_proxqp": True,
+        "with_qpmad": False,
     }
     implements = ["auto_shared_fpic"]
 
-    python_requires = "conan-cuda/latest"
+    python_requires = "conan-utils/latest"
 
     @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    def _utils(self):
+        return self.python_requires["conan-utils"].module
 
     def configure(self):
         if self.options.shared:
@@ -55,8 +59,10 @@ class TsidConan(ConanFile):
         self.requires("eiquadprog/[^1.2.9]", transitive_headers=True)
         if self.options.with_osqp:
             self.requires("osqp-eigen/[>=0.10 <1]", transitive_headers=True, transitive_libs=True)
-        # TODO: proxqp support
-        # TODO: qpmad support
+        if self.options.with_proxqp:
+            self.requires("proxsuite/[>=0.7 <1]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_qpmad:
+            self.requires("qpmad/[^1.4]", transitive_headers=True, transitive_libs=True)
         if self.options.python_bindings:
             # eigenpy adds cpython and numpy deps transitively
             self.requires("eigenpy/[^3.11.0]")
@@ -87,7 +93,6 @@ class TsidConan(ConanFile):
         tc.cache_variables["BUILD_WITH_OSQP"] = self.options.with_osqp
         tc.cache_variables["JRL_CMAKE_MODULES"] = self.dependencies.build["jrl-cmakemodules"].cpp_info.builddirs[0].replace("\\", "/")
         tc.cache_variables["CMAKE_DISABLE_FIND_PACKAGE_Doxygen"] = True
-        tc.cache_variables["CMAKE_DISABLE_FIND_PACKAGE_qpmad"] = True
         tc.cache_variables["BUILDING_ROS2_PACKAGE"] = False
         tc.cache_variables["BUILD_TESTING"] = False
         tc.cache_variables["BUILD_BENCHMARK"] = False
@@ -111,7 +116,6 @@ class TsidConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "share"))
-        rm(self, "*.pdb", self.package_folder, recursive=True)
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "tsid")
@@ -120,9 +124,9 @@ class TsidConan(ConanFile):
         self.cpp_info.libs = ["tsid"]
         if self.options.with_osqp:
             self.cpp_info.defines.append("TSID_WITH_OSQP")
-        if self.options.get_safe("with_proxqp"):
+        if self.options.with_proxqp:
             self.cpp_info.defines.append("TSID_WITH_PROXSUITE")
-        if self.options.get_safe("with_qpmad"):
+        if self.options.with_qpmad:
             self.cpp_info.defines.append("TSID_WITH_QPMAD")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m"]
