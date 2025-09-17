@@ -34,7 +34,6 @@ class PackageConan(ConanFile):
         "with_cplex": [True, False],
         "with_csparse": [True, False],
         "with_daqp": [True, False],
-        "with_dsdp": [True, False],
         "with_fatrop": [True, False],
         "with_fmi2": [True, False],
         "with_fmi3": [True, False],
@@ -50,7 +49,6 @@ class PackageConan(ConanFile):
         "with_libzip": [True, False],
         "with_mumps": [True, False],
         "with_ooqp": [True, False],
-        "with_opencl": [True, False],
         "with_openmp": [True, False],
         "with_osqp": [True, False],
         "with_proxqp": [True, False],
@@ -59,7 +57,6 @@ class PackageConan(ConanFile):
         "with_rumoca": [True, False],
         "with_sleqp": [True, False],
         "with_slicot": [True, False],
-        "with_spral": [True, False],
         "with_sundials": [True, False],
         "with_superscs": [True, False],
         "with_tinyxml": [True, False],
@@ -70,47 +67,55 @@ class PackageConan(ConanFile):
         "enable_deprecated": True,
         "threadsafe_symbolics": False,
         "install_internal_headers": False,
-        "with_alpaqa": False,
-        "with_ampl": False,
-        "with_blocksqp": True,
-        "with_bonmin": False,
+
+        # Linear solvers
+        "with_csparse": True,
+        "with_lapack": True,
+        "with_hsl": False,  # commercial
+        "with_mumps": True,
+
+        # Conic solvers
         "with_cbc": False,
-        "with_clang": False,
         "with_clarabel": False,
         "with_clp": False,
-        "with_cplex": False,
-        "with_csparse": True,
+        "with_cplex": False,  # commercial
         "with_daqp": False,
-        "with_dsdp": False,
-        "with_fatrop": False,
+        "with_fatrop": True,  # also NLP
+        "with_gurobi": False,  # commercial
+        "with_highs": True,
+        "with_hpipm": False,
+        "with_hpmpc": False,
+        "with_ooqp": False,
+        "with_osqp": True,
+        "with_proxqp": True,
+        "with_qpoases": True,
+        "with_superscs": False,
+
+        # NLP solvers
+        "with_alpaqa": False,
+        "with_ampl": False,  # commercial
+        "with_blocksqp": True,
+        "with_bonmin": False,
+        "with_ipopt": True,
+        "with_knitro": False,  # commercial
+        "with_sleqp": False,
+        "with_worhp": False,  # commercial
+
+        # Discrete periodic Lyapunov Equation solver, matrix exponential
+        "with_slicot": True,
+        # integrator_cvodes, integrator_idas, rootfinder_kinsol
+        "with_sundials": True,
+
+        # Misc
+        "with_clang": False,
         "with_fmi2": True,
         "with_fmi3": True,
         "with_ghc_filesystem": True,
-        "with_gurobi": False,
-        "with_highs": False,
-        "with_hpipm": False,
-        "with_hpmpc": False,
-        "with_hsl": False,
-        "with_ipopt": False,
-        "with_knitro": False,
-        "with_lapack": True,
         "with_libzip": True,
-        "with_mumps": False,
-        "with_ooqp": False,
-        "with_opencl": False,
-        "with_openmp": True,
-        "with_osqp": False,
-        "with_proxqp": True,
-        "with_pthread": False,
-        "with_qpoases": True,
         "with_rumoca": False,
-        "with_sleqp": False,
-        "with_slicot": False,
-        "with_spral": False,
-        "with_sundials": True,
-        "with_superscs": False,
+        "with_openmp": True,
+        "with_pthread": False,
         "with_tinyxml": True,
-        "with_worhp": False,
         "with_zlib": True,
     }
 
@@ -146,8 +151,6 @@ class PackageConan(ConanFile):
             self.requires("suitesparse-cxsparse/[^4.4.1]")
         if self.options.with_daqp:
             self.requires("daqp/[*]")
-        if self.options.with_dsdp:
-            self.requires("dsdp/[^5.8]")
         if self.options.with_fatrop:
             self.requires("fatrop/[*]")
         if self.options.with_fmi2:
@@ -178,8 +181,6 @@ class PackageConan(ConanFile):
             self.requires("coin-mumps/[^3.0.5]")
         if self.options.with_ooqp:
             self.requires("ooqp/[*]")
-        if self.options.with_opencl:
-            self.requires("opencl-headers/[>=2023.12.14]")
         if self.options.with_openmp:
             self.requires("openmp/system")
         if self.options.with_osqp:
@@ -196,8 +197,6 @@ class PackageConan(ConanFile):
             self.requires("sleqp/[*]")
         if self.options.with_slicot:
             self.requires("slicot/[*]")
-        if self.options.with_spral:
-            self.requires("spral/[*]")
         if self.options.with_sundials:
             self.requires("sundials/[^2.5]", options={"build_arkode": False, "build_cvode": False, "build_ida": False})
         if self.options.with_superscs:
@@ -256,7 +255,6 @@ class PackageConan(ConanFile):
         tc.cache_variables["CMAKE_Fortran_COMPILER"] = ""
         tc.cache_variables["Fortran_language_works"] = True
 
-        tc.cache_variables["WITH_OPENCL"] = self.options.with_opencl
         tc.cache_variables["WITH_FMI2"] = self.options.with_fmi2
         tc.cache_variables["WITH_FMI3"] = self.options.with_fmi3
         tc.cache_variables["WITH_SUNDIALS"] = self.options.with_sundials
@@ -270,7 +268,6 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_RUMOCA"] = self.options.with_rumoca
         tc.cache_variables["WITH_PROXQP"] = self.options.with_proxqp
         tc.cache_variables["WITH_TINYXML"] = self.options.with_tinyxml
-        tc.cache_variables["WITH_DSDP"] = self.options.with_dsdp
         tc.cache_variables["WITH_CLANG"] = self.options.with_clang
         tc.cache_variables["WITH_LAPACK"] = self.options.with_lapack
         tc.cache_variables["WITH_QPOASES"] = self.options.with_qpoases
@@ -288,7 +285,6 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_CBC"] = self.options.with_cbc
         tc.cache_variables["WITH_CLP"] = self.options.with_clp
         tc.cache_variables["WITH_MUMPS"] = self.options.with_mumps
-        tc.cache_variables["WITH_SPRAL"] = self.options.with_spral
         tc.cache_variables["WITH_HSL"] = self.options.with_hsl
         tc.cache_variables["WITH_HIGHS"] = self.options.with_highs
         tc.cache_variables["WITH_DAQP"] = self.options.with_daqp
@@ -300,6 +296,10 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_SQIC"] = False
         tc.cache_variables["WITH_AMPL"] = self.options.with_ampl
         tc.cache_variables["WITH_SLICOT"] = self.options.with_slicot
+        tc.cache_variables["WITH_BLASFEO"] = False  # only used to build HPIPM and FATROP
+        tc.cache_variables["WITH_SPRAL"] = False  # only used to build Ipopt
+        tc.cache_variables["WITH_DSDP"] = False  # not used anywhere
+        tc.cache_variables["WITH_OPENCL"] = False  # not used anywhere
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -320,7 +320,6 @@ class PackageConan(ConanFile):
         deps.set_property("clarabel", "cmake_target_name", "clarabel")
         deps.set_property("cplex", "cmake_file_name", "CPLEX")
         deps.set_property("daqp", "cmake_target_name", "daqp")
-        deps.set_property("dsdp", "cmake_file_name", "DSDP")
         deps.set_property("ecos", "cmake_file_name", "ECOS")
         deps.set_property("eigen", "cmake_file_name", "Eigen3")
         deps.set_property("eigen", "cmake_target_name", "eigen3")
@@ -340,13 +339,11 @@ class PackageConan(ConanFile):
         deps.set_property("mumps", "cmake_file_name", "MUMPS")
         deps.set_property("ooqp", "cmake_file_name", "OOQP")
         deps.set_property("ooqp", "cmake_target_name", "OOQP")
-        deps.set_property("opencl-headers", "cmake_file_name", "OpenCL")
         deps.set_property("osqp", "cmake_file_name", "OSQP")
         deps.set_property("osqp", "cmake_target_name", "osqp::osqp")
         deps.set_property("proxsuite", "cmake_file_name", "PROXQP")
         deps.set_property("qpoases", "cmake_file_name", "QPOASES")
         deps.set_property("slicot", "cmake_file_name", "SLICOT")
-        deps.set_property("spral", "cmake_file_name", "SPRAL")
         deps.set_property("suitesparse-cxsparse", "cmake_file_name", "CSPARSE")
         deps.set_property("sundials", "cmake_file_name", "SUNDIALS")
         deps.set_property("superscs", "cmake_target_name", "superscs")
