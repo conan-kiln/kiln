@@ -1,0 +1,610 @@
+From 1b0692b1f71ab39a32c6be84ab8e54aa84a5c95b Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Wed, 17 Sep 2025 00:26:01 +0300
+Subject: [PATCH] Merge changes from CasADi 3.7.2 to 3.2.2
+
+diff --git a/include/qpOASES/Matrices.hpp b/include/qpOASES/Matrices.hpp
+index 960bca8..d9148d4 100644
+--- a/include/qpOASES/Matrices.hpp
++++ b/include/qpOASES/Matrices.hpp
+@@ -65,9 +65,6 @@ class Matrix
+ 		/** Destructor. */
+ 		virtual ~Matrix( ) { };
+ 
+-		/** Frees all internal memory. */
+-		virtual void free( ) = 0;
+-
+ 		/** Returns a deep-copy of the Matrix object.
+ 		 *	\return Deep-copy of Matrix object */
+ 		virtual Matrix* duplicate( ) const = 0;
+@@ -344,9 +341,6 @@ class DenseMatrix : public virtual Matrix
+ 		/** Destructor. */
+ 		virtual ~DenseMatrix( );
+ 
+-		/** Frees all internal memory. */
+-		virtual void free( );
+-
+ 		/** Returns a deep-copy of the Matrix object.
+ 		 *	\return Deep-copy of Matrix object */
+ 		virtual Matrix *duplicate( ) const;
+@@ -578,9 +572,6 @@ class SparseMatrix : public virtual Matrix
+ 		/** Destructor. */
+ 		virtual ~SparseMatrix( );
+ 
+-		/** Frees all internal memory. */
+-		virtual void free( );
+-
+ 		/** Returns a deep-copy of the Matrix object.
+ 		 *	\return Deep-copy of Matrix object */
+ 		virtual Matrix *duplicate( ) const;
+@@ -772,9 +763,6 @@ class SparseMatrixRow : public virtual Matrix
+ 		/** Destructor. */
+ 		virtual ~SparseMatrixRow( );
+ 
+-		/** Frees all internal memory. */
+-		virtual void free( );
+-
+ 		/** Returns a deep-copy of the Matrix object.
+ 		 *	\return Deep-copy of Matrix object */
+ 		virtual Matrix *duplicate( ) const;
+diff --git a/include/qpOASES/SQProblemSchur.hpp b/include/qpOASES/SQProblemSchur.hpp
+index 309e903..8d7efba 100644
+--- a/include/qpOASES/SQProblemSchur.hpp
++++ b/include/qpOASES/SQProblemSchur.hpp
+@@ -73,12 +73,17 @@ class SQProblemSchur : public SQProblem
+ 		 *  information. If the Hessian is the zero (i.e. HST_ZERO) or the
+ 		 *  identity matrix (i.e. HST_IDENTITY), respectively, no memory
+ 		 *  is allocated for it and a NULL pointer can be passed for it
+-		 *  to the init() functions. */
+-		SQProblemSchur(	int_t _nV,	  							/**< Number of variables. */
+-						int_t _nC,		  						/**< Number of constraints. */
+-						HessianType _hessianType = HST_UNKNOWN,	/**< Type of Hessian matrix. */
+-						int_t maxSchurUpdates = 75				/**< Maximal number of Schur updates */
+-						);
++	*  to the init() functions. */
++	SQProblemSchur(	int_t _nV,	  							/**< Number of variables. */
++			int_t _nC,		  						/**< Number of constraints. */
++			HessianType _hessianType = HST_UNKNOWN,	/**< Type of Hessian matrix. */
++			int_t maxSchurUpdates = 75,                 /**< Maximal number of Schur updates */
++			linsol_memory_t _linsol_data = 0,           /**< Linear solver data */
++			linsol_init_t _linsol_init = 0,             /**< Linear solver initialization function */
++			linsol_sfact_t _linsol_sfact = 0,           /**< Linear solver symbolical factorization function */
++			linsol_nfact_t _linsol_nfact = 0,           /**< Linear solver numerical factorization function */
++			linsol_solve_t _linsol_solve = 0            /**< Linear solver solve function */
++			);
+ 
+ 		/** Copy constructor (deep copy). */
+ 		SQProblemSchur(	const SQProblemSchur& rhs		/**< Rhs object. */
+@@ -384,6 +389,8 @@ class SQProblemSchur : public SQProblem
+ 										real_t* const delta_xFX, real_t* const delta_xFR, real_t* const delta_yAC, real_t* const delta_yFX
+ 										);
+ 
++		using SQProblem::setupAuxiliaryQP; // explicitly hides the parent's virtual function [-Werror,-Woverloaded-virtual]
++
+ 	/*
+ 	 *	PROTECTED MEMBER VARIABLES
+ 	 */
+@@ -410,6 +417,12 @@ class SQProblemSchur : public SQProblem
+ 
+ 		Indexlist boundsFreeStart;			/**< Index list for free bounds when major iteration started. */
+ 		Indexlist constraintsActiveStart;	/**< Index list for active constraints when major iteration started. */
++
++		linsol_memory_t linsol_data;        /**< Linear solver data */
++		linsol_init_t linsol_init;          /**< Linear solver initialization function */
++		linsol_sfact_t linsol_sfact;        /**< Linear solver symbolical factorization function */
++		linsol_nfact_t linsol_nfact;        /**< Linear solver numerical factorization function */
++		linsol_solve_t linsol_solve;        /**< Linear solver solve function */
+ };
+ 
+ 
+diff --git a/include/qpOASES/SparseSolver.hpp b/include/qpOASES/SparseSolver.hpp
+index 689f425..33aae2f 100644
+--- a/include/qpOASES/SparseSolver.hpp
++++ b/include/qpOASES/SparseSolver.hpp
+@@ -561,6 +561,102 @@ class DummySparseSolver: public SparseSolver
+ 									);
+ };
+ 
++/** \brief User-defined linear solver
++ *
++ * The user provides an opaque pointer (linsol_memory_t mem) and the following
++ * four functions:
++ * 1. int_t linsol_init(linsol_memory_t mem, int_t dim, int_t nnz,
++ *                      const int_t* row, const int_t* col);
++ *    Sets/resets the dimensions and sparsity pattern of the linear system to be
++ *    solved in each iteration.
++ * 2. int_t linsol_sfact)(linsol_memory_t mem, const real_t* vals);
++ *    Symbolic factorization step. This requires numerical values for the nonzero
++ *    elements in order to perform e.g. partial pivoting. Typically, the symbolic
++ *    factorization does not need to be up-to-date. Pass NULL if absent.
++ * 3. int_t linsol_nfact(linsol_memory_t mem,
++ *                       const real_t* vals, int_t* neig, int_t* rank);
++ *    Numerical factorization step. This is the actual factorization of the matrix.
++ *    In addition to performing the factorization, this routine must calculate
++ *    the number of negative eigenvalues as well as the rank of the matrix.
++ * 4. int_t linsol_solve(linsol_memory_t mem, int_t nrhs, real_t* rhs);
++ *    Solve the factorized linear system for one or multiple right-hand-sides.
++ *
++ *  \author Joel Andersson
++ *  \version 3.x
++ *  \date 2016
++ */
++class UserSparseSolver: public SparseSolver
++{
++    /*
++     *  PUBLIC MEMBER FUNCTIONS
++     */
++    public:
++        /** Constructor */
++        UserSparseSolver(linsol_memory_t _linsol_data,
++                          linsol_init_t _linsol_init,
++                          linsol_sfact_t _linsol_sfact,
++                          linsol_nfact_t _linsol_nfact,
++                          linsol_solve_t _linsol_solve);
++
++        /** Destructor */
++        virtual ~UserSparseSolver();
++
++        /** Set new matrix data.  The matrix is to be provided
++            in the Harwell-Boeing format.  Only the lower
++            triangular part should be set. */
++        virtual returnValue setMatrixData(  int_t dim,                  /**< Dimension of the linear system. */
++                                            int_t numNonzeros,          /**< Number of nonzeros in the matrix. */
++                                            const int_t* const airn,    /**< Row indices for each matrix entry. */
++                                            const int_t* const acjn,    /**< Column indices for each matrix entry. */
++                                            const real_t* const avals   /**< Values for each matrix entry. */
++                                            );
++
++        /** Compute factorization of current matrix.  This method must be called before solve.*/
++        virtual returnValue factorize( );
++
++        /** Return the number of negative eigenvalues. */
++        virtual int_t getNegativeEigenvalues( );
++
++        /** Return the rank after a factorization */
++        virtual int getRank( );
++
++        /** Solve linear system with most recently set matrix data. */
++        virtual returnValue solve(  int_t dim,                  /**< Dimension of the linear system. */
++                                    const real_t* const rhs,    /**< Values for the right hand side. */
++                                    real_t* const sol           /**< Solution of the linear system. */
++                                    );
++
++    /*
++     *  PRIVATE MEMBER VARIABLES
++     */
++    private:
++      // Function pointers to user-defined functions
++      linsol_memory_t linsol_data;
++      linsol_init_t linsol_init;
++      linsol_sfact_t linsol_sfact;
++      linsol_nfact_t linsol_nfact;
++      linsol_solve_t linsol_solve;
++
++      // Current linear system dimension
++      int_t dim;
++
++      // Current number of nonzeros
++      int_t nnz;
++
++      // Length of the sparsity vectors
++      int_t allocated_nnz;
++
++      // Current sparse matrix (sparse triplet format)
++      int_t *row, *col;
++      double *val;
++
++      // Number of negative eigenvalues
++      int_t neig;
++
++      // Matrix rank
++      int_t rank;
++};
++
+ #endif /* SOLVER_NONE */
+ 
+ 
+diff --git a/include/qpOASES/Types.hpp b/include/qpOASES/Types.hpp
+index 9d52cee..9bf3bb3 100644
+--- a/include/qpOASES/Types.hpp
++++ b/include/qpOASES/Types.hpp
+@@ -335,6 +335,41 @@ typedef struct {
+ } MatMatrixHeader;
+ 
+ 
++/** User-defined linear solver memory type */
++typedef void* linsol_memory_t;
++
++/** Initialization function for a user-defined linear solver function
++ * Sparsity pattern in sparse triplet format (0-based)
++ */
++typedef int_t (*linsol_init_t)(linsol_memory_t mem,
++			       int_t dim,
++			       int_t nnz,
++			       const int_t* row,
++			       const int_t* col);
++
++/** Symbolical factorization function for a user-defined linear solver function
++  * Requires knowledge if the numerical values in order to perform e.g.
++  * partial pivoting or to eliminate numerical zeros from the sparsity pattern
++  */
++typedef int_t (*linsol_sfact_t)(linsol_memory_t mem,
++				const real_t* vals);
++
++/** Numerical factorization function for a user-defined linear solver function
++  * Assumes a (not necessarily up-to-date) symbolic factorization is available.
++  * The routine must calculate the number of negative eigenvalues as well as rank.
++  */
++typedef int_t (*linsol_nfact_t)(linsol_memory_t mem,
++				const real_t* vals, int_t* neig, int_t* rank);
++
++/** Solve a factorized linear system for a user-defined linear solver function
++  * Multiple right-hand-sides. The solution overwrites the right-hand-side.
++  */
++typedef int_t (*linsol_solve_t)(linsol_memory_t mem,
++				int_t nrhs, real_t* rhs);
++
++/** Custom printing function.
++  */
++typedef void (*printf_t)(const char* s);
+ 
+ 
+ END_NAMESPACE_QPOASES
+diff --git a/include/qpOASES/Utils.hpp b/include/qpOASES/Utils.hpp
+index 160fd5f..75c177d 100644
+--- a/include/qpOASES/Utils.hpp
++++ b/include/qpOASES/Utils.hpp
+@@ -88,6 +88,10 @@ returnValue print(	const int_t* const index,	/**< Index array to be printed. */
+ returnValue myPrintf(	const char* s	/**< String to be written. */
+ 						);
+ 
++/** Sets a custom printing function.
++  * \return SUCCESSFUL_RETURN */
++returnValue setPrintf( printf_t pf /**< custom printing function. */
++		      );
+ 
+ /** Prints qpOASES copyright notice.
+  * \return SUCCESSFUL_RETURN */
+diff --git a/src/Matrices.cpp b/src/Matrices.cpp
+index d16e2a1..1e81d68 100644
+--- a/src/Matrices.cpp
++++ b/src/Matrices.cpp
+@@ -101,14 +101,11 @@ returnValue Matrix::getSparseSubmatrix(
+ DenseMatrix::~DenseMatrix()
+ {
+ 	if ( needToFreeMemory( ) == BT_TRUE )
+-		free( );
+-}
+-
+-void DenseMatrix::free( )
+-{
+-	if (val != 0)
+-		delete[] val;
+-	val = 0;
++	{
++		if (val != 0)
++			delete[] val;
++		val = 0;
++	}
+ }
+ 
+ Matrix *DenseMatrix::duplicate( ) const
+@@ -708,20 +705,16 @@ SparseMatrix::~SparseMatrix()
+ 	}
+ 
+ 	if ( needToFreeMemory() == BT_TRUE )
+-		free( );
+-}
+-
+-
+-void SparseMatrix::free( )
+-{
+-	if (ir != 0) delete[] ir;
+-	ir = 0;
+-	if (jc != 0) delete[] jc;
+-	jc = 0;
+-	if (val != 0) delete[] val;
+-	val = 0;
+-
+-	doNotFreeMemory( );
++	{
++		if (ir != 0) delete[] ir;
++		ir = 0;
++		if (jc != 0) delete[] jc;
++		jc = 0;
++		if (val != 0) delete[] val;
++		val = 0;
++
++		doNotFreeMemory( );
++	}
+ }
+ 
+ 
+@@ -1458,20 +1451,16 @@ SparseMatrixRow::~SparseMatrixRow( )
+ 	}
+ 
+ 	if ( needToFreeMemory() == BT_TRUE )
+-		free( );
+-}
+-
+-
+-void SparseMatrixRow::free( )
+-{
+-	if (jr != 0) delete[] jr;
+-	jr = 0;
+-	if (ic != 0) delete[] ic;
+-	ic = 0;
+-	if (val != 0) delete[] val;
+-	val = 0;
+-
+-	doNotFreeMemory( );
++	{
++		if (jr != 0) delete[] jr;
++		jr = 0;
++		if (ic != 0) delete[] ic;
++		ic = 0;
++		if (val != 0) delete[] val;
++		val = 0;
++
++		doNotFreeMemory( );
++	}
+ }
+ 
+ 
+diff --git a/src/SQProblemSchur.cpp b/src/SQProblemSchur.cpp
+index ba3b843..fa3c438 100644
+--- a/src/SQProblemSchur.cpp
++++ b/src/SQProblemSchur.cpp
+@@ -75,7 +75,7 @@ SQProblemSchur::SQProblemSchur( ) : SQProblem( )
+ #elif defined SOLVER_MUMPS
+ 	sparseSolver = new MumpsSparseSolver();
+ #elif defined SOLVER_NONE
+-    sparseSolver = new DummySparseSolver();
++	sparseSolver = new UserSparseSolver(0, 0, 0, 0, 0);
+ #endif
+ 
+ 	nSmax = 0;
+@@ -99,9 +99,12 @@ SQProblemSchur::SQProblemSchur( ) : SQProblem( )
+ /*
+  *	Q P r o b l e m
+  */
+-SQProblemSchur::SQProblemSchur( int_t _nV, int_t _nC, HessianType _hessianType, int_t maxSchurUpdates ) 
+-	: SQProblem( _nV,_nC,_hessianType, BT_FALSE )
+-{
++SQProblemSchur::SQProblemSchur( int_t _nV, int_t _nC, HessianType _hessianType, int_t maxSchurUpdates,
++  linsol_memory_t _linsol_data, linsol_init_t _linsol_init,
++  linsol_sfact_t _linsol_sfact, linsol_nfact_t _linsol_nfact, linsol_solve_t _linsol_solve)
++  : SQProblem( _nV,_nC,_hessianType, BT_FALSE ),
++    linsol_data(_linsol_data), linsol_init(_linsol_init),
++    linsol_sfact(_linsol_sfact), linsol_nfact(_linsol_nfact), linsol_solve(_linsol_solve) {
+ 	/* The interface to the sparse linear solver.  In the long run,
+ 	   different linear solvers might be optionally chosen. */
+ #ifdef SOLVER_MA57
+@@ -111,7 +114,7 @@ SQProblemSchur::SQProblemSchur( int_t _nV, int_t _nC, HessianType _hessianType,
+ #elif defined SOLVER_MUMPS
+ 	sparseSolver = new MumpsSparseSolver();
+ #elif defined SOLVER_NONE
+-	sparseSolver = new DummySparseSolver();
++	sparseSolver = new UserSparseSolver(linsol_data, linsol_init, linsol_sfact, linsol_nfact, linsol_solve);
+ #endif
+ 
+ 	nSmax = maxSchurUpdates;
+@@ -151,8 +154,9 @@ SQProblemSchur::SQProblemSchur( int_t _nV, int_t _nC, HessianType _hessianType,
+ /*
+  *	Q P r o b l e m
+  */
+-SQProblemSchur::SQProblemSchur( const SQProblemSchur& rhs ) : SQProblem( rhs )
+-{
++SQProblemSchur::SQProblemSchur( const SQProblemSchur& rhs ) : SQProblem( rhs ),
++  linsol_data(rhs.linsol_data), linsol_init(rhs.linsol_init),
++  linsol_sfact(rhs.linsol_sfact), linsol_nfact(rhs.linsol_nfact), linsol_solve(rhs.linsol_solve) {
+ #ifdef SOLVER_MA57
+ 	sparseSolver = new Ma57SparseSolver();
+ #elif defined SOLVER_MA27
+@@ -160,7 +164,7 @@ SQProblemSchur::SQProblemSchur( const SQProblemSchur& rhs ) : SQProblem( rhs )
+ #elif defined SOLVER_MUMPS
+ 	sparseSolver = new MumpsSparseSolver();
+ #elif defined SOLVER_NONE
+-	sparseSolver = new DummySparseSolver();
++	sparseSolver = new UserSparseSolver(linsol_data, linsol_init, linsol_sfact, linsol_nfact, linsol_solve);
+ #endif
+ 	copy( rhs );
+ }
+diff --git a/src/SparseSolver.cpp b/src/SparseSolver.cpp
+index c3b996a..3f4aefe 100644
+--- a/src/SparseSolver.cpp
++++ b/src/SparseSolver.cpp
+@@ -1602,6 +1602,158 @@ returnValue DummySparseSolver::solve(	int_t dim, /**< Dimension of the linear sy
+ 	return THROWERROR(RET_NO_SPARSE_SOLVER);
+ }
+ 
++
++UserSparseSolver::UserSparseSolver(linsol_memory_t _linsol_data,
++                                     linsol_init_t _linsol_init,
++                                     linsol_sfact_t _linsol_sfact,
++                                     linsol_nfact_t _linsol_nfact,
++                                     linsol_solve_t _linsol_solve) :
++  linsol_data(_linsol_data),
++  linsol_init(_linsol_init),
++  linsol_sfact(_linsol_sfact),
++  linsol_nfact(_linsol_nfact),
++  linsol_solve(_linsol_solve)
++{
++  dim = 0;
++  nnz = 0;
++  allocated_nnz = 0;
++  val = 0;
++  row = 0;
++  col = 0;
++  neig = -1;
++  rank = 0;
++}
++
++UserSparseSolver::~UserSparseSolver()
++{
++  if (row) delete[] row;
++  if (col) delete[] col;
++  if (val) delete[] val;
++}
++
++returnValue UserSparseSolver::setMatrixData(   int_t dim, /**< Dimension of the linear system. */
++                                                int_t nnz, /**< Number of nonzeros in the matrix. */
++                                                const int_t* const airn, /**< Row indices for each matrix entry. */
++                                                const int_t* const acjn, /**< Column indices for each matrix entry. */
++                                                const real_t* const avals /**< Values for each matrix entry. */
++                                                )
++{
++  // Reset linear solver
++  reset();
++
++  // Trivial return
++  this->dim = dim;
++  if (dim==0) return SUCCESSFUL_RETURN;
++
++  // No user-defined linear solver
++  if (linsol_init==0) return THROWERROR(RET_NO_SPARSE_SOLVER);
++
++  // Count actual nonzeros
++  this->nnz = 0;
++  for (int_t i=0; i<nnz; ++i) if (avals[i]!=0) this->nnz++;
++
++  // Allocate more memory if needed
++  if (this->nnz > allocated_nnz) {
++    // Free existing memory
++    if (row) delete[] row;
++    if (col) delete[] col;
++    if (val) delete[] val;
++
++    // Allocate new memory (2x factor to avoid frequent reallocation)
++    allocated_nnz = 2*this->nnz;
++    row = new int_t[allocated_nnz];
++    col = new int_t[allocated_nnz];
++    val = new double[allocated_nnz];
++  }
++
++  // Save nonzeros
++  int_t k = 0;
++  for (int_t i=0; i<nnz; ++i) {
++    if (avals[i]!=0) {
++      row[k] = airn[i];
++      col[k] = acjn[i];
++      val[k] = avals[i];
++      k++;
++    }
++  }
++
++  // Call initialization function
++  if (linsol_init(linsol_data, dim, this->nnz, row, col)) {
++    return THROWERROR(RET_MATRIX_FACTORISATION_FAILED);
++  }
++
++  // Number of eigenvalues and rank not available
++  neig = -1;
++  rank = 0;
++
++  return SUCCESSFUL_RETURN;
++}
++
++returnValue UserSparseSolver::factorize( )
++{
++  // Trivial return
++  if (dim==0) {
++    neig = 0;
++    rank = 0;
++    return SUCCESSFUL_RETURN;
++  }
++
++  // Symbolic factorization (if any)
++  if (linsol_sfact) {
++    if (linsol_sfact(linsol_data, val)) {
++      return THROWERROR(RET_MATRIX_FACTORISATION_FAILED);
++    }
++  }
++
++  // No user-defined linear solver
++  if (linsol_nfact==0) return THROWERROR(RET_NO_SPARSE_SOLVER);
++
++  // Numerical factorization
++  if (linsol_nfact(linsol_data, val, &neig, &rank)) {
++    rank = 0;
++    neig = -1;
++    return THROWERROR(RET_MATRIX_FACTORISATION_FAILED);
++  }
++
++  // Is the matrix singular?
++  if (rank<dim) return RET_KKT_MATRIX_SINGULAR;
++
++  return SUCCESSFUL_RETURN;
++}
++
++int_t UserSparseSolver::getNegativeEigenvalues( ) {
++  return neig;
++}
++
++int UserSparseSolver::getRank( ) {
++  return rank;
++}
++
++returnValue UserSparseSolver::solve(   int_t dim, /**< Dimension of the linear system. */
++                                        const real_t* const rhs, /**< Values for the right hand side. */
++                                        real_t* const sol /**< Solution of the linear system. */
++                                        )
++{
++  // Consistency check
++  if (dim!=this->dim) return THROWERROR( RET_INVALID_ARGUMENTS );
++
++  // Trivial return
++  if (dim==0) return SUCCESSFUL_RETURN;
++
++  // No user-defined linear solver
++  if (linsol_solve==0) return THROWERROR(RET_NO_SPARSE_SOLVER);
++
++  // Solution overwrites the right-hand-side
++  for (int_t i=0; i<dim; ++i) sol[i] = rhs[i];
++
++  // Linear system solve
++  if (linsol_solve(linsol_data, 1, sol)) {
++    return THROWERROR(RET_MATRIX_FACTORISATION_FAILED);
++  }
++
++  return SUCCESSFUL_RETURN;
++}
++
+ #endif /* SOLVER_NONE */
+ 
+ END_NAMESPACE_QPOASES
+diff --git a/src/Utils.cpp b/src/Utils.cpp
+index f8e142d..2954ea0 100644
+--- a/src/Utils.cpp
++++ b/src/Utils.cpp
+@@ -218,6 +218,11 @@ returnValue print( const int_t* const index, int_t n, const char* name )
+ 	return SUCCESSFUL_RETURN;
+ }
+ 
++static printf_t custom_printfun = 0;
++returnValue setPrintf( printf_t pf ) {
++	custom_printfun = pf;
++	return SUCCESSFUL_RETURN;
++}
+ 
+ /*
+  *	m y P r i n t f
+@@ -236,10 +241,14 @@ returnValue myPrintf( const char* s )
+ 			#ifdef __SCILAB__
+ 				sciprint( s );
+ 			#else
+-				FILE* outputfile = getGlobalMessageHandler( )->getOutputFile( );
+-				if ( outputfile == 0 )
+-					return THROWERROR( RET_NO_GLOBAL_MESSAGE_OUTPUTFILE );
+-				fprintf( outputfile, "%s", s );
++				if (custom_printfun) {
++				 	custom_printfun(s);
++				} else {
++					FILE* outputfile = getGlobalMessageHandler( )->getOutputFile( );
++					if ( outputfile == 0 )
++						return THROWERROR( RET_NO_GLOBAL_MESSAGE_OUTPUTFILE );
++					fprintf( outputfile, "%s", s );
++				}
+ 			#endif /* __SCILAB__ */
+ 		#endif /* __MATLAB__ */
+ 

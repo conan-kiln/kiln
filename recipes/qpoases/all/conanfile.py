@@ -25,11 +25,15 @@ class ConanRecipe(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         replace_in_file(self, "CMakeLists.txt",
                         "cmake_minimum_required(VERSION 2.6)",
                         "cmake_minimum_required(VERSION 3.5)")
