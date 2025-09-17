@@ -20,10 +20,12 @@ class FatropConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "enable_legacy": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
+        "enable_legacy": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -47,7 +49,7 @@ class FatropConan(ConanFile):
         tc.cache_variables["BUILD_TESTS"] = False
         tc.cache_variables["BUILD_EXAMPLES"] = False
         tc.cache_variables["WITH_BUILD_BLASFEO"] = False
-        tc.cache_variables["BUILD_WITH_LEGACY"] = False
+        tc.cache_variables["BUILD_WITH_LEGACY"] = self.options.enable_legacy
         tc.generate()
 
         deps = CMakeDeps(self)
