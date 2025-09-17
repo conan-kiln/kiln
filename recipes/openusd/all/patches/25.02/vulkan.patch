@@ -13,7 +13,7 @@
  
  pxr_library(hgiVulkan
      LIBRARIES
-@@ -40,14 +46,10 @@
+@@ -41,7 +47,6 @@
          shaderProgram
          shaderSection
          texture
@@ -21,24 +21,7 @@
  
      PUBLIC_HEADERS
          api.h
-         vulkan.h
--
--    PRIVATE_CLASSES
--        spirv_reflect
- 
-     RESOURCE_FILES
-         plugInfo.json
 
---- a/pxr/imaging/hgiVulkan/spirv_reflect.h
-+++ b/pxr/imaging/hgiVulkan/spirv_reflect.h
-@@ -10,6 +10,6 @@
- // This is an implementation of SPIRV-Reflect included
- // from the Vulkan SDK.
- 
--#include <SPIRV-Reflect/spirv_reflect.h>
-+#include <spirv_reflect.hpp>
- 
- #endif
 --- a/pxr/imaging/hgiVulkan/vk_mem_alloc.h
 +++ b/pxr/imaging/hgiVulkan/vk_mem_alloc.h
 @@ -10,6 +10,6 @@
