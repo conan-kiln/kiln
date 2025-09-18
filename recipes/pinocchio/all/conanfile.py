@@ -132,6 +132,9 @@ class PinocchioConan(ConanFile):
         check_min_cppstd(self, 11)
         if self.options.with_qhull and not self.dependencies["qhull"].options.qhullcpp:
             raise ConanInvalidConfiguration("-o qhull/*:qhullcpp=True is required")
+        for mod in ["chrono", "date_time", "filesystem", "serialization", "system", "thread"]:
+            if not self.dependencies["boost"].options.get_safe(f"with_{mod}"):
+                raise ConanInvalidConfiguration(f"boost/*:with_{mod}=True is required")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -196,6 +199,8 @@ class PinocchioConan(ConanFile):
             replace_in_file(self, src_cmakelists, "pinocchio_default PUBLIC", "pinocchio_default INTERFACE")
             replace_in_file(self, src_cmakelists, "${PROJECT_NAME}_cppad PUBLIC", "${PROJECT_NAME}_cppad INTERFACE")
             replace_in_file(self, src_cmakelists, "${PROJECT_NAME}_cppadcg PUBLIC", "${PROJECT_NAME}_cppadcg INTERFACE")
+            replace_in_file(self, src_cmakelists, "PUBLIC PINOCCHIO_WITH_HPP_FCL", "INTERFACE PINOCCHIO_WITH_HPP_FCL")
+            replace_in_file(self, src_cmakelists, "PRIVATE COAL_DISABLE_HPP_FCL_WARNINGS", "INTERFACE COAL_DISABLE_HPP_FCL_WARNINGS")
 
     def build(self):
         if self.options.get_safe("generate_python_stubs"):
@@ -231,6 +236,7 @@ class PinocchioConan(ConanFile):
 
         headers = self.cpp_info.components["pinocchio_headers"]
         headers.set_property("cmake_target_name", "pinocchio::pinocchio_headers")
+        headers.set_property("cmake_target_aliases", ["pinocchio::pinocchio_default"])
         headers.includedirs = ["include"]
         headers.requires = ["eigen::eigen", "boost::headers", "boost::serialization"]
         headers.defines = ["BOOST_MPL_LIMIT_LIST_SIZE=30", "BOOST_MPL_LIMIT_VECTOR_SIZE=30"]
