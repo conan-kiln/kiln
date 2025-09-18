@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-17:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-18:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -23,6 +23,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
+- alpaqa/1.0.0-casadi.20230731
 - alpaqa/1.1.0a1
 - ampl-asl/1.0.1
 - ampl-mp/4.0.3
@@ -67,8 +68,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - capnproto/1.0.1.1
 - cargo-c/0.10.12
 - cargo-c/0.10.8
-- casadi/3.6.6
-- casadi/3.7.0
+- casadi/3.7.2
 - catalyst/2.0.0
 - ccache/4.11.3
 - cello/2.1.0+git.20241201
@@ -135,6 +135,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cpython/3.9.23
 - crashpad/cci.20231107
 - criterion/2.4.2
+- crocoddyl/3.0.1
 - crow/1.1.0
 - crow/1.2.0
 - crow/1.2.1
@@ -437,6 +438,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - double-conversion/3.3.1
 - dpdk/24.07
 - dsdp/5.8
+- dynamic-graph/4.4.3
 - dynolog/0.5.0
 - dynolog/0.5.1-git.20250624
 - egl-headers/20220525
@@ -470,9 +472,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - firebird/5.0.0
 - flite/2.2
 - fltk/1.4.3
-- fmi/1.0.1
-- fmi/2.0.5
-- fmi/3.0.2
+- fmi2/2.0.5
 - fontconfig/2.16.2
 - fortran/cci.latest
 - freeglut/3.6.0
@@ -545,8 +545,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - grpc/1.74.1
 - gsettings-desktop-schemas/48.0
 - gsi-hpc-simd/0.0.0+git.20250901
-- gsl-lite/0.43.0
-- gsl-lite/1.0.1
 - gsl/2.8
 - gst-libav/1.24.12
 - gst-libav/1.26.0
@@ -601,6 +599,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hlslpp/3.5.3
 - hnswlib/0.8.0
 - hnswlib/0.8.0-cuvs
+- hpipm/0.1.3+git.20250801
 - hpipm/0.1.3+git.20250822
 - hpmpc/0.2+git.20250628
 - hscpp/1.0.0-alpha
@@ -772,6 +771,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
+- marchingcubecpp/git.20230911
 - marisa/0.3.1
 - mathdx/25.06.0
 - matplotlib-cpp/cci.20210423
@@ -807,6 +807,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mrcal/2.4.1
 - msys2/latest
 - mtdev/1.1.7
+- mujoco/3.3.6
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
 - nanobind/2.4.0
@@ -1016,6 +1017,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openiap/0.0.33
 - openimageio/3.0.8.0
 - openjph/0.21.5
+- openjph/0.22.0
 - openldap/2.6.10
 - openmp/system
 - openmpi/4.1.8
@@ -1028,7 +1030,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openrng/25.04
 - openspecfun/0.5.7
 - openucx/1.19.0
-- openusd/25.02
+- openusd/25.08
 - openxr/1.1.47
 - optix-headers/7.7.0
 - optix-headers/8.1.0
@@ -1036,6 +1038,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - or-tools/9.14
 - osgearth/3.7
 - osqp-eigen/0.10.1
+- osqp/0.5.0-casadi.20211016
 - osqp/1.0.0
 - osrm/5.27.1
 - ozz-animation/0.14.3
@@ -1083,12 +1086,15 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pthreadpool/cci.20250723
 - qcoro/0.10.0
 - qcustomplot/2.1.0
+- qdldl/0.1.9
 - qhull/7.3.2
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
 - qpalm/1.2.6
 - qpdunes/git.20171214
+- qpmad/1.4.0
 - qpoases/3.2.2
+- qpoases/3.2.2-casadi
 - qpswift/0.0.2
 - qscintilla/2.14.1
 - qsopt/1.01
@@ -1234,6 +1240,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - suitesparse-spqr/4.3.5
 - suitesparse-umfpack/6.3.5
 - suitesparse-umfpack/6.3.6
+- sundials/2.7.0
 - sundials/5.8.0
 - sundials/6.7.0
 - sundials/7.4.0
@@ -1269,6 +1276,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - tree-sitter/0.22.6
 - tree-sitter/0.23.0
 - tree-sitter/0.23.1
+- trianglemeshdistance/1.0.0+git.20240817
 - trlib/0.4+git.20240730
 - tsid/1.8.0
 - tz/2024b
