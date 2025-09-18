@@ -23,6 +23,10 @@ class PackageConan(ConanFile):
         "enable_deprecated": [True, False],
         "threadsafe_symbolics": [True, False],
         "install_internal_headers": [True, False],
+        "python_interface": [True, False],
+        "octave_interface": [True, False],
+        "matlab_interface": [True, False],
+        "json_interface": [True, False],
         "with_alpaqa": [True, False],
         "with_ampl": [True, False],
         "with_blocksqp": [True, False],
@@ -48,6 +52,7 @@ class PackageConan(ConanFile):
         "with_lapack": [True, False],
         "with_libzip": [True, False],
         "with_madnlp": [True, False],
+        "with_matlab_ipc": [True, False],
         "with_mumps": [True, False],
         "with_ooqp": [True, False],
         "with_openmp": [True, False],
@@ -69,6 +74,12 @@ class PackageConan(ConanFile):
         "enable_deprecated": True,
         "threadsafe_symbolics": False,
         "install_internal_headers": False,
+
+        # Bindings
+        "python_interface": False,
+        "octave_interface": False,
+        "matlab_interface": False,
+        "json_interface": False,
 
         # Linear solvers
         "with_csparse": True,
@@ -116,6 +127,7 @@ class PackageConan(ConanFile):
         "with_fmi3": True,
         "with_ghc_filesystem": True,
         "with_libzip": True,
+        "with_matlab_ipc": False,
         "with_rumoca": False,
         "with_openmp": True,
         "with_pthread": False,
@@ -183,8 +195,12 @@ class PackageConan(ConanFile):
             self.requires("libzip/[*]")
         if self.options.with_madnlp:
             self.requires("madnlp-mockup/[*]")
+        if self.options.matlab_interface or self.options.with_matlab_ipc:
+            self.requires("matlab-mockup/[*]")
         if self.options.with_mumps:
             self.requires("coin-mumps/[^3.0.5]")
+        if self.options.octave_interface:
+            self.requires("octave-mockup/[*]")
         if self.options.with_ooqp:
             self.requires("ooqp/[*]")
         if self.options.with_openmp:
@@ -222,6 +238,21 @@ class PackageConan(ConanFile):
             check_min_cppstd(self, 20)
         if self.options.with_pthread and self.settings.compiler == "msvc":
             raise ConanInvalidConfiguration("with_pthread=True is not supported for MSVC")
+        if self.options.matlab_interface and self.options.octave_interface:
+            raise ConanInvalidConfiguration("matlab_interface and octave_interface cannot be enabled at the same time")
+
+    @property
+    def _swig_required(self):
+        return any([
+            self.options.python_interface,
+            self.options.octave_interface,
+            self.options.matlab_interface,
+            self.options.json_interface,
+        ])
+
+    def build_requirements(self):
+        if self._swig_required:
+            self.tool_requires("swig-matlab/[*]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -238,16 +269,20 @@ class PackageConan(ConanFile):
         replace_in_file(self, "casadi/CMakeLists.txt", "file(RELATIVE_PATH TREL_BIN_PREFIX", "set(TREL_BIN_PREFIX bin) #")
         replace_in_file(self, "casadi/core/CMakeLists.txt", "file(RELATIVE_PATH TREL_BIN_PREFIX", "set(TREL_BIN_PREFIX bin) #")
         replace_in_file(self, "casadi/core/CMakeLists.txt", "file(RELATIVE_PATH TREL_INCLUDE_PREFIX", "set(TREL_INCLUDE_PREFIX include) #")
+        # The custom SWIG crashes with SIGILL inside Source/Modules/lang.cxx:format_paramlist() when the customdoc feature is enabled
+        replace_in_file(self, "swig/casadi.i", '%feature("customdoc", "1");', '%feature("customdoc", "0");')
+        # No need to copy the mock octave_adapter in Conan
+        replace_in_file(self, "swig/matlab/CMakeLists.txt", "install(FILES ${OCTINTERP_LOCATION} DESTINATION ${LIB_PREFIX})", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["FETCHCONTENT_FULLY_DISCONNECTED"] = True
         tc.cache_variables["WITH_EXAMPLES"] = False
         tc.cache_variables["USE_CXX11"] = True
-        tc.cache_variables["WITH_PYTHON"] = False  # TODO
-        tc.cache_variables["WITH_MATLAB"] = False
-        tc.cache_variables["WITH_OCTAVE"] = False  # TODO
-        tc.cache_variables["WITH_JSON"] = False  # TODO
+        tc.cache_variables["WITH_PYTHON"] = self.options.python_interface
+        tc.cache_variables["WITH_MATLAB"] = self.options.matlab_interface
+        tc.cache_variables["WITH_OCTAVE"] = self.options.octave_interface
+        tc.cache_variables["WITH_JSON"] = self.options.json_interface
         tc.cache_variables["INSTALL_INTERNAL_HEADERS"] = self.options.install_internal_headers
         tc.cache_variables["ENABLE_STATIC"] = not self.options.get_safe("shared", True)
         tc.cache_variables["ENABLE_SHARED"] = self.options.get_safe("shared", True)
@@ -262,7 +297,13 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_BUILD_TINYXML"] = False
         tc.cache_variables["CMAKE_Fortran_COMPILER"] = ""
         tc.cache_variables["Fortran_language_works"] = True
+        tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0148"] = "OLD"
+        tc.cache_variables["PYTHON_PREFIX"] = os.path.join(self.package_folder, "lib/python3/site-packages").replace("\\", "/")
+        tc.cache_variables["MATLAB_PREFIX"] = os.path.join(self.package_folder, "lib/matlab").replace("\\", "/")
+        tc.cache_variables["MATLAB_MEX_EXT"] = "mex"
+        tc.cache_variables["OCTAVE_MEX_EXT"] = "oct"
 
+        tc.cache_variables["WITH_MATLAB_IPC"] = self.options.with_matlab_ipc
         tc.cache_variables["WITH_FMI2"] = self.options.with_fmi2
         tc.cache_variables["WITH_FMI3"] = self.options.with_fmi3
         tc.cache_variables["WITH_SUNDIALS"] = self.options.with_sundials
@@ -343,9 +384,11 @@ class PackageConan(ConanFile):
         deps.set_property("ipopt", "cmake_file_name", "IPOPT")
         deps.set_property("knitro", "cmake_file_name", "KNITRO")
         deps.set_property("madnlp-mockup", "cmake_file_name", "MADNLP")
+        deps.set_property("matlab-mockup", "cmake_file_name", "MATLAB")
         deps.set_property("metis", "cmake_file_name", "METIS")
         deps.set_property("metis", "cmake_target_name", "metis::metis")
         deps.set_property("mumps", "cmake_file_name", "MUMPS")
+        deps.set_property("cctave-mockup", "cmake_file_name", "CCTAVE")
         deps.set_property("ooqp", "cmake_file_name", "OOQP")
         deps.set_property("ooqp", "cmake_target_name", "OOQP")
         deps.set_property("osqp", "cmake_file_name", "OSQP")
@@ -354,6 +397,7 @@ class PackageConan(ConanFile):
         deps.set_property("qpoases", "cmake_file_name", "QPOASES")
         deps.set_property("slicot", "cmake_file_name", "SLICOT")
         deps.set_property("snopt-mockup", "cmake_file_name", "SNOPT")
+        deps.set_property("sqic", "cmake_file_name", "SQIC")
         deps.set_property("suitesparse-cxsparse", "cmake_file_name", "CSPARSE")
         deps.set_property("sundials", "cmake_file_name", "SUNDIALS")
         deps.set_property("superscs", "cmake_target_name", "superscs")
@@ -361,23 +405,24 @@ class PackageConan(ConanFile):
         deps.set_property("tinyxml2", "cmake_target_name", "tinyxml2::tinyxml2")
         deps.set_property("worhp", "cmake_file_name", "WORHP")
         deps.set_property("worhp", "cmake_target_name", "worhp::worhp")
-        # deps.set_property("matlab", "cmake_file_name", "MATLAB")
-        # deps.set_property("numpy", "cmake_file_name", "NUMPY")
-        # deps.set_property("octave", "cmake_file_name", "OCTAVE")
-        # deps.set_property("snopt", "cmake_file_name", "SNOPT")
-        # deps.set_property("snopt_interface", "cmake_file_name", "SNOPT_INTERFACE")
-        # deps.set_property("sqic", "cmake_file_name", "SQIC")
+        if self._swig_required:
+            deps.build_context_activated.append("swig")
+            deps.build_context_build_modules.append("swig")
         deps.generate()
 
     def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+        if self.options.json_interface:
+            cmake.build(target="json")
 
     def package(self):
         copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+        if self.options.json_interface:
+            copy(self, "casadi.json", os.path.join(self.build_folder, "swig", "json"), os.path.join(self.package_folder, "share", "casadi"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
 
@@ -401,3 +446,10 @@ class PackageConan(ConanFile):
         else:
             casadipath = os.path.join(self.package_folder, "lib")
         self.runenv_info.define_path("CASADIPATH", casadipath)
+
+        if self.options.python_interface:
+            self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "lib/python3/site-packages"))
+        if self.options.octave_interface or self.options.matlab_interface:
+            self.runenv_info.prepend_path("MATLABPATH", os.path.join(self.package_folder, "lib/matlab"))
+        if self.options.json_interface:
+            self.cpp_info.resdirs.append("share/casadi")
