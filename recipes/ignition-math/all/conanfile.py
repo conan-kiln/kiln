@@ -1,5 +1,4 @@
 import os
-import textwrap
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -16,7 +15,6 @@ class IgnitionMathConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://gazebosim.org/libs/math"
     topics = ("ignition", "math", "robotics", "gazebo")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -38,25 +36,22 @@ class IgnitionMathConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("ignition-cmake/2.17.1", visible=False)
         self.requires("eigen/3.4.0", transitive_headers=True)
-        if self.options.enable_swig:
-            self.requires("swig/[^4.2.1]")
+        self.requires("pybind11/[^2]", visible=False)
 
     def validate(self):
         check_min_cppstd(self, 17)
 
     def build_requirements(self):
-        self.tool_requires("ignition-cmake/2.17.1")
-        self.tool_requires("doxygen/[>=1.8 <2]")
+        self.tool_requires("ignition-cmake/[^2.17.1]")
+        self.tool_requires("cpython/[^3]")
         if self.options.enable_swig:
-            self.tool_requires("swig/<host_version>")
+            self.tool_requires("swig/[^4]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        replace_in_file(self, os.path.join(self.source_folder, "src", "ruby", "CMakeLists.txt"),
-                        "${SWIG_USE_FILE}", "UseSWIG")
+        replace_in_file(self, "src/ruby/CMakeLists.txt", "${SWIG_USE_FILE}", "UseSWIG")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -64,6 +59,10 @@ class IgnitionMathConan(ConanFile):
         tc.cache_variables["SKIP_SWIG"] = not self.options.enable_swig
         tc.generate()
         deps = CMakeDeps(self)
+        deps.build_context_activated.append("ignition-cmake")
+        deps.build_context_build_modules.append("ignition-cmake")
+        deps.build_context_activated.append("swig")
+        deps.build_context_build_modules.append("swig")
         deps.generate()
 
     def build(self):
@@ -71,52 +70,34 @@ class IgnitionMathConan(ConanFile):
         cmake.configure()
         cmake.build()
 
-    def _create_cmake_module_variables(self, module_file, version):
-        content = textwrap.dedent(f"""\
-            set(ignition-math{version.major}_VERSION_MAJOR {version.major})
-            set(ignition-math{version.major}_VERSION_MINOR {version.minor})
-            set(ignition-math{version.major}_VERSION_PATCH {version.patch})
-            set(ignition-math{version.major}_VERSION_STRING "{version.major}.{version.minor}.{version.patch}")
-            set(ignition-math{version.major}_INCLUDE_DIRS "${{CMAKE_CURRENT_LIST_DIR}}/../../include/ignition/math{version.major}")
-        """)
-        save(self, module_file, content)
-
     def package(self):
         copy(self, "LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "share"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_file_rel_path), Version(self.version))
-
         # Remove MS runtime files
         for dll_pattern_to_remove in ["concrt*.dll", "msvcp*.dll", "vcruntime*.dll"]:
             rm(self, dll_pattern_to_remove, os.path.join(self.package_folder, "bin"), recursive=True)
 
-    @property
-    def _module_file_rel_dir(self):
-        return os.path.join("lib", "cmake")
-
-    @property
-    def _module_file_rel_path(self):
-        return os.path.join(self._module_file_rel_dir, f"conan-official-{self.name}-variables.cmake")
-
     def package_info(self):
-        version_major = str(Version(self.version).major)
-        lib_name = f"ignition-math{version_major}"
+        major = Version(self.version).major
+        libname = f"ignition-math{major}"
+        self.cpp_info.set_property("cmake_file_name", libname)
+        self.cpp_info.set_property("cmake_target_name", f"{libname}::{libname}-all")
 
-        # Based on https://github.com/gazebosim/gz-math/blob/ignition-math6_6.10.0/examples/CMakeLists.txt
-        self.cpp_info.set_property("cmake_file_name", lib_name)
-        self.cpp_info.set_property("cmake_target_name", f"{lib_name}::{lib_name}")
-
-        main_component = self.cpp_info.components[lib_name]
-        main_component.libs = [lib_name]
-        main_component.includedirs.append(os.path.join("include", "ignition", "math" + version_major))
+        main_component = self.cpp_info.components[libname]
+        main_component.set_property("cmake_target_name", f"{libname}::{libname}")
+        main_component.set_property("pkg_config_name", libname)
+        main_component.libs = [libname]
+        main_component.includedirs.append(f"include/ignition/math{major}")
+        main_component.resdirs = ["share"]
         main_component.requires = ["eigen::eigen"]
-        if self.options.enable_swig:
-            main_component.requires.append("swig::swig")
 
         eigen3_component = self.cpp_info.components["eigen3"]
-        eigen3_component.includedirs.append(os.path.join("include", "ignition", "math" + version_major))
-        eigen3_component.requires = ["eigen::eigen"]
+        eigen3_component.set_property("cmake_target_name", f"{libname}::{libname}-eigen3")
+        eigen3_component.set_property("pkg_config_name", f"{libname}-eigen3")
+        eigen3_component.includedirs.append(f"include/ignition/math{major}")
+        eigen3_component.requires = [libname, "eigen::eigen"]
+
+        self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "lib", "python", "ignition"))
