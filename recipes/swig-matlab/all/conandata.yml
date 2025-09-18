@@ -1,0 +1,11 @@
+sources:
+  "3.0.11+git.20250327":
+    "swig":
+      url: "https://github.com/jaeandersson/swig/archive/49ac0e6134329051abf9f1e92c1e2c3b57475627.tar.gz"
+      sha256: "4a035767fff4abfbb9f7e99ab265a909eb087cb991ca8364a1739e20fe225332"
+    "cmakelists":
+      url: "https://raw.githubusercontent.com/swig/swig/f762ab35b29b993e868ea4e0750bdb608e0084cd/CMakeLists.txt"
+      sha256: "bc5cc57d713f4391206e1403b226e400b6a83413f1add002932628d6b2657545"
+    "swigconfig":
+      url: "https://raw.githubusercontent.com/swig/swig/3555c310b2a64d64752eacd6cd3f051a83246a98/Tools/cmake/swigconfig.h.in"
+      sha256: "266205e9c8690031161efaa33e3db872ce41a3ad7ef17d077308fdbecd298faf"
