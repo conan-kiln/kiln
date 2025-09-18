@@ -20,17 +20,12 @@ class IgnitionMathConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "enable_swig": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "enable_swig": True,
     }
     implements = ["auto_shared_fpic"]
-
-    def export_sources(self):
-        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -45,18 +40,15 @@ class IgnitionMathConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("ignition-cmake/[^2.17.1]")
         self.tool_requires("cpython/[^3]")
-        if self.options.enable_swig:
-            self.tool_requires("swig/[^4]")
+        self.tool_requires("swig/[^4]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
         replace_in_file(self, "src/ruby/CMakeLists.txt", "${SWIG_USE_FILE}", "UseSWIG")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["BUILD_TESTING"] = False
-        tc.cache_variables["SKIP_SWIG"] = not self.options.enable_swig
         tc.generate()
         deps = CMakeDeps(self)
         deps.build_context_activated.append("ignition-cmake")
@@ -100,4 +92,5 @@ class IgnitionMathConan(ConanFile):
         eigen3_component.includedirs.append(f"include/ignition/math{major}")
         eigen3_component.requires = [libname, "eigen::eigen"]
 
-        self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "lib", "python", "ignition"))
+        self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "lib", "python"))
+        self.runenv_info.prepend_path("RUBYLIB", os.path.join(self.package_folder, "lib", "ruby"))
