@@ -58,6 +58,7 @@ class PackageConan(ConanFile):
         "with_rumoca": [True, False],
         "with_sleqp": [True, False],
         "with_slicot": [True, False],
+        "with_snopt": [True, False],
         "with_sundials": [True, False],
         "with_superscs": [True, False],
         "with_tinyxml": [True, False],
@@ -101,6 +102,7 @@ class PackageConan(ConanFile):
         "with_knitro": False,  # commercial
         "with_madnlp": False,
         "with_sleqp": False,
+        "with_snopt": False,  # commercial
         "with_worhp": False,  # commercial
 
         # Discrete periodic Lyapunov Equation solver, matrix exponential
@@ -201,6 +203,8 @@ class PackageConan(ConanFile):
             self.requires("sleqp/[*]")
         if self.options.with_slicot:
             self.requires("slicot/[*]")
+        if self.options.with_snopt:
+            self.requires("snopt-mockup/[*]")
         if self.options.with_sundials:
             self.requires("sundials/[^2.5]", options={"build_arkode": False, "build_cvode": False, "build_ida": False})
         if self.options.with_superscs:
@@ -280,7 +284,7 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_IPOPT"] = self.options.with_ipopt
         tc.cache_variables["WITH_MADNLP"] = self.options.with_madnlp
         tc.cache_variables["WITH_KNITRO"] = self.options.with_knitro
-        tc.cache_variables["WITH_SNOPT"] = False
+        tc.cache_variables["WITH_SNOPT"] = self.options.with_snopt
         tc.cache_variables["WITH_WORHP"] = self.options.with_worhp
         tc.cache_variables["WITH_CPLEX"] = self.options.with_cplex
         tc.cache_variables["WITH_GUROBI"] = self.options.with_gurobi
@@ -349,6 +353,7 @@ class PackageConan(ConanFile):
         deps.set_property("proxsuite", "cmake_file_name", "PROXQP")
         deps.set_property("qpoases", "cmake_file_name", "QPOASES")
         deps.set_property("slicot", "cmake_file_name", "SLICOT")
+        deps.set_property("snopt-mockup", "cmake_file_name", "SNOPT")
         deps.set_property("suitesparse-cxsparse", "cmake_file_name", "CSPARSE")
         deps.set_property("sundials", "cmake_file_name", "SUNDIALS")
         deps.set_property("superscs", "cmake_target_name", "superscs")
