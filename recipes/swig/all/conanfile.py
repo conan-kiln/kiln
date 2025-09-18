@@ -21,11 +21,6 @@ class SwigConan(ConanFile):
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 
-    def configure(self):
-        # SWIG prefers static linking
-        self.options["pcre2"].shared = False
-        self.options["libgettext"].shared = False
-
     def export_sources(self):
         copy(self, "cmake/*", src=self.recipe_folder, dst=self.export_sources_folder)
         export_conandata_patches(self)
