@@ -68,6 +68,7 @@ class TestPackageConan(ConanFile):
                 self._test_swig_module()
         self.run("swig -swiglib")
         self.run("swig -version")
+        self.run("swig -pcreversion")
         stdout = io.StringIO()
         self.run("swig --help", stdout=stdout)
         self.output.info("\n\n" + stdout.getvalue().split("General Options")[0].strip())
