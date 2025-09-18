@@ -46,7 +46,8 @@ class SuperLuMtConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("suitesparse-colamd/[*]")
+        # Unvendoring COLAMD causes missing symbols in Octave
+        # self.requires("suitesparse-colamd/[*]")
         self.requires("openblas/[*]")
         if self.options.threading == "openmp":
             self.requires("openmp/system")
@@ -60,10 +61,10 @@ class SuperLuMtConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        rm(self, "colamd.*", "SRC")
-        save(self, "SRC/CMakeLists.txt",
-             "\nfind_package(COLAMD REQUIRED)\n"
-             "target_link_libraries (superlu_mt${PLAT} PRIVATE SuiteSparse::COLAMD)\n", append=True)
+        # rm(self, "colamd.*", "SRC")
+        # save(self, "SRC/CMakeLists.txt",
+        #      "\nfind_package(COLAMD REQUIRED)\n"
+        #      "target_link_libraries (superlu_mt${PLAT} PRIVATE SuiteSparse::COLAMD)\n", append=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -96,6 +97,7 @@ class SuperLuMtConan(ConanFile):
         copy(self, "License.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+        rm(self, "colamd.h", os.path.join(self.package_folder, "include", "superlu_mt"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "superlu_mt")
