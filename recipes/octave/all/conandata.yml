@@ -1,0 +1,6 @@
+sources:
+  "10.2.0":
+    url:
+      - "https://ftpmirror.gnu.org/octave/octave-10.2.0.tar.gz"
+      - "https://ftp.gnu.org/octave/octave-10.2.0.tar.gz"
+    sha256: "07fb6d9339d2f350735c91671be8e874d160018cc6b688f9efd9d558d237f69f"
