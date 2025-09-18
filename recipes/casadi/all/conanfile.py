@@ -47,6 +47,7 @@ class PackageConan(ConanFile):
         "with_knitro": [True, False],
         "with_lapack": [True, False],
         "with_libzip": [True, False],
+        "with_madnlp": [True, False],
         "with_mumps": [True, False],
         "with_ooqp": [True, False],
         "with_openmp": [True, False],
@@ -98,6 +99,7 @@ class PackageConan(ConanFile):
         "with_bonmin": False,
         "with_ipopt": True,
         "with_knitro": False,  # commercial
+        "with_madnlp": False,
         "with_sleqp": False,
         "with_worhp": False,  # commercial
 
@@ -177,6 +179,8 @@ class PackageConan(ConanFile):
             self.requires("openblas/[>=0.3 <1]")
         if self.options.with_libzip:
             self.requires("libzip/[*]")
+        if self.options.with_madnlp:
+            self.requires("madnlp-mockup/[*]")
         if self.options.with_mumps:
             self.requires("coin-mumps/[^3.0.5]")
         if self.options.with_ooqp:
@@ -274,8 +278,7 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_BLOCKSQP"] = self.options.with_blocksqp
         tc.cache_variables["WITH_SLEQP"] = self.options.with_sleqp
         tc.cache_variables["WITH_IPOPT"] = self.options.with_ipopt
-        tc.cache_variables["WITH_MOCKUP_REQUIRED"] = False
-        tc.cache_variables["WITH_MADNLP"] = False  # TODO
+        tc.cache_variables["WITH_MADNLP"] = self.options.with_madnlp
         tc.cache_variables["WITH_KNITRO"] = self.options.with_knitro
         tc.cache_variables["WITH_SNOPT"] = False
         tc.cache_variables["WITH_WORHP"] = self.options.with_worhp
@@ -300,6 +303,7 @@ class PackageConan(ConanFile):
         tc.cache_variables["WITH_SPRAL"] = False  # only used to build Ipopt
         tc.cache_variables["WITH_DSDP"] = False  # not used anywhere
         tc.cache_variables["WITH_OPENCL"] = False  # not used anywhere
+        tc.cache_variables["WITH_MOCKUP_REQUIRED"] = False
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -334,6 +338,7 @@ class PackageConan(ConanFile):
         deps.set_property("hpmpc", "cmake_file_name", "HPMPC")
         deps.set_property("ipopt", "cmake_file_name", "IPOPT")
         deps.set_property("knitro", "cmake_file_name", "KNITRO")
+        deps.set_property("madnlp-mockup", "cmake_file_name", "MADNLP")
         deps.set_property("metis", "cmake_file_name", "METIS")
         deps.set_property("metis", "cmake_target_name", "metis::metis")
         deps.set_property("mumps", "cmake_file_name", "MUMPS")
