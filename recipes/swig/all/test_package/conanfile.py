@@ -1,4 +1,5 @@
 import importlib
+import io
 import os
 import sys
 from pathlib import PurePath
@@ -62,8 +63,11 @@ class TestPackageConan(ConanFile):
         sys.path.pop()
 
     def test(self):
-        self.run("swig -version")
-        self.run("swig -swiglib")
         if can_run(self):
             if self._can_build:
                 self._test_swig_module()
+        self.run("swig -swiglib")
+        self.run("swig -version")
+        stdout = io.StringIO()
+        self.run("swig --help", stdout=stdout)
+        self.output.info("\n\n" + stdout.getvalue().split("General Options")[0].strip())
