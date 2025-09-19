@@ -1,0 +1,4 @@
+sources:
+  "2.15.0+git.20180404":
+    url: "https://github.com/clMathLibraries/clFFT/archive/86cae9a8a7e1fc112be4055c1f7ecbd7e76f57c6.tar.gz"
+    sha256: "dd324dbdf374ee01f410fe0663cffb58d60eb33442f7ddaf0b27d1df31e20251"
