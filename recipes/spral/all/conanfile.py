@@ -88,8 +88,6 @@ class SpralConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        # Fortran as the only link_language is not correct and breaks C++ linking for static builds
-        replace_in_file(self, "meson.build", "link_language : 'fortran',", "")
 
     def generate(self):
         tc = MesonToolchain(self)

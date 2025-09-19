@@ -1,6 +1,6 @@
 --- a/meson.build
 +++ b/meson.build
-@@ -49,60 +49,39 @@
+@@ -49,55 +49,34 @@
  build_tests = get_option('tests')
  build_examples = get_option('examples')
  build_openmp = get_option('openmp')
@@ -68,22 +68,16 @@
 +if get_option('metis64')
    add_global_arguments('-DSPRAL_HAVE_METIS_H=1', language : 'fortran')
    add_global_arguments('-DSIZEOF_IDX_T=8', language : 'fortran')
- endif
- 
+-endif
+-
 -# HWLOC
 -has_hwloch = cc.has_header('hwloc.h', include_directories : libhwloc_include)
 -if libhwloc.found() and has_hwloch
 -  add_global_arguments('-DHAVE_HWLOC', language : 'cpp')
--endif
--
- # SCHED_GETCPU
- if host_machine.system() == 'linux'
--  add_global_arguments('-DHAVE_SCHED_GETCPU', language : 'cpp')
-+  add_global_arguments('-DHAVE_SCHED_GETCPU', language: 'cpp')
  endif
  
- # OpenMP
-@@ -177,8 +158,6 @@
+ # SCHED_GETCPU
+@@ -171,8 +150,6 @@
  spral_headers = []
  libspral_include = []
  libspral_include += include_directories('include', 'src')
