@@ -27,16 +27,16 @@ external_deps = {
 }
 
 abseil_irregular = {
-    "absl/algorithm:container": "abseil::absl_algorithm_container",
-    "absl/flags:flag": "abseil::absl_flags",
-    "absl/flags:marshalling": "abseil::absl_flags_marshalling",
-    "absl/flags:parse": "abseil::absl_flags_parse",
-    "absl/flags:reflection": "abseil::absl_flags_reflection",
-    "absl/flags:usage": "abseil::absl_flags_usage",
-    "absl/log:globals": "abseil::absl_log_globals",
-    "absl/random:bit_gen_ref": "abseil::absl_random_bit_gen_ref",
-    "absl/random:distributions": "abseil::absl_random_distributions",
-    "absl/random:random": "abseil::absl_random_random",
+    "absl/algorithm:container": "abseil::algorithm_container",
+    "absl/flags:flag": "abseil::flags",
+    "absl/flags:marshalling": "abseil::flags_marshalling",
+    "absl/flags:parse": "abseil::flags_parse",
+    "absl/flags:reflection": "abseil::flags_reflection",
+    "absl/flags:usage": "abseil::flags_usage",
+    "absl/log:globals": "abseil::log_globals",
+    "absl/random:bit_gen_ref": "abseil::random_bit_gen_ref",
+    "absl/random:distributions": "abseil::random_distributions",
+    "absl/random:random": "abseil::random_random",
 }
 
 
@@ -49,7 +49,7 @@ def fetch_build_data(version):
 
 def rename_dep(dep):
     dep = abseil_irregular.get(dep, dep)
-    dep = re.sub(r"^absl/\w+:(\w+)$", r"abseil::absl_\1", dep)
+    dep = re.sub(r"^absl/\w+:(\w+)$", r"abseil::\1", dep)
     return external_deps.get(dep, dep)
 
 

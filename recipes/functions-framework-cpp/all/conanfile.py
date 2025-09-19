@@ -80,7 +80,7 @@ class FunctionsFrameworkCppConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "functions_framework_cpp")
         self.cpp_info.libs = ["functions_framework_cpp"]
         self.cpp_info.requires = [
-            "abseil::absl_time",
+            "abseil::time",
             "boost::headers",
             "boost::program_options",
             "nlohmann_json::nlohmann_json",

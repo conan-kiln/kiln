@@ -156,7 +156,7 @@ class LibphonenumberConan(ConanFile):
         elif is_apple_os(self):
             self.cpp_info.components["phonenumber"].frameworks.extend(["CoreFoundation", "Foundation"])
 
-        requires = ["abseil::absl_node_hash_set", "abseil::absl_strings", "abseil::absl_synchronization"]
+        requires = ["abseil::node_hash_set", "abseil::strings", "abseil::synchronization"]
         if self.dependencies["protobuf"].options.lite:
             requires.append("protobuf::libprotobuf-lite")
         else:
@@ -171,4 +171,4 @@ class LibphonenumberConan(ConanFile):
             if self.options.shared:
                 self.cpp_info.components["geocoding"].set_property("cmake_target_aliases", ["libphonenumber::geocoding-shared"])
             self.cpp_info.components["geocoding"].libs.append("geocoding")
-            self.cpp_info.components["geocoding"].requires = ["abseil::absl_synchronization", "icu::icu-uc"]
+            self.cpp_info.components["geocoding"].requires = ["abseil::synchronization", "icu::icu-uc"]

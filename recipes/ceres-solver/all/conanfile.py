@@ -297,15 +297,15 @@ class CeresSolverConan(ConanFile):
         if Version(self.version, qualifier=True) >= "2.3.0":
             # Based on https://github.com/ceres-solver/ceres-solver/blob/93e66f0/bazel/ceres.bzl#L215-L222
             requires.extend([
-                "abseil::absl_btree",
-                "abseil::absl_check",
-                "abseil::absl_fixed_array",
-                "abseil::absl_flat_hash_map",
-                "abseil::absl_flat_hash_set",
-                "abseil::absl_log",
-                "abseil::absl_strings",
-                "abseil::absl_time",
-                "abseil::absl_vlog_is_on",
+                "abseil::btree",
+                "abseil::check",
+                "abseil::fixed_array",
+                "abseil::flat_hash_map",
+                "abseil::flat_hash_set",
+                "abseil::log",
+                "abseil::strings",
+                "abseil::time",
+                "abseil::vlog_is_on",
             ])
         elif not self._use_miniglog:
             requires.append("glog::glog")

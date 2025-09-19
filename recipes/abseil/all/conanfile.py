@@ -96,16 +96,16 @@ class AbseilConan(ConanFile):
         for (cmake_function_name, cmake_function_args) in cmake_functions:
             cmake_function_args = re.split(r"[\s|\n]+", cmake_function_args, maxsplit=2)
 
-            cmake_imported_target_name = cmake_function_args[0]
-            cmake_target_nonamespace = cmake_imported_target_name.replace("absl::", "")
-            potential_lib_name = "absl_" + cmake_target_nonamespace
+            cmake_target_name = cmake_function_args[0]
+            component = cmake_target_name.replace("absl::", "")
 
-            components.setdefault(potential_lib_name, {"cmake_target": cmake_target_nonamespace})
+            components.setdefault(component, {})
 
             if cmake_function_name == "add_library":
                 cmake_imported_target_type = cmake_function_args[1]
                 if cmake_imported_target_type in ["STATIC", "SHARED"]:
-                    components[potential_lib_name]["libs"] = [potential_lib_name] if cmake_target_nonamespace != "abseil_dll" else ['abseil_dll']
+                    lib_name = "absl_" + component if component != "abseil_dll" else "abseil_dll"
+                    components[component]["libs"] = [lib_name]
             elif cmake_function_name == "set_target_properties":
                 target_properties = re.findall(r"(?P<property>INTERFACE_COMPILE_DEFINITIONS|INTERFACE_INCLUDE_DIRECTORIES|INTERFACE_LINK_LIBRARIES)[\n|\s]+(?P<values>.+)", cmake_function_args[2])
                 for target_property in target_properties:
@@ -114,31 +114,31 @@ class AbseilConan(ConanFile):
                         values_list = target_property[1].replace('"', "").split(";")
                         for dependency in values_list:
                             if dependency.startswith("absl::"): # abseil targets
-                                components[potential_lib_name].setdefault("requires", []).append(dependency.replace("absl::", "absl_"))
+                                components[component].setdefault("requires", []).append(dependency.replace("absl::", ""))
                             else: # system libs or frameworks
                                 if self.settings.os in ["Linux", "FreeBSD"]:
                                     if dependency == "Threads::Threads":
-                                        components[potential_lib_name].setdefault("system_libs", []).append("pthread")
+                                        components[component].setdefault("system_libs", []).append("pthread")
                                     elif "-lm" in dependency:
-                                        components[potential_lib_name].setdefault("system_libs", []).append("m")
+                                        components[component].setdefault("system_libs", []).append("m")
                                     elif "-lrt" in dependency:
-                                        components[potential_lib_name].setdefault("system_libs", []).append("rt")
+                                        components[component].setdefault("system_libs", []).append("rt")
                                 elif self.settings.os == "Windows":
                                     for system_lib in ["bcrypt", "advapi32", "dbghelp"]:
                                         if system_lib in dependency:
-                                            components[potential_lib_name].setdefault("system_libs", []).append(system_lib)
+                                            components[component].setdefault("system_libs", []).append(system_lib)
                                 elif is_apple_os(self):
                                     for framework in ["CoreFoundation"]:
                                         if framework in dependency:
-                                            components[potential_lib_name].setdefault("frameworks", []).append(framework)
+                                            components[component].setdefault("frameworks", []).append(framework)
                     elif property_type == "INTERFACE_COMPILE_DEFINITIONS":
                         values_list = target_property[1].replace('"', "").split(";")
                         for definition in values_list:
                             if definition == r"\$<\$<PLATFORM_ID:AIX>:_LINUX_SOURCE_COMPAT>":
                                 if self.settings.os == "AIX":
-                                    components[potential_lib_name].setdefault("defines", []).append("_LINUX_SOURCE_COMPAT")
+                                    components[component].setdefault("defines", []).append("_LINUX_SOURCE_COMPAT")
                             else:
-                                components[potential_lib_name].setdefault("defines", []).append(definition)
+                                components[component].setdefault("defines", []).append(definition)
 
         return components
 
@@ -155,11 +155,10 @@ class AbseilConan(ConanFile):
 
         components_json_file = load(self, self._components_helper_filepath)
         abseil_components = json.loads(components_json_file)
-        for pkgconfig_name, values in abseil_components.items():
-            cmake_target = values["cmake_target"]
-            component = self.cpp_info.components[pkgconfig_name]
-            component.set_property("cmake_target_name", f"absl::{cmake_target}")
-            component.set_property("pkg_config_name", pkgconfig_name)
+        for component_name, values in abseil_components.items():
+            component = self.cpp_info.components[component_name]
+            component.set_property("cmake_target_name", f"absl::{component_name}")
+            component.set_property("pkg_config_name", f"absl_{component_name}")
             component.libs = values.get("libs", [])
             component.defines = values.get("defines", [])
             component.system_libs = values.get("system_libs", [])

@@ -32,7 +32,7 @@ class FirebirdConan(ConanFile):
         # Newer versions of re2 add abseil as a transitive dependency,
         # which makes ./configure unusably slow for some reason
         self.requires("re2/[>=20220601]")
-        # self.requires("abseil/[>=20250127.0]")  # only absl_int128 is used
+        # self.requires("abseil/[>=20250127.0]")  # only int128 is used
 
         # TODO: unvendor
         # self.requires("libtommath/1.3.0")
