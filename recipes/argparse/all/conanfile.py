@@ -1,11 +1,9 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -16,30 +14,9 @@ class ArgparseConan(ConanFile):
     license = "MIT"
     homepage = "https://github.com/p-ranav/argparse"
     topics = ("argument", "parsing", "header-only")
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
-
-    @property
-    def _min_cppstd(self):
-        return "17"
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "gcc": "7" if Version(self.version) <= "2.1" else "8",
-            "clang": "5" if Version(self.version) <= "2.1" else "7",
-            # trantor/2.5 uses [[maybe_unused]] in range-based for loop
-            # Visual Studio 15 doesn't support it:
-            # https://developercommunity.visualstudio.com/t/compiler-bug-on-parsing-maybe-unused-in-range-base/209488
-            "msvc": "191" if Version(self.version) < "2.5" else "192",
-            "apple-clang": "10",
-        }
-
-    def export_sources(self):
-        for p in self.conan_data.get("patches", {}).get(self.version, []):
-            copy(self, p["patch_file"], self.recipe_folder, self.export_sources_folder)
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -48,34 +25,18 @@ class ArgparseConan(ConanFile):
         self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.name} {self.version} requires C++{self._min_cppstd}, which your compiler does not support.",
-            )
-
-        if Version(self.version) > "2.1" and self.settings.compiler == "clang" and self.settings.compiler.libcxx == "libstdc++":
-            raise ConanInvalidConfiguration("This recipe does not permit >2.1 with clang and stdlibc++. There may be an infrastructure issue in CCI.")
+        check_min_cppstd(self, 17)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def package(self):
-        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        if Version(self.version) <= "2.1":
-            include_dst = os.path.join(self.package_folder, "include", "argparse")
-        else:
-            include_dst = os.path.join(self.package_folder, "include")
-        copy(self, "*.hpp", src=os.path.join(self.source_folder, "include"), dst=include_dst)
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*.hpp", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
-        self.cpp_info.bindirs = []
-        self.cpp_info.libdirs = []
-
         self.cpp_info.set_property("cmake_file_name", "argparse")
         self.cpp_info.set_property("cmake_target_name", "argparse::argparse")
         self.cpp_info.set_property("pkg_config_name", "argparse")
-        if Version(self.version) <= "2.1":
-            self.cpp_info.includedirs.append(os.path.join("include", "argparse"))
+        self.cpp_info.bindirs = []
+        self.cpp_info.libdirs = []
