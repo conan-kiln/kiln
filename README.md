@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-18:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-20:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -23,6 +23,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
+- aligator/0.15.0
 - alpaqa/1.0.0-casadi.20230731
 - alpaqa/1.1.0a1
 - ampl-asl/1.0.1
@@ -35,6 +36,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - armadillo/12.6.7
 - armadillo/12.8.1
 - armpl/25.07.0
+- arpack-ng/3.9.1
 - asio-grpc/1.7.0
 - asio-grpc/2.0.0
 - asio-grpc/2.1.0
@@ -51,6 +53,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - automake/1.18.1
 - aws-cdi-sdk/2.4.1
 - azure-sdk-for-cpp/1.13.0
+- bazel/7.6.1
+- bazel/8.4.1
 - bear/3.1.6
 - binutils/2.41
 - binutils/2.44
@@ -81,8 +85,12 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - clang/19.1.7
 - clang/20.1.7
 - clarabel/0.11.1
+- clblas/2.13.0+git.20181110
+- clfft/2.15.0+git.20180404
 - cliquer/1.23
 - cloudini/0.3.0
+- clrng/1.0.0+git.20150923
+- clsparse/0.11.2+git.20170213
 - cmake/3.19.8
 - cmake/3.20.6
 - cmake/3.21.7
@@ -106,6 +114,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - coin-cgl/0.60.9
 - coin-clp/1.17.10
 - coin-couenne/0.5.8
+- coin-csdp/0.95.1
 - coin-dip/0.95.1
 - coin-dylp/1.10.4
 - coin-hsl/2024.05.15
@@ -386,7 +395,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cusolvermp/0.4.3.549
 - cusolvermp/0.5.1.690
 - cusolvermp/0.6.0.712
-- cusolvermp/0.7.0.833
+- cusolvermp/0.7.1.851
 - cusparse/11.6.0.120
 - cusparse/11.7.5.86
 - cusparse/12.0.2.55
@@ -450,6 +459,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
+- embag/0.0.43
 - embree/3.12.0
 - embree/3.13.1
 - embree/3.13.3
@@ -609,6 +619,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - icu4x/1.5.1
 - ideep/3.9.0.4
 - ifcopenshell/0.8.0.cci.20250501
+- ignition-cmake/2.17.2
+- ignition-math/6.15.1
+- ignition-tools/1.5.0
+- ignition-utils/1.5.1
 - imagemagick/7.1.1.38
 - imgui/1.91.9
 - imgui/1.91.9b
@@ -771,9 +785,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
+- madnlp-mockup/89
 - marchingcubecpp/git.20230911
 - marisa/0.3.1
 - mathdx/25.06.0
+- matlab-mockup/89
 - matplotlib-cpp/cci.20210423
 - matplotplusplus/1.2.0
 - matx/0.9.2
@@ -988,6 +1004,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvvm/12.9.86
 - nvvm/13.0.88
 - ocl-icd/2.3.3
+- octave-mockup/89
+- octave/10.2.0
 - odbc/2.3.12
 - ogg/1.3.6
 - ogre/14.3.4
@@ -1059,7 +1077,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pdfio/1.5.2
 - perf/6.11
 - piex/0.27
-- pinocchio/3.7.0
+- pinocchio/3.8.0
 - pipewire/1.4.2
 - piqp/0.6.1
 - pistache/0.4.26
@@ -1096,6 +1114,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - qpoases/3.2.2
 - qpoases/3.2.2-casadi
 - qpswift/0.0.2
+- qrupdate-ng/1.1.5
 - qscintilla/2.14.1
 - qsopt/1.01
 - qtawesome/6.5.1
@@ -1165,6 +1184,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - small_gicp/0.1.2
 - smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
+- snopt-mockup/89
 - soplex/3.1.1
 - spectra/1.1.0
 - speech-dispatcher/0.12
@@ -1187,7 +1207,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - spirv-tools/1.3.296.0
 - spirv-tools/1.4.321.0
 - splinter/3.0
-- spral/2025.05.20
+- spral/2025.09.18
 - stablehlo/1.10.0
 - stablehlo/1.6.3
 - stablehlo/1.8.11
@@ -1248,6 +1268,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - superlu/7.0.1
 - superlu_mt/4.0.1
 - superscs/1.3.3+git.20210825
+- swig-matlab/3.0.11+git.20250327
 - swig/4.3.1
 - tcl/8.6.16
 - tcl/9.0.1
