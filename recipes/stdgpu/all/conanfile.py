@@ -81,6 +81,10 @@ class StdgpuConan(ConanFile):
         replace_in_file(self, "src/stdgpu/CMakeLists.txt",
                         'install(FILES "${stdgpu_SOURCE_DIR}/cmake/Findthrust.cmake"',
                         'message(TRACE # install(FILES "${stdgpu_SOURCE_DIR}/cmake/Findthrust.cmake"')
+        # For compatibility with CUDA from Conan
+        replace_in_file(self, "src/stdgpu/cuda/CMakeLists.txt",
+                        "find_package(CUDAToolkit ",
+                        "find_package(CUDAToolkit REQUIRED) #")
 
     def generate(self):
         tc = CMakeToolchain(self)
