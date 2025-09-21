@@ -1,0 +1,7 @@
+sources:
+  "6.3.0-git.20211013":
+    url: "https://github.com/Gecode/gecode/archive/fec7e9fd99bca98f146416ba8ea8adc278f5a95a.tar.gz"
+    sha256: "8c82e570c7fe9336c7a2c4b249548ab3c9c4d5273d1b7ac79e209e81a181c975"
+  "6.2.0":
+    url: "https://github.com/Gecode/gecode/archive/refs/tags/release-6.2.0.tar.gz"
+    sha256: "27d91721a690db1e96fa9bb97cec0d73a937e9dc8062c3327f8a4ccb08e951fd"
