@@ -38,7 +38,7 @@ class OsqpConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("qdldl/[>=0.1 <1]")
+        self.requires("qdldl/[>=0.1 <1]", options={"float32": self.options.float32, "int32": self.options.int32})
         self.requires("suitesparse-amd/[*]")
 
     @property

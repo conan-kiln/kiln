@@ -40,6 +40,10 @@ class OsqpConan(ConanFile):
     def cuda(self):
         return self.python_requires["conan-cuda"].module.Interface(self)
 
+    def export_sources(self):
+        export_conandata_patches(self)
+        copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
+
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
@@ -52,6 +56,8 @@ class OsqpConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires("qdldl/[>=0.1 <1]", options={"float32": self.options.float32, "int32": self.options.int32})
+        self.requires("suitesparse-amd/[*]")
         if self.options.backend == "cuda":
             self.cuda.requires("cudart")
             self.cuda.requires("cublas")
@@ -70,12 +76,15 @@ class OsqpConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         # Let CudaToolchain manage CUDA architectures
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CUDA_ARCHITECTURES ", "# set(CMAKE_CUDA_ARCHITECTURES ")
         replace_in_file(self, "algebra/mkl/CMakeLists.txt", "$<TARGET_PROPERTY:MKL::MKL", ") #")
+        rmdir(self, "algebra/_common/lin_sys/qdldl/amd")
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.variables["CMAKE_PROJECT_osqp_INCLUDE"] = "conan_deps.cmake"
         tc.variables["OSQP_BUILD_SHARED_LIB"] = self.options.shared
         tc.variables["OSQP_BUILD_STATIC_LIB"] = not self.options.shared
         tc.variables["OSQP_ALGEBRA_BACKEND"] = self.options.backend
