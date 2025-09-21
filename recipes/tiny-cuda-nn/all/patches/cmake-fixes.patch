@@ -1,0 +1,87 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -53,14 +53,6 @@
+ 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
+ endif()
+ 
+-if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/cutlass/CMakeLists.txt")
+-	message(FATAL_ERROR
+-		"Some tiny-cuda-nn dependencies are missing. "
+-		"If you forgot the \"--recursive\" flag when cloning this project, "
+-		"this can be fixed by calling \"git submodule update --init --recursive\"."
+-	)
+-endif()
+-
+ if (APPLE)
+ 	set(CMAKE_MACOSX_RPATH ON)
+ endif()
+@@ -75,7 +67,6 @@
+ 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+ endif()
+ 
+-set(CMAKE_CXX_STANDARD 14)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_CXX_EXTENSIONS OFF)
+ 
+@@ -134,7 +125,6 @@
+ 	endif()
+ endfunction()
+ 
+-set(CMAKE_CUDA_STANDARD 14)
+ set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+ set(CMAKE_CUDA_EXTENSIONS OFF)
+ set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
+@@ -250,10 +240,10 @@
+ if (TCNN_LINK_CUDA)
+ 	list(APPEND TCNN_LIBRARIES cuda)
+ 	if (TCNN_BUILD_WITH_SHAMPOO)
+-		list(APPEND TCNN_LIBRARIES cublas)
++		list(APPEND TCNN_LIBRARIES CUDA::cublas)
+ 	endif()
+ 	if (TCNN_BUILD_WITH_RTC)
+-		list(APPEND TCNN_LIBRARIES nvrtc)
++		list(APPEND TCNN_LIBRARIES CUDA::nvrtc)
+ 	endif()
+ endif()
+ 
+@@ -321,11 +311,14 @@
+ # Linker / library
+ ###############################################################################
+ 
+-include("${CMAKE_CURRENT_SOURCE_DIR}/dependencies/cmrc/CMakeRC.cmake")
++find_package(CMakeRC REQUIRED)
+ cmrc_add_resource_library(tiny-cuda-nn-resources NAMESPACE tcnn)
+ list(APPEND TCNN_DEFINITIONS -DTCNN_CMRC)
+ list(APPEND TCNN_LIBRARIES tiny-cuda-nn-resources)
+ 
++find_package(CUDAToolkit REQUIRED)
++set(CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES ${cudart_INCLUDE_DIRS})
++
+ if (TCNN_BUILD_WITH_RTC)
+ 	# Fetch CUDA headers and folders that will be required by the runtime compiler
+ 	# and include those headers with the compiled binary of tcnn.
+@@ -357,12 +350,10 @@
+ 	cmrc_add_resources(tiny-cuda-nn-resources WHENCE "${CMAKE_CURRENT_SOURCE_DIR}/dependencies" ${PCG32_HEADERS})
+ endif()
+ 
+-list(APPEND TCNN_INCLUDES
+-	"include"
+-	"dependencies"
+-	"dependencies/cutlass/include"
+-	"dependencies/cutlass/tools/util/include"
+-)
++list(APPEND TCNN_INCLUDES include dependencies)
++find_package(NvidiaCutlass)
++find_package(nlohmann_json REQUIRED)
++list(APPEND TCNN_LIBRARIES nvidia::cutlass::cutlass nlohmann_json::nlohmann_json)
+ 
+ add_library(tiny-cuda-nn STATIC ${TCNN_SOURCES})
+ target_compile_definitions(tiny-cuda-nn PUBLIC ${TCNN_DEFINITIONS})
+@@ -384,3 +375,6 @@
+ 	add_subdirectory(tests)
+ 	list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+ endif()
++
++install(TARGETS tiny-cuda-nn DESTINATION lib)
++install(DIRECTORY include/ DESTINATION include)
