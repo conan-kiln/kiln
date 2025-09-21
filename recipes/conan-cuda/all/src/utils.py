@@ -24,7 +24,6 @@ packages_following_ctk_minor_version = {
     "cudla",
     "culibos",
     "cupti",
-    "npp",
     "nvcc",
     "nvfatbin",
     "nvml-stubs",
