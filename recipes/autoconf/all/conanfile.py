@@ -56,6 +56,17 @@ class AutoconfConan(ConanFile):
             # Handle vagaries of Windows line endings
             replace_in_file(self, os.path.join(self.source_folder, "bin", "autom4te.in"),
                             "$result =~ s/^\\n//mg;", "$result =~ s/^\\R//mg;")
+        # Don't hard-code Perl path
+        for f in [
+            "bin/autoconf.in",
+            "bin/autoheader.in",
+            "bin/autom4te.in",
+            "bin/autoreconf.in",
+            "bin/autoscan.in",
+            "bin/autoupdate.in",
+            "bin/ifnames.in",
+        ]:
+            replace_in_file(self, f, "@PERL@", "/usr/bin/env perl")
 
     def generate(self):
         tc = AutotoolsToolchain(self)
