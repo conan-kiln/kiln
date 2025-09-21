@@ -1,0 +1,7 @@
+sources:
+  "0.0.8":
+    url: "https://github.com/nvidia-isaac/nvblox/archive/refs/tags/v0.0.8.tar.gz"
+    sha256: "c1450113f106e8902dd6be3f98a572e9c6c351ba3f9c7c53c386600a19105aa5"
+patches:
+  "0.0.8":
+    - patch_file: "patches/cmake-fixes.patch"
