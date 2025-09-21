@@ -10,7 +10,7 @@ from conan.tools.env import Environment
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc
+from conan.tools.microsoft import is_msvc, unix_path
 
 required_conan_version = ">=2.4"
 
@@ -76,10 +76,14 @@ class LibtoolConan(ConanFile):
             "--enable-ltdl-install",
         ])
 
+        tc.make_args.append("V=1")
+        tc.make_args.append("VERBOSE=1")
+
         env = tc.environment()
         if is_msvc(self):
             env.define("CC", "cl -nologo")
             env.define("CXX", "cl -nologo")
+            env.define("NM", "dumpbin -symbols")
 
             # Disable Fortran detection to handle issue with VS 2022
             # See: https://savannah.gnu.org/patch/?9313#comment1
@@ -87,6 +91,8 @@ class LibtoolConan(ConanFile):
             # upstream
             env.define("F77", "no")
             env.define("FC", "no")
+
+            tc.configure_args.append('lt_cv_sys_global_symbol_pipe="MS dumpbin"')
         tc.generate(env)
 
     def _patch_sources(self):
