@@ -2,7 +2,6 @@ import os
 from functools import cached_property
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
@@ -16,7 +15,6 @@ class StdgpuConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://stotko.github.io/stdgpu/"
     topics = ("cuda", "data-structures", "gpgpu", "gpu", "hip", "openmp", "rocm", "stl", "thrust")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type", "cuda"
     options = {
@@ -30,7 +28,7 @@ class StdgpuConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "backend": "openmp",
+        "backend": "cuda",
         "setup_compiler_flags": False,
         "enable_contract_checks": None,
         "use_32_bit_index": True,
@@ -43,14 +41,8 @@ class StdgpuConan(ConanFile):
     def cuda(self):
         return self.python_requires["conan-cuda"].module.Interface(self)
 
-    @property
-    def _min_cppstd(self):
-        if self.version == "1.3.0":
-            return 14
-        else:
-            return 17
-
     def export_sources(self):
+        export_conandata_patches(self)
         copy(self, "cmake/*", dst=self.export_sources_folder, src=self.recipe_folder)
 
     def configure(self):
@@ -63,11 +55,14 @@ class StdgpuConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("thrust/[^1]", transitive_headers=True, transitive_libs=True)
         if self.options.backend == "openmp":
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
         elif self.options.backend == "cuda":
             self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
+        if self.version == "1.3.0":
+            self.requires("thrust/[^1]", transitive_headers=True, transitive_libs=True)
+        else:
+            self.requires("thrust/[*]", transitive_headers=True, transitive_libs=True)
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
@@ -75,14 +70,13 @@ class StdgpuConan(ConanFile):
             self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
+        check_min_cppstd(self, 17 if self.version != "1.3.0" else 14)
         if self.options.backend == "cuda":
             self.cuda.validate_settings()
-            if self.cuda.major >= 12:
-                raise ConanInvalidConfiguration("CUDA 12 and newer are not supported yet.")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         rm(self, "Findthrust.cmake", "cmake")
         replace_in_file(self, "src/stdgpu/CMakeLists.txt",
                         'install(FILES "${stdgpu_SOURCE_DIR}/cmake/Findthrust.cmake"',
@@ -132,7 +126,4 @@ class StdgpuConan(ConanFile):
     def package_info(self):
         self.cpp_info.libs = ["stdgpu"]
         thrust_backend = {"cuda": "CUDA", "openmp": "OMP", "hip": "HIP"}[str(self.options.backend)]
-        self.cpp_info.defines = [
-            f"THRUST_DEVICE_SYSTEM={thrust_backend}",
-            f"__THRUST_DEVICE_SYSTEM_NAMESPACE={thrust_backend.lower()}"
-        ]
+        self.cpp_info.defines = [f"THRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_{thrust_backend}"]

@@ -1,7 +1,18 @@
 sources:
-  "1.3.0-git.20250210":
+  "1.3.0+git.20250210":
     url: "https://github.com/stotko/stdgpu/archive/b51c470fe334463b877474cf3439a7f74dfe8777.zip"
     sha256: "8a56f67b97af1afe8cd68363bf5c90918c31fe64740769ee33229f1f9ea25838"
+  "1.3.0-nvblox.20240211":
+    url: "https://github.com/stotko/stdgpu/archive/71a5aef26626eda47d15e5f577ca3b1538ff996a.zip"
+    sha256: "6fda88a3bd1a56d5e6769bc54fe6cafcb192898a5086a527970213fc1890cc73"
   "1.3.0":
     url: "https://github.com/stotko/stdgpu/archive/refs/tags/1.3.0.tar.gz"
     sha256: "c527dabc6735d8b320b316e9a5b120d258d49c2b7ff9689c8a9b5ad474532a05"
+patches:
+  "1.3.0-nvblox.20240211":
+    - patch_file: "patches/stdgpu_handle_collisions.patch"
+      patch_source: "https://github.com/nvidia-isaac/nvblox/blob/v0.0.8/nvblox/thirdparty/stdgpu/stdgpu_handle_collisions.patch"
+    - patch_file: "patches/stdgpu_expose_occupied.patch"
+      patch_source: "https://github.com/nvidia-isaac/nvblox/blob/v0.0.8/nvblox/thirdparty/stdgpu/stdgpu_expose_occupied.patch"
+    - patch_file: "patches/stdgpu_fix_cuda12_6.patch"
+      patch_source: "https://github.com/nvidia-isaac/nvblox/blob/v0.0.8/nvblox/thirdparty/stdgpu/stdgpu_fix_cuda12_6.patch"

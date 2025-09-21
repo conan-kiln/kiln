@@ -1,0 +1,18 @@
+Patch that overrides the estimated number of hash collisions by stdgpu
+and sets the worst-case number. This is necessary to ensure stability in
+case of an extraordinary amount of collisions.
+
+diff --git a/src/stdgpu/impl/unordered_base_detail.cuh b/src/stdgpu/impl/unordered_base_detail.cuh
+index a772f24..4418d69 100644
+--- a/src/stdgpu/impl/unordered_base_detail.cuh
++++ b/src/stdgpu/impl/unordered_base_detail.cuh
+@@ -1205,7 +1205,7 @@ unordered_base<Key, Value, KeyFromValue, Hash, KeyEqual, Allocator>::createDevic
+ 
+     // excess count is estimated by the expected collision count and conservatively lowered since entries falling into
+     // regular buckets are already included here
+-    index_t excess_count = std::max<index_t>(1, expected_collisions(bucket_count, capacity) * 2 / 3);
++    index_t excess_count = bucket_count;
+ 
+     index_t total_count = bucket_count + excess_count;
+ 
+ 
