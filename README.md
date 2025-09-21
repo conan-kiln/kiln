@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-20:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-21:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -358,6 +358,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - culibos/12.9.79
 - culibos/13.0.85
 - cuobjdump/13.0.85
+- cuopt/25.08.00
 - cuosd/0.0.0+git.20250627
 - cupcl/1.0+jp4
 - cupcl/1.0+jp5
@@ -421,7 +422,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cutest/2.5.8
 - cutlass/2.11.0
 - cutlass/3.9.2
-- cutlass/4.1.0
+- cutlass/4.2.0
 - cuvs/25.08.00
 - cuxxfilt/13.0.85
 - cv-cuda/0.15.0
