@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class PcgcppConan(ConanFile):
     name = "pcg-cpp"
     description = "C++ implementation of the PCG family of random number generators."
-    license = ("MIT", "Apache-2.0")
+    license = "MIT OR Apache-2.0"
     topics = ("pcg-cpp", "pcg", "rng", "random", "header-only")
     homepage = "https://github.com/imneme/pcg-cpp"
     package_type = "header-library"
@@ -30,12 +30,9 @@ class PcgcppConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
-    def build(self):
-        pass
-
     def package(self):
-        copy(self, "LICENSE*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, "*", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
         self.cpp_info.bindirs = []
