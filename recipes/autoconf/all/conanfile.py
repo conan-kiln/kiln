@@ -5,6 +5,7 @@ from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import unix_path, is_msvc
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -54,7 +55,6 @@ class AutoconfConan(ConanFile):
                             "$result =~ s/^\\n//mg;", "$result =~ s/^\\R//mg;")
         # Don't hard-code Perl path
         for f in [
-            "bin/autoconf.in",
             "bin/autoheader.in",
             "bin/autom4te.in",
             "bin/autoreconf.in",
@@ -63,6 +63,8 @@ class AutoconfConan(ConanFile):
             "bin/ifnames.in",
         ]:
             replace_in_file(self, f, "@PERL@", "/usr/bin/env perl")
+        if Version(self.version) >= "2.72":
+            replace_in_file(self, "bin/autoconf.in", "@PERL@", "/usr/bin/env perl")
 
     def generate(self):
         tc = AutotoolsToolchain(self)
