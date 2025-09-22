@@ -92,7 +92,8 @@ class Hdf5Conan(ConanFile):
                 self.options.szip_encoding and \
                 not self.dependencies["szip"].options.enable_encoding:
             raise ConanInvalidConfiguration("encoding must be enabled in szip dependency (szip:enable_encoding=True)")
-        check_min_cppstd(self, self._min_cppstd)
+        if self.options.enable_cxx:
+            check_min_cppstd(self, self._min_cppstd)
 
     def validate_build(self):
         if cross_building(self) and Version(self.version) < "1.14.4.3":
