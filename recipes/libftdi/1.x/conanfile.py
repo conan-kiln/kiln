@@ -6,13 +6,13 @@ from conan.tools.cmake import CMakeToolchain, CMake, CMakeDeps, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibFtdiConan(ConanFile):
     name = "libftdi"
     description = "A library to talk to FTDI chips"
-    license = ("LGPL-2.0-only", "GPLv2-or-later")
+    license = "LGPL-2.0-only"
     homepage = "https://www.intra2net.com/en/developer/libftdi/"
     topics = "ftdi"
 
@@ -28,7 +28,7 @@ class LibFtdiConan(ConanFile):
     default_options = {
             "shared": False,
             "fPIC": True,
-            "enable_cpp_wrapper": True,
+            "enable_cpp_wrapper": False,
             "build_eeprom_tool" : False,
             "use_streaming"     : True,
     }
@@ -45,10 +45,10 @@ class LibFtdiConan(ConanFile):
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
+        if not self.options.enable_cpp_wrapper:
+            self.languages = ["C"]
         if self.options.build_eeprom_tool or self.options.enable_cpp_wrapper:
-            self.license = ("LGPL-2.1-only", "GPL-2.0-only")
-        else:
-            self.license = "LGPL-2.1-only"
+            self.license = "LGPL-2.1-only AND GPL-2.0-only"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
