@@ -10,7 +10,7 @@ required_conan_version = ">=2.4"
 class ShapelibConan(ConanFile):
     name = "shapelib"
     description = "C library for reading and writing ESRI Shapefiles"
-    license = "LGPL-2.0-or-later", "MIT"
+    license = "LGPL-2.0-only OR MIT"
     homepage = "https://github.com/OSGeo/shapelib"
     topics = ("osgeo", "shapefile", "esri", "geospatial")
     package_type = "library"
