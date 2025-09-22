@@ -17,7 +17,7 @@ class ConanXqilla(ConanFile):
         "It generates vocabulary-specific, statically-typed C++ mappings (also called bindings) from XML Schema definitions. "
         "XSD supports two C++ mappings: in-memory C++/Tree and event-driven C++/Parser."
     )
-    license = ("GPL-2.0", "FLOSSE")
+    license = "GPL-2.0-only AND DocumentRef-FLOSSE:LicenseRef-XSD-FLOSS-Exception"
     homepage = "https://codesynthesis.com/projects/xsd/"
     topics = ("xml", "c++")
 
