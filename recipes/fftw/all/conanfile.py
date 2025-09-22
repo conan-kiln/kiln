@@ -19,7 +19,7 @@ class FFTWConan(ConanFile):
     name = "fftw"
     description = "C subroutine library for computing the Discrete Fourier Transform (DFT) in one or more dimensions"
     homepage = "http://www.fftw.org/"
-    license = "GPL-2.0"
+    license = "GPL-2.0-or-later"
     topics = ("fftw", "dft", "dct", "dst")
 
     package_type = "library"
