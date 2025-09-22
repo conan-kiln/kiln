@@ -18,8 +18,7 @@ class LibevConan(ConanFile):
     description = "A full-featured and high-performance event loop that is loosely modelled after libevent"
     topics = ("event", "event-loop", "periodic-timer", "notify")
     homepage = "http://software.schmorp.de/pkg/libev.html"
-    license = ["BSD-2-Clause", "GPL-2.0-or-later"]
-
+    license = "BSD-2-Clause OR GPL-2.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
