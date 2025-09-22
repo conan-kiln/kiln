@@ -8,11 +8,12 @@ from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
+
 class MingwConan(ConanFile):
     name = "mingw-builds"
     description = "MinGW is a contraction of Minimalist GNU for Windows"
     homepage = "https://github.com/niXman/mingw-builds"
-    license = "ZPL-2.1", "MIT", "GPL-2.0-or-later"
+    license = "GPL-2.0-or-later AND ZPL-2.1 AND MIT"
     topics = ("gcc", "gnu", "unix", "mingw32", "binutils")
     settings = "os", "arch", "compiler", "build_type"
     package_type = "application"
