@@ -33,6 +33,9 @@ class AmplAslConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     def configure(self):
+        if self.settings.os == "Windows":
+            self.options.shared.value = False
+            self.package_type = "static-library"
         if self.options.shared:
             self.options.rm_safe("fPIC")
         if not self.options.cxx:
