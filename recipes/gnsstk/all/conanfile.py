@@ -17,7 +17,7 @@ class GNSSTkConan(ConanFile):
         "such as solving for the user position or estimating atmospheric refraction. "
         "Common data formats such as RINEX are supported as well."
     )
-    license = "LGPL-3.0-only", "GPL-3.0-only"
+    license = "LGPL-3.0-only"
     homepage = "https://github.com/SGL-UT/gnsstk"
     topics = ("gnss", "gps", "rinex")
     package_type = "library"
@@ -77,8 +77,8 @@ class GNSSTkConan(ConanFile):
         cmake.build()
 
     def package(self):
-        for license in ["LICENSE.md", "COPYING.LESSER.md", "COPYING.md"]:
-            copy(self, license, dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, "LICENSE.md", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, "COPYING.LESSER.md", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))
