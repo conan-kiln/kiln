@@ -13,7 +13,7 @@ class ZintConan(ConanFile):
     name = "zint"
     description = "Zint Barcode Generator"
     homepage = "https://www.zint.org.uk"
-    license = "BSD", "GPL-3.0"
+    license = "GPL-3.0-or-later AND BSD-3-Clause"
     topics = ("barcode", "qt")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
