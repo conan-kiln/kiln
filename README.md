@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-21:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-22:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -104,6 +104,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/3.29.7
 - cmake/3.30.5
 - cmake/4.0.3
+- cmrc/2.0.1+git.20230724
 - cnmem/1.0.0+git.20181128
 - cocoapi/0.0.0+git.20200220
 - coin-alps/1.5.12
@@ -519,6 +520,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gdalcpp/1.3.0
 - gdk-pixbuf/2.42.12
 - gdrcopy/2.5
+- gecode/6.2.0
+- gecode/6.3.0-git.20211013
 - gettext/0.24
 - gfortran/13.2.0
 - gici/cci.20250127
@@ -859,6 +862,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nss/3.110
 - numpy/2.3.1
 - nvbench/0.1.0+git.20250806
+- nvblox/0.0.8
 - nvcc/11.4.152
 - nvcc/11.5.119
 - nvcc/11.6.124
@@ -1070,6 +1074,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - partio/1.19.0
 - patchelf/0.12
 - patchelf/0.13
+- pcg-cpp/0.98.1+git.20220409
 - pcl/1.14.1
 - pcl/1.15.1
 - pcre2/10.45
@@ -1215,7 +1220,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - stablehlo/1.9.7
 - stb/cci.20250314
 - stdexec/24.09
-- stdgpu/1.3.0-git.20250210
+- stdgpu/1.3.0+git.20250210
+- stdgpu/1.3.0-nvblox.20240211
 - steamworks_sdk/1.60
 - stella_vslam/0.5.0
 - stk/5.0.1
@@ -1285,6 +1291,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - thrust/2.7.0
 - thrust/2.8.5
 - thrust/3.0.2
+- tiny-cuda-nn/2.0
 - tinyexr/1.0.12
 - tinyobjloader/2.0.0-rc13
 - tk/8.6.16
