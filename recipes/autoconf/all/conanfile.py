@@ -15,7 +15,7 @@ class AutoconfConan(ConanFile):
         "Autoconf is an extensible package of M4 macros that produce shell "
         "scripts to automatically configure software source code packages"
     )
-    license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
+    license = "GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0"
     homepage = "https://www.gnu.org/software/autoconf/"
     topics = ("configure", "build")
 
