@@ -14,7 +14,7 @@ class BlissConan(ConanFile):
     description = "bliss is an open source tool for computing automorphism groups and canonical forms of graphs."
     topics = ("automorphism", "group", "graph")
     homepage = "https://users.aalto.fi/~tjunttil/bliss"
-    license = "GPL-3-or-later", "LGPL-3-or-later"
+    license = "LGPL-3.0-only"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
