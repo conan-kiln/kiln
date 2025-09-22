@@ -12,7 +12,7 @@ class LibUDEVConan(ConanFile):
     description = "API for enumerating and introspecting local devices"
     topics = ("udev", "devices", "enumerating")
     homepage = "https://www.freedesktop.org/software/systemd/man/udev.html"
-    license = "GPL-2.0-or-later", "LGPL-2.1-or-later"
+    license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
 
