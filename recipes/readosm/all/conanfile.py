@@ -18,7 +18,7 @@ class ReadosmConan(ConanFile):
         "ReadOSM is an open source library to extract valid data from within "
         "an Open Street Map input file."
     )
-    license = ("MPL-1.1", "GPL-2.0-or-later", "LGPL-2.1-or-later")
+    license = "MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later"
     topics = ("osm", "open-street-map", "xml", "protobuf")
     homepage = "https://www.gaia-gis.it/fossil/readosm"
 
