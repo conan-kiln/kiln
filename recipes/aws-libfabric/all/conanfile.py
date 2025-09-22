@@ -16,7 +16,7 @@ required_conan_version = ">=2.1"
 class LibfabricConan(ConanFile):
     name = "aws-libfabric"
     description = "AWS Libfabric"
-    license = ("BSD-2-Clause", "GPL-2.0-or-later")
+    license = "BSD-2-Clause OR GPL-2.0-or-later"
     homepage = "https://github.com/aws/libfabric"
     topics = ("fabric", "communication", "framework", "service")
 
