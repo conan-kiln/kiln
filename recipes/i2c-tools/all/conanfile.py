@@ -12,7 +12,7 @@ required_conan_version = ">=2.1"
 class I2cConan(ConanFile):
     name = "i2c-tools"
     description = "I2C tools for the linux kernel as well as an I2C library."
-    license = ("GPL-2.0-or-later", "LGPL-2.1")
+    license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
     homepage = "https://i2c.wiki.kernel.org/index.php/I2C_Tools"
     topics = ("i2c",)
 
