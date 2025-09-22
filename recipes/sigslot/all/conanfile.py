@@ -5,7 +5,6 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
@@ -68,5 +67,5 @@ class SigslotConan(ConanFile):
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.append("pthread")
         elif self.settings.os == "Windows":
-            if is_msvc(self) or self.settings.compiler == "clang":
+            if self.settings.compiler in ["msvc", "clang"]:
                 self.cpp_info.exelinkflags.append('-OPT:NOICF')
