@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class SevenZipConan(ConanFile):
     name = "7zip"
     description = "7-Zip is a file archiver with a high compression ratio"
-    license = ("LGPL-2.1-or-later", "BSD-3-Clause", "Unrar")
+    license = "LGPL-2.1-or-later AND BSD-3-Clause AND Unrar"
     homepage = "https://www.7-zip.org"
     topics = ("archive", "compression", "decompression", "zip", "pre-built")
     package_type = "application"
