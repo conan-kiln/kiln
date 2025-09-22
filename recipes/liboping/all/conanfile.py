@@ -15,10 +15,9 @@ required_conan_version = ">=2.4"
 class LibopingConan(ConanFile):
     name = "liboping"
     description = "A multi server ping library"
-    license = ["LGPL-2.1", "GPL-2.0"]
+    license = "LGPL-2.1-or-later"
     homepage = "https://noping.cc"
     topics = ("oping", "ping", "icmp", "pre-built")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
