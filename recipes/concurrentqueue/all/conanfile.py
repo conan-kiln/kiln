@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class ConcurrentqueueConan(ConanFile):
     name = "concurrentqueue"
     description = "A fast multi-producer, multi-consumer lock-free concurrent queue for C++11"
-    license = ["BSD-2-Clause", "BSL-1.0"]
+    license = "(BSD-2-Clause OR BSL-1.0) AND BSL-1.0 AND Zlib"
     homepage = "https://github.com/cameron314/concurrentqueue"
     topics = ("cpp11", "cpp14", "cpp17", "queue", "lock-free")
     package_type = "header-library"
