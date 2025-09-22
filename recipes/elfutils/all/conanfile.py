@@ -15,8 +15,7 @@ class ElfutilsConan(ConanFile):
     description = "A dwarf, dwfl and dwelf functions to read DWARF, find separate debuginfo, symbols and inspect process state."
     homepage = "https://sourceware.org/elfutils"
     topics = ("libelf", "libdw", "libasm")
-    license = ["GPL-1.0-or-later", "LGPL-3.0-or-later", "GPL-2.0-or-later"]
-
+    license = "LGPL-3.0-or-later OR GPL-2.0-or-later"  # the library, executables are GPL
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
