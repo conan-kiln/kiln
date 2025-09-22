@@ -16,7 +16,7 @@ class LiblzfConan(ConanFile):
     )
     homepage = "http://software.schmorp.de/pkg/liblzf.html"
     topics = ("lzf", "compression")
-    license = "BSD-2-Clause", "GPL-2.0-or-later"
+    license = "BSD-2-Clause OR GPL-2.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
