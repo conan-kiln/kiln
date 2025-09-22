@@ -12,7 +12,7 @@ required_conan_version = ">=2.4"
 class LZOConan(ConanFile):
     name = "lzo"
     description = "lzo is a portable lossless data compression library written in ANSI C"
-    license = "GPL-v2.0"
+    license = "GPL-2.0-or-later"
     homepage = "http://www.oberhumer.com/opensource/lzo/"
     topics = ("compression",)
 
