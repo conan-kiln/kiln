@@ -12,9 +12,9 @@ required_conan_version = ">=2.1"
 
 class DbusCXX(ConanFile):
     name = "dbus-cxx"
-    license = "LGPL-3.0-only", "BSD-3-Clause"
-    homepage = "http://dbus-cxx.github.io"
     description = "DBus-cxx provides an object-oriented interface to DBus"
+    license = "LGPL-3.0-only OR BSD-3-Clause"
+    homepage = "http://dbus-cxx.github.io"
     topics = "bus", "interprocess", "message"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
