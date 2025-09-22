@@ -10,7 +10,7 @@ from conan.tools.gnu import Autotools, AutotoolsToolchain, AutotoolsDeps
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, MSBuild, MSBuildToolchain
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class LibmicrohttpdConan(ConanFile):
@@ -40,6 +40,8 @@ class LibmicrohttpdConan(ConanFile):
         "epoll": True,
         "with_zlib": True,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -55,12 +57,6 @@ class LibmicrohttpdConan(ConanFile):
             del self.options.with_postprocessor
             del self.options.with_digest_authentification
             del self.options.with_zlib
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
 
     def layout(self):
         basic_layout(self, src_folder="src")
