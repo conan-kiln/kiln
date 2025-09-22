@@ -18,7 +18,7 @@ class LibspatialiteConan(ConanFile):
         "SpatiaLite is an open source library intended to extend the SQLite "
         "core to support fully fledged Spatial SQL capabilities."
     )
-    license = ("MPL-1.1", "GPL-2.0-or-later", "LGPL-2.1-or-later")
+    license = "MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later"
     topics = ("spatialite", "database", "sql", "sqlite", "ogc")
     homepage = "https://www.gaia-gis.it/fossil/libspatialite"
     package_type = "library"
