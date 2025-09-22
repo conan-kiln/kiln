@@ -17,9 +17,9 @@ required_conan_version = ">=2.4"
 class Mpg123Conan(ConanFile):
     name = "mpg123"
     description = "Fast console MPEG Audio Player and decoder library"
+    license = "LGPL-2.1-only"
     topics = ("mpeg", "audio", "player", "decoder")
     homepage = "http://mpg123.org/"
-    license = "LGPL-2.1-or-later", "GPL-2.0-or-later"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
