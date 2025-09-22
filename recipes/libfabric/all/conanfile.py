@@ -18,7 +18,7 @@ class LibfabricConan(ConanFile):
     name = "libfabric"
     description = ("Libfabric, also known as Open Fabrics Interfaces (OFI), "
                    "defines a communication API for high-performance parallel and distributed applications.")
-    license = ("BSD-2-Clause", "GPL-2.0-or-later")
+    license = "BSD-2-Clause OR GPL-2.0-or-later"
     homepage = "http://libfabric.org"
     topics = ("fabric", "rdma", "communication", "distributed-computing", "hpc")
     package_type = "library"
