@@ -3,44 +3,38 @@ import os
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, MSBuild, MSBuildToolchain
-from conan.tools.scm import Version
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
 class FaacConan(ConanFile):
     name = "faac"
     description = "Freeware Advanced Audio Coder"
-    topics = ("audio", "mp4", "encoder", "aac", "m4a", "faac")
-    homepage = "https://sourceforge.net/projects/faac"
     license = "LGPL-2.0-only"
-
+    homepage = "https://sourceforge.net/projects/faac"
+    topics = ("audio", "mp4", "encoder", "aac", "m4a", "faac")
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "with_mp4": [True, False],
         "drm": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_mp4": False,
         "drm": False,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     @property
     def _is_mingw(self):
         return self.settings.os == "Windows" and self.settings.compiler == "gcc"
-
-    @property
-    def _has_mp4_option(self):
-        return Version(self.version) < "1.29.1"
 
     @property
     def _msbuild_configuration(self):
@@ -52,18 +46,6 @@ class FaacConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-        if not self._has_mp4_option:
-            del self.options.with_mp4
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -78,9 +60,6 @@ class FaacConan(ConanFile):
                 raise ConanInvalidConfiguration(f"{self.ref} only supports x86 and x86_64 with Visual Studio")
             if self.options.drm and not self.options.shared:
                 raise ConanInvalidConfiguration(f"{self.ref} with drm support can't be built as static with Visual Studio")
-        if self.options.get_safe("with_mp4"):
-            # TODO: as mpv4v2 as a conan package
-            raise ConanInvalidConfiguration("building with mp4v2 is not supported currently")
 
     def build_requirements(self):
         if not is_msvc(self):
@@ -93,6 +72,14 @@ class FaacConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        # Don't constrain Windows SDK version
+        for f in [
+            "project/msvc/faac.vcxproj",
+            "project/msvc/libfaac.vcxproj",
+            "project/msvc/libfaac_dll.vcxproj",
+            "project/msvc/libfaac_dll_drm.vcxproj",
+        ]:
+            replace_in_file(self, f, "<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>", "")
 
     def generate(self):
         if is_msvc(self):
@@ -100,44 +87,33 @@ class FaacConan(ConanFile):
             tc.configuration = self._msbuild_configuration
             tc.generate()
         else:
-            VirtualBuildEnv(self).generate()
             tc = AutotoolsToolchain(self)
             yes_no = lambda v: "yes" if v else "no"
             tc.configure_args.append(f"--enable-drm={yes_no(self.options.drm)}")
-            if self._has_mp4_option:
-                tc.configure_args.append(f"--with-mp4v2={yes_no(self.options.with_mp4)}")
             tc.generate()
+
+    def _patch_msvc(self):
+        platform_toolset = MSBuildToolchain(self).toolset
+        conantoolchain_props = os.path.join(self.generators_folder, MSBuildToolchain.filename)
+        for vcxproj_file in ["faac.vcxproj", "libfaac.vcxproj", "libfaac_dll.vcxproj", "libfaac_dll_drm.vcxproj"]:
+            replace_in_file(
+                self, os.path.join(self._sln_folder, vcxproj_file),
+                "<PlatformToolset>v142</PlatformToolset>",
+                f"<PlatformToolset>{platform_toolset}</PlatformToolset>",
+            )
+            replace_in_file(
+                self, os.path.join(self._sln_folder, vcxproj_file),
+                '<Import Project="$(VCTargetsPath)\\Microsoft.Cpp.targets" />',
+                rf'<Import Project="{conantoolchain_props}" /><Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />',
+            )
+
 
     def build(self):
         if is_msvc(self):
-            #==========================
-            # TODO: to remove once https://github.com/conan-io/conan/pull/12817 available in conan client
-            vcxproj_files = ["faac.vcxproj", "libfaac.vcxproj", "libfaac_dll.vcxproj", "libfaac_dll_drm.vcxproj"]
-            platform_toolset = MSBuildToolchain(self).toolset
-            conantoolchain_props = os.path.join(self.generators_folder, MSBuildToolchain.filename)
-            for vcxproj_file in vcxproj_files:
-                replace_in_file(
-                    self, os.path.join(self._sln_folder, vcxproj_file),
-                    "<PlatformToolset>v141</PlatformToolset>",
-                    f"<PlatformToolset>{platform_toolset}</PlatformToolset>",
-                )
-                replace_in_file(
-                    self, os.path.join(self._sln_folder, vcxproj_file),
-                    "<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-                    f"<Import Project=\"{conantoolchain_props}\" /><Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.targets\" />",
-                )
-            #==========================
-
+            self._patch_msvc()
             msbuild = MSBuild(self)
             msbuild.build_type = self._msbuild_configuration
             msbuild.platform = "Win32" if self.settings.arch == "x86" else msbuild.platform
-            # Allow to build for other archs than Win32
-            if self.settings.arch != "x86":
-                for vc_proj_file in (
-                    "faac.sln", "faac.vcxproj", "libfaac.vcxproj",
-                    "libfaac_dll.vcxproj", "libfaac_dll_drm.vcxproj"
-                ):
-                    replace_in_file(self, os.path.join(self._sln_folder, vc_proj_file), "Win32", msbuild.platform)
             targets = ["faac"]
             if self.options.drm:
                 targets.append("libfaac_dll_drm")
@@ -155,21 +131,24 @@ class FaacConan(ConanFile):
             autotools.make()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
         if is_msvc(self):
-            copy(self, "*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+            copy(self, "*.h", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
             output_folder = os.path.join(self._sln_folder, "bin", self._msbuild_configuration)
-            copy(self, "*.exe", src=output_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-            copy(self, "*.dll", src=output_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-            if self.options.drm:
-                old_libname = "libfaacdrm.lib"
-                new_libname = "faac_drm.lib"
-            else:
-                old_libname = "libfaac_dll.lib" if self.options.shared else "libfaac.lib"
-                new_libname = "faac.lib"
+            copy(self, "*.exe", output_folder, os.path.join(self.package_folder, "bin"))
+            copy(self, "*.dll", output_folder, os.path.join(self.package_folder, "bin"))
             lib_folder = os.path.join(self.package_folder, "lib")
-            copy(self, old_libname, src=output_folder, dst=lib_folder, keep_path=False)
-            rename(self, os.path.join(lib_folder, old_libname), os.path.join(lib_folder, new_libname))
+            if self.options.shared:
+                if self.options.drm:
+                    old_libname = "libfaacdrm.lib"
+                    new_libname = "faac_drm.lib"
+                else:
+                    old_libname = "libfaac_dll.lib"
+                    new_libname = "faac.lib"
+                copy(self, old_libname, output_folder, lib_folder)
+                rename(self, os.path.join(lib_folder, old_libname), os.path.join(lib_folder, new_libname))
+            else:
+                copy(self, "*.lib", output_folder, lib_folder)
         else:
             autotools = Autotools(self)
             autotools.install()
@@ -181,4 +160,4 @@ class FaacConan(ConanFile):
         suffix = "_drm" if self.options.drm else ""
         self.cpp_info.libs = [f"faac{suffix}"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("m")
+            self.cpp_info.system_libs = ["m"]
