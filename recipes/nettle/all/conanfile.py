@@ -19,7 +19,7 @@ class NettleConan(ConanFile):
     description = "The Nettle and Hogweed low-level cryptographic libraries"
     homepage = "https://www.lysator.liu.se/~nisse/nettle"
     topics = ("crypto", "low-level-cryptographic", "cryptographic")
-    license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
+    license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
