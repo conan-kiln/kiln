@@ -18,7 +18,7 @@ class LibrasterliteConan(ConanFile):
         "librasterlite is an open source library that stores and retrieves "
         "huge raster coverages using a SpatiaLite DBMS."
     )
-    license = ("MPL-1.1", "GPL-2.0-or-later", "LGPL-2.1-or-later")
+    license = "MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later"
     topics = ("rasterlite", "raster", "spatialite")
     homepage = "https://www.gaia-gis.it/fossil/librasterlite"
     package_type = "library"
