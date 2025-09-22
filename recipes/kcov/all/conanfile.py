@@ -16,7 +16,7 @@ class KcovConan(ConanFile):
         "Code coverage tool for compiled programs, Python and Bash which uses "
         "debugging information to collect and report data without special compilation options"
     )
-    license = "GPL-2.0"
+    license = "GPL-2.0-only"
     homepage = "http://simonkagstrom.github.io/kcov/index.html"
     topics = ("coverage", "linux", "debug")
 
