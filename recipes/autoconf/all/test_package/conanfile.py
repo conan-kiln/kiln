@@ -18,6 +18,7 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires(self.tested_reference_str)
+        self.tool_requires("m4/[^1.4.20]")
         if self.settings_build.os == "Windows" and not self.conf.get("tools.microsoft.bash:path", check_type=str):
             self.tool_requires("msys2/latest")
 
