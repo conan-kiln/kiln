@@ -15,7 +15,7 @@ class CalcephConan(ConanFile):
     name = "calceph"
     description = "C Library designed to access the binary planetary ephemeris " \
                   "files, such INPOPxx, JPL DExxx and SPICE ephemeris files."
-    license = ("CECILL-C", "CECILL-B", "CECILL-2.1")
+    license = "CECILL-2.0 OR CECILL-B OR CECILL-C"
     topics = ("ephemeris", "astronomy", "space", "planet")
     homepage = "https://www.imcce.fr/inpop/calceph"
 
