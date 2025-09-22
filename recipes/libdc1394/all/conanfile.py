@@ -37,10 +37,13 @@ class Libdc1394Conan(ConanFile):
         self.requires("libusb/[^1.0.26]")
         if self.settings.os == "Linux":
             self.requires("libraw1394/2.1.2")
+        elif self.settings.os == "Windows":
+            # TODO: requires lib1394camera from https://www.cs.cmu.edu/~iwan/1394/downloads/index.html
+            pass
 
     def validate(self):
         if self.info.settings.os == "Windows":
-            raise ConanInvalidConfiguration("Windows is not supported yet in this recipe")
+            raise ConanInvalidConfiguration("Windows support requires lib1394camera, which is not yet available")
         if self.info.settings.compiler == "clang":
             raise ConanInvalidConfiguration("Clang doesn't support VLA")
 
