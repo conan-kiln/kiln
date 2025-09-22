@@ -66,7 +66,7 @@ class SdbusCppConan(ConanFile):
             self.license = "LGPL-2.1-or-later"
 
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
 
     def layout(self):
         cmake_layout(self, src_folder="src")

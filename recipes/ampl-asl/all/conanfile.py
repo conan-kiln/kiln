@@ -34,7 +34,7 @@ class AmplAslConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
         if not self.options.cxx:
             self.languages = ["C"]
 

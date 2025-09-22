@@ -45,7 +45,7 @@ class CoinClpConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
         if not self.options.enable_aboca:
             del self.options.aboca_inherit
         if self.options.with_glpk:

@@ -56,7 +56,7 @@ class BlasfeoConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
         if self.options.use_external_blas:
             del self.options.matrix_format
         if self.settings.compiler == "msvc":

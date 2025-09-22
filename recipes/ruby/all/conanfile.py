@@ -60,7 +60,7 @@ class RubyConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
             del self.options.with_static_linked_ext
         if self.settings.os == "Windows":
             # readline isn't supported on Windows
