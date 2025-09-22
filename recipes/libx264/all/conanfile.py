@@ -17,8 +17,8 @@ class LibX264Conan(ConanFile):
     description = "x264 is a free software library and application for encoding video streams into the " \
                   "H.264/MPEG-4 AVC compression format"
     topics = ("video", "encoding")
-    license = "GPL-2.0"
-
+    license = "GPL-2.0-or-later"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
