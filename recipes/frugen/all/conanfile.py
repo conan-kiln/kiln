@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class FrugenConan(ConanFile):
     name = "frugen"
     description = "IPMI FRU Information generator / editor tool and library"
-    license = ("Apache-2.0", "GPL-2.0-or-later")
+    license = "Apache-2.0 AND (LGPL-2.0-or-later OR GPL-2.0-or-later)"
     homepage = "https://codeberg.org/IPMITool/frugen"
     topics = ("hardware", "ipmi", "fru")
     package_type = "library"
