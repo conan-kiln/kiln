@@ -14,7 +14,7 @@ class EiquadprogConan(ConanFile):
         "This package contains different C++ implementations of the algorithm of Goldfarb and "
         "Idnani for the solution of a (convex) Quadratic Programming problem by means of a dual method."
     )
-    license = ("LGPL-3.0", "GPL-3.0")
+    license = "LGPL-3.0-or-later AND GPL-2.0-or-later"  # mostly LGPL except for eiquadprog.hpp, which is derived from a GPL-licensed work
     homepage = "https://github.com/stack-of-tasks/eiquadprog"
     topics = ("algebra", "math", "robotics", "optimization", "quadratic-programming")
     package_type = "library"
