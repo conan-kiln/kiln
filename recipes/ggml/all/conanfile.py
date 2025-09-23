@@ -346,7 +346,7 @@ class GgmlConan(ConanFile):
             if self.options.with_kleidiai:
                 self.requires("kleidiai/[^1]")
             if self.options.with_memkind:
-                self.requires("memkind/[>=1.10 <2]")
+                self.requires("memkind/[^1.10]")
         if self.options.with_vulkan:
             self.requires("vulkan-loader/[^1.3]")
         if self.options.with_opencl:
@@ -365,8 +365,6 @@ class GgmlConan(ConanFile):
         if self.settings.get_safe("compiler.cstd"):
             check_min_cstd(self, 11)
 
-        if self.options.get_safe("with_memkind"):
-            raise ConanInvalidConfiguration("with_memkind=True is not yet supported")
         if self.options.with_hip:
             raise ConanInvalidConfiguration("with_hip=True is not yet supported")
         if self.options.with_musa:
@@ -385,6 +383,9 @@ class GgmlConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 17)", "")
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_C_STANDARD 11)", "")
+        replace_in_file(self, "src/ggml-cpu/CMakeLists.txt",
+                        "find_library(memkind memkind REQUIRED)",
+                        "find_package(memkind REQUIRED)")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -504,6 +505,7 @@ class GgmlConan(ConanFile):
 
         deps = CMakeDeps(self)
         deps.set_property("vulkan-loader", "cmake_target_name", "Vulkan::Vulkan")
+        deps.set_property("memkind", "cmake_target_name", "memkind")
         deps.generate()
 
         if self.options.with_cuda:
