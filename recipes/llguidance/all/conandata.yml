@@ -1,0 +1,4 @@
+sources:
+  "1.2.0":
+    url: "https://github.com/guidance-ai/llguidance/archive/refs/tags/v1.2.0.tar.gz"
+    sha256: "812e580919f2f604d1fb773382666559aa0f7f2a9cb2beedb73427c7147d984c"
