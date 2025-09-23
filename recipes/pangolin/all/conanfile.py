@@ -163,7 +163,7 @@ class PangolinConan(ConanFile):
         # Unvendored
         # https://github.com/stevenlovegrove/Pangolin/blob/v0.9.1/components/pango_core/include/pangolin/utils/signal_slot.h
         self.requires("sigslot/1.2.2", transitive_headers=True, transitive_libs=True)
-        self.requires("tinyobjloader/2.0.0-rc10")
+        self.requires("tinyobjloader/[^2.0.0, include_prerelease]")
         # TODO: dynalo, NaturalSort
 
     def validate(self):
