@@ -98,7 +98,7 @@ class SDLConan(ConanFile):
             ## Other
             "libudev": True,
             "dbus": True,
-            "libiconv": False,
+            "libiconv": True,
         }
     }
 
@@ -183,34 +183,39 @@ class SDLConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
         # Prevent inspecting target properties for libusb to derive the name of the .so/.dll
         # instead, just link the library normally, see
         # https://github.com/libsdl-org/SDL/blob/96292a5b464258a2b926e0a3d72f8b98c2a81aa6/cmake/sdlchecks.cmake#L1107-L1113
-        replace_in_file(self, os.path.join(self.source_folder, "cmake", "sdlchecks.cmake"),
-                        "target_get_dynamic_library(dynamic_libusb", "#target_get_dynamic_library(dynamic_libusb")
+        replace_in_file(self, "cmake/sdlchecks.cmake",
+                        "target_get_dynamic_library(dynamic_libusb",
+                        "#target_get_dynamic_library(dynamic_libusb")
+        # SDL looks for iconv from system otherwise
+        replace_in_file(self, "CMakeLists.txt",
+                        "if(SDL_SYSTEM_ICONV)",
+                        "if(SDL_SYSTEM_ICONV)\n"
+                        "find_package(Iconv REQUIRED)\n"
+                        "link_libraries(Iconv::Iconv)")
 
     @property
     def _is_unix_sys(self):
-        """ True for UNIX but not Macos/Android"""
-        return self.settings.os in ("Linux", "FreeBSD")
+        return self.settings.os in ["Linux", "FreeBSD"]
 
     @property
     def _supports_opengl(self):
         return (self.options.get_safe("opengl")
-                and self.settings.os not in ("iOS", "visionOS", "tvOS", "watchOS"))
+                and self.settings.os not in ["iOS", "visionOS", "tvOS", "watchOS"])
 
     @property
     def _supports_opengles(self):
         return (self.options.get_safe("opengles")
-                and self.settings.os in ("Android", "iOS", "visionOS", "tvOS", "watchOS"))
+                and self.settings.os in ["Android", "iOS", "visionOS", "tvOS", "watchOS"])
 
     @property
     def _supports_dbus(self):
         return self.options.get_safe("dbus") and self._is_unix_sys
 
     def requirements(self):
-        if self.options.get_safe("libiconv"):
+        if self.options.libiconv:
             self.requires("libiconv/[^1.17]")
         if self.options.get_safe("libusb"):
             self.requires("libusb/[^1.0.26]")
@@ -448,19 +453,17 @@ class SDLConan(ConanFile):
 
         # Windows links with all libs by default
         if self.settings.os == "Windows":
-            self.cpp_info.components["sdl3"].system_libs.extend(
-                [
-                    "kernel32",
-                    "user32",
-                    "gdi32",
-                    "winmm",
-                    "imm32",
-                    "ole32",
-                    "oleaut32",
-                    "version",
-                    "uuid",
-                    "advapi32",
-                    "setupapi",
-                    "shell32",
-                ]
-            )
+            self.cpp_info.components["sdl3"].system_libs.extend([
+                "kernel32",
+                "user32",
+                "gdi32",
+                "winmm",
+                "imm32",
+                "ole32",
+                "oleaut32",
+                "version",
+                "uuid",
+                "advapi32",
+                "setupapi",
+                "shell32",
+            ])
