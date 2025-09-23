@@ -73,6 +73,7 @@ class VtkConan(ConanFile):
         "with_libharu": [True, False],
         "with_libproj": [True, False],
         "with_libxml2": [True, False],
+        "with_memkind": [True, False],
         "with_metaio": [True, False],
         "with_mpi": [True, False],
         "with_mysql": ["libmysqlclient", "mariadb-connector-c", False],
@@ -148,6 +149,7 @@ class VtkConan(ConanFile):
         "with_libharu": False,
         "with_libproj": False,
         "with_libxml2": False,
+        "with_memkind": False,
         "with_metaio": True,
         "with_mpi": False,
         "with_mysql": False,
@@ -521,6 +523,7 @@ class VtkConan(ConanFile):
         modules["loguru"] = _yes_no(self.options.enable_logging)
         modules["lz4"] = "YES"
         modules["lzma"] = "YES"
+        modules["memkind"] = _yes_no(self.options.with_memkind)
         modules["metaio"] = _yes_no(self.options.with_metaio)
         modules["mpi"] = _yes_no(self.options.with_mpi)
         modules["netcdf"] = _yes_no(self.options.with_netcdf)
@@ -1136,7 +1139,7 @@ class VtkConan(ConanFile):
             self.cpp_info.components["CommonCore"].requires.append("onetbb::libtbb")
         if self.options.smp_enable_openmp:
             self.cpp_info.components["CommonCore"].requires.append("openmp::openmp")
-        if self.options.get_safe("with_memkind"):
+        if self.options.with_memkind:
             self.cpp_info.components["CommonCore"].requires.append("memkind::memkind")
         if "RenderingRayTracing" in components:
             if self.options.get_safe("with_visrtx"):
