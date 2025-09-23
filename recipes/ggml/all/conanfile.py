@@ -387,6 +387,8 @@ class GgmlConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 17)", "")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_C_STANDARD 11)", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
