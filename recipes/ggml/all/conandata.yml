@@ -1,0 +1,4 @@
+sources:
+  "0.9.1":
+    url: "https://github.com/ggml-org/ggml/archive/refs/tags/v0.9.1.tar.gz"
+    sha256: "f8c8a314898d05e16a55effb4e5474f535cd1ead63db2b024bdaaf62a27dfa58"
