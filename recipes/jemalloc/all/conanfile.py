@@ -53,17 +53,6 @@ class JemallocConan(ConanFile):
     }
 
     @property
-    def _minimum_compilers_version(self):
-        return {
-            "clang": "3.9",
-            "apple-clang": "8",
-            # The upstream repository provides solution files for Visual Studio 2015, 2017, 2019 and 2022,
-            # but the 2015 solution does not work properly due to unresolved external symbols:
-            # `test_hooks_libc_hook` and `test_hooks_arena_new_hook`
-            "msvc": "191",
-        }
-
-    @property
     def _library_name(self):
         libname = "jemalloc"
         if self.settings.os == "Windows":
@@ -99,9 +88,6 @@ class JemallocConan(ConanFile):
                 self.tool_requires("msys2/latest")
 
     def validate(self):
-        minimum_version = self._minimum_compilers_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(f"{self.ref} requires {self.settings.compiler} >= {minimum_version}")
         # 1. MSVC specific checks
         if is_msvc(self):
             # Building the shared library with a static MSVC runtime is not supported
@@ -115,10 +101,6 @@ class JemallocConan(ConanFile):
             if self.options.enable_cxx and self.settings.compiler.get_safe("libcxx") == "libc++" and \
                     Version(self.settings.compiler.version) < "10":
                 raise ConanInvalidConfiguration("Clang 9 or earlier with libc++ is not supported due to the missing mutex implementation.")
-        # 3: Apple Silicon specific checks
-        if self.settings.os == "Macos" and self.settings.arch == "armv8":
-            if Version(self.version) < "5.3.0":
-                raise ConanInvalidConfiguration("Support for Apple Silicon is only available as of 5.3.0.")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -179,10 +161,9 @@ class JemallocConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "jemalloc")
         self.cpp_info.libs = [self._library_name]
-        self.cpp_info.includedirs = [os.path.join(self.package_folder, "include"),
-                                     os.path.join(self.package_folder, "include", "jemalloc")]
+        self.cpp_info.includedirs.append("include/jemalloc")
         if is_msvc(self):
-            self.cpp_info.includedirs.append(os.path.join(self.package_folder, "include", "msvc_compat"))
+            self.cpp_info.includedirs.append("include/msvc_compat")
         if not self.options.shared:
             self.cpp_info.defines = ["JEMALLOC_EXPORT="]
         if self.settings.os in ["Linux", "FreeBSD"]:
