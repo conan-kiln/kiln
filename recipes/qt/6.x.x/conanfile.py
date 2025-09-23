@@ -253,8 +253,7 @@ class QtConan(ConanFile):
                 else:
                     explicitly_disabled.add(module)
         requested_modules = (modules_enabled_by_status | explicitly_enabled) - explicitly_disabled
-        context = "build" if self.settings_target else "host"
-        self.output.info(f"Requested modules for {context} context: {sorted(requested_modules)}")
+        self.output.info(f"Requested modules for {self.context} context: {sorted(requested_modules)}")
         required_modules = set()
         dependants = defaultdict(list)
         for module in requested_modules:
@@ -264,13 +263,13 @@ class QtConan(ConanFile):
         required_modules.discard("qtbase")
         additional = sorted(required_modules - requested_modules)
         if additional:
-            self.output.info(f"Additional required modules for {context} context: {additional}")
+            self.output.info(f"Additional required modules for {self.context} context: {additional}")
         required_but_disabled = sorted(required_modules & explicitly_disabled)
         if required_but_disabled:
             required_by = set()
             for m in required_but_disabled:
                 required_by |= set(dependants[m])
-            raise ConanInvalidConfiguration(f"Modules {required_but_disabled} are explicitly disabled for {context} context, "
+            raise ConanInvalidConfiguration(f"Modules {required_but_disabled} are explicitly disabled for {self.context} context, "
                                             f"but are required by {sorted(required_by)}, enabled by other options")
         return requested_modules | required_modules
 
@@ -329,9 +328,7 @@ class QtConan(ConanFile):
             # Currently failing on CI for gcc11, see conan-io/conan-center-index#13472
             raise ConanInvalidConfiguration(skip_ci_reason)
 
-        if self.settings_target is None:
-            # Raise when consumed in the host context, but allow compatible when
-            # in the build context
+        if self.context == "host":
             check_min_cppstd(self, 17)
 
         if self.settings.compiler == "apple-clang" and Version(self.settings.compiler.version) < "12":
@@ -879,9 +876,8 @@ class QtConan(ConanFile):
             save(self, ".qmake.stash", "")
             save(self, ".qmake.super", "")
 
-        context = "build" if self.settings_target else "host"
         enabled = (["gui"] if self.options.gui else []) + (["widgets"] if self.options.widgets else []) + sorted(self._enabled_modules)
-        self.output.info(f"Will build the following components for {context} context: {enabled}")
+        self.output.info(f"Will build the following components for {self.context} context: {enabled}")
 
         cmake = CMake(self)
         cmake.configure()

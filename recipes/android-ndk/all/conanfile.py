@@ -264,7 +264,7 @@ class AndroidNDKConan(ConanFile):
 
         # interestingly I can reach that with
         # conan test --profile:build nsdk-default --profile:host default /Users/a4z/elux/conan/myrecipes/android-ndk/all/test_package android-ndk/r21d@
-        if self.settings_target is None:
+        if self.context != "build":
             return
 
         # And if we are not building for Android, why bother at all

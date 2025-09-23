@@ -184,7 +184,7 @@ class ElfutilsConan(ConanFile):
             self.cpp_info.components["libdebuginfod"].libs = ["debuginfod"]
             self.cpp_info.components["libdebuginfod"].requires = ["libcurl::curl"]
 
-        if self.settings_target is not None:
+        if self.context == "build":
             bin_ext = ".exe" if self.settings.os == "Windows" else ""
             for envvar, tool in [
                 ("ADDR2LINE", "addr2line"),

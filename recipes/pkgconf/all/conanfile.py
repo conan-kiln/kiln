@@ -36,7 +36,7 @@ class PkgConfConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
-        self.options.enable_lib = self.settings_target is None
+        self.options.enable_lib = self.context == "host"
 
     def configure(self):
         if self.options.shared:
