@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-22:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-23:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -468,6 +468,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - embree/3.13.5
 - emsdk/4.0.6
 - f2c/20240312
+- faac/1.31.1
 - faiss/1.12.0
 - fast_double_parser/0.8.1
 - fatrop/0.0.4+git.20250805
@@ -1054,6 +1055,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openspecfun/0.5.7
 - openucx/1.19.0
 - openusd/25.08
+- openvino/2025.2.0
 - openxr/1.1.47
 - optix-headers/7.7.0
 - optix-headers/8.1.0
@@ -1132,6 +1134,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rapids_logger/0.1.1
 - rdma-core/59.0
 - re2/20220601
+- re2c/2.2
+- re2c/3.1
+- re2c/4.0.2
 - readline/8.3.1
 - reduct-cpp/1.14.0
 - renderdoc/1.37
@@ -1380,6 +1385,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - wayland/1.21.0
 - wayland/1.23.0
 - wayland/1.24.0
+- whisper-cpp/1.5.2
+- whisper-cpp/1.6.2
+- whisper-cpp/1.7.2
 - worhp/1.16.3
 - workflow/0.11.10
 - wuffs/0.3.4
