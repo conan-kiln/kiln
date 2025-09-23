@@ -497,6 +497,8 @@ class GgmlConan(ConanFile):
         tc.cache_variables["GGML_BACKEND_DL"] = False
 
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
+        tc.cache_variables["GIT_EXE"] = "-NOTFOUND"
+        tc.cache_variables["GGML_GIT_DIRTY"] = False
 
         tc.generate()
 
