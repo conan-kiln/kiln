@@ -539,6 +539,9 @@ class GgmlConan(ConanFile):
             if stdcpp_library(self):
                 self.cpp_info.components["ggml-base"].system_libs.append(stdcpp_library(self))
 
+        self.cpp_info.components["ggml_"].libs = ["ggml"]
+        self.cpp_info.components["ggml_"].requires = ["ggml-base"]
+
         # CPU backend
         if self.options.cpu:
             self.cpp_info.components["ggml-cpu"].set_property("cmake_target_name", "ggml::ggml-cpu")
