@@ -13,15 +13,15 @@ required_conan_version = ">=2.4"
 
 class LibsndioConan(ConanFile):
     name = "libsndio"
+    description = ("A small audio and MIDI framework that provides a lightweight audio & MIDI server "
+                   "and a user-space API to access either the server or the hardware directly in a uniform way.")
     license = "ISC"
     homepage = "https://sndio.org/"
     topics = ("sndio", "sound", "audio", "midi")
-    description = ("A small audio and MIDI framework that provides a lightweight audio & MIDI server "
-                   "and a user-space API to access either the server or the hardware directly in a uniform way.")
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "with_alsa": [True, False]
+        "with_alsa": [True, False],
     }
     default_options = {
         "with_alsa": False,
@@ -34,7 +34,6 @@ class LibsndioConan(ConanFile):
     def validate(self):
         if self.settings.os not in ["Linux", "FreeBSD"]:
             raise ConanInvalidConfiguration(f"Unsupported OS for {self.ref}")
-
         if self.options.with_alsa and not self.dependencies["libalsa"].options.get_safe("shared", False):
             raise ConanInvalidConfiguration(f"{self.ref} requires libalsa to be built as a shared library")
 
@@ -48,7 +47,6 @@ class LibsndioConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["source"], strip_root=True)
         download(self, **self.conan_data["sources"][self.version]["license"], filename="LICENSE")
-
         # Remove all targets other than libsndio
         lines = [
             "cd sndiod && ${MAKE} install",
@@ -72,9 +70,9 @@ class LibsndioConan(ConanFile):
 
         tc = AutotoolsToolchain(self)
 
-        # Bundled `configure` script does not support these options, so remove
-        exclusions = ["--enable-shared", "--disable-shared", "--disable-static", "--enable-static", "--sbindir", "--oldincludedir", "--host", "--build"]
-        tc.configure_args = [arg for arg in tc.configure_args if not any(exclusion in arg for exclusion in exclusions)]
+        # Bundled `configure` script supports only a limited set of flags
+        allowed = {"--prefix", "--bindir", "--libdir", "--includedir", "--datadir"}
+        tc.configure_args = [arg for arg in tc.configure_args if arg.split("=")[0] in allowed]
 
         # Add alsa support
         if self.options.get_safe("with_alsa"):
