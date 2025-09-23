@@ -2,8 +2,10 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <stdio.h>
 
-int main(int argc, char **argv) {
-    printf("SDL3_ttf version: %i", TTF_Version());
-
-    return 0;
+int main() {
+    int version = TTF_Version();
+    int major = version / 1000000;
+    int minor = version / 1000 % 1000;
+    int patch = version % 1000;
+    printf("SDL3_ttf version: %d.%d.%d", major, minor, patch);
 }
