@@ -1,0 +1,4 @@
+sources:
+  "4.4.3":
+    url: "https://github.com/stack-of-tasks/dynamic-graph/releases/download/v4.4.3/dynamic-graph-4.4.3.tar.gz"
+    sha256: "0b358d3eae5ed3aa94622c88e7fc0da11d0e0e58ad1d464a52a12764f6f7b6c3"

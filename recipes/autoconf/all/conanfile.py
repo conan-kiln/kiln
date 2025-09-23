@@ -5,6 +5,7 @@ from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import unix_path, is_msvc
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -15,7 +16,7 @@ class AutoconfConan(ConanFile):
         "Autoconf is an extensible package of M4 macros that produce shell "
         "scripts to automatically configure software source code packages"
     )
-    license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
+    license = "GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0"
     homepage = "https://www.gnu.org/software/autoconf/"
     topics = ("configure", "build")
 
@@ -28,9 +29,6 @@ class AutoconfConan(ConanFile):
     def layout(self):
         basic_layout(self, src_folder="src")
 
-    def requirements(self):
-        self.requires("m4/[^1.4.20]") # Needed at runtime by downstream clients as well
-
     def package_id(self):
         del self.info.settings.arch
         del self.info.settings.compiler
@@ -41,7 +39,6 @@ class AutoconfConan(ConanFile):
         self.info.requires.clear()
 
     def build_requirements(self):
-        self.tool_requires("m4/[^1.4.20]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -56,6 +53,18 @@ class AutoconfConan(ConanFile):
             # Handle vagaries of Windows line endings
             replace_in_file(self, os.path.join(self.source_folder, "bin", "autom4te.in"),
                             "$result =~ s/^\\n//mg;", "$result =~ s/^\\R//mg;")
+        # Don't hard-code Perl path
+        for f in [
+            "bin/autoheader.in",
+            "bin/autom4te.in",
+            "bin/autoreconf.in",
+            "bin/autoscan.in",
+            "bin/autoupdate.in",
+            "bin/ifnames.in",
+        ]:
+            replace_in_file(self, f, "@PERL@", "/usr/bin/env perl")
+        if Version(self.version) >= "2.72":
+            replace_in_file(self, "bin/autoconf.in", "@PERL@", "/usr/bin/env perl")
 
     def generate(self):
         tc = AutotoolsToolchain(self)

@@ -4,7 +4,7 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
 from conan.tools.build import cross_building
-from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsDeps, AutotoolsToolchain
 from conan.tools.layout import basic_layout
@@ -19,7 +19,6 @@ class LibdatrieConan(ConanFile):
     license = "LGPL-2.1-or-later"
     homepage = "https://linux.thai.net/projects/datrie"
     topics = ("trie", "double-array-trie", "datrie")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -62,9 +61,6 @@ class LibdatrieConan(ConanFile):
         apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
-
         if not cross_building(self):
             env = VirtualRunEnv(self)
             env.generate(scope="build")
@@ -100,9 +96,9 @@ class LibdatrieConan(ConanFile):
         autotools = Autotools(self)
         autotools.configure()
         if not self.options.tools:
-            save(self, os.path.join(self.build_folder, "tools", "Makefile"), "all:\n\t\ninstall:\n\t\n")
+            save(self, os.path.join(self.build_folder, "tools", "Makefile"), "all:\ninstall:\n")
         # Unnecessary and breaks MSVC build
-        save(self, os.path.join(self.build_folder, "man", "Makefile"), "all:\n\t\ninstall:\n\t\n")
+        save(self, os.path.join(self.build_folder, "man", "Makefile"), "all:\ninstall:\n")
         autotools.make()
 
     def package(self):

@@ -11,9 +11,9 @@ from conan.tools.microsoft import is_msvc
 class LimereportConan(ConanFile):
     name = "limereport"
     description = "Report generator for Qt Framework"
+    license = "GPL-3.0 AND LGPL-3.0"
     homepage = "https://limereport.ru"
     topics = ("pdf", "report", "qt")
-    license = "LGPL-3.0", "GPL-3.0"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

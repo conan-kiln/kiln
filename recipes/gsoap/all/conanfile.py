@@ -13,7 +13,7 @@ class GsoapConan(ConanFile):
     name = "gsoap"
     description = "The gSOAP toolkit is a C and C++ software development toolkit for SOAP and " \
                   "REST XML Web services and generic C/C++ XML data bindings."
-    license = ("gSOAP-1.3b", "GPL-2.0-or-later")
+    license = "GPL-2.0-only AND gSOAP-1.3b"
     homepage = "https://sourceforge.net/projects/gsoap2"
     topics = ("logging",)
     package_type = "static-library"

@@ -1,4 +1,7 @@
 sources:
+  "25.09.0.7":  # CUDA 12, 13
+    url: "https://developer.download.nvidia.com/compute/cuquantum/redist/redistrib_25.09.0.json"
+    sha256: "e500783ff87410d55122c90b3383b51d9811a4830483c9c66a37defa3a3c655f"
   "25.06.0.10":  # CUDA 11, 12
     url: "https://developer.download.nvidia.com/compute/cuquantum/redist/redistrib_25.06.0.json"
     sha256: "7a824087a8cc279aa660895213eb8045c80d62c80827cc4e0273ac6a4c595e43"

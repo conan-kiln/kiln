@@ -1,0 +1,8 @@
+sources:
+  "2.0":
+    url: "https://github.com/NVlabs/tiny-cuda-nn/archive/refs/tags/v2.0.tar.gz"
+    sha256: "fea09c396f841de490944b02285946d77e43f4975ff247f2301113161d119bcd"
+patches:
+  "2.0":
+    - patch_file: "patches/cmake-fixes.patch"
+    - patch_file: "patches/unvendor-nlohmann.patch"

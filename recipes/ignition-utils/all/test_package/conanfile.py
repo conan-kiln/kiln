@@ -10,12 +10,11 @@ class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     def requirements(self):
-        self.requires("ignition-cmake/2.10.0", visible=False)
+        self.requires("ignition-cmake/[^2.10.0]", visible=False)
         self.requires(self.tested_reference_str)
 
     def build_requirements(self):
         self.tool_requires("ignition-cmake/<host_version>")
-        self.tool_requires("doxygen/[^1.9.4]")
 
     def layout(self):
         cmake_layout(self)
@@ -23,6 +22,7 @@ class TestPackageConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["IGN_UTILS_MAJOR_VER"] = Version(self.dependencies["ignition-utils"].ref.version).major
+        tc.variables["CMAKE_DISABLE_FIND_PACKAGE_Doxygen"] = True
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

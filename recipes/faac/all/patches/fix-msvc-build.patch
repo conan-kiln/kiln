@@ -1,0 +1,12 @@
+--- a/frontend/mp4write.c
++++ b/frontend/mp4write.c
+@@ -27,7 +27,9 @@
+ //#include <byteswap.h>
+ #endif
+ #include <string.h>
++#if !defined (_MSC_VER)
+ #include <sys/time.h>
++#endif
+ #include <time.h>
+ #include <unistd.h>
+ 

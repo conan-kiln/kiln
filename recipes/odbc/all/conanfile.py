@@ -12,12 +12,11 @@ required_conan_version = ">=2.1"
 
 class OdbcConan(ConanFile):
     name = "odbc"
-    package_type = "library"
     description = "Package providing unixODBC"
-    topics = ("odbc", "database", "dbms", "data-access")
+    license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
     homepage = "http://www.unixodbc.org"
-    license = ("LGPL-2.1", "GPL-2.1")
-
+    topics = ("odbc", "database", "dbms", "data-access")
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

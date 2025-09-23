@@ -210,3 +210,5 @@ class XpressConan(ConanFile):
         # kalis.dso runtime dep
         self.cpp_info.components["Kalis"].libs = ["Kalis"]
         self.cpp_info.components["Kalis"].requires = ["xprl", "xprs"]
+
+        self.runenv_info.define_path("XPRESSDIR", self.package_folder)

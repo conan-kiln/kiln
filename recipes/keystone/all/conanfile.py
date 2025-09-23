@@ -15,7 +15,7 @@ class KeystoneConan(ConanFile):
         "Keystone assembler framework: Core (Arm, Arm64, Hexagon, "
         "Mips, PowerPC, Sparc, SystemZ & X86) + bindings."
     )
-    license = ( "GPL-2.0-only", "DocumentRef-EXCEPTIONS-CLIENT:LicenseRef-FOSS-License-Exception" )
+    license = "GPL-2.0-only AND DocumentRef-EXCEPTIONS-CLIENT:LicenseRef-FOSS-License-Exception"
     homepage = "https://www.keystone-engine.org"
     topics = (
         "security",

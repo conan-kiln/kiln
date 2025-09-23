@@ -1,0 +1,83 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -15,7 +15,6 @@
+ 
+ #### ---- Options ---- ####
+ option (QPTESTS "Build Unit Tests" OFF)
+-option (QPSHAREDLIB "Build Unit Tests" ON)
+ option (QPDEMOS "Build C and C++ Demos" ON)
+ 
+ 
+@@ -53,7 +52,10 @@
+         add_subdirectory(tests)
+ endif()
+ 
++find_package(LDL REQUIRED)
++link_libraries(SuiteSparse::LDL)
+ 
++if(NOT BUILD_SHARED_LIBS)
+ ### --- Create Static Library
+ add_library(qpSWIFT-static STATIC ${qpSWIFT_src})
+ target_link_libraries(qpSWIFT-static ${EXTRA_LIBS})
+@@ -63,9 +65,8 @@
+                 "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                 "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/qpSWIFT>"
+ )
+-
++else()
+ ### --- Create Shared Library
+-if(QPSHAREDLIB)
+         add_library(qpSWIFT-shared SHARED ${qpSWIFT_src})
+         target_link_libraries(qpSWIFT-shared ${EXTRA_LIBS})
+         set_target_properties(qpSWIFT-shared PROPERTIES OUTPUT_NAME qpSWIFT)
+@@ -89,6 +90,7 @@
+ endif()
+ 
+ 
++if(NOT BUILD_SHARED_LIBS)
+ ### ---- Install Static Library ------- ####
+ install(TARGETS qpSWIFT-static
+         EXPORT "${PROJECT_NAME}"
+@@ -98,7 +100,7 @@
+ )
+ 
+ ### ---- Install Shared Library ------- ####
+-if(QPSHAREDLIB)
++else()
+         install(TARGETS qpSWIFT-shared
+                 EXPORT "${PROJECT_NAME}"
+                 ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -1,19 +1,5 @@
+ set(
+     qpSWIFT_src
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_1.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_aat.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_defaults.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_global.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_order.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_post_tree.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_valid.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_2.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_control.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_dump.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_info.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_postorder.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_preprocess.c"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/ldl.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/timer.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/Auxilary.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/qpSWIFT.c"
+--- a/include/CMakeLists.txt
++++ b/include/CMakeLists.txt
+@@ -1,9 +1,5 @@
+ set(
+     qpSWIFT_headers
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd.h"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/amd_internal.h"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/SuiteSparse_config.h"
+-    "${CMAKE_CURRENT_SOURCE_DIR}/ldl.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/GlobalOptions.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/timer.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/Auxilary.h"

@@ -1,0 +1,7 @@
+sources:
+  "2.0.3":
+    url: "https://github.com/cvanaret/Uno/archive/refs/tags/v2.0.3.tar.gz"
+    sha256: "b5440461ea86146aa95bf6e54b959f8845a7c332dd67550072b442a89a9517fa"
+patches:
+  "2.0.3":
+    - patch_file: "patches/2.0.3-cmake-fixes.patch"

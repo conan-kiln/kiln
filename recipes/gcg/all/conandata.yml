@@ -1,0 +1,4 @@
+sources:
+  "3.7.2":
+    url: "https://github.com/scipopt/gcg/archive/refs/tags/v372.tar.gz"
+    sha256: "e8d96c6803b098b186f560c4b0a144dd8859ba2bd380c942ee20ab05a47a1712"

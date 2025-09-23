@@ -1,0 +1,4 @@
+sources:
+  "1.0.0+git.20150923":
+    url: "https://github.com/clMathLibraries/clRNG/archive/de7b3e2c6332114ccee2ff97e1f10c116b65c1ed.tar.gz"
+    sha256: "1bfa63eb9dd1cd9c1f4664e90c75f172911327d7c71f4168e6db7834938d0442"

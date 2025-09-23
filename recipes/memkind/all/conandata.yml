@@ -1,0 +1,4 @@
+sources:
+  "1.14.0+git.20240523":
+    url: "https://github.com/memkind/memkind/archive/fb7de4a5e4cd2c48ccc2aba209d01bb6c9035707.tar.gz"
+    sha256: "d3546bf8c225e322ea0e3c0150f6f3118cdf842f50116afbbdfd5c9e7a70049b"

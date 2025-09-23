@@ -7,7 +7,7 @@ from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.build import cross_building
 from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
+from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps, PkgConfig
 from conan.tools.layout import basic_layout
 
 required_conan_version = ">=2.4"
@@ -45,7 +45,7 @@ class CoinMumpsConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openmpi/[>=4 <6]")
+        self.requires("openmpi/[>=4 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("openblas/[>=0.3.28 <1]")
         self.requires("metis/[^5.2.1]")
         if self.options.with_openmp:
@@ -73,10 +73,22 @@ class CoinMumpsConan(ConanFile):
         apply_conandata_patches(self)
         os.rename("MUMPS/libseq/mpi.h", "MUMPS/libseq/mumps_mpi.h")
 
+    def _flags_from_pc(self, name):
+        pc = PkgConfig(self, name, self.generators_folder)
+        cflags = list(pc.cflags)
+        cflags += [f"-I{inc}" for inc in pc.includedirs]
+        ldflags = list(pc.linkflags)
+        ldflags += [f"-L{libdir}" for libdir in pc.libdirs]
+        ldflags += [f"-l{lib}" for lib in pc.libs]
+        return " ".join(cflags), " ".join(ldflags)
+
     def generate(self):
         if not cross_building(self):
             env = VirtualRunEnv(self)
             env.generate(scope="build")
+
+        deps = PkgConfigDeps(self)
+        deps.generate()
 
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
@@ -88,16 +100,12 @@ class CoinMumpsConan(ConanFile):
             f"--enable-openmp={yes_no(self.options.with_openmp)}",
             f"--with-precision={self.options.precision}",
             f"--with-intsize={int_size}",
+            f"F77={self._fortran_compiler}",
         ])
-        dep_info = self.dependencies["openblas"].cpp_info.aggregated_components()
-        lib_flags = " ".join([f"-l{lib}" for lib in dep_info.libs + dep_info.system_libs])
-        tc.configure_args.append(f"--with-lapack-lflags=-L{dep_info.libdir} {lib_flags}")
-        if self._fortran_compiler:
-            tc.configure_args.append(f"F77={self._fortran_compiler}")
+        cflags, ldflags = self._flags_from_pc("openblas")
+        tc.configure_args.append(f"--with-lapack-cflags={cflags}")
+        tc.configure_args.append(f"--with-lapack-lflags={ldflags}")
         tc.generate()
-
-        deps = PkgConfigDeps(self)
-        deps.generate()
 
     def build(self):
         autotools = Autotools(self)

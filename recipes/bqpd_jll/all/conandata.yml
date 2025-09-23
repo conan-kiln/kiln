@@ -1,0 +1,4 @@
+sources:
+  "1.0.0":
+    url: "https://raw.githubusercontent.com/leyffer/BQPD_jll.jl/refs/tags/BQPD-v1.0.0%2B0/Artifacts.toml"
+    sha256: "8dba46d6c6367963e9199827f57dd8207b7232e08c9ed4dcce77f840dd7b58ae"

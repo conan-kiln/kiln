@@ -12,7 +12,7 @@ required_conan_version = ">=2.1"
 class CpptraceConan(ConanFile):
     name = "cpptrace"
     description = "Simple, portable, and self-contained stacktrace library for C++11 and newer "
-    license = ("MIT", "LGPL-2.1-only", "BSD-2-Clause-Views")
+    license = "MIT"
     homepage = "https://github.com/jeremy-rifkin/cpptrace"
     topics = ("stacktrace", "backtrace", "stack-trace", "back-trace", "trace", "utilities", "error-handling")
     package_type = "library"

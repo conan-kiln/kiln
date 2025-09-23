@@ -4,6 +4,7 @@ from functools import cached_property
 from conan import ConanFile
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -37,16 +38,17 @@ class CuQuantumConan(ConanFile):
 
     def requirements(self):
         self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
-        self.cuda.requires("cusolver")
+        self.cuda.requires("cutensornet", transitive_headers=True, transitive_libs=True)
         self.cuda.requires("cublas")
-        self.cuda.requires("cusparse")
         self.cuda.requires("nvjitlink")
-        self.requires("cutensor/[^2]")
+        if Version(self.version) >= "25.09":
+            self.cuda.requires("curand")
+            self.cuda.requires("nvml-stubs")
 
     def validate(self):
         self.cuda.validate_package("cuquantum")
         if self.options.get_safe("shared", True):
-            self.cuda.require_shared_deps(["cutensor", "cusolver", "cublas", "cusparse", "nvjitlink"])
+            self.cuda.require_shared_deps(["cutensornet", "cudart", "cublas", "nvjitlink", "curand"])
 
     def build(self):
         self.cuda.download_package("cuquantum")
@@ -54,10 +56,15 @@ class CuQuantumConan(ConanFile):
     def package(self):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
-        if self.options.get_safe("shared", True):
-            copy(self, "*.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
-        else:
-            copy(self, "*_static.a", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        rm(self, "cutensornet*", os.path.join(self.package_folder, "include"))
+        rmdir(self, os.path.join(self.package_folder, "include", "cutensornet"))
+        def copy_lib(lib):
+            if self.options.get_safe("shared", True):
+                copy(self, f"*{lib}.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+            else:
+                copy(self, f"*{lib}_static.a", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        copy_lib("cudensitymat")
+        copy_lib("custatevec")
 
     def package_info(self):
         # The CMake config and target names are not official
@@ -71,34 +78,14 @@ class CuQuantumConan(ConanFile):
         self.cpp_info.components["cudensitymat"].set_property("cmake_target_aliases", [f"cuQuantum::cudensitymat{alias_suffix}"])
         self.cpp_info.components["cudensitymat"].set_property("pkg_config_name", "cudensitymat")  # unofficial
         self.cpp_info.components["cudensitymat"].libs = [f"cudensitymat{suffix}"]
-        self.cpp_info.components["cudensitymat"].requires = [
-            "cutensornet",
-            "cudart::cudart_",
-            "cutensor::cutensor_",
-            "cusolver::cusolver_",
-            "cublas::cublas_",
-            "cusparse::cusparse",
-            "nvjitlink::nvjitlink",
-        ]
+        self.cpp_info.components["cudensitymat"].requires = ["cutensornet::cutensornet", "nvjitlink::nvjitlink"]
+        if Version(self.version) >= "25.09":
+            self.cpp_info.components["cudensitymat"].requires.append("curand::curand")
 
         self.cpp_info.components["custatevec"].set_property("cmake_target_name", f"cuQuantum::custatevec{suffix}")
         self.cpp_info.components["custatevec"].set_property("cmake_target_aliases", [f"cuQuantum::custatevec{alias_suffix}"])
         self.cpp_info.components["custatevec"].set_property("pkg_config_name", "custatevec")  # unofficial
         self.cpp_info.components["custatevec"].libs = [f"custatevec{suffix}"]
-        self.cpp_info.components["custatevec"].requires = [
-            "cudart::cudart_",
-            "cublas::cublas_",
-        ]
-
-        self.cpp_info.components["cutensornet"].set_property("cmake_target_name", f"cuQuantum::cutensornet{suffix}")
-        self.cpp_info.components["cutensornet"].set_property("cmake_target_aliases", [f"cuQuantum::cutensornet{alias_suffix}"])
-        self.cpp_info.components["cutensornet"].set_property("pkg_config_name", "cutensornet")  # unofficial
-        self.cpp_info.components["cutensornet"].libs = [f"cutensornet{suffix}"]
-        self.cpp_info.components["cutensornet"].requires = [
-            "cudart::cudart_",
-            "cutensor::cutensor_",
-            "cublas::cublas_",
-            "cusolver::cusolver_",
-        ]
-        if not self.options.get_safe("shared", True):
-            self.cpp_info.components["cutensornet"].system_libs = ["m", "pthread", "dl", "rt", "stdc++", "gcc_s"]
+        self.cpp_info.components["custatevec"].requires = ["cudart::cudart_", "cublas::cublas_"]
+        if Version(self.version) >= "25.09":
+            self.cpp_info.components["custatevec"].requires.append("nvml-stubs::nvml-stubs")

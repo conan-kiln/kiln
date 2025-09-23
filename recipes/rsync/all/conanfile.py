@@ -14,7 +14,7 @@ class RsyncConan(ConanFile):
     description = "rsync is an open source utility that provides fast incremental file transfer"
     topics = ("backup", "transferring", "file-transfer", "ssh", "compression")
     homepage = "https://rsync.samba.org/"
-    license = ("GPL-3.0", "LGPL-3.0")
+    license = "GPL-3.0-or-later"
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -33,6 +33,7 @@ class RsyncConan(ConanFile):
         "with_lz4": True,
         "enable_acl": False
     }
+    languages = ["C"]
 
     def configure(self):
         self.settings.rm_safe("compiler.libcxx")
@@ -75,9 +76,9 @@ class RsyncConan(ConanFile):
             f"--enable-acl-support={yes_no(self.options.enable_acl)}",
             f"--with-included-zlib={yes_no(not self.options.with_zlib)}",
             "--disable-openssl" if not self.options.with_openssl else "--enable-openssl",
-            f"--with-zstd={yes_no(self.options.with_zstd)}",
-            f"--with-lz4={yes_no(self.options.with_lz4)}",
-            f"--with-xxhash={yes_no(self.options.with_xxhash)}",
+            f"--enable-zstd={yes_no(self.options.with_zstd)}",
+            f"--enable-lz4={yes_no(self.options.with_lz4)}",
+            f"--enable-xxhash={yes_no(self.options.with_xxhash)}",
             "--enable-manpages=no",
         ])
         if self.settings.os == "Neutrino":

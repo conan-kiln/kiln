@@ -1,0 +1,4 @@
+sources:
+  "0.11.2+git.20170213":
+    url: "https://github.com/clMathLibraries/clSPARSE/archive/af849be54ea217f128614c22475f084c6516f4e4.tar.gz"
+    sha256: "041daded1e4fab9e5ddbbbc1d3fcd4f6745bc6b4294484c8ff8eb673d8a52d8f"

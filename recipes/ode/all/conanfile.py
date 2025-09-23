@@ -13,7 +13,7 @@ required_conan_version = ">=2.1"
 class OdeConan(ConanFile):
     name = "ode"
     description = "ODE is an open source, high performance library for simulating rigid body dynamics."
-    license = ("LGPL-2.1-or-later", "BSD-3-Clause")
+    license = "BSD-3-Clause OR LGPL-2.1-or-later"
     topics = ("open-dynamics-engine", "physics", "physics-engine", "physics-simulation", "dynamics", "rigid-body")
     homepage = "https://www.ode.org"
 

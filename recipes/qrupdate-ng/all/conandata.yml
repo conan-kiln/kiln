@@ -1,0 +1,4 @@
+sources:
+  "1.1.5":
+    url: "https://github.com/mpimd-csc/qrupdate-ng/archive/refs/tags/v1.1.5.tar.gz"
+    sha256: "912426f7cb9436bb3490c3102a64d9a2c3883d700268a26d4d738b7607903757"

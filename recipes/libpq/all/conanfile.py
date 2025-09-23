@@ -1,10 +1,11 @@
 import glob
 import os
+import textwrap
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.build import cross_building, can_run
-from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, AutotoolsDeps, PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -17,10 +18,9 @@ required_conan_version = ">=2.1"
 class LibpqConan(ConanFile):
     name = "libpq"
     description = "The library used by all the standard PostgreSQL tools."
-    topics = ("postgresql", "database", "db")
-    homepage = "https://www.postgresql.org/docs/current/static/libpq.html"
     license = "PostgreSQL"
-
+    homepage = "https://www.postgresql.org/docs/current/static/libpq.html"
+    topics = ("postgresql", "database", "db")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -37,6 +37,8 @@ class LibpqConan(ConanFile):
         "with_icu": False,
         "disable_rpath": False,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     @property
     def _is_clang8_x86(self):
@@ -52,12 +54,6 @@ class LibpqConan(ConanFile):
         if self.settings.os == "Windows":
             self.options.rm_safe("fPIC")
             self.options.rm_safe("disable_rpath")
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -85,8 +81,6 @@ class LibpqConan(ConanFile):
         apply_conandata_patches(self)
 
     def generate(self):
-        env = VirtualBuildEnv(self)
-        env.generate()
         if is_msvc(self):
             vcvars = VCVars(self)
             vcvars.generate()
@@ -139,9 +133,9 @@ class LibpqConan(ConanFile):
                 linked_libs += f",'{zlib_link_lib}'"
 
             libraries_pattern = "libraries             => []," if Version(self.version) < '16' else "libraries => [],"
-            replace_in_file(self,os.path.join(self.source_folder, "src", "tools", "msvc", "Project.pm"),
-                                  libraries_pattern,
-                                  "libraries             => [{}],".format(linked_libs))
+            replace_in_file(self, os.path.join(self.source_folder, "src", "tools", "msvc", "Project.pm"),
+                            libraries_pattern,
+                            f"libraries             => [{linked_libs}],")
             runtime = {
                 "MT": "MultiThreaded",
                 "MTd": "MultiThreadedDebug",
@@ -149,10 +143,10 @@ class LibpqConan(ConanFile):
                 "MDd": "MultiThreadedDebugDLL",
             }.get(msvc_runtime_flag(self))
             msbuild_project_pm = os.path.join(self.source_folder, "src", "tools", "msvc", "MSBuildProject.pm")
-            replace_in_file(self,msbuild_project_pm, "</Link>", """</Link>
-    <Lib>
-      <TargetMachine>$targetmachine</TargetMachine>
-    </Lib>""")
+            replace_in_file(self,msbuild_project_pm, "</Link>", textwrap.dedent("""</Link>
+                <Lib>
+                  <TargetMachine>$targetmachine</TargetMachine>
+                </Lib>"""))
             replace_in_file(self,msbuild_project_pm, "'MultiThreadedDebugDLL'", "'%s'" % runtime)
             replace_in_file(self,msbuild_project_pm, "'MultiThreadedDLL'", "'%s'" % runtime)
             config_default_pl = os.path.join(self.source_folder, "src", "tools", "msvc", "config_default.pl")

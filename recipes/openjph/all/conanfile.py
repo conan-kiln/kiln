@@ -38,7 +38,7 @@ class OpenJPH(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
         if not self.options.with_executables:
             del self.options.with_tiff
 
@@ -50,7 +50,7 @@ class OpenJPH(ConanFile):
             self.requires("libtiff/[>=4.5 <5]")
 
     def validate(self):
-        check_min_cppstd(self, 11)
+        check_min_cppstd(self, 14)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

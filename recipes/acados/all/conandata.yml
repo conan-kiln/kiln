@@ -1,0 +1,7 @@
+sources:
+  "0.5.1":
+    url: "https://github.com/acados/acados/archive/5da8b905b5720c5a9f0e12de478ff3ce1137454d.tar.gz"
+    sha256: "25f21adf69978b034a51c68c6e57c68618d15e90c6f893ae4a670f51eb92cdd8"
+patches:
+  "0.5.1":
+    - patch_file: "patches/0.5.1-fix-hpmpc-typo.patch"

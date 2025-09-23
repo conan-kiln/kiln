@@ -13,18 +13,17 @@ class LibccdConan(ConanFile):
     license = "BSD-3-Clause"
     topics = ("collision", "3d")
     homepage = "https://github.com/danfis/libccd"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "enable_double_precision": [True, False],
+        "double_precision": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "enable_double_precision": False,
+        "double_precision": False,
     }
     implements = ["auto_shared_fpic"]
     languages = ["C"]
@@ -34,11 +33,14 @@ class LibccdConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 2.8.11)",
+                        "cmake_minimum_required(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["BUILD_DOCUMENTATION"] = False
-        tc.variables["ENABLE_DOUBLE_PRECISION"] = self.options.enable_double_precision
+        tc.variables["ENABLE_DOUBLE_PRECISION"] = self.options.double_precision
         tc.variables["CCD_HIDE_ALL_SYMBOLS"] = not self.options.shared
         if self.settings.os in ["Linux", "FreeBSD"]:
             tc.variables["LIBM_LIBRARY"] = "m"
@@ -61,7 +63,6 @@ class LibccdConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "ccd")
         self.cpp_info.set_property("cmake_target_name", "ccd")
         self.cpp_info.set_property("pkg_config_name", "ccd")
-
         self.cpp_info.libs = ["ccd"]
         if not self.options.shared:
             self.cpp_info.defines.append("CCD_STATIC_DEFINE")

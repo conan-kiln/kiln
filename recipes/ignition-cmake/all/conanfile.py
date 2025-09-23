@@ -1,5 +1,4 @@
 import os
-import textwrap
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
@@ -15,7 +14,6 @@ class IgnitionCmakeConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://github.com/gazebosim/gz-cmake"
     topics = ("ignition", "robotics", "cmake", "gazebo", "header-only")
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
@@ -60,27 +58,6 @@ class IgnitionCmakeConan(ConanFile):
                     continue
                 os.remove(os.path.join(cmake_config_files_dir, file))
 
-        # add version information for downstream dependencies consuming ign-cmake through CMake generators
-        self._create_cmake_module_variables(
-            os.path.join(self.package_folder, self._module_file_rel_path),
-            Version(self.version)
-        )
-
-    def _create_cmake_module_variables(self, module_file, version):
-        # the version info is needed by downstream ignition-dependencies
-        content = textwrap.dedent(f"""\
-            set(ignition-cmake{version.major}_VERSION_MAJOR {version.major})
-            set(ignition-cmake{version.major}_VERSION_MINOR {version.minor})
-            set(ignition-cmake{version.major}_VERSION_PATCH {version.patch})
-            set(ignition-cmake{version.major}_VERSION_STRING "{version.major}.{version.minor}.{version.patch}")
-        """)
-        save(self, module_file, content)
-
-
-    @property
-    def _module_file_rel_path(self):
-        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
-
     def package_info(self):
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
@@ -92,7 +69,7 @@ class IgnitionCmakeConan(ConanFile):
         base_module_path = os.path.join("lib", "cmake", ign_cmake_component)
         ign_cmake_file = os.path.join(base_module_path, f"cmake{version_major}", "IgnCMake.cmake")
         utils_targets_file = os.path.join(base_module_path, f"{ign_cmake_component}-utilities-targets.cmake")
-        self.cpp_info.set_property("cmake_build_modules", [self._module_file_rel_path, ign_cmake_file, utils_targets_file])
+        self.cpp_info.set_property("cmake_build_modules", [ign_cmake_file, utils_targets_file])
 
         self.cpp_info.components[ign_cmake_component].set_property("cmake_target_name", f"{ign_cmake_component}::{ign_cmake_component}")
         self.cpp_info.components[ign_cmake_component].builddirs.append(os.path.join(base_module_path, f"cmake{version_major}"))

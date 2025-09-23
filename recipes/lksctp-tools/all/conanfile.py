@@ -12,13 +12,12 @@ required_conan_version = ">=2.1"
 
 class LKSCTPToolsConan(ConanFile):
     name = "lksctp-tools"
-    settings = "os", "arch", "compiler", "build_type"
-    homepage = "https://github.com/sctp/lksctp-tools"
     description = "The Linux Kernel Stream Control Transmission Protocol (lksctp) project"
+    license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause"
+    homepage = "https://github.com/sctp/lksctp-tools"
+    topics = ("sctp",)
     package_type = "library"
-    topics = ("sctp")
-    license = ("GPL-2.0", "LGPL-2.1")
-
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],

@@ -1,7 +1,4 @@
 sources:
-  "6.10.0":
-    url: "https://github.com/gazebosim/gz-math/archive/ignition-math6_6.10.0.tar.gz"
-    sha256: "94e853e1dfba97ebec4b6152691a89af1e94660b02f4ecdf04356b763c2848bd"
-patches:
-  "6.10.0":
-    - patch_file: "patches/0002-ign-math-6.10.0-cmake-fixes.patch"
+  "6.15.1":
+    url: "https://github.com/gazebosim/gz-math/archive/ignition-math6_6.15.1.tar.gz"
+    sha256: "07694da90f13da4e577fd403094f0a6879156ec6400309e9d89bc27d57bce664"

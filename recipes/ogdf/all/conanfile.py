@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class OGDFConan(ConanFile):
     name = "ogdf"
     description = "Open Graph algorithms and Data structures Framework"
-    license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
+    license = "GPL-2.0-only OR GPL-3.0-only"
     homepage = "https://ogdf.net"
     topics = ("graph", "algorithm", "data-structures")
     settings = "os", "arch", "compiler", "build_type"
@@ -29,7 +29,7 @@ class OGDFConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def requirements(self):
-        self.requires("coin-clp/1.17.7")
+        self.requires("coin-clp/[^1.17.7]")
         self.requires("pugixml/[^1.14]")
 
     def layout(self):

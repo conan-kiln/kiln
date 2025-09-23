@@ -136,6 +136,12 @@ class CoinOsiConan(ConanFile):
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Osi")
         autotools.configure(build_script_folder="Osi")
+        if is_msvc(self):
+            replace_in_file(self, os.path.join(self.build_folder, "libtool"),
+                            r"\$AR \$AR_FLAGS \$oldlib",
+                            r"\$AR -OUT:\$oldlib")
+            replace_in_file(self, os.path.join(self.build_folder, "Makefile"),
+                            " install-data-hook", "")
         autotools.make()
 
     def package(self):
@@ -146,10 +152,6 @@ class CoinOsiConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
-        if is_msvc(self):
-            for l in ("Osi", "OsiCommonTests"):
-                rename(self, os.path.join(self.package_folder, "lib", f"lib{l}.lib"),
-                             os.path.join(self.package_folder, "lib", f"{l}.lib"))
 
     def package_info(self):
         self.cpp_info.components["libosi"].set_property("pkg_config_name", "osi")

@@ -17,7 +17,7 @@ class FreexlConan(ConanFile):
     name = "freexl"
     description = "FreeXL is an open source library to extract valid data " \
                   "from within an Excel (.xls) spreadsheet."
-    license = ["MPL-1.0", "GPL-2.0-only", "LGPL-2.1-only"]
+    license = "MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later"
     homepage = "https://www.gaia-gis.it/fossil/freexl/index"
     topics = ("excel", "xls")
     package_type = "library"

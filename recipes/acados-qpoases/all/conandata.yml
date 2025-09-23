@@ -1,0 +1,4 @@
+sources:
+  "3.1+git.20240910":
+    url: "https://github.com/acados/qpOASES/archive/a06679976d3c6c83678426aeec64d25830981e67.tar.gz"
+    sha256: "c9525764e550144a179bac99eac8950ec8e846f1df477e9a78729452162e9440"

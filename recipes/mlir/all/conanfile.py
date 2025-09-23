@@ -45,8 +45,7 @@ class MLIRConan(ConanFile):
 
     def config_options(self):
         # Enable tools when building as a tool_requires dependency
-        if self.settings_target is not None:
-            self.options.tools = True
+        self.options.tools = self.context == "build"
 
     def layout(self):
         cmake_layout(self, src_folder="src")

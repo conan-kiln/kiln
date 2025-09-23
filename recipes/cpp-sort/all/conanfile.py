@@ -1,12 +1,10 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -21,19 +19,6 @@ class CppSortConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 
-    @property
-    def _min_cppstd(self):
-        return 14
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "msvc": "192",
-            "apple-clang": "9.4",
-            "clang": "3.8",
-            "gcc": "5.5"
-        }
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -41,22 +26,7 @@ class CppSortConan(ConanFile):
         self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-
-        if is_msvc(self) and Version(self.version) < "1.10.0":
-            raise ConanInvalidConfiguration(f"{self.ref} versions older than 1.10.0 do not support MSVC")
-
-        def loose_lt_semver(v1, v2):
-            lv1 = [int(v) for v in v1.split(".")]
-            lv2 = [int(v) for v in v2.split(".")]
-            min_length = min(len(lv1), len(lv2))
-            return lv1[:min_length] < lv2[:min_length]
-
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler))
-        if minimum_version and loose_lt_semver(str(self.settings.compiler.version), minimum_version):
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-            )
+        check_min_cppstd(self, 14)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -67,20 +37,11 @@ class CppSortConan(ConanFile):
         tc.generate()
 
     def package(self):
-        # Install with CMake
+        copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "NOTICE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.configure()
         cmake.install()
-
-        # Copy license files
-        if Version(self.version) < "1.8.0":
-            license_files = ["license.txt"]
-        else:
-            license_files = ["LICENSE.txt", "NOTICE.txt"]
-        for license_file in license_files:
-            copy(self, license_file, src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-
-        # Remove CMake config files (only files in lib)
         rmdir(self, os.path.join(self.package_folder, "lib"))
 
     def package_info(self):

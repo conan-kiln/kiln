@@ -2,3 +2,9 @@ sources:
   "3.2.2":
     url: "https://github.com/coin-or/qpOASES/archive/releases/3.2.2.tar.gz"
     sha256: "e36d795a17b067ea333793d96f17a14fb2bfbd92a4ab86c7f6f513cd9e3e640d"
+  "3.2.2-casadi":
+    url: "https://github.com/coin-or/qpOASES/archive/releases/3.2.2.tar.gz"
+    sha256: "e36d795a17b067ea333793d96f17a14fb2bfbd92a4ab86c7f6f513cd9e3e640d"
+patches:
+  "3.2.2-casadi":
+    - patch_file: "patches/0001-Merge-changes-from-CasADi-3.7.2-to-3.2.2.patch"

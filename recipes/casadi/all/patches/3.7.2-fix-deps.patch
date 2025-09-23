@@ -1,0 +1,130 @@
+diff --git a/casadi/core/CMakeLists.txt b/casadi/core/CMakeLists.txt
+index d6aedb145..b6c4c6f29 100644
+--- a/casadi/core/CMakeLists.txt
++++ b/casadi/core/CMakeLists.txt
+@@ -7,6 +7,7 @@ add_subdirectory(runtime)
+ if(WITH_FMI2)
+   # FMI C API, version 2
+   add_definitions(-DWITH_FMI2)
++  find_package(FMI2 REQUIRED)
+   include_directories(${FMI2_INCLUDE_DIR})
+   set(FMU2_SRC fmu2.hpp fmu2.cpp)
+ else()
+@@ -18,6 +19,7 @@ endif()
+ if(WITH_FMI3)
+   # FMI C API, version 2
+   add_definitions(-DWITH_FMI3)
++  find_package(FMI3 REQUIRED)
+   include_directories(${FMI3_INCLUDE_DIR})
+   set(FMU3_SRC fmu3.hpp fmu3.cpp)
+ else()
+diff --git a/casadi/interfaces/blocksqp/CMakeLists.txt b/casadi/interfaces/blocksqp/CMakeLists.txt
+index a659301d4..1a951c2ab 100644
+--- a/casadi/interfaces/blocksqp/CMakeLists.txt
++++ b/casadi/interfaces/blocksqp/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ cmake_minimum_required(VERSION 3.10.2)
++find_package(QPOASES REQUIRED)
+ include_directories(${QPOASES_INCLUDE_DIR})
+ 
+ casadi_plugin(Nlpsol blocksqp
+diff --git a/casadi/interfaces/clang/CMakeLists.txt b/casadi/interfaces/clang/CMakeLists.txt
+index c73505b25..32cfca2dc 100644
+--- a/casadi/interfaces/clang/CMakeLists.txt
++++ b/casadi/interfaces/clang/CMakeLists.txt
+@@ -11,7 +11,7 @@ casadi_plugin(Importer clang
+ casadi_plugin_link_libraries(Importer clang ${CLANG_LIBRARIES})
+ 
+ # Get resource directory
+-file(COPY ${CLANG_LLVM_LIB_DIR}/clang DESTINATION ${LIBRARY_OUTPUT_PATH}/casadi/jit)
++# file(COPY ${CLANG_LLVM_LIB_DIR}/clang DESTINATION ${LIBRARY_OUTPUT_PATH}/casadi/jit)
+ 
+ # Create text files containing system paths
+ set(SYSTEM_FILE ${CMAKE_CURRENT_BINARY_DIR}/system_includes.txt)
+diff --git a/casadi/interfaces/clang/clang_compiler.cpp b/casadi/interfaces/clang/clang_compiler.cpp
+index e4124535b..31d247f2c 100644
+--- a/casadi/interfaces/clang/clang_compiler.cpp
++++ b/casadi/interfaces/clang/clang_compiler.cpp
+@@ -27,6 +27,7 @@
+ #include "casadi/core/casadi_os.hpp"
+ #include "casadi/core/casadi_misc.hpp"
+ #include "casadi/core/casadi_meta.hpp"
++#include "casadi/core/filesystem_impl.hpp"
+ #include <fstream>
+ 
+ // To be able to get the plugin path
+diff --git a/casadi/interfaces/clang/clang_compiler.hpp b/casadi/interfaces/clang/clang_compiler.hpp
+index 7f54853a2..02f88f3a2 100644
+--- a/casadi/interfaces/clang/clang_compiler.hpp
++++ b/casadi/interfaces/clang/clang_compiler.hpp
+@@ -52,7 +52,6 @@
+ #include "llvm/IR/LLVMContext.h"
+ //#include "llvm/IR/Verifier.h"
+ #include <llvm/Support/FileSystem.h>
+-#include <llvm/Support/Host.h>
+ #include <llvm/Support/ManagedStatic.h>
+ #include <llvm/Support/Path.h>
+ #include <llvm/Support/TargetSelect.h>
+diff --git a/casadi/interfaces/clarabel/clarabel_interface.hpp b/casadi/interfaces/clarabel/clarabel_interface.hpp
+index 44053a8f8..1eda0a142 100644
+--- a/casadi/interfaces/clarabel/clarabel_interface.hpp
++++ b/casadi/interfaces/clarabel/clarabel_interface.hpp
+@@ -27,7 +27,7 @@
+ 
+ #include "casadi/core/conic_impl.hpp"
+ #include <casadi/interfaces/clarabel/casadi_conic_clarabel_export.h>
+-#include <Clarabel.h>
++#include <clarabel.h>
+ #include <string>
+ 
+ namespace casadi {
+diff --git a/casadi/interfaces/daqp/daqp_interface.hpp b/casadi/interfaces/daqp/daqp_interface.hpp
+index 6cc220831..a6f1d3da2 100644
+--- a/casadi/interfaces/daqp/daqp_interface.hpp
++++ b/casadi/interfaces/daqp/daqp_interface.hpp
+@@ -28,7 +28,7 @@
+ #include "casadi/core/conic_impl.hpp"
+ #include <casadi/interfaces/daqp/casadi_conic_daqp_export.h>
+ 
+-#include <api.h>
++#include <daqp/api.h>
+ #include <string>
+ 
+ namespace casadi {
+diff --git a/casadi/interfaces/hpmpc/CMakeLists.txt b/casadi/interfaces/hpmpc/CMakeLists.txt
+index 64ca9b3e0..773d8c8b5 100644
+--- a/casadi/interfaces/hpmpc/CMakeLists.txt
++++ b/casadi/interfaces/hpmpc/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ cmake_minimum_required(VERSION 3.10.2)
++find_package(HPMPC REQUIRED)
+ include_directories(${HPMPC_INCLUDE_DIR})
+ 
+ casadi_plugin(Conic hpmpc
+diff --git a/casadi/interfaces/ooqp/ooqp_interface.cpp b/casadi/interfaces/ooqp/ooqp_interface.cpp
+index 47704aef8..ff0b5d69e 100644
+--- a/casadi/interfaces/ooqp/ooqp_interface.cpp
++++ b/casadi/interfaces/ooqp/ooqp_interface.cpp
+@@ -27,9 +27,9 @@
+ #include "casadi/core/casadi_misc.hpp"
+ 
+ // OOQP headers
+-#include <cQpGenSparse.h>
+-#include <Status.h>
+-#include <GondzioSolver.h>
++#include <ooqp/cQpGenSparse.h>
++#include <ooqp/Status.h>
++#include <ooqp/GondzioSolver.h>
+ 
+ // A variable that controls the printlevel of OOQP
+ // This is the only possible way to access it using the C++ interface
+diff --git a/casadi/interfaces/qpoases/CMakeLists.txt b/casadi/interfaces/qpoases/CMakeLists.txt
+index 21eef5f7c..499d4f37a 100644
+--- a/casadi/interfaces/qpoases/CMakeLists.txt
++++ b/casadi/interfaces/qpoases/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ cmake_minimum_required(VERSION 3.10.2)
++find_package(QPOASES REQUIRED)
+ include_directories(${QPOASES_INCLUDE_DIR})
+ 
+ casadi_plugin(Conic qpoases

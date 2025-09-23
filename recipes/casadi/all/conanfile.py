@@ -1,12 +1,10 @@
 import os
-from pathlib import Path
 
 from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.gnu import PkgConfigDeps
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -19,335 +17,439 @@ class PackageConan(ConanFile):
     topics = ("optimization", "nonlinear", "numerical-calculations", "scientific-computing", "derivatives",
               "code-generation", "parameter-estimation", "optimal-control", "symbolic-manipulation",
               "algorithmic-differentation", "nonlinear-programming")
-
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "enable_deprecated": [True, False],
+        "threadsafe_symbolics": [True, False],
+        "install_internal_headers": [True, False],
+        "python_interface": [True, False],
+        "octave_interface": [True, False],
+        "matlab_interface": [True, False],
+        "json_interface": [True, False],
         "with_alpaqa": [True, False],
-        "with_blasfeo": [True, False],
+        "with_ampl": [True, False],
+        "with_blocksqp": [True, False],
         "with_bonmin": [True, False],
         "with_cbc": [True, False],
+        "with_clang": [True, False],
+        "with_clarabel": [True, False],
         "with_clp": [True, False],
+        "with_cplex": [True, False],
         "with_csparse": [True, False],
-        "with_dsdp": [True, False],
+        "with_daqp": [True, False],
         "with_fatrop": [True, False],
+        "with_fmi2": [True, False],
+        "with_fmi3": [True, False],
+        "with_ghc_filesystem": [True, False],
+        "with_gurobi": [True, False],
         "with_highs": [True, False],
         "with_hpipm": [True, False],
+        "with_hpmpc": [True, False],
         "with_hsl": [True, False],
         "with_ipopt": [True, False],
+        "with_knitro": [True, False],
         "with_lapack": [True, False],
         "with_libzip": [True, False],
+        "with_madnlp": [True, False],
+        "with_matlab_ipc": [True, False],
         "with_mumps": [True, False],
-        "with_opencl": [True, False],
+        "with_ooqp": [True, False],
         "with_openmp": [True, False],
         "with_osqp": [True, False],
         "with_proxqp": [True, False],
         "with_pthread": [True, False],
         "with_qpoases": [True, False],
+        "with_rumoca": [True, False],
         "with_sleqp": [True, False],
-        "with_spral": [True, False],
+        "with_slicot": [True, False],
+        "with_snopt": [True, False],
         "with_sundials": [True, False],
         "with_superscs": [True, False],
         "with_tinyxml": [True, False],
+        "with_worhp": [True, False],
+        "with_zlib": [True, False],
     }
     default_options = {
         "enable_deprecated": True,
-        "with_alpaqa": False,
-        "with_blasfeo": False,
-        "with_bonmin": False,
-        "with_cbc": False,
-        "with_clp": False,
-        "with_csparse": False,
-        "with_dsdp": False,
-        "with_fatrop": False,
-        "with_highs": False,
-        "with_hpipm": False,
-        "with_hsl": False,
-        "with_ipopt": False,
-        "with_lapack": False,
-        "with_libzip": True,
-        "with_mumps": False,
-        "with_opencl": False,
-        "with_openmp": False,
-        "with_osqp": False,
-        "with_proxqp": False,
-        "with_pthread": False,
-        "with_qpoases": False,
-        "with_sleqp": False,
-        "with_spral": False,
-        "with_sundials": False,
-        "with_superscs": False,
-        "with_tinyxml": True,
-    }
-    options_description = {
-        "enable_deprecated": "Compile with syntax that is scheduled to be deprecated",
-        "with_alpaqa": "Compile the Alpaqa interface",
-        "with_blasfeo": "Compile the interface to BLASFEO (vendored by CasADi)",
-        "with_bonmin": "Compile the interface to BONMIN (vendored by CasADi)",
-        "with_cbc": "Compile the CBC interface",
-        "with_clp": "Compile the CLP interface",
-        "with_csparse": "Compile the interface to CSparse (vendored by CasADi)",
-        "with_dsdp": "Compile the interface to DSDP (vendored by CasADi)",
-        "with_fatrop": "Compile the interface to FATROP (vendored by CasADi)",
-        "with_highs": "Compile the HiGHS interface (vendored by CasADi)",
-        "with_hpipm": "Compile the interface to HPIPM (vendored by CasADi)",
-        "with_hsl": "Enable HSL interface (vendored by CasADi)",
-        "with_ipopt": "Compile the interface to IPOPT",
-        "with_lapack": "Compile the interface to LAPACK",
-        "with_libzip": "Add .zip support to the Archiver plugin",
-        "with_mumps": "Enable MUMPS interface",
-        "with_opencl": "Compile with OpenCL support (experimental)",
-        "with_openmp": "Compile with parallelization support using OpenMP",
-        "with_osqp": "Compile the interface to OSQP",
-        "with_proxqp": "Compile the interface to PROXQP (vendored by CasADi)",
-        "with_pthread": "Compile with parallelization support using POSIX Threads",
-        "with_qpoases": "Compile the interface to qpOASES (vendored by CasADi)",
-        "with_sleqp": "Compile the interface to SLEQP (vendored by CasADi)",
-        "with_spral": "Enable SPRAL interface (vendored by CasADi)",
-        "with_sundials": "Compile the interface to Sundials (vendored by CasADi)",
-        "with_superscs": "Compile the interface to SuperSCS (vendored by CasADi)",
-        "with_tinyxml": "Compile the interface to TinyXML",
-    }
+        "threadsafe_symbolics": False,
+        "install_internal_headers": False,
 
-    def config_options(self):
-        if Version(self.version) < "3.7.0":
-            del self.options.with_libzip
+        # Bindings
+        "python_interface": False,
+        "octave_interface": False,
+        "matlab_interface": False,
+        "json_interface": False,
+
+        # Linear solvers
+        "with_csparse": True,
+        "with_lapack": True,
+        "with_hsl": False,  # commercial
+        "with_mumps": True,
+
+        # Conic solvers
+        "with_cbc": False,
+        "with_clarabel": False,
+        "with_clp": False,
+        "with_cplex": False,  # commercial
+        "with_daqp": False,
+        "with_fatrop": True,  # also NLP
+        "with_gurobi": False,  # commercial
+        "with_highs": True,
+        "with_hpipm": False,
+        "with_hpmpc": False,
+        "with_ooqp": False,
+        "with_osqp": True,
+        "with_proxqp": True,
+        "with_qpoases": True,
+        "with_superscs": False,
+
+        # NLP solvers
+        "with_alpaqa": False,
+        "with_ampl": False,  # commercial
+        "with_blocksqp": True,
+        "with_bonmin": False,
+        "with_ipopt": True,
+        "with_knitro": False,  # commercial
+        "with_madnlp": False,
+        "with_sleqp": False,
+        "with_snopt": False,  # commercial
+        "with_worhp": False,  # commercial
+
+        # Discrete periodic Lyapunov Equation solver, matrix exponential
+        "with_slicot": True,
+        # integrator_cvodes, integrator_idas, rootfinder_kinsol
+        "with_sundials": True,
+
+        # Misc
+        "with_clang": False,
+        "with_fmi2": True,
+        "with_fmi3": True,
+        "with_ghc_filesystem": True,
+        "with_libzip": True,
+        "with_matlab_ipc": False,
+        "with_rumoca": False,
+        "with_openmp": True,
+        "with_pthread": False,
+        "with_tinyxml": True,
+        "with_zlib": True,
+    }
 
     def export_sources(self):
         export_conandata_patches(self)
+
+    def configure(self):
+        if self.options.with_pthread:
+            self.options.threadsafe_symbolics.value = True
+        if self.options.with_blocksqp:
+            self.options.with_qpoases.value = True
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if self.options.with_alpaqa or self.options.with_proxqp:
-            self.requires("eigen/3.4.0")
-        if self.options.with_openmp:
-            self.requires("openmp/system")
-        if self.options.with_pthread and self.settings.os == "Windows":
-            self.requires("pthreads4w/[^3.0.0]")
-        if self.options.with_opencl:
-            self.requires("opencl-headers/[>=2023.12.14]")
-        if self.options.with_osqp:
-            self.requires("osqp/[>=0.6.3 <1]")
-        if self.options.with_tinyxml:
-            self.requires("tinyxml2/[^10.0.0]")
-        if self.options.with_lapack:
-            self.requires("openblas/[>=0.3.28 <1]")
-        if self.options.with_ipopt:
-            self.requires("coin-ipopt/[^3.14.13]")
+        if self.options.with_alpaqa:
+            self.requires("alpaqa/1.0.0-casadi.20230731")
+        if self.options.with_bonmin:
+            self.requires("coin-bonmin/[*]")
         if self.options.with_cbc:
             self.requires("coin-cbc/[^2.10.11]")
+        if self.options.with_clang:
+            # clang::CompilerInstance::createDiagnostics() is not compatible in v20
+            self.requires("clang/[<20]")
+        if self.options.with_clarabel:
+            self.requires("clarabel/[*]")
         if self.options.with_clp:
             self.requires("coin-clp/[^1.17.9]")
-        if self.options.with_mumps:
-            self.requires("coin-mumps/[^3.0.5]")
-        if self.options.with_bonmin:
-            self.requires("coin-cgl/[>=0.60.8 <1]")
-            self.requires("coin-osi/[>=0.108.10 <1]")
-            self.requires("coin-utils/[^2.11.11]")
-        if self.options.with_spral:
-            self.requires("metis/[^5.2.1]")
+        if self.options.with_cplex:
+            self.requires("cplex/[*]")
         if self.options.with_csparse:
             self.requires("suitesparse-cxsparse/[^4.4.1]")
-        if self.options.get_safe("with_libzip"):
-            self.requires("libzip/[^1.7.3]")
+        if self.options.with_daqp:
+            self.requires("daqp/[*]")
+        if self.options.with_fatrop:
+            self.requires("fatrop/[*]")
+        if self.options.with_fmi2:
+            self.requires("fmi2/[*]")
+        if self.options.with_fmi3:
+            self.requires("fmi3/[*]")
+        if self.options.with_ghc_filesystem:
+            self.requires("ghc-filesystem/[*]")
+        if self.options.with_gurobi:
+            self.requires("gurobi/[*]")
+        if self.options.with_highs:
+            self.requires("highs/[*]")
+        if self.options.with_hpipm:
+            self.requires("hpipm/0.1.3+git.20250801")
+        if self.options.with_hpmpc:
+            self.requires("hpmpc/[*]")
+        if self.options.with_hsl:
+            self.requires("coin-hsl/[*]")
+        if self.options.with_ipopt:
+            self.requires("coin-ipopt/[^3.14.13]")
+        if self.options.with_knitro:
+            self.requires("knitro/[*]")
+        if self.options.with_lapack:
+            self.requires("openblas/[>=0.3 <1]")
+        if self.options.with_libzip:
+            self.requires("libzip/[*]")
+        if self.options.with_madnlp:
+            self.requires("madnlp-mockup/[*]")
+        if self.options.matlab_interface or self.options.with_matlab_ipc:
+            self.requires("matlab-mockup/[*]")
+        if self.options.with_mumps:
+            self.requires("coin-mumps/[^3.0.5]")
+        if self.options.octave_interface:
+            self.requires("octave-mockup/[*]")
+        if self.options.with_ooqp:
+            self.requires("ooqp/[*]")
+        if self.options.with_openmp:
+            self.requires("openmp/system")
+        if self.options.with_osqp:
+            self.requires("osqp/[>=0.5.0 <1]")
+        if self.options.with_proxqp:
+            self.requires("proxsuite/[*]")
+        if self.options.with_pthread and self.settings.os == "Windows":
+            self.requires("pthreads4w/[^3.0.0]")
+        if self.options.with_qpoases:
+            self.requires("qpoases/3.2.2-casadi")
+        if self.options.with_rumoca:
+            self.requires("rumoca/[*]")
+        if self.options.with_sleqp:
+            self.requires("sleqp/[*]")
+        if self.options.with_slicot:
+            self.requires("slicot/[*]")
+        if self.options.with_snopt:
+            self.requires("snopt-mockup/[*]")
+        if self.options.with_sundials:
+            self.requires("sundials/[^2.5]", options={"build_arkode": False, "build_cvode": False, "build_ida": False})
+        if self.options.with_superscs:
+            self.requires("superscs/[*]", options={"casadi_compatibility": True})
+        if self.options.with_tinyxml:
+            self.requires("tinyxml2/[*]")
+        if self.options.with_worhp:
+            self.requires("worhp/[*]")
+        if self.options.with_zlib:
             self.requires("zlib-ng/[^2.0]")
-
-        # FIXME: SUNDIALS v5+ available from CCI is not compatible
-        # CasADi vendors v2.6.1
-        # if self.options.with_sundials:
-        #     self.requires("sundials/5.4.0")
-
-        # qpOASES is always built by the project
-        # TODO: maybe unvendor it
-        # if self.options.with_qpoases:
-        #     self.requires("qpoases/[^3.2.1]")
-
-        # FIXME: unvendor simde
-        # if self.options.with_proxqp:
-        #     self.requires("simde/[>=0.8.2 <1]")
 
     def validate(self):
         check_min_cppstd(self, 11)
+        if self.options.with_alpaqa:
+            check_min_cppstd(self, 20)
+        if self.options.with_pthread and self.settings.compiler == "msvc":
+            raise ConanInvalidConfiguration("with_pthread=True is not supported for MSVC")
+        if self.options.matlab_interface and self.options.octave_interface:
+            raise ConanInvalidConfiguration("matlab_interface and octave_interface cannot be enabled at the same time")
+
+    @property
+    def _swig_required(self):
+        return any([
+            self.options.python_interface,
+            self.options.octave_interface,
+            self.options.matlab_interface,
+            self.options.json_interface,
+        ])
 
     def build_requirements(self):
-        if not self.conf.get("tools.gnu:pkg_config", check_type=str):
-            self.tool_requires("pkgconf/[>=2.2 <3]")
+        if self._swig_required:
+            self.tool_requires("swig-matlab/[*]")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version], strip_root=False)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        cmakelists = Path(self.source_folder, "CMakeLists.txt")
-        content = cmakelists.read_text(encoding="utf-8")
-        # Ensure the WITH_* dependencies are REQUIRED
-        content = content.replace("find_package(${PKG})", "find_package(${PKG} REQUIRED)")
-        # Fix external dependencies using -external suffix
-        for dep in ["cbc", "cgl", "clp", "coinutils", "eigen3", "ipopt", "metis", "mumps", "osi", "osqp", "tinyxml", "libzip", "zlib"]:
-            repl = dep if dep != "metis" else "metis::metis"
-            content = content.replace(f"{dep}-external", repl)
-        cmakelists.write_text(content, encoding="utf-8")
-        if Version(self.version) < "3.7.0":
-            # The project incorrectly tries to enable Fortran support despite FORTRAN_REQUIRED=OFF
-            replace_in_file(self, "CMakeLists.txt", "enable_language(Fortran", "# enable_language(Fortran")
-
+        # Everything is unvendored
+        rmdir(self, "external_packages")
+        save(self, "external_packages/CMakeLists.txt", "")
+        rm(self, "Find*.cmake", "cmake")
+        # Use the regular CMake installation layout on all platforms
+        replace_in_file(self, "CMakeLists.txt", "WITH_SELFCONTAINED OR (WIN32 AND NOT CYGWIN)", "FALSE")
+        replace_in_file(self, "CMakeLists.txt", "file(RELATIVE_PATH REL_LIB_PREFIX", "set(REL_LIB_PREFIX lib) #")
+        replace_in_file(self, "CMakeLists.txt", "file(RELATIVE_PATH REL_CMAKE_PREFIX", "set(REL_CMAKE_PREFIX lib/cmake/casadi) #")
+        replace_in_file(self, "casadi/CMakeLists.txt", "file(RELATIVE_PATH TREL_LIB_PREFIX", "set(TREL_LIB_PREFIX lib) #")
+        replace_in_file(self, "casadi/CMakeLists.txt", "file(RELATIVE_PATH TREL_BIN_PREFIX", "set(TREL_BIN_PREFIX bin) #")
+        replace_in_file(self, "casadi/core/CMakeLists.txt", "file(RELATIVE_PATH TREL_BIN_PREFIX", "set(TREL_BIN_PREFIX bin) #")
+        replace_in_file(self, "casadi/core/CMakeLists.txt", "file(RELATIVE_PATH TREL_INCLUDE_PREFIX", "set(TREL_INCLUDE_PREFIX include) #")
+        # The custom SWIG crashes with SIGILL inside Source/Modules/lang.cxx:format_paramlist() when the customdoc feature is enabled
+        replace_in_file(self, "swig/casadi.i", '%feature("customdoc", "1");', '%feature("customdoc", "0");')
+        # No need to copy the mock octave_adapter in Conan
+        replace_in_file(self, "swig/matlab/CMakeLists.txt", "install(FILES ${OCTINTERP_LOCATION} DESTINATION ${LIB_PREFIX})", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["FORTRAN_REQUIRED"] = False
-        tc.variables["CMAKE_Fortran_COMPILER"] = ""
+        tc.cache_variables["FETCHCONTENT_FULLY_DISCONNECTED"] = True
+        tc.cache_variables["WITH_EXAMPLES"] = False
+        tc.cache_variables["USE_CXX11"] = True
+        tc.cache_variables["WITH_PYTHON"] = self.options.python_interface
+        tc.cache_variables["WITH_MATLAB"] = self.options.matlab_interface
+        tc.cache_variables["WITH_OCTAVE"] = self.options.octave_interface
+        tc.cache_variables["WITH_JSON"] = self.options.json_interface
+        tc.cache_variables["INSTALL_INTERNAL_HEADERS"] = self.options.install_internal_headers
+        tc.cache_variables["ENABLE_STATIC"] = not self.options.get_safe("shared", True)
+        tc.cache_variables["ENABLE_SHARED"] = self.options.get_safe("shared", True)
+        tc.cache_variables["WITH_OPENMP"] = self.options.with_openmp
+        tc.cache_variables["WITH_THREAD"] = self.options.with_pthread
+        tc.cache_variables["WITH_THREAD_MINGW"] = False
+        tc.cache_variables["WITH_THREADSAFE_SYMBOLICS"] = self.options.threadsafe_symbolics
+        tc.cache_variables["WITH_DEPRECATED_FEATURES"] = self.options.enable_deprecated
+        tc.cache_variables["WITH_BUILD_REQUIRED"] = False
+        tc.cache_variables["WITH_BUILD_SUNDIALS"] = False
+        tc.cache_variables["WITH_BUILD_CSPARSE"] = False
+        tc.cache_variables["WITH_BUILD_TINYXML"] = False
+        tc.cache_variables["CMAKE_Fortran_COMPILER"] = ""
+        tc.cache_variables["Fortran_language_works"] = True
+        tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0148"] = "OLD"
+        tc.cache_variables["PYTHON_PREFIX"] = os.path.join(self.package_folder, "lib/python3/site-packages").replace("\\", "/")
+        tc.cache_variables["MATLAB_PREFIX"] = os.path.join(self.package_folder, "lib/matlab").replace("\\", "/")
+        tc.cache_variables["MATLAB_MEX_EXT"] = "mex"
+        tc.cache_variables["OCTAVE_MEX_EXT"] = "oct"
 
-        # Static builds are disabled due to requiring WITH_DL=False,
-        # which fails with a compilation error as of v3.6.4.
-        tc.variables["ENABLE_SHARED"] = True
-        tc.variables["ENABLE_STATIC"] = False
-        tc.variables["WITH_DL"] = True
-        tc.variables["WITH_EXAMPLES"] = False
-        tc.variables["WITH_DEPRECATED_FEATURES"] = self.options.enable_deprecated
-        tc.variables["WITH_BUILD_REQUIRED"] = False
-
-        tc.variables["WITH_ALPAQA"] = self.options.with_alpaqa
-        tc.variables["WITH_AMPL"] = False
-        tc.variables["WITH_BLASFEO"] = self.options.with_blasfeo
-        tc.variables["WITH_BLOCKSQP"] = False
-        tc.variables["WITH_BONMIN"] = self.options.with_bonmin
-        tc.variables["WITH_CBC"] = self.options.with_cbc
-        tc.variables["WITH_CLANG"] = False
-        tc.variables["WITH_CLP"] = self.options.with_clp
-        tc.variables["WITH_COINCGL"] = self.options.with_bonmin
-        tc.variables["WITH_COINOSI"] = self.options.with_bonmin
-        tc.variables["WITH_COINUTILS"] = self.options.with_bonmin
-        tc.variables["WITH_CPLEX"] = False
-        tc.variables["WITH_CSPARSE"] = self.options.with_csparse
-        tc.variables["WITH_DSDP"] = self.options.with_dsdp
-        tc.variables["WITH_FATROP"] = self.options.with_fatrop
-        tc.variables["WITH_GUROBI"] = False
-        tc.variables["WITH_HIGHS"] = self.options.with_highs
-        tc.variables["WITH_HPIPM"] = self.options.with_hpipm
-        tc.variables["WITH_HSL"] = self.options.with_hsl
-        tc.variables["WITH_IPOPT"] = self.options.with_ipopt
-        tc.variables["WITH_KNITRO"] = False
-        tc.variables["WITH_LAPACK"] = self.options.with_lapack
-        tc.variables["WITH_LIBZIP"] = self.options.get_safe("with_libzip", False)
-        tc.variables["WITH_MUMPS"] = self.options.with_mumps
-        tc.variables["WITH_OOQP"] = False
-        tc.variables["WITH_OPENCL"] = self.options.with_opencl
-        tc.variables["WITH_OPENMP"] = self.options.with_openmp
-        tc.variables["WITH_OSQP"] = self.options.with_osqp
-        tc.variables["WITH_PROXQP"] = self.options.with_proxqp
-        tc.variables["WITH_QPOASES"] = self.options.with_qpoases
-        tc.variables["WITH_SIMDE"] = self.options.with_proxqp
-        tc.variables["WITH_SLEQP"] = self.options.with_sleqp
-        tc.variables["WITH_SLICOT"] = False
-        tc.variables["WITH_SNOPT"] = False
-        tc.variables["WITH_SPRAL"] = self.options.with_spral
-        tc.variables["WITH_SQIC"] = False
-        tc.variables["WITH_SUNDIALS"] = self.options.with_sundials
-        tc.variables["WITH_SUPERSCS"] = self.options.with_superscs
-        tc.variables["WITH_THREAD"] = self.options.with_pthread
-        tc.variables["WITH_TINYXML"] = self.options.with_tinyxml
-        tc.variables["WITH_WORHP"] = False
-        tc.variables["WITH_ZLIB"] = self.options.get_safe("with_libzip", False)
-
-        # TODO: create a CCI package for these vendored dependencies
-        tc.variables["WITH_BUILD_ALPAQA"] = self.options.with_alpaqa
-        tc.variables["WITH_BUILD_BLASFEO"] = self.options.with_blasfeo
-        tc.variables["WITH_BUILD_BONMIN"] = self.options.with_bonmin
-        tc.variables["WITH_BUILD_DSDP"] = self.options.with_dsdp
-        tc.variables["WITH_BUILD_FATROP"] = self.options.with_fatrop
-        tc.variables["WITH_BUILD_HIGHS"] = self.options.with_highs
-        tc.variables["WITH_BUILD_HPIPM"] = self.options.with_hpipm
-        tc.variables["WITH_BUILD_HSL"] = self.options.with_hsl
-        tc.variables["WITH_BUILD_PROXQP"] = self.options.with_proxqp
-        tc.variables["WITH_BUILD_SIMDE"] = self.options.with_proxqp
-        tc.variables["WITH_BUILD_SLEQP"] = self.options.with_sleqp
-        tc.variables["WITH_BUILD_SPRAL"] = self.options.with_spral
-        tc.variables["WITH_BUILD_SUNDIALS"] = self.options.with_sundials
-        tc.variables["WITH_BUILD_SUPERSCS"] = self.options.with_superscs
-        tc.variables["WITH_BUILD_TRLIB"] = self.options.with_sleqp
-
-        tc.variables["WITH_BUILD_CBC"] = False
-        tc.variables["WITH_BUILD_CLP"] = False
-        tc.variables["WITH_BUILD_EIGEN3"] = False
-        tc.variables["WITH_BUILD_IPOPT"] = False
-        tc.variables["WITH_BUILD_LAPACK"] = False
-        tc.variables["WITH_BUILD_LIBZIP"] = False
-        tc.variables["WITH_BUILD_METIS"] = False
-        tc.variables["WITH_BUILD_MUMPS"] = False
-        tc.variables["WITH_BUILD_OSQP"] = False
-        tc.variables["WITH_BUILD_TINYXML"] = False
-        tc.variables["WITH_BUILD_ZLIB"] = False
+        tc.cache_variables["WITH_MATLAB_IPC"] = self.options.with_matlab_ipc
+        tc.cache_variables["WITH_FMI2"] = self.options.with_fmi2
+        tc.cache_variables["WITH_FMI3"] = self.options.with_fmi3
+        tc.cache_variables["WITH_SUNDIALS"] = self.options.with_sundials
+        tc.cache_variables["WITH_CSPARSE"] = self.options.with_csparse
+        tc.cache_variables["WITH_HPIPM"] = self.options.with_hpipm
+        tc.cache_variables["WITH_HPMPC"] = self.options.with_hpmpc
+        tc.cache_variables["WITH_FATROP"] = self.options.with_fatrop
+        tc.cache_variables["WITH_SUPERSCS"] = self.options.with_superscs
+        tc.cache_variables["WITH_OSQP"] = self.options.with_osqp
+        tc.cache_variables["WITH_CLARABEL"] = self.options.with_clarabel
+        tc.cache_variables["WITH_RUMOCA"] = self.options.with_rumoca
+        tc.cache_variables["WITH_PROXQP"] = self.options.with_proxqp
+        tc.cache_variables["WITH_TINYXML"] = self.options.with_tinyxml
+        tc.cache_variables["WITH_CLANG"] = self.options.with_clang
+        tc.cache_variables["WITH_LAPACK"] = self.options.with_lapack
+        tc.cache_variables["WITH_QPOASES"] = self.options.with_qpoases
+        tc.cache_variables["WITH_BLOCKSQP"] = self.options.with_blocksqp
+        tc.cache_variables["WITH_SLEQP"] = self.options.with_sleqp
+        tc.cache_variables["WITH_IPOPT"] = self.options.with_ipopt
+        tc.cache_variables["WITH_MADNLP"] = self.options.with_madnlp
+        tc.cache_variables["WITH_KNITRO"] = self.options.with_knitro
+        tc.cache_variables["WITH_SNOPT"] = self.options.with_snopt
+        tc.cache_variables["WITH_WORHP"] = self.options.with_worhp
+        tc.cache_variables["WITH_CPLEX"] = self.options.with_cplex
+        tc.cache_variables["WITH_GUROBI"] = self.options.with_gurobi
+        tc.cache_variables["WITH_BONMIN"] = self.options.with_bonmin
+        tc.cache_variables["WITH_CBC"] = self.options.with_cbc
+        tc.cache_variables["WITH_CLP"] = self.options.with_clp
+        tc.cache_variables["WITH_MUMPS"] = self.options.with_mumps
+        tc.cache_variables["WITH_HSL"] = self.options.with_hsl
+        tc.cache_variables["WITH_HIGHS"] = self.options.with_highs
+        tc.cache_variables["WITH_DAQP"] = self.options.with_daqp
+        tc.cache_variables["WITH_ALPAQA"] = self.options.with_alpaqa
+        tc.cache_variables["WITH_ZLIB"] = self.options.with_zlib
+        tc.cache_variables["WITH_LIBZIP"] = self.options.with_libzip
+        tc.cache_variables["WITH_GHC_FILESYSTEM"] = self.options.with_ghc_filesystem
+        tc.cache_variables["WITH_OOQP"] = self.options.with_ooqp
+        tc.cache_variables["WITH_SQIC"] = False
+        tc.cache_variables["WITH_AMPL"] = self.options.with_ampl
+        tc.cache_variables["WITH_SLICOT"] = self.options.with_slicot
+        tc.cache_variables["WITH_BLASFEO"] = False  # only used to build HPIPM and FATROP
+        tc.cache_variables["WITH_SPRAL"] = False  # only used to build Ipopt
+        tc.cache_variables["WITH_DSDP"] = False  # not used anywhere
+        tc.cache_variables["WITH_OPENCL"] = False  # not used anywhere
+        tc.cache_variables["WITH_MOCKUP_REQUIRED"] = False
         tc.generate()
 
-        if self.options.with_osqp:
-            osqp = self.dependencies["osqp"].cpp_info
-            osqp.includedirs.append(os.path.join(osqp.includedir, "osqp"))
-
         deps = CMakeDeps(self)
-        deps.set_property("coin-mumps", "cmake_file_name", "MUMPS")
-        deps.set_property("coin-mumps", "cmake_target_name", "mumps")
+        deps.set_property("alpaqa", "cmake_target_name", "alpaqa")
+        deps.set_property("clang", "cmake_file_name", "CLANG")
+        deps.set_property("coin-bonmin", "cmake_file_name", "BONMIN")
+        deps.set_property("coin-bonmin", "cmake_target_name", "bonmin")
         deps.set_property("coin-cbc", "cmake_file_name", "CBC")
         deps.set_property("coin-cbc", "cmake_target_name", "cbc")
         deps.set_property("coin-clp", "cmake_file_name", "CLP")
         deps.set_property("coin-clp", "cmake_target_name", "clp")
-        deps.set_property("coin-cgl", "cmake_file_name", "COINCGL")
-        deps.set_property("coin-cgl", "cmake_target_name", "cgl")
+        deps.set_property("coin-hsl", "cmake_file_name", "HSL")
+        deps.set_property("coin-hsl", "cmake_target_name", "hsl::hsl")
         deps.set_property("coin-ipopt", "cmake_file_name", "IPOPT")
         deps.set_property("coin-ipopt", "cmake_target_name", "ipopt")
-        deps.set_property("coin-osi", "cmake_file_name", "COINOSI")
-        deps.set_property("coin-osi", "cmake_target_name", "osi")
-        deps.set_property("coin-utils", "cmake_file_name", "COINUTILS")
-        deps.set_property("coin-utils", "cmake_target_name", "coinutils")
-        deps.set_property("eigen", "cmake_file_name", "EIGEN3")
+        deps.set_property("coin-mumps", "cmake_file_name", "MUMPS")
+        deps.set_property("coin-mumps", "cmake_target_name", "mumps")
+        deps.set_property("clarabel", "cmake_target_name", "clarabel")
+        deps.set_property("cplex", "cmake_file_name", "CPLEX")
+        deps.set_property("daqp", "cmake_target_name", "daqp")
+        deps.set_property("ecos", "cmake_file_name", "ECOS")
+        deps.set_property("eigen", "cmake_file_name", "Eigen3")
         deps.set_property("eigen", "cmake_target_name", "eigen3")
-        deps.set_property("opencl-headers", "cmake_file_name", "OpenCL")
+        deps.set_property("fatrop", "cmake_file_name", "FATROP")
+        deps.set_property("fmi2", "cmake_file_name", "FMI2")
+        deps.set_property("fmi3", "cmake_file_name", "FMI3")
+        deps.set_property("ghc-filesystem", "cmake_file_name", "ghcFilesystem")
+        deps.set_property("gsl", "cmake_file_name", "GSL")
+        deps.set_property("gurobi", "cmake_file_name", "GUROBI")
+        deps.set_property("highs", "cmake_file_name", "HIGHS")
+        deps.set_property("highs", "cmake_target_name", "highs")
+        deps.set_property("hpmpc", "cmake_file_name", "HPMPC")
+        deps.set_property("ipopt", "cmake_file_name", "IPOPT")
+        deps.set_property("knitro", "cmake_file_name", "KNITRO")
+        deps.set_property("madnlp-mockup", "cmake_file_name", "MADNLP")
+        deps.set_property("matlab-mockup", "cmake_file_name", "MATLAB")
         deps.set_property("metis", "cmake_file_name", "METIS")
         deps.set_property("metis", "cmake_target_name", "metis::metis")
+        deps.set_property("mumps", "cmake_file_name", "MUMPS")
+        deps.set_property("cctave-mockup", "cmake_file_name", "CCTAVE")
+        deps.set_property("ooqp", "cmake_file_name", "OOQP")
+        deps.set_property("ooqp", "cmake_target_name", "OOQP")
         deps.set_property("osqp", "cmake_file_name", "OSQP")
         deps.set_property("osqp", "cmake_target_name", "osqp::osqp")
+        deps.set_property("proxsuite", "cmake_file_name", "PROXQP")
+        deps.set_property("qpoases", "cmake_file_name", "QPOASES")
+        deps.set_property("slicot", "cmake_file_name", "SLICOT")
+        deps.set_property("snopt-mockup", "cmake_file_name", "SNOPT")
+        deps.set_property("sqic", "cmake_file_name", "SQIC")
         deps.set_property("suitesparse-cxsparse", "cmake_file_name", "CSPARSE")
-        deps.set_property("suitesparse-cxsparse", "cmake_target_name", "cxsparse")
+        deps.set_property("sundials", "cmake_file_name", "SUNDIALS")
+        deps.set_property("superscs", "cmake_target_name", "superscs")
         deps.set_property("tinyxml2", "cmake_file_name", "TINYXML")
         deps.set_property("tinyxml2", "cmake_target_name", "tinyxml2::tinyxml2")
+        deps.set_property("worhp", "cmake_file_name", "WORHP")
+        deps.set_property("worhp", "cmake_target_name", "worhp::worhp")
+        if self._swig_required:
+            deps.build_context_activated.append("swig")
+            deps.build_context_build_modules.append("swig")
         deps.generate()
-
-        deps = PkgConfigDeps(self)
-        deps.generate()
-
-    def _patch_sources(self):
-        # Add find_package() for coin-utils for Bonmin
-        if self.options.with_bonmin:
-            replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
-                            "foreach(PKG ALPAQA ",
-                            "foreach(PKG COINCGL COINOSI COINUTILS ALPAQA ")
 
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+        if self.options.json_interface:
+            cmake.build(target="json")
 
     def package(self):
         copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+        if self.options.json_interface:
+            copy(self, "casadi.json", os.path.join(self.build_folder, "swig", "json"), os.path.join(self.package_folder, "share", "casadi"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "share"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "casadi")
-        self.cpp_info.set_property("cmake_target_name", "casadi")
+        self.cpp_info.set_property("cmake_target_name", "casadi::casadi")
         self.cpp_info.set_property("pkg_config_name", "casadi")
         self.cpp_info.libs = ["casadi"]
         self.cpp_info.defines.append("CASADI_SNPRINTF=snprintf")
-        self.runenv_info.define_path("CASADIPATH", os.path.join(self.package_folder, "lib"))
-
+        if self.options.threadsafe_symbolics:
+            self.cpp_info.defines.append("CASADI_WITH_THREADSAFE_SYMBOLICS")
+        if self.options.with_pthread:
+            self.cpp_info.defines.append("CASADI_WITH_THREAD")
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("m")
-            self.cpp_info.system_libs.append("dl")
+            self.cpp_info.system_libs = ["m", "dl"]
             if self.options.with_pthread:
                 self.cpp_info.system_libs.append("pthread")
+
+        if self.settings.os == "Windows":
+            casadipath = os.path.join(self.package_folder, "bin")
+        else:
+            casadipath = os.path.join(self.package_folder, "lib")
+        self.runenv_info.define_path("CASADIPATH", casadipath)
+
+        if self.options.python_interface:
+            self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "lib/python3/site-packages"))
+        if self.options.octave_interface or self.options.matlab_interface:
+            self.runenv_info.prepend_path("MATLABPATH", os.path.join(self.package_folder, "lib/matlab"))
+        if self.options.json_interface:
+            self.cpp_info.resdirs.append("share/casadi")

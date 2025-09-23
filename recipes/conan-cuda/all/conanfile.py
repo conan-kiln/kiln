@@ -93,3 +93,11 @@ class Interface:
     @cached_property
     def architectures(self):
         return str(self._conanfile.settings.cuda.architectures).split(",")
+
+
+class Cuda:
+    """A mixin class meant to be used as `python_requires_extend = "conan-cuda.Cuda"`"""
+
+    @cached_property
+    def cuda(self):
+        return Interface(self)

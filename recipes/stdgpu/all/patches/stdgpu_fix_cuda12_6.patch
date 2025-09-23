@@ -1,0 +1,90 @@
+Patch that prepends stdgpu namespace to conflicting cuda functions.
+
+diff --git a/src/stdgpu/impl/memory_detail.h b/src/stdgpu/impl/memory_detail.h
+index 4445152..862b5c1 100644
+--- a/src/stdgpu/impl/memory_detail.h
++++ b/src/stdgpu/impl/memory_detail.h
+@@ -65,7 +65,7 @@ public:
+     STDGPU_HOST_DEVICE void
+     operator()(const index64_t i)
+     {
+-        construct_at(to_address(_begin + i), _value);
++        construct_at(stdgpu::to_address(_begin + i), _value);
+     }
+ 
+ private:
+@@ -88,7 +88,7 @@ public:
+     {
+         // Directly dereference _begin instead of trying to get its raw pointer.
+         // This adds support for transform_iterator, etc. which neither have operator->() nor get().
+-        construct_at(to_address(_output_begin + i), _begin[i]);
++        construct_at(stdgpu::to_address(_output_begin + i), _begin[i]);
+     }
+ 
+ private:
+@@ -108,7 +108,7 @@ public:
+     STDGPU_HOST_DEVICE void
+     operator()(const index64_t i)
+     {
+-        destroy_at(to_address(_first + i));
++        stdgpu::destroy_at(stdgpu::to_address(_first + i));
+     }
+ 
+ private:
+@@ -638,7 +638,7 @@ template <typename T, class... Args>
+ STDGPU_HOST_DEVICE void
+ allocator_traits<Allocator>::construct([[maybe_unused]] Allocator& a, T* p, Args&&... args)
+ {
+-    construct_at(p, forward<Args>(args)...);
++    construct_at(p, stdgpu::forward<Args>(args)...);
+ }
+ 
+ template <typename Allocator>
+@@ -646,7 +646,7 @@ template <typename T>
+ STDGPU_HOST_DEVICE void
+ allocator_traits<Allocator>::destroy([[maybe_unused]] Allocator& a, T* p)
+ {
+-    destroy_at(p);
++    stdgpu::destroy_at(p);
+ }
+ 
+ template <typename Allocator>
+@@ -699,7 +699,7 @@ template <typename Ptr, STDGPU_DETAIL_OVERLOAD_DEFINITION_IF(detail::has_arrow_o
+ STDGPU_HOST_DEVICE auto
+ to_address(const Ptr& p) noexcept
+ {
+-    return to_address(p.operator->());
++    return stdgpu::to_address(p.operator->());
+ }
+ 
+ template <typename Ptr,
+@@ -707,14 +707,14 @@ template <typename Ptr,
+ STDGPU_HOST_DEVICE auto
+ to_address(const Ptr& p) noexcept
+ {
+-    return to_address(p.get());
++    return stdgpu::to_address(p.get());
+ }
+ 
+ template <typename T, typename... Args>
+ STDGPU_HOST_DEVICE T*
+ construct_at(T* p, Args&&... args)
+ {
+-    return ::new (static_cast<void*>(p)) T(forward<Args>(args)...);
++    return ::new (static_cast<void*>(p)) T(stdgpu::forward<Args>(args)...);
+ }
+ 
+ template <typename T>
+diff --git a/src/stdgpu/impl/unordered_base_detail.cuh b/src/stdgpu/impl/unordered_base_detail.cuh
+index a772f24..158a65d 100644
+--- a/src/stdgpu/impl/unordered_base_detail.cuh
++++ b/src/stdgpu/impl/unordered_base_detail.cuh
+@@ -473,7 +473,7 @@ public:
+     STDGPU_DEVICE_ONLY void
+     operator()(const index_t i)
+     {
+-        _base.insert(*to_address(_begin + i));
++      _base.insert(*stdgpu::to_address(_begin + i));
+     }
+ 
+ private:

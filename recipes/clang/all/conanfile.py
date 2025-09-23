@@ -70,6 +70,7 @@ class ClangConan(ConanFile):
         tc.cache_variables["LLVM_INCLUDE_TESTS"] = False
         tc.cache_variables["LLVM_BUILD_TOOLS"] = True
         tc.cache_variables["LLVM_BUILD_UTILS"] = True
+        tc.cache_variables["LINKER_SUPPORTS_COLOR_DIAGNOSTICS"] = False  # breaks with mold
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

@@ -1,0 +1,19 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -312,15 +312,8 @@
+ endif()
+ 
+ if (ALPAQA_WITH_LBFGSB)
+-    message(STATUS "Compiling L-BFGS-B solver adapter")
+-    add_library(lbfgsb-fortran STATIC
+-        "thirdparty/lbfgsb/Lbfgsb.3.0/lbfgsb.f"
+-        "thirdparty/lbfgsb/Lbfgsb.3.0/timer.f"
+-        "thirdparty/lbfgsb/Lbfgsb.3.0/blas.f"
+-        "thirdparty/lbfgsb/Lbfgsb.3.0/linpack.f"
+-    )
++    find_package(lbfgsb REQUIRED)
+     set_target_properties(lbfgsb-fortran PROPERTIES LINKER_LANGUAGE Fortran)
+-    list(APPEND ALPAQA_INSTALL_TARGETS lbfgsb-fortran)
+     add_library(lbfgsb-adapter
+         "interop/lbfgsb/src/lbfgsb-adapter.cpp"
+         "interop/lbfgsb/src/lbfgsb_c.F90"

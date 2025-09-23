@@ -18,7 +18,7 @@ class UnicornConan(ConanFile):
     description = "Unicorn is a lightweight multi-platform, multi-architecture CPU emulator framework."
     topics = ("emulator", "security", "arm", "framework", "cpu", "mips", "x86-64", "reverse-engineering", "x86", "arm64", "sparc", "m68k")
     homepage = "https://www.unicorn-engine.org/"
-    license = ("GPL-2-or-later", "LGPL-2-or-later")
+    license = "LGPL-2-or-later AND GPL-2-or-later"  # mostly LGPL, QEMU parts are GPL
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

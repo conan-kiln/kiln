@@ -1,0 +1,4 @@
+sources:
+  "1.0.0+git.20250922":
+    url: "https://github.com/google/minja/archive/021c2293c187789ef13d56c6cfd89c9b134fd80f.tar.gz"
+    sha256: "dc3ddd37497b79a4cd35fd41550e22b3b0139439de8be6eab3d2d024fed47bb4"

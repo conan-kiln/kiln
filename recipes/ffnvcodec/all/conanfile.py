@@ -2,7 +2,6 @@ import os
 
 from conan import ConanFile
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 
 required_conan_version = ">=2.1"
@@ -31,21 +30,8 @@ class FfNvCodecHeaders(ConanFile):
     def package_id(self):
         self.info.clear()
 
-    def build_requirements(self):
-        if self.settings_build.os == "Windows":
-            self.tool_requires("make/[^4.4]")
-
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
-    def generate(self):
-        tc = AutotoolsToolchain(self)
-        tc.generate()
-
-    def build(self):
-        with chdir(self, self.source_folder):
-            autotools = Autotools(self)
-            autotools.make()
 
     def _extract_license(self):
         # Extract the License/s from the header to a file
@@ -56,10 +42,7 @@ class FfNvCodecHeaders(ConanFile):
 
     def package(self):
         self._extract_license()
-        with chdir(self, self.source_folder):
-            autotools = Autotools(self)
-            autotools.install(args=["PREFIX=/"])
-        rmdir(self, os.path.join(self.package_folder, "lib"))
+        copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "ffnvcodec")

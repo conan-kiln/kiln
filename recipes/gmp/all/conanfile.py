@@ -17,7 +17,7 @@ class GmpConan(ConanFile):
         "GMP is a free library for arbitrary precision arithmetic, operating "
         "on signed integers, rational numbers, and floating-point numbers."
     )
-    license = ("LGPL-3.0", "GPL-2.0")
+    license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
     homepage = "https://gmplib.org"
     topics = ("math", "arbitrary", "precision", "integer")
     package_type = "library"

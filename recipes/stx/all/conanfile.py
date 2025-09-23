@@ -68,8 +68,8 @@ class STXConan(ConanFile):
 
         if self.options.backtrace:
             self.cpp_info.requires = [
-                "abseil::absl_stacktrace",
-                "abseil::absl_symbolize"
+                "abseil::stacktrace",
+                "abseil::symbolize"
             ]
 
         if self.settings.os in ["Linux", "FreeBSD", "Android"]:

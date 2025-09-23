@@ -10,7 +10,7 @@ required_conan_version = ">=2.4"
 
 class LibfreenectConan(ConanFile):
     name = "libfreenect"
-    license = ("Apache-2.0", "GPL-2.0")
+    license = "Apache-2.0 AND (GPL-2.0-only OR Apache-2.0)"
     homepage = "https://github.com/OpenKinect/libfreenect"
     description = "Drivers and libraries for the Xbox Kinect device."
     topics = ("usb", "camera", "kinect")

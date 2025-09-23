@@ -12,7 +12,7 @@ class AutoconfArchiveConan(ConanFile):
     name = "autoconf-archive"
     package_type = "build-scripts"
     homepage = "https://www.gnu.org/software/autoconf-archive/"
-    license = "GPL-2.0-or-later"
+    license = "GPL-3.0-or-later WITH Autoconf-exception-3.0"
     description = "The GNU Autoconf Archive is a collection of more than 500 macros for GNU Autoconf"
     topics = ("conan", "GNU", "autoconf", "autoconf-archive", "macro")
     settings = "os", "arch", "compiler", "build_type"

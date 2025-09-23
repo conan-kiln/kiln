@@ -22,7 +22,7 @@ class KDSingleApplicationConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
     }
     implements = ["auto_shared_fpic"]

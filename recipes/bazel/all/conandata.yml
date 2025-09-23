@@ -1,55 +1,55 @@
 sources:
-  "7.2.1":
+  "8.4.1":
     license:
-      url: "https://raw.githubusercontent.com/bazelbuild/bazel/7.2.1/LICENSE"
+      url: "https://raw.githubusercontent.com/bazelbuild/bazel/8.4.1/LICENSE"
       sha256: "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     Macos:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-darwin-x86_64"
-        sha256: "2c29176d6ce9ccdd16d5a15e348c756abd6e0005c77d4695b61871219295fa96"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-darwin-x86_64"
+        sha256: "d82c2f28e0004a029214119cbef4718a51a0a064f046722a3f18f972e4b176bb"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-darwin-arm64"
-        sha256: "6ac72cd7c0b422e3e8162a6912f963ddee45c645bf7dadb924728a80076c38b2"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-darwin-arm64"
+        sha256: "4eafdf54402b4addbe2546b923a054f1823841509d67e179f564032752eb8d39"
     Linux:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-linux-x86_64"
-        sha256: "80ccd1ecb4b88750fbe5d7622d67072fddcba9da7808f13356555e480bf67875"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-linux-x86_64"
+        sha256: "3453736dc067a9b923f3066aad378282cd864830d9ad135a45ac9c1ebc47bbae"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-linux-arm64"
-        sha256: "5a4cc979353671e438b9469b833924c2361e25a580cc278a75877aedc27c1c53"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-linux-arm64"
+        sha256: "3f33cf243fb0500993443d896b41ce08659c23f2a65bd2bbd4314801588f6b2f"
     Windows:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-windows-x86_64.exe"
-        sha256: "4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-windows-x86_64.exe"
+        sha256: "2db62663b47eb90143932cd553f66840dc03da8e7ce0a23a1302e63fdc234254"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.2.1/bazel-7.2.1-windows-arm64.exe"
-        sha256: "d8b1a0da1c6e9d94a5ac4a2728d344e496c32e68cf27ed6a2c117d38fa994fc8"
+        url: "https://github.com/bazelbuild/bazel/releases/download/8.4.1/bazel-8.4.1-windows-arm64.exe"
+        sha256: "e547d311ee3b993aafb1bf996db6b8a4104db6515c46ce9898154044dc695564"
 
-  "7.0.0":
+  "7.6.1":
     license:
-      url: "https://raw.githubusercontent.com/bazelbuild/bazel/7.0.0/LICENSE"
+      url: "https://raw.githubusercontent.com/bazelbuild/bazel/7.6.1/LICENSE"
       sha256: "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     Macos:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-darwin-x86_64"
-        sha256: "e0b57be60062f36eceed78d672088c6a2e30bd7de8674e2ee4edcd021b131c8c"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-darwin-x86_64"
+        sha256: "3b007e7ce2281408b99dbba11b35d2ae0191de1330fae49dc632077e93edf78e"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-darwin-arm64"
-        sha256: "b1cf1c5783fa3eac60942bf2ec6169cfccecd2fa5a355587d8d35983bc1e1310"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-darwin-arm64"
+        sha256: "45cca81a839d7495258b19ee8371c7b891f350586ef37b9940f7b531eb654cc8"
     Linux:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-linux-x86_64"
-        sha256: "8b24f70542f9736e0ccbf9cb3335cb9f049b5a6787f1e5997ed1da80b9bbd46e"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-linux-x86_64"
+        sha256: "ac6249d1192aea9feaf49dfee2ab50c38cee2454b00cf29bbec985a11795c025"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-linux-arm64"
-        sha256: "cae101d31581a348774526b9d11811b04cc212c943762e6363a85a15bccfca54"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-linux-arm64"
+        sha256: "2d86d36db0c9af15747ff02a80e6db11a45d68f868ea8f62f489505c474f0099"
     Windows:
       x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-windows-x86_64.exe"
-        sha256: "bf4adcd2764dbca6332092950f41c5ae435a38032c1c00a5558ef963b32107a1"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-windows-x86_64.exe"
+        sha256: "1c7a1609700e085d6a707a444a97e03bad593a99475bb91ff4945868d295dc96"
       armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/7.0.0/bazel-7.0.0-windows-arm64.exe"
-        sha256: "7846fc1180c7cf1985f7748db40066590f20a62a9e5c56ee5b1f1f127cb978c5"
+        url: "https://github.com/bazelbuild/bazel/releases/download/7.6.1/bazel-7.6.1-windows-arm64.exe"
+        sha256: "a8e6da382cd224c0b9e351c2601979fda9730346ba68b2695dd84b9cb26ca6fb"
 
   "6.5.0":
     license:
@@ -76,32 +76,6 @@ sources:
       armv8:
         url: "https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel-6.5.0-windows-arm64.exe"
         sha256: "b40d2ab8aa0b8413b2bdd599ec1c571d09714275f35ba476e89b3fca6857a937"
-
-  "6.2.0":
-    license:
-      url: "https://raw.githubusercontent.com/bazelbuild/bazel/6.2.0/LICENSE"
-      sha256: "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-    Macos:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-darwin-x86_64"
-        sha256: "d2356012843ce3a2fbba89f88191673a6ad2f7716cc46ad43ec1bcee78d36b44"
-      armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-darwin-arm64"
-        sha256: "482957a15c34eb43b1d1ae5e7623444e4783a04d4c618d7c518fe7b3dbf75512"
-    Linux:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-linux-x86_64"
-        sha256: "3d11c26fb9ba12c833844450bb90165b176e8a19cb5cf5923f3cec855837f17c"
-      armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-linux-arm64"
-        sha256: "16e41fe8fb791ffb9835643435e4828384a1890b0f916fd84b750fa01f783807"
-    Windows:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-windows-x86_64.exe"
-        sha256: "3d119e934ffb26910fcbd44dbc5973761480f58d3a06722cb84a90e16d8c5727"
-      armv8:
-        url: "https://github.com/bazelbuild/bazel/releases/download/6.2.0/bazel-6.2.0-windows-arm64.exe"
-        sha256: "3c23fccd3815933452c859e8482864598b6903d3143f9f18589915bf2c0dd2d4"
 
   "5.4.1":
     license:
@@ -151,20 +125,3 @@ sources:
       x86_64:
         url: "https://github.com/bazelbuild/bazel/releases/download/4.2.4/bazel-4.2.4-windows-x86_64.exe"
         sha256: "92103ac197fa53883e0671fbfda77b435619f94279fabf0694ec8623959348f8"
-
-  "4.0.0":
-    license:
-      url: "https://raw.githubusercontent.com/bazelbuild/bazel/4.0.0/LICENSE"
-      sha256: "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-    Macos:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/4.0.0/bazel-4.0.0-darwin-x86_64"
-        sha256: "349f3c9dd24191369c1073c57cc1386fc3c2d4ad7d44135c3d873c9dc67fae1f"
-    Linux:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/4.0.0/bazel-4.0.0-linux-x86_64"
-        sha256: "7bee349a626281fc8b8d04a7a0b0358492712377400ab12533aeb39c2eb2b901"
-    Windows:
-      x86_64:
-        url: "https://github.com/bazelbuild/bazel/releases/download/4.0.0/bazel-4.0.0-windows-x86_64.exe"
-        sha256: "43930bbbc8b5d618884ee8145e1ec181760bf9eea42d16217a30381d176e4cf6"

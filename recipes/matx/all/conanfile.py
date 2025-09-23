@@ -1,5 +1,6 @@
 import os
 import textwrap
+from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -44,7 +45,7 @@ class MatXConan(ConanFile):
 
     python_requires = "conan-cuda/latest"
 
-    @property
+    @cached_property
     def cuda(self):
         return self.python_requires["conan-cuda"].module.Interface(self)
 
@@ -81,8 +82,8 @@ class MatXConan(ConanFile):
         elif self.options.blas == "openblas":
             self.requires("openblas/[<1]")
         if self.options.with_cutensor:
+            self.cuda.requires("cutensornet")
             self.cuda.requires("cutensor")
-            # self.cuda.requires("cuquantum")
         if self.options.with_cudss:
             self.cuda.requires("cudss")
         if self.options.get_safe("with_fftw"):

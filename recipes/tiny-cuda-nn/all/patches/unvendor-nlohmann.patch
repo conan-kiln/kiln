@@ -1,0 +1,60 @@
+diff --git a/include/tiny-cuda-nn/cpp_api.h b/include/tiny-cuda-nn/cpp_api.h
+--- a/include/tiny-cuda-nn/cpp_api.h
++++ b/include/tiny-cuda-nn/cpp_api.h
+@@ -29,7 +29,7 @@
+ 
+ #pragma once
+ 
+-#include <json/json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ #include <cuda_runtime.h>
+ 
+diff --git a/include/tiny-cuda-nn/vec_json.h b/include/tiny-cuda-nn/vec_json.h
+--- a/include/tiny-cuda-nn/vec_json.h
++++ b/include/tiny-cuda-nn/vec_json.h
+@@ -32,7 +32,7 @@
+ 
+ #include <tiny-cuda-nn/common.h>
+ 
+-#include <json/json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ namespace tcnn {
+ 
+diff --git a/include/tiny-cuda-nn/object.h b/include/tiny-cuda-nn/object.h
+--- a/include/tiny-cuda-nn/object.h
++++ b/include/tiny-cuda-nn/object.h
+@@ -33,7 +33,7 @@
+ #include <tiny-cuda-nn/gpu_matrix.h>
+ #include <tiny-cuda-nn/rtc_kernel.h>
+ 
+-#include <json/json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ #include <pcg32/pcg32.h>
+ 
+diff --git a/include/tiny-cuda-nn/gpu_memory_json.h b/include/tiny-cuda-nn/gpu_memory_json.h
+--- a/include/tiny-cuda-nn/gpu_memory_json.h
++++ b/include/tiny-cuda-nn/gpu_memory_json.h
+@@ -29,7 +29,7 @@
+ 
+ #pragma once
+ 
+-#include <json/json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ namespace tcnn {
+ 
+diff --git a/include/tiny-cuda-nn/optimizers/adam.h b/include/tiny-cuda-nn/optimizers/adam.h
+--- a/include/tiny-cuda-nn/optimizers/adam.h
++++ b/include/tiny-cuda-nn/optimizers/adam.h
+@@ -35,7 +35,7 @@
+ #include <tiny-cuda-nn/common_device.h>
+ #include <tiny-cuda-nn/optimizer.h>
+ #include <tiny-cuda-nn/gpu_memory_json.h>
+-#include <json/json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ #include <stdexcept>
+ #include <stdint.h>

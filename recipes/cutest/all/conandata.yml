@@ -1,0 +1,4 @@
+sources:
+  "2.5.8":
+    url: "https://github.com/ralna/CUTEst/archive/refs/tags/v2.5.8.tar.gz"
+    sha256: "e01ef55e3ec99fbd8b5a7989fd7e4f234ce3bef239a4685a397cbea640492fb1"

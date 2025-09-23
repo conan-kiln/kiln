@@ -163,7 +163,7 @@ class GoogleCloudCppConan(ConanFile):
         self.cpp_info.components[component].set_property("pkg_config_name", f"google_cloud_cpp_{component}")
 
     def _add_grpc_component(self, component, protos, extra=None):
-        SHARED_REQUIRES=["grpc_utils", "common", "grpc::grpc++", "grpc::_grpc", "protobuf::libprotobuf", "abseil::absl_memory"]
+        SHARED_REQUIRES=["grpc_utils", "common", "grpc::grpc++", "grpc::_grpc", "protobuf::libprotobuf", "abseil::memory"]
         self.cpp_info.components[component].requires = (extra or []) + [protos] + SHARED_REQUIRES
         self.cpp_info.components[component].libs = [f"google_cloud_cpp_{component}"]
         self.cpp_info.components[component].set_property("pkg_config_name", f"google_cloud_cpp_{component}")
@@ -187,7 +187,7 @@ class GoogleCloudCppConan(ConanFile):
         self.cpp_info.components[component].set_property("pkg_config_name", f"google_cloud_cpp_{component}")
 
     def package_info(self):
-        self.cpp_info.components["common"].requires = ["abseil::absl_any", "abseil::absl_flat_hash_map", "abseil::absl_memory", "abseil::absl_optional", "abseil::absl_time"]
+        self.cpp_info.components["common"].requires = ["abseil::any", "abseil::flat_hash_map", "abseil::memory", "abseil::optional", "abseil::time"]
         self.cpp_info.components["common"].libs = ["google_cloud_cpp_common"]
         self.cpp_info.components["common"].set_property("pkg_config_name", "google_cloud_cpp_common")
 
@@ -207,7 +207,7 @@ class GoogleCloudCppConan(ConanFile):
         for component in GRPC_UTILS_REQUIRED_PROTOS:
             self._add_proto_component(component)
 
-        self.cpp_info.components["grpc_utils"].requires = list(GRPC_UTILS_REQUIRED_PROTOS) + ["common", "abseil::absl_function_ref", "abseil::absl_memory", "abseil::absl_time", "grpc::grpc++", "grpc::_grpc"]
+        self.cpp_info.components["grpc_utils"].requires = list(GRPC_UTILS_REQUIRED_PROTOS) + ["common", "abseil::function_ref", "abseil::memory", "abseil::time", "grpc::grpc++", "grpc::_grpc"]
         self.cpp_info.components["grpc_utils"].libs = ["google_cloud_cpp_grpc_utils"]
         self.cpp_info.components["grpc_utils"].set_property("pkg_config_name", "google_cloud_cpp_grpc_utils")
 
@@ -249,8 +249,8 @@ class GoogleCloudCppConan(ConanFile):
 
         self._add_grpc_component("bigtable", "bigtable_protos")
         self._add_grpc_component("iam", "iam_protos")
-        self._add_grpc_component("pubsub", "pubsub_protos", ["abseil::absl_flat_hash_map"])
-        self._add_grpc_component("spanner", "spanner_protos",  ["abseil::absl_fixed_array", "abseil::absl_numeric", "abseil::absl_strings", "abseil::absl_time"])
+        self._add_grpc_component("pubsub", "pubsub_protos", ["abseil::flat_hash_map"])
+        self._add_grpc_component("spanner", "spanner_protos",  ["abseil::fixed_array", "abseil::numeric", "abseil::strings", "abseil::time"])
 
         self.cpp_info.components["rest_protobuf_internal"].requires = ["rest_internal", "grpc_utils", "common"]
         self.cpp_info.components["rest_protobuf_internal"].libs = ["google_cloud_cpp_rest_protobuf_internal"]
@@ -266,7 +266,7 @@ class GoogleCloudCppConan(ConanFile):
         self.cpp_info.components["oauth2"].libs = ["google_cloud_cpp_oauth2"]
         self.cpp_info.components["oauth2"].set_property("pkg_config_name", "google_cloud_cpp_oauth2")
 
-        self.cpp_info.components["storage"].requires = ["rest_internal", "common", "nlohmann_json::nlohmann_json", "abseil::absl_memory", "abseil::absl_strings", "abseil::absl_str_format", "abseil::absl_time", "abseil::absl_variant", "crc32c::crc32c", "libcurl::libcurl", "openssl::ssl", "openssl::crypto", "zlib-ng::zlib-ng"]
+        self.cpp_info.components["storage"].requires = ["rest_internal", "common", "nlohmann_json::nlohmann_json", "abseil::memory", "abseil::strings", "abseil::str_format", "abseil::time", "abseil::variant", "crc32c::crc32c", "libcurl::libcurl", "openssl::ssl", "openssl::crypto", "zlib-ng::zlib-ng"]
         self.cpp_info.components["storage"].libs = ["google_cloud_cpp_storage"]
         self.cpp_info.components["storage"].set_property("pkg_config_name", "google_cloud_cpp_storage")
 

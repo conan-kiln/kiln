@@ -7,13 +7,14 @@ from conan.tools.files import *
 
 required_conan_version = ">=2.1"
 
+
 class EiquadprogConan(ConanFile):
     name = "eiquadprog"
     description = (
         "This package contains different C++ implementations of the algorithm of Goldfarb and "
         "Idnani for the solution of a (convex) Quadratic Programming problem by means of a dual method."
     )
-    license = ("LGPL-3.0", "GPL-3.0")
+    license = "LGPL-3.0-or-later AND GPL-2.0-or-later"  # mostly LGPL except for eiquadprog.hpp, which is derived from a GPL-licensed work
     homepage = "https://github.com/stack-of-tasks/eiquadprog"
     topics = ("algebra", "math", "robotics", "optimization", "quadratic-programming")
     package_type = "library"
@@ -26,7 +27,6 @@ class EiquadprogConan(ConanFile):
         "shared": False,
         "fPIC": True
     }
-
     implements = ["auto_shared_fpic"]
 
     def layout(self):
@@ -56,11 +56,12 @@ class EiquadprogConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "COPYING*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "COPYING*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "eiquadprog")

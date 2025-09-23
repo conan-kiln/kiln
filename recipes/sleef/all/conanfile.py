@@ -105,7 +105,7 @@ class SleefConan(ConanFile):
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        if self.settings_target is not None:
+        if self.context == "build":
             # Building for tool_requires() in cross-compilation. Copy build utils.
             copy(self, "*", os.path.join(self.build_folder, "bin"), os.path.join(self.package_folder, "bin"))
 

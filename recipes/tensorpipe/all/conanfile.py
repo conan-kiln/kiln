@@ -55,7 +55,7 @@ class TensorpipeConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
         if not self.options.cuda:
             del self.settings.cuda
             del self.options.cuda_ipc

@@ -1,0 +1,4 @@
+sources:
+  "2.13.0+git.20181110":
+    url: "https://github.com/clMathLibraries/clBLAS/archive/25ff135be8adea32dffe8b97fe0c50f0f72e9f70.tar.gz"
+    sha256: "e09f9e2c261c76447c6ad7c680d765812fdb0dcb0a2ac22ba391f02b63d60ad8"

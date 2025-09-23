@@ -12,7 +12,7 @@ required_conan_version = ">=2.1"
 class LibheifConan(ConanFile):
     name = "libheif"
     description = "libheif is an HEIF and AVIF file format decoder and encoder."
-    license = ("LGPL-3.0-only", "GPL-3.0-or-later", "MIT")
+    license = "LGPL-3.0-or-later"
     homepage = "https://github.com/strukturag/libheif"
     topics = ("heif", "codec", "video")
     package_type = "library"

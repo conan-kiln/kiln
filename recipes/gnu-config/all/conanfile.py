@@ -13,7 +13,7 @@ class GnuConfigConan(ConanFile):
     description = "The GNU config.guess and config.sub scripts"
     homepage = "https://savannah.gnu.org/projects/config/"
     topics = ("gnu", "config", "autotools", "canonical", "host", "build", "target", "triplet")
-    license = "GPL-3.0-or-later", "autoconf-special-exception"
+    license = "GPL-3.0-or-later WITH Autoconf-exception-3.0"
     package_type = "build-scripts"
     settings = "os", "arch", "compiler", "build_type"
 

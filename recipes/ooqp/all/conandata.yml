@@ -1,0 +1,4 @@
+sources:
+  "0.99.27":
+    url: "https://github.com/emgertz/OOQP/archive/refs/tags/OOQP-0.99.27.tar.gz"
+    sha256: "db10ae07984d3707c235e410e77e5dc90d5b6388b33a612163b6eac108457756"

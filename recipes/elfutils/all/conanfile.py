@@ -5,7 +5,6 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, AutotoolsDeps, PkgConfigDeps
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
@@ -16,8 +15,7 @@ class ElfutilsConan(ConanFile):
     description = "A dwarf, dwfl and dwelf functions to read DWARF, find separate debuginfo, symbols and inspect process state."
     homepage = "https://sourceware.org/elfutils"
     topics = ("libelf", "libdw", "libasm")
-    license = ["GPL-1.0-or-later", "LGPL-3.0-or-later", "GPL-2.0-or-later"]
-
+    license = "LGPL-3.0-or-later OR GPL-2.0-or-later"  # the library, executables are GPL
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -97,17 +95,9 @@ class ElfutilsConan(ConanFile):
         # Reference: https://stackoverflow.com/questions/72372589/elfutils-build-error-on-mac-configure-error-thread-support-required
         if self.settings.os == "Macos":
             raise ConanInvalidConfiguration("elfutils does not support macOS.")
-
-        if Version(self.version) >= "0.186":
-            if self.settings.compiler == "apple-clang" or is_msvc(self):
-                raise ConanInvalidConfiguration(f"Your compiler {self.settings.compiler} is not supported. "
-                                                "elfutils only supports GCC and Clang.")
-        else:
-            if self.settings.compiler in ("clang", "apple-clang") or is_msvc(self):
-                raise ConanInvalidConfiguration(f"Your compiler {self.settings.compiler} is not supported. "
-                                                "elfutils only supports GCC.")
-        if self.settings.compiler != "gcc":
-            self.output.warning(f"Your compiler {self.settings.compiler} is not GCC.")
+        if self.settings.compiler in ["apple-clang", "msvc"]:
+            raise ConanInvalidConfiguration(f"Your compiler {self.settings.compiler} is not supported. "
+                                            "elfutils only supports GCC and Clang.")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -194,7 +184,7 @@ class ElfutilsConan(ConanFile):
             self.cpp_info.components["libdebuginfod"].libs = ["debuginfod"]
             self.cpp_info.components["libdebuginfod"].requires = ["libcurl::curl"]
 
-        if self.settings_target is not None:
+        if self.context == "build":
             bin_ext = ".exe" if self.settings.os == "Windows" else ""
             for envvar, tool in [
                 ("ADDR2LINE", "addr2line"),

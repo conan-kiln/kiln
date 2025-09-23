@@ -1,0 +1,33 @@
+diff --git a/algebra/_common/lin_sys/qdldl/qdldl.cmake b/algebra/_common/lin_sys/qdldl/qdldl.cmake
+--- a/algebra/_common/lin_sys/qdldl/qdldl.cmake
++++ b/algebra/_common/lin_sys/qdldl/qdldl.cmake
+@@ -1,3 +1,4 @@
++if(0)
+ include(FetchContent)
+ 
+ message(STATUS "Fetching/configuring QDLDL solver")
+@@ -23,6 +24,9 @@
+ list(POP_BACK CMAKE_MESSAGE_INDENT)
+ 
+ set_source_files_properties($<TARGET_OBJECTS:qdldlobject> PROPERTIES GENERATED 1)
++endif()
++
++add_library(qdldlobject OBJECT IMPORTED GLOBAL)
+ 
+ file(
+     GLOB
+diff --git a/algebra/builtin/CMakeLists.txt b/algebra/builtin/CMakeLists.txt
+--- a/algebra/builtin/CMakeLists.txt
++++ b/algebra/builtin/CMakeLists.txt
+@@ -41,10 +41,7 @@
+        ${OSQP_ALGEBRA_ROOT}/_common/kkt.h
+        ${OSQP_ALGEBRA_ROOT}/_common/kkt.c
+        ${OSQP_ALGEBRA_ROOT}/_common/lin_sys/qdldl/qdldl_interface.h
+-       ${OSQP_ALGEBRA_ROOT}/_common/lin_sys/qdldl/qdldl_interface.c
+-       ${qdldl_SOURCE_DIR}/src/qdldl.c
+-       ${qdldl_SOURCE_DIR}/include/qdldl.h
+-       ${qdldl_BINARY_DIR}/include/qdldl_version.h )
++       ${OSQP_ALGEBRA_ROOT}/_common/lin_sys/qdldl/qdldl_interface.c )
+ 
+   foreach( f ${EMBEDDED_LINALG} )
+     get_filename_component( fname ${f} NAME )

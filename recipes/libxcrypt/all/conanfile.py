@@ -17,7 +17,7 @@ class LibxcryptConan(ConanFile):
     homepage = "https://github.com/besser82/libxcrypt"
     description = "Extended crypt library for descrypt, md5crypt, bcrypt, and others"
     topics = ("hash", "password", "one-way", "bcrypt", "md5", "sha256", "sha512")
-    license = ("LGPL-2.1-or-later", )
+    license = "LGPL-2.1-or-later"
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"
     options = {

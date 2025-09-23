@@ -14,8 +14,8 @@ class FlacConan(ConanFile):
     description = "Free Lossless Audio Codec"
     topics = ("flac", "codec", "audio", )
     homepage = "https://github.com/xiph/flac"
-    license = ("BSD-3-Clause", "GPL-2.0-or-later", "LGPL-2.1-or-later", "GFDL-1.2")
-
+    license = "(LGPL-2.1-or-later OR GPL-2-or-later) AND BSD-3-Clause"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],

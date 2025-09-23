@@ -24,7 +24,6 @@ packages_following_ctk_minor_version = {
     "cudla",
     "culibos",
     "cupti",
-    "npp",
     "nvcc",
     "nvfatbin",
     "nvml-stubs",
@@ -108,6 +107,13 @@ def get_version_range(_: ConanFile, package_name, cuda_version):
             return ">=1.5 <1.15"
         else:
             return "<1.5"
+    if package_name == "cuquantum":
+        if cuda_major >= 13:
+            return ">=25.09"
+        elif cuda_major == 12:
+            return "*"
+        else:
+            return "<25.09"
     if package_name == "curand":
         if cuda_major >= 13:
             return "~10.4"
@@ -138,6 +144,20 @@ def get_version_range(_: ConanFile, package_name, cuda_version):
             return "*"
         else:
             return "<0.8"
+    if package_name == "cutensor":
+        if cuda_major >= 13:
+            return "^2.3"
+        elif cuda_major == 12:
+            return ">=1 <3"
+        else:
+            return "<2.3"
+    if package_name == "cutensornet":
+        if cuda_major >= 13:
+            return "^2.9"
+        elif cuda_major == 12:
+            return ">=2 <3"
+        else:
+            return "<2.9.0"
     if package_name == "nvcomp":
         if cuda_major >= 13:
             return ">=5"

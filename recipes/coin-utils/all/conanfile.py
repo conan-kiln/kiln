@@ -46,7 +46,7 @@ class CoinUtilsConan(ConanFile):
     def requirements(self):
         self.requires("bzip2/[^1.0.8]")
         self.requires("zlib-ng/[^2.0]")
-        self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("openblas/[>=0.3.28 <1]", transitive_headers=True, transitive_libs=True)
         if self.options.with_glpk:
             self.requires("glpk/[<=4.48]")
 
@@ -59,6 +59,7 @@ class CoinUtilsConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/latest")
+            self.tool_requires("automake/[^1.18.1]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -124,6 +125,7 @@ class CoinUtilsConan(ConanFile):
         for gnu_config in ["config_guess", "config_sub"]:
             gnu_config = self.conf.get(f"user.gnu-config:{gnu_config}", check_type=str)
             shutil.copy(gnu_config, os.path.join(self.source_folder, "CoinUtils"))
+        mkdir(self, os.path.join(self.build_folder, "src", "lib"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="CoinUtils")
         autotools.configure(build_script_folder="CoinUtils")
@@ -137,9 +139,6 @@ class CoinUtilsConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
-        if is_msvc(self):
-            rename(self, os.path.join(self.package_folder, "lib", "libCoinUtils.a"),
-                         os.path.join(self.package_folder, "lib", "CoinUtils.lib"))
 
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "coinutils")

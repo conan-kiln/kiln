@@ -1,12 +1,9 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os
-from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -14,169 +11,91 @@ required_conan_version = ">=2.1"
 class WhisperCppConan(ConanFile):
     name = "whisper-cpp"
     description = "High-performance inference of OpenAI's Whisper automatic speech recognition (ASR) model"
-    topics = ("whisper", "asr")
-    homepage = "https://github.com/ggerganov/whisper.cpp"
     license = "MIT"
-    settings = "os", "arch", "compiler", "build_type"
+    homepage = "https://github.com/ggerganov/whisper.cpp"
+    topics = ("whisper", "asr")
+    package_type = "library"
+    settings = "os", "arch", "compiler", "build_type", "cuda"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "sanitize_thread": [True, False],
-        "sanitize_address": [True, False],
-        "sanitize_undefined": [True, False],
-        "no_avx": [True, False],
-        "no_avx2": [True, False],
-        "no_fma": [True, False],
-        "no_f16c": [True, False],
-        "no_accelerate": [True, False],
-        "metal": [True, False],
-        "metal_ndebug": [True, False],
+        "with_openmp": [True, False],
+        "with_cuda": [True, False],
+        "with_openvino": [True, False],
         "with_coreml": [True, False],
         "coreml_allow_fallback": [True, False],
-        "with_blas": [True, False],
-        "with_openvino": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "sanitize_thread": False,
-        "sanitize_address": False,
-        "sanitize_undefined": False,
-        "no_avx": False,
-        "no_avx2": False,
-        "no_fma": False,
-        "no_f16c": False,
-        "no_accelerate": False,
-        "metal": True,
-        "metal_ndebug": False,
+        "with_openmp": True,
+        "with_cuda": True,
+        "with_openvino": False,
         "with_coreml": False,
         "coreml_allow_fallback": False,
-        "with_blas": False,
-        "with_openvino": False,
     }
-    package_type = "library"
+    implements = ["auto_shared_fpic"]
 
-    @property
-    def _min_cppstd(self):
-        return "14"
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "14": {
-                "gcc": "9",
-                "clang": "5",
-                "apple-clang": "10",
-                "msvc": "191",
-            },
-        }.get(self._min_cppstd, {})
-
-    @property
-    def _is_openvino_option_available(self):
-        return Version(self.version) >= "1.5.2"
+    python_requires = "conan-cuda/latest"
+    python_requires_extend = "conan-cuda.Cuda"
 
     def config_options(self):
-        if is_apple_os(self):
-            del self.options.with_blas
-        else:
-            del self.options.metal
-            del self.options.metal_ndebug
-            del self.options.no_accelerate
-            del self.options.with_coreml
-            del self.options.coreml_allow_fallback
-
         if self.settings.os == "Windows":
             del self.options.fPIC
-
-        if not self._is_openvino_option_available:
-            del self.options.with_openvino
+        if not is_apple_os(self):
+            del self.options.with_coreml
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-
-        if is_apple_os(self):
-            if not self.options.with_coreml:
-                self.options.rm_safe("coreml_allow_fallback")
-
-    def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-            )
+        self.options["ggml"].with_openmp = self.options.with_openmp
+        if self.options.with_cuda:
+            self.options["ggml"].with_cuda = True
+        else:
+            del self.settings.cuda
+        if not self.options.get_safe("with_coreml"):
+            del self.options.coreml_allow_fallback
+        else:
+            self.options["ggml"].with_coreml = True
+            self.options["ggml"].coreml_allow_fallback = self.options.coreml_allow_fallback
 
     def requirements(self):
-        if not is_apple_os(self):
-            if self.options.with_blas:
-                self.requires("openblas/[>=0.3.28 <1]")
-        if self.options.get_safe("with_openvino"):
+        self.requires("ggml/[>=0.9 <1]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_cuda:
+            self.cuda.requires("cudart")
+            self.cuda.requires("cublas")
+        if self.options.with_openvino:
             self.requires("openvino/[>=2024.5.0]")
+        if self.options.with_openmp:
+            self.requires("openmp/system")
+
+    def build_requirements(self):
+        if self.options.with_cuda:
+            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.tool_requires("cmake/[>=3.18]")
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "BLAS")
-        deps.generate()
-
         tc = CMakeToolchain(self)
         tc.variables["WHISPER_BUILD_TESTS"] = False
         tc.variables["WHISPER_BUILD_EXAMPLES"] = False
-
-        if self.options.shared:
-            tc.variables["BUILD_SHARED_LIBS"] = True
-        if self.options.sanitize_thread:
-            tc.variables["WHISPER_SANITIZE_THREAD"] = True
-        if self.options.sanitize_address:
-            tc.variables["WHISPER_SANITIZE_ADDRESS"] = True
-        if self.options.sanitize_undefined:
-            tc.variables["WHISPER_SANITIZE_UNDEFINED"] = True
-        if self.options.no_avx:
-            tc.variables["WHISPER_NO_AVX"] = True
-        if self.options.no_avx2:
-            tc.variables["WHISPER_NO_AVX2"] = True
-        if self.options.no_fma:
-            tc.variables["WHISPER_NO_FMA"] = True
-        if self.options.no_f16c:
-            tc.variables["WHISPER_NO_F16C"] = True
-
-        # TODO: Implement OpenMP support
-        tc.variables["GGML_OPENMP"] = False
-
-        if self.options.get_safe("with_openvino"):
-            tc.variables["WHISPER_OPENVINO"] = True
-
-        if is_apple_os(self):
-            if self.options.no_accelerate:
-                tc.variables["WHISPER_NO_ACCELERATE"] = True
-            if self.options.get_safe("metal_ndebug"):
-                tc.variables["WHISPER_METAL_NDEBUG"] = True
-            if self.options.with_coreml:
-                tc.variables["WHISPER_COREML"] = True
-                if self.options.coreml_allow_fallback:
-                    tc.variables["WHISPER_COREML_ALLOW_FALLBACK"] = True
-            if Version(self.version) >= "1.7.0":
-                tc.variables["GGML_METAL"] = self.options.metal
-            else:
-                tc.variables["WHISPER_METAL"] = self.options.metal
-        else:
-            if self.options.with_blas:
-                if Version(self.version) >= "1.4.2":
-                    tc.variables["WHISPER_OPENBLAS"] = True
-                else:
-                    tc.variables["WHISPER_SUPPORT_OPENBLAS"] = True
-
+        tc.variables["BUILD_SHARED_LIBS"] = self.options.shared
+        tc.variables["WHISPER_USE_SYSTEM_GGML"] = True
+        tc.variables["WHISPER_CUDA"] = self.options.with_cuda
+        tc.variables["WHISPER_OPENVINO"] = self.options.with_openvino
         tc.generate()
+
+        deps = CMakeDeps(self)
+        deps.generate()
+
+        if self.options.with_cuda:
+            tc = self.cuda.CudaToolchain()
+            tc.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -187,33 +106,20 @@ class WhisperCppConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        rm(self, "*.cmake", self.package_folder, recursive=True)
-        rm(self, "*.pc", self.package_folder, recursive=True)
-        copy(self, "*", os.path.join(self.source_folder, "models"), os.path.join(self.package_folder, "share", self.name, "models"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        copy(self, "*",
+             os.path.join(self.source_folder, "models"),
+             os.path.join(self.package_folder, "share", self.name, "models"))
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "whisper")
+        self.cpp_info.set_property("cmake_target_name", "whisper")
+        self.cpp_info.set_property("pkg_config_name", "whisper")
         self.cpp_info.libs = ["whisper"]
-        if Version(self.version) >= "1.7.0":
-            self.cpp_info.libs.append("ggml")
-        if Version(self.version) >= "1.7.3":
-            self.cpp_info.libs.extend(["ggml-base", "ggml-cpu"])
         self.cpp_info.resdirs = ["share"]
-        if Version(self.version) < "1.7.0":
-            self.cpp_info.libdirs = ["lib", "lib/static"]
-
-        if self.options.get_safe("with_blas"):
-            self.cpp_info.requires = ["ggml-blas"]
-        if self.options.get_safe("with_openvino"):
-            self.cpp_info.requires = ["openvino::Runtime"]
-
         if is_apple_os(self):
-            if not self.options.no_accelerate:
-                self.cpp_info.frameworks.append("Accelerate")
             if self.options.with_coreml:
                 self.cpp_info.frameworks.append("CoreML")
-            if self.options.get_safe("metal"):
-                self.cpp_info.frameworks.extend(["CoreFoundation", "Foundation", "Metal", "MetalKit"])
-                if Version(self.version) >= "1.7.3":
-                    self.cpp_info.libs.extend(["ggml-metal", "ggml-blas"])
-        elif self.settings.os in ("Linux", "FreeBSD"):
-            self.cpp_info.system_libs.extend(["dl", "m", "pthread"])
+        elif self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.system_libs = ["dl", "m", "pthread"]

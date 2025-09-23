@@ -12,10 +12,9 @@ required_conan_version = ">=2.1"
 class Pagmo2Conan(ConanFile):
     name = "pagmo2"
     description = "pagmo is a C++ scientific library for massively parallel optimization."
-    license = ("LGPL-3.0-or-later", "GPL-3.0-or-later")
+    license = "LGPL-3.0-or-later OR GPL-3.0-or-later"
     homepage = "https://esa.github.io/pagmo2"
     topics = ("pagmo", "optimization", "parallel-computing", "genetic-algorithm", "metaheuristics", "header-only")
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {

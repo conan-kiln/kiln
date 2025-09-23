@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/NVIDIA/cuopt/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "fdcfebc71b1dde2139f509e94f8603b340a182dc18d86389e02f62d9e300c741"

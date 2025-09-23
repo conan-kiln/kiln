@@ -1,4 +1,5 @@
 import os
+from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
@@ -22,16 +23,46 @@ class NautyConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "fPIC": [True, False],
-        "enable_tls": [True, False],
         "tools": [True, False],
+        "tls": [True, False],
+        "wordsize": [16, 32, 64, 128],
+        "small": [True, False],
     }
     default_options = {
         "fPIC": True,
-        "enable_tls": True,
         "tools": False,
+        "tls": True,
+        "wordsize": 64,
+        "small": False,
+    }
+    options_description = {
+        "tools": "Build executables",
+        "tls": "Enable thread-local storage. Makes the library thread-safe,"
+               " but may slow it down slightly if you aren’t using threads.",
+        "wordsize": "The size of a single 'setword' in bits."
+                    " I.e. how many set elements can be stored by a single setword integer value.",
+        "small": "Set the maximum order of a graph to the wordsize value.",
     }
     implements = ["auto_shared_fpic"]
     languages = ["C"]
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+        if "64" in str(self.settings.arch) or self.settings.arch in ["armv8", "armv8.3"]:
+            self.options.wordsize = 64
+        else:
+            self.options.wordsize = 32
+
+    @cached_property
+    def _libname(self):
+        libname = "nauty"
+        if self.options.tls:
+            libname += "T"
+        libname += {16: "S", 32: "W", 64: "L", 128: "Q"}[int(self.options.wordsize.value)]
+        if self.options.small:
+            libname += "1"
+        return libname
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -55,10 +86,16 @@ class NautyConan(ConanFile):
         tc = AutotoolsToolchain(self)
         tc.configure_args.extend([
             "--enable-generic",  # no -march=native
-            "--enable-tls" if self.options.enable_tls else "--disable-tls",
+            "--enable-tls" if self.options.tls else "--disable-tls",
         ])
         if not self.options.tools:
             tc.make_args.append("GTOOLS=")
+        if self.options.tls:
+            tc.make_args.append("GLIBS=")
+            tc.make_args.append(f"TLSLIBS=lib{self._libname}.la")
+        else:
+            tc.make_args.append(f"GLIBS=lib{self._libname}.la")
+            tc.make_args.append("TLSLIBS=")
         tc.generate()
 
         if is_msvc(self):
@@ -77,11 +114,14 @@ class NautyConan(ConanFile):
         if not self.options.tools:
             replace_in_file(self, os.path.join(self.source_folder, "makefile.in"),
                             "${INSTALL} ${GTOOLS} ${DESTDIR}${bindir}", "")
+        if self.options.tls:
+            replace_in_file(self, os.path.join(self.source_folder, "makefile.in"),
+                            "${LIBTOOL} --mode=install ${INSTALL} ${GLIBS}", "# ")
         with chdir(self, self.source_folder):
             autotools = Autotools(self)
             autotools.configure()
             autotools.make()
-            if self.options.enable_tls:
+            if self.options.tls:
                 autotools.make(target="TLSlibs")
 
     def package(self):
@@ -90,31 +130,19 @@ class NautyConan(ConanFile):
         with chdir(self, self.source_folder):
             autotools = Autotools(self)
             autotools.install()
-            if self.options.enable_tls:
+            if self.options.tls:
                 autotools.install(target="TLSinstall")
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         fix_apple_shared_install_name(self)
 
     def package_info(self):
-        def add_component(name, defines):
-            self.cpp_info.components[name].set_property("pkg_config_name", name)
-            self.cpp_info.components[name].libs = [name]
-            self.cpp_info.components[name].defines = defines
-
-            if self.options.enable_tls:
-                name = name.replace("nauty", "nautyT")
-                self.cpp_info.components[name].set_property("pkg_config_name", name)
-                self.cpp_info.components[name].libs = [name]
-                self.cpp_info.components[name].defines = defines + ["USE_TLS"]
-
-        add_component("nauty", [])
-        add_component("nauty1", ["MAXN=WORDSIZE"])
-        add_component("nautyS", ["WORDSIZE=16"])
-        add_component("nautyW", ["WORDSIZE=32"])
-        add_component("nautyL", ["WORDSIZE=64"])
-        add_component("nautyQ", ["WORDSIZE=128"])
-        add_component("nautyS1", ["WORDSIZE=16", "MAXN=WORDSIZE"])
-        add_component("nautyW1", ["WORDSIZE=32", "MAXN=WORDSIZE"])
-        add_component("nautyL1", ["WORDSIZE=64", "MAXN=WORDSIZE"])
-        add_component("nautyQ1", ["WORDSIZE=128", "MAXN=WORDSIZE"])
+        self.cpp_info.set_property("cmake_target_aliases", ["nauty", self._libname])
+        self.cpp_info.set_property("pkg_config_name", self._libname)
+        self.cpp_info.set_property("pkg_config_aliases", ["nauty"])
+        self.cpp_info.libs = [self._libname]
+        self.cpp_info.defines = [f"WORDSIZE={self.options.wordsize}"]
+        if self.options.small:
+            self.cpp_info.defines.append("MAXN=WORDSIZE")
+        if self.options.tls:
+            self.cpp_info.defines.append("USE_TLS")

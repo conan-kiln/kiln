@@ -1,4 +1,5 @@
 import importlib
+import io
 import os
 import sys
 from pathlib import PurePath
@@ -6,15 +7,14 @@ from pathlib import PurePath
 from conan import ConanFile
 from conan.tools.build import can_run
 from conan.tools.cmake import cmake_layout, CMake, CMakeToolchain, CMakeDeps
-from conan.tools.env import VirtualRunEnv
 from conan.tools.microsoft import is_msvc
 
 
 class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
-    def requirements(self):
-        self.requires(self.tested_reference_str, visible=False, run=True)
+    def build_requirements(self):
+        self.tool_requires(self.tested_reference_str)
 
     def layout(self):
         cmake_layout(self)
@@ -36,22 +36,20 @@ class TestPackageConan(ConanFile):
         return sys.executable
 
     def generate(self):
-        venv = VirtualRunEnv(self)
-        venv.generate(scope="build")
-        venv.generate(scope="run")
         tc = CMakeToolchain(self)
         tc.variables["Python_EXECUTABLE"] = PurePath(self._python_interpreter).as_posix()
         tc.generate()
         deps = CMakeDeps(self)
+        deps.build_context_activated.append("swig")
+        deps.build_context_build_modules.append("swig")
         deps.generate()
 
     def build(self):
-        if can_run(self):
-            self.run("swig -swiglib")
-            if self._can_build:
-                cmake = CMake(self)
-                cmake.configure()
-                cmake.build()
+        self.run("swig -swiglib")
+        if self._can_build:
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
 
     def _test_swig_module(self):
         sys.path.append(self.build_folder)
@@ -68,5 +66,9 @@ class TestPackageConan(ConanFile):
         if can_run(self):
             if self._can_build:
                 self._test_swig_module()
-            self.run("swig -version")
-            self.run("swig -swiglib")
+        self.run("swig -swiglib")
+        self.run("swig -version")
+        self.run("swig -pcreversion")
+        stdout = io.StringIO()
+        self.run("swig --help", stdout=stdout)
+        self.output.info("\n\n" + stdout.getvalue().split("General Options")[0].strip())

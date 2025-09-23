@@ -1,16 +1,9 @@
 import os
-import re
-from pathlib import Path
 
 from conan import ConanFile
-from conan.tools import CppInfo
-from conan.tools.apple import is_apple_os, to_apple_arch
-from conan.tools.env import VirtualBuildEnv, Environment
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 from conan.tools.files import *
-from conan.tools.gnu import Autotools, AutotoolsDeps, AutotoolsToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc, unix_path
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -21,164 +14,52 @@ class SwigConan(ConanFile):
     license = "GPL-3.0-or-later"
     homepage = "http://www.swig.org"
     topics = ("python", "java", "wrapper")
-
-    package_type = "static-library"
+    package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
-
-    def configure(self):
-        # SWIG prefers static linking
-        self.options["pcre"].shared = False
-        self.options["pcre2"].shared = False
-        self.options["libgettext"].shared = False
-
-    def export_sources(self):
-        copy(self, "cmake/*", src=self.recipe_folder, dst=self.export_sources_folder)
-        export_conandata_patches(self)
 
     def layout(self):
         basic_layout(self, src_folder="src")
 
-    @property
-    def _use_pcre2(self):
-        return Version(self.version) >= "4.1"
-
-    def requirements(self):
-        if self._use_pcre2:
-            self.requires("pcre2/[^10.42]")
-        else:
-            self.requires("pcre/[^8.45]")
-        if is_apple_os(self):
-            self.requires("gettext/[>=0.21 <1]")
-
     def package_id(self):
         del self.info.settings.compiler
 
+    def requirements(self):
+        self.requires("pcre2/[^10.42]")
+
     def build_requirements(self):
-        if self.settings_build.os == "Windows":
-            self.win_bash = True
-            if not self.conf.get("tools.microsoft.bash:path", check_type=str):
-                self.tool_requires("msys2/latest")
-            if is_msvc(self):
-                self.tool_requires("cccl/1.3")
-        if Version(self.version) >= "4.2":
-            if is_msvc(self):
-                # bison 3.8.2 is not ready for msvc
-                self.tool_requires("bison/[^3.7.6]")
-            else:
-                self.tool_requires("bison/[^3.8.2]")
-        else:
-            if is_msvc(self):
-                self.tool_requires("winflexbison/[^2.5.25]")
-            else:
-                self.tool_requires("bison/[^3.8.2]")
-        self.tool_requires("automake/[^1.18.1]")
+        self.tool_requires("bison/[^3.8.2]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
-        build_env = VirtualBuildEnv(self)
-        build_env.generate()
-
-        tc = AutotoolsToolchain(self)
-        env = tc.environment()
-
-        pcre = "pcre2" if self._use_pcre2 else "pcre"
-        tc.configure_args += [
-            f"--host={self.settings.arch}",
-            "--with-swiglibdir=${prefix}/bin/swiglib",
-            f"--with-{pcre}-prefix={self.dependencies[pcre].package_folder}",
-        ]
-        tc.extra_cflags.append("-DHAVE_PCRE=1")
-        if self._use_pcre2:
-            env.define("PCRE2_LIBS", " ".join("-l" + lib for lib in self.dependencies["pcre2"].cpp_info.libs))
-
-        # match ./autogen.sh
-        env.define("ACLOCAL", "aclocal -I Tools/config")
-
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            tc.configure_args.append("LIBS=-ldl")
-            tc.extra_defines.append("HAVE_UNISTD_H=1")
-        elif self.settings.os == "Windows":
-            if is_msvc(self):
-                env.define("CC", "cccl -FS")
-                env.define("CXX", "cccl -FS")
-                tc.configure_args.append("--disable-ccache")
-            else:
-                tc.extra_ldflags.append("-static")
-                tc.configure_args.append("LIBS=-lmingwex -lssp")
-        elif is_apple_os(self):
-            tc.extra_cflags.append(f"-arch {to_apple_arch(self)}")
-            tc.extra_cxxflags.append(f"-arch {to_apple_arch(self)}")
-            tc.extra_ldflags.append(f"-arch {to_apple_arch(self)}")
-        tc.generate(env)
-
-        if is_msvc(self):
-            # Custom AutotoolsDeps for cl like compilers
-            # workaround for https://github.com/conan-io/conan/issues/12784
-            cpp_info = CppInfo(self)
-            for dependency in self.dependencies.values():
-                cpp_info.merge(dependency.cpp_info.aggregated_components())
-            env = Environment()
-            env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])
-            env.append("_LINK_", [lib if lib.endswith(".lib") else f"{lib}.lib" for lib in cpp_info.libs])
-            env.append("LDFLAGS", [f"-L{unix_path(self, p)}" for p in cpp_info.libdirs] + cpp_info.sharedlinkflags + cpp_info.exelinkflags)
-            env.append("CXXFLAGS", cpp_info.cxxflags)
-            env.append("CFLAGS", cpp_info.cflags)
-            env.vars(self).save_script("conanautotoolsdeps_cl_workaround")
-        else:
-            deps = AutotoolsDeps(self)
-            deps.generate()
-
-    def _patch_sources(self):
-        # Rely on AutotoolsDeps instead of pcre2-config
-        # https://github.com/swig/swig/blob/v4.1.1/configure.ac#L70-L92
-        # https://github.com/swig/swig/blob/v4.0.2/configure.ac#L65-L86
-        replace_in_file(self, os.path.join(self.source_folder, "configure.ac"),
-                        'AS_IF([test "x$with_pcre" != xno],', 'AS_IF([false],')
-        configure_ac = Path(self.source_folder, "configure.ac")
-        # The project configure.ac looks for TclConfig.sh very stubbornly
-        # and provides no config variables to disable it.
-        # Configuration fails if Tcl is not present on the system.
-        content = configure_ac.read_text()
-        content, n = re.subn(r'# Look for Tcl.+AC_SUBST\(TCLINCLUDE\)', r'AC_SUBST(TCLINCLUDE)', content, flags=re.DOTALL | re.MULTILINE)
-        assert n == 1, "Failed to disable TCL autodetection in configure.ac"
-        configure_ac.write_text(content)
+        tc = CMakeToolchain(self)
+        tc.generate()
+        deps = CMakeDeps(self)
+        deps.set_property("pcre2", "cmake_file_name", "PCRE2")
+        deps.generate()
 
     def build(self):
-        self._patch_sources()
-        with chdir(self, self.source_folder):
-            autotools = Autotools(self)
-            autotools.autoreconf()
-            autotools.configure()
-            autotools.make()
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def package(self):
         copy(self, "LICENSE*", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         copy(self, "COPYRIGHT", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
-        copy(self, "*.cmake",
-             dst=os.path.join(self.package_folder, self._module_subfolder),
-             src=os.path.join(self.export_sources_folder, "cmake"))
-        with chdir(self, self.source_folder):
-            autotools = Autotools(self)
-            autotools.install()
-        for path in Path(self.package_folder).iterdir():
-            if path.is_dir() and path.name not in ["bin", "lib", "licenses"]:
-                rmdir(self, path)
-
-    @property
-    def _module_subfolder(self):
-        return os.path.join("lib", "cmake")
-
-    @property
-    def _cmake_module_rel_path(self):
-        return os.path.join(self._module_subfolder, "conan-swig-variables.cmake")
+        cmake = CMake(self)
+        cmake.install()
+        save(self, os.path.join(self.package_folder, "share/swig/conan-swig-variables.cmake"),
+             "find_program(SWIG_EXECUTABLE swig)\n"
+             'get_filename_component(SWIG_DIR "$ENV{SWIG_LIB}" ABSOLUTE)\n')
 
     def package_info(self):
-        self.cpp_info.includedirs = []
+        self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "SWIG")
         self.cpp_info.set_property("cmake_target_name", "SWIG::SWIG")
-        self.cpp_info.set_property("cmake_build_modules", [self._cmake_module_rel_path])
+        self.cpp_info.includedirs = []
+        self.cpp_info.libdirs = []
+        self.cpp_info.builddirs = ["share/swig"]
+        self.cpp_info.set_property("cmake_build_modules", ["share/swig/conan-swig-variables.cmake"])
 
-        self.buildenv_info.define_path("SWIG_LIB", os.path.join(self.package_folder, "bin", "swiglib"))
+        self.buildenv_info.define_path("SWIG_LIB", os.path.join(self.package_folder, "share", "swig", self.version))

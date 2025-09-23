@@ -1,16 +1,8 @@
 sources:
-  "1.30":
-    url: "https://github.com/knik0/faac/archive/1_30.tar.gz"
-    sha256: "adc387ce588cca16d98c03b6ec1e58f0ffd9fc6eadb00e254157d6b16203b2d2"
+  "1.31.1":
+    url: "https://github.com/knik0/faac/archive/faac-1.31.1/faac-faac-1.31.1.tar.gz"
+    sha256: "3191bf1b131f1213221ed86f65c2dfabf22d41f6b3771e7e65b6d29478433527"
 patches:
-  "1.30":
-    - patch_file: "patches/1.30-0001-fix-out-of-root-build.patch"
-      patch_description: "Fix out of root build"
-      patch_source: "https://github.com/knik0/faac/commit/c8d12a5c7c5b6f1c4593f0a6c1eeceacc4d7c941.patch"
-      patch_type: "conan"
-    - patch_file: "patches/1.30-0002-dont-hardcode-x86.patch"
-      patch_description: "Allow to build for x86_64"
-      patch_type: "portability"
-    - patch_file: "patches/1.30-0003-relax-windows-sdk.patch"
-      patch_description: "Don't constrain Windows SDK"
-      patch_type: "portability"
+  "1.31.1":
+    - patch_file: "patches/fix-msvc-build.patch"
+      patch_source: "https://github.com/knik0/faac/commit/1bd3bf95b055135fd8d8938ccd1d0a5dfbb7efdd"

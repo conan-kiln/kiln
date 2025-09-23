@@ -10,6 +10,7 @@ from conan.tools.layout import basic_layout
 
 required_conan_version = ">=2.1"
 
+
 class LibaioConan(ConanFile):
     name = "libaio"
     description = "libaio provides the Linux-native API for async I/O."
@@ -25,16 +26,12 @@ class LibaioConan(ConanFile):
         "shared": False,
         "fPIC": True,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     @property
     def _user_info_build(self):
         return getattr(self, "user_info_build", self.deps_user_info)
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.libcxx")
-        self.settings.rm_safe("compiler.cppstd")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -63,7 +60,6 @@ class LibaioConan(ConanFile):
         autotools = Autotools(self)
         with chdir(self, self.source_folder):
             autotools.make(target="install", args=["prefix=" + self.package_folder])
-
         if self.options.shared:
             rm(self, "libaio.a", os.path.join(self.package_folder, "lib"))
         else:

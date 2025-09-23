@@ -1,4 +1,5 @@
 import os
+from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -24,6 +25,12 @@ class CuDnnFrontendConan(ConanFile):
     }
 
     no_copy_source = True
+
+    python_requires = "conan-cuda/latest"
+
+    @cached_property
+    def cuda(self):
+        return self.python_requires["conan-cuda"].module.Interface(self)
 
     def export_sources(self):
         export_conandata_patches(self)

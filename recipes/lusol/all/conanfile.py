@@ -41,7 +41,7 @@ class LusolConan(ConanFile):
         # Not used during the build, but required when linking the library.
         self.requires("openblas/[*]", headers=False, libs=True)
 
-    def validate(self):
+    def validate_build(self):
         if not self._fortran_compiler:
             raise ConanInvalidConfiguration(
                 "A Fortran compiler is required. "

@@ -28,21 +28,14 @@ class EmbagConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     def export_sources(self):
-        copy(self, "CMakeLists.txt",
-             src=self.recipe_folder,
-             dst=os.path.join(self.export_sources_folder, "src"))
+        copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        # INFO: embag.h includes boost/variant.hpp
-        self.requires("boost/[1.74.0]", transitive_headers=True, options={
-            "with_iostreams": True,
-        })
-        # INFO: decompression.h includes lz4frame.h
+        self.requires("boost/[1.74.0]", transitive_headers=True, options={"with_iostreams": True})
         self.requires("lz4/[^1.9.4]", transitive_headers=True)
-        # INFO: ros_bag_types.h includes bzlib.h
         self.requires("bzip2/[^1.0.8]", transitive_headers=True)
 
     def validate(self):
@@ -64,12 +57,9 @@ class EmbagConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "LICENSE",
-             dst=os.path.join(self.package_folder, "licenses"),
-             src=self.source_folder)
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        rm(self, "*.pdb", self.package_folder, recursive=True)
 
     def package_info(self):
         self.cpp_info.libs = ["embag"]

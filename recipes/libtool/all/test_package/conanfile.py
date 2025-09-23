@@ -6,7 +6,7 @@ from conan import ConanFile
 from conan.tools.apple import is_apple_os
 from conan.tools.build import cross_building, can_run
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import AutotoolsToolchain, Autotools
 from conan.tools.layout import basic_layout
@@ -26,7 +26,7 @@ class TestPackageConan(ConanFile):
         if not cross_building(self):
             self.tool_requires(self.tested_reference_str) # We are testing libtool/libtoolize
 
-        self.tool_requires("autoconf/[^2.72]")
+        self.tool_requires("autoconf/[^2.71]")
         self.tool_requires("automake/[^1.18.1]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
@@ -95,9 +95,6 @@ class TestPackageConan(ConanFile):
         tc.generate()
         tc = CMakeDeps(self)
         tc.generate()
-
-        buildenv = VirtualBuildEnv(self)
-        buildenv.generate()
 
         env = Environment()
         for var in ["DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]:

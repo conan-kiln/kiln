@@ -60,7 +60,7 @@ class RubyConan(ConanFile):
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            self.options.rm_safe("fPIC")
             del self.options.with_static_linked_ext
         if self.settings.os == "Windows":
             # readline isn't supported on Windows
@@ -88,7 +88,7 @@ class RubyConan(ConanFile):
 
     def build_requirements(self):
         # Makefile calls autoconf
-        self.tool_requires("autoconf/[^2.72]")
+        self.tool_requires("autoconf/[^2.71]")
         if not can_run(self):
             self.tool_requires(f"ruby/{self.version}")
 

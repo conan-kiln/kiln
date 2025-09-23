@@ -170,6 +170,7 @@ class OpenSceneGraphConanFile(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        self._patch_sources()
         # CMake v4 support
         replace_in_file(self, "CMakeLists.txt",
                         "CMAKE_MINIMUM_REQUIRED(VERSION 2.8.0 FATAL_ERROR)",
@@ -312,7 +313,6 @@ class OpenSceneGraphConanFile(ConanFile):
                         "CURL_FOUND", "CURL_FOUND AND OSG_WITH_CURL")
 
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure(build_script_folder="..")
         cmake.build()

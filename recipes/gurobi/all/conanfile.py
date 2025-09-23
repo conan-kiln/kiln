@@ -135,3 +135,5 @@ class GurobiConan(ConanFile):
             self.cpp_info.components["gurobi_cxx"].requires = ["gurobi_c"]
             if self.settings.os in ["Linux", "FreeBSD"]:
                 self.cpp_info.components["gurobi_cxx"].system_libs = ["m"]
+
+        self.runenv_info.define_path("GUROBI_HOME", self.package_folder)

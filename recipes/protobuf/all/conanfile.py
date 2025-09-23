@@ -178,7 +178,7 @@ class ProtobufConan(ConanFile):
         content = Path(self.source_folder, "cmake", "abseil-cpp.cmake").read_text(encoding="utf-8")
         block = re.search(r"set\(protobuf_ABSL_USED_TARGETS\n([^)]+)\)", content)[1]
         cmake_targets = list(filter(None, block.split()))
-        return [x.replace("absl::", "abseil::absl_") for x in cmake_targets]
+        return [x.replace("absl::", "abseil::") for x in cmake_targets]
 
     @property
     def _abseil_targets_txt(self):
@@ -239,7 +239,7 @@ class ProtobufConan(ConanFile):
             utf8_prefix = lib_prefix if self._protobuf_release >= "30.1" else ""
             self.cpp_info.components["utf8_range"].libs = [utf8_prefix + "utf8_range"]
             self.cpp_info.components["utf8_validity"].libs = [utf8_prefix + "utf8_validity"]
-            self.cpp_info.components["utf8_validity"].requires = ["abseil::absl_strings"]
+            self.cpp_info.components["utf8_validity"].requires = ["abseil::strings"]
 
         if self.options.get_safe("upb"):
             # upb libraries: note that these are unconditionally static

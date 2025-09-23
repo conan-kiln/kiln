@@ -11,7 +11,7 @@ required_conan_version = ">=2.1"
 class CppADCodeGenConan(ConanFile):
     name = "cppadcodegen"
     description = "Source Code Generation for Automatic Differentiation using Operator Overloading"
-    license = "EPL-1.0 AND GPL-3.0-only"
+    license = "EPL-1.0 OR GPL-3.0-only"
     homepage = "https://github.com/joaoleal/CppADCodeGen"
     topics = ("automatic-differentiation", "code-generation", "autodiff", "codegen", "header-only")
     package_type = "header-library"
