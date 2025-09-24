@@ -102,7 +102,7 @@ class SDLMixerConan(ConanFile):
         if self.options.vorbis == "stb":
             self.requires("stb/[*]")
         elif self.options.vorbis == "vorbisfile":
-            self.requires("vorbis/1.3.7")
+            self.requires("vorbis/[^1.3.7]")
         elif self.options.vorbis == "tremor":
             # TODO: not available on CCI
             # self.requires("tremor/1.2.1")

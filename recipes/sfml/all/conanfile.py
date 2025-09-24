@@ -57,7 +57,7 @@ class SfmlConan(ConanFile):
         if self.options.audio:
             self.requires("flac/[^1.4.3]")
             self.requires("openal-soft/1.22.2")
-            self.requires("vorbis/1.3.7")
+            self.requires("vorbis/[^1.3.7]")
             if Version(self.version) >= "2.6.0":
                 self.requires("minimp3/cci.20211201")
 

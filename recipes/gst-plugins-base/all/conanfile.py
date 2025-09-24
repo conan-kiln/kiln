@@ -197,7 +197,7 @@ class GStPluginsBaseConan(ConanFile):
         if "theora" in reqs:
             self.requires("theora/[^1.1.1]")
         if "vorbis" in reqs:
-            self.requires("vorbis/1.3.7")
+            self.requires("vorbis/[^1.3.7]")
         if "pango" in reqs:
             self.requires("pango/[^1.54.0]")
 
