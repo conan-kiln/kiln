@@ -1,11 +1,9 @@
 import os
 
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
-from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.4"
 
@@ -30,38 +28,23 @@ class ApriltagConan(ConanFile):
     implements = ["auto_shared_fpic"]
     languages = ["C"]
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
-    def requirements(self):
-        if is_msvc(self) and Version(self.version) < "3.3.0":
-            self.requires("pthreads4w/3.0.0", transitive_headers=True)
-
     def build_requirements(self):
-        if Version(self.version) >= "3.4.0":
-            self.tool_requires("cmake/[>=3.16 <5]")
+        self.tool_requires("cmake/[>=3.16 <5]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
 
     def generate(self):
         VirtualBuildEnv(self).generate()
         tc = CMakeToolchain(self)
         tc.cache_variables["BUILD_EXAMPLES"] = False
         tc.variables["BUILD_PYTHON_WRAPPER"] = False
-        if Version(self.version) < "3.4.0":
-            # Newer versions set it in the project CMakelists.txt
-            tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
         if self.settings.os == "Windows":
             tc.preprocessor_definitions["NOMINMAX"] = ""
         tc.generate()
-        if is_msvc(self) and Version(self.version) < "3.3.0":
-            deps = CMakeDeps(self)
-            deps.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -79,9 +62,7 @@ class ApriltagConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "apriltag")
         self.cpp_info.set_property("cmake_target_name", "apriltag::apriltag")
         self.cpp_info.set_property("pkg_config_name", "apriltag")
-        suffix = ""
-        if self.settings.build_type == "Debug" and Version(self.version) >= "3.2.0":
-            suffix = "d"
+        suffix = "d" if self.settings.build_type == "Debug" else ""
         self.cpp_info.libs = ["apriltag" + suffix]
         self.cpp_info.includedirs.append(os.path.join("include", "apriltag"))
         if self.settings.os in ["Linux", "FreeBSD"]:
