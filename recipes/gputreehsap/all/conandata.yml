@@ -1,0 +1,4 @@
+sources:
+  "22.02.00":
+    url: "https://github.com/rapidsai/gputreeshap/archive/refs/tags/v22.02.00.tar.gz"
+    sha256: "d2748167b7111af88ba9db88d11b9f5c84775e0f297a6f3aa322aa21e899c96a"
