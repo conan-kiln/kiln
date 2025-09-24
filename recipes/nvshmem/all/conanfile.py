@@ -32,6 +32,7 @@ class NvshmemConan(ConanFile):
         "with_nccl": [True, False],
         "with_pmix": [True, False],
         "with_ucx": [True, False],
+        "internal_headers": [True, False],
     }
     default_options = {
         "build_bitcode_library": False,
@@ -44,6 +45,7 @@ class NvshmemConan(ConanFile):
         "with_nccl": True,
         "with_pmix": False,
         "with_ucx": False,
+        "internal_headers": False,
     }
 
     python_requires = "conan-cuda/latest"
@@ -168,6 +170,8 @@ class NvshmemConan(ConanFile):
         copy(self, "License.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+        if self.options.internal_headers:
+            copy(self, "*", os.path.join(self.source_folder, "src/include/internal"), os.path.join(self.package_folder, "include", "internal"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         rm(self, "changelog", self.package_folder)
