@@ -95,6 +95,7 @@ class RerunCConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "rerun_c")
         self.cpp_info.set_property("cmake_target_name", "rerun_c")
+        self.cpp_info.set_property("nosoname", True)
         self.cpp_info.libs = ["rerun_c"]
         self.cpp_info.includedirs = ["include", "include/rerun"]
         if self.settings.os in ["Linux", "FreeBSD"]:
