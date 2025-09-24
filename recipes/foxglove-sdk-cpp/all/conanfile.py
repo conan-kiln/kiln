@@ -24,7 +24,7 @@ class FoxgloveSdkCppConan(ConanFile):
     }
 
     def export_sources(self):
-        export_conandata_patches(self)
+        copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -44,7 +44,7 @@ class FoxgloveSdkCppConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        copy(self, "CMakeLists.txt", self.export_sources_folder, os.path.join(self.source_folder, "cpp"))
         os.unlink("cpp/foxglove/include/foxglove/expected.hpp")
         replace_in_file(self, "cpp/foxglove/include/foxglove/error.hpp",
                         '#include "expected.hpp"',
@@ -72,5 +72,4 @@ class FoxgloveSdkCppConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_target_aliases", ["foxglove_cpp_shared", "foxglove_cpp_static"])
-        self.cpp_info.libs = ["foxglove_cpp_shared" if self.options.shared else "foxglove_cpp_static"]
+        self.cpp_info.libs = ["foxglove_cpp"]
