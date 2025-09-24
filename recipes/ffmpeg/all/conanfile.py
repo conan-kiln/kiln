@@ -371,7 +371,7 @@ class FFMpegConan(ConanFile):
         if self.options.get_safe("with_pulse"):
             self.requires("pulseaudio/[^17.0]")
         if self.options.get_safe("with_sndio"):
-            self.requires("libsndio/1.9.0")
+            self.requires("libsndio/[^1.9.0]")
         if self.options.get_safe("with_vaapi"):
             self.requires("libva/[^2.21]")
         if self.options.get_safe("with_vdpau"):
