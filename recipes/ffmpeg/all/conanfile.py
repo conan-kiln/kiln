@@ -333,7 +333,7 @@ class FFMpegConan(ConanFile):
         if self.options.get_safe("with_fontconfig"):
             self.requires("fontconfig/[^2.15.0]")
         if self.options.get_safe("with_fribidi"):
-            self.requires("fribidi/1.0.13")
+            self.requires("fribidi/[^1.0.13]")
         if self.options.get_safe("with_harfbuzz"):
             self.requires("harfbuzz/[*]")
         if self.options.with_openjpeg:
