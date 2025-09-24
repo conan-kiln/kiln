@@ -375,7 +375,7 @@ class FFMpegConan(ConanFile):
         if self.options.get_safe("with_vaapi"):
             self.requires("libva/[^2.21]")
         if self.options.get_safe("with_vdpau"):
-            self.requires("libvdpau/1.5")
+            self.requires("libvdpau/[^1.5]")
         if self.options.get_safe("with_vulkan"):
             self.requires("vulkan-loader/[^1.3.239.0]")
         if self.options.get_safe("with_libsvtav1"):
