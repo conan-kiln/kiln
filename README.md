@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-23:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-24:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -48,7 +48,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - asio-grpc/2.7.0
 - asio-grpc/2.9.2
 - asio-grpc/3.4.1
-- au/0.4.1
 - autoconf-archive/2024.10.16
 - automake/1.18.1
 - aws-cdi-sdk/2.4.1
@@ -525,6 +524,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gecode/6.3.0-git.20211013
 - gettext/0.24
 - gfortran/13.2.0
+- ggml/0.9.1
 - gici/cci.20250127
 - gl2ps/1.4.2
 - glfw/3.3.10
@@ -776,9 +776,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - linux-headers-generic/6.14.2
 - linux-pam/1.6.1
 - litehtml/0.9
+- llama-cpp/b6558
 - lld/19.1.7
 - lld/20.1.7
 - lldpd/1.0.19
+- llguidance/1.2.0
 - llvm-core/20.1.7
 - llvm-libunwind/19.1.7
 - llvm-libunwind/20.1.7
@@ -802,14 +804,14 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mavlink/1.0.12.cci.20241205
 - mavsdk/2.13.0
 - mdspan/0.7.0-git.20250826
-- meshoptimizer/0.15
-- meshoptimizer/0.23
+- memkind/1.14.0+git.20240523
 - meson/1.6.1
 - meson/1.9.0
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
 - miniz/3.0.2-pytorch
 - minizip-ng/4.0.10
+- minja/1.0.0+git.20250922
 - minmea/0.3.0+git.20250828
 - mkfontscale/1.2.3
 - mlir/19.1.7
@@ -822,8 +824,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mosek/8.1.0.83
 - mosek/9.3.22
 - mpdecimal/4.0.1
-- mpfr/4.0.2
-- mpfr/4.1.0
 - mpg123/1.33.2
 - mrcal/2.4.1
 - msys2/latest
@@ -1041,7 +1041,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openiap/0.0.33
 - openimageio/3.0.8.0
 - openjph/0.21.5
-- openjph/0.22.0
 - openldap/2.6.10
 - openmp/system
 - openmpi/4.1.8
@@ -1134,9 +1133,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rapids_logger/0.1.1
 - rdma-core/59.0
 - re2/20220601
-- re2c/2.2
-- re2c/3.1
-- re2c/4.0.2
 - readline/8.3.1
 - reduct-cpp/1.14.0
 - renderdoc/1.37
@@ -1162,8 +1158,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - scalapack/2.2.2
 - scdoc/1.11.3
 - scs/3.2.8
+- sdl/2.28.5
 - sdl/2.30.9
-- sdl/2.32.8
 - sdl_image/2.8.8
 - sdl_mixer/2.8.1
 - sdl_ttf/2.0.15
@@ -1174,15 +1170,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - secsipidx/1.3.2
 - serf/1.3.10
 - sfcgal/1.5.0
-- sfl/1.2.3
-- sfl/1.3.0
-- sfl/1.3.1
-- sfl/1.4.0
-- sfl/1.5.0
-- sfl/1.6.0
-- sfl/1.7.0
-- sfl/1.8.0
-- sfl/1.8.2
 - sfl/1.9.0
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
@@ -1230,6 +1217,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - steamworks_sdk/1.60
 - stella_vslam/0.5.0
 - stk/5.0.1
+- subunit/1.4.0
 - suitesparse-amd/3.3.3
 - suitesparse-amd/3.3.4
 - suitesparse-btf/2.3.2
@@ -1303,13 +1291,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
 - tracy/0.11.1
-- tree-sitter/0.20.8
-- tree-sitter/0.21.0
-- tree-sitter/0.22.1
-- tree-sitter/0.22.5
-- tree-sitter/0.22.6
-- tree-sitter/0.23.0
-- tree-sitter/0.23.1
 - trianglemeshdistance/1.0.0+git.20240817
 - trlib/0.4+git.20240730
 - tsid/1.8.0
@@ -1321,7 +1302,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - usearch/2.9.1
 - userspace-rcu/0.15.3
 - utf8proc/2.10.0
-- utfcpp/4.0.6
 - util-linux-libuuid/2.39.3
 - util-linux-libuuid/2.41
 - valijson/1.0.5
@@ -1369,25 +1349,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - vulkan-validationlayers/1.4.309.0
 - vulkan-validationlayers/1.4.313.0
 - vulkan-validationlayers/1.4.321.0
-- wayland-protocols/1.21
-- wayland-protocols/1.23
-- wayland-protocols/1.24
-- wayland-protocols/1.25
-- wayland-protocols/1.26
-- wayland-protocols/1.27
-- wayland-protocols/1.31
-- wayland-protocols/1.32
-- wayland-protocols/1.36
-- wayland-protocols/1.42
-- wayland/1.18.0
-- wayland/1.19.0
-- wayland/1.20.0
-- wayland/1.21.0
-- wayland/1.23.0
 - wayland/1.24.0
-- whisper-cpp/1.5.2
-- whisper-cpp/1.6.2
-- whisper-cpp/1.7.2
 - worhp/1.16.3
 - workflow/0.11.10
 - wuffs/0.3.4
