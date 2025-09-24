@@ -7,7 +7,7 @@ from conan.tools.build import cross_building, check_min_cppstd, check_min_cstd
 from conan.tools.cmake import cmake_layout
 from conan.tools.env import Environment
 from conan.tools.files import *
-from conan.tools.gnu import GnuToolchain, PkgConfigDeps
+from conan.tools.gnu import PkgConfigDeps, AutotoolsToolchain
 
 required_conan_version = ">=2.4"
 
@@ -60,8 +60,9 @@ class ClarabelConan(ConanFile):
         env = Environment()
         # Ensure the correct linker is used, especially when cross-compiling
         target_upper = self.conf.get("user.rust:target_host", check_type=str).upper().replace("-", "_")
-        cc = GnuToolchain(self).extra_env.vars(self)["CC"]
-        env.define_path(f"CARGO_TARGET_{target_upper}_LINKER", cc)
+        cc = AutotoolsToolchain(self).vars().get("CC")
+        if cc:
+            env.define_path(f"CARGO_TARGET_{target_upper}_LINKER", cc)
         # Don't add the Cargo dependencies to a global Cargo cache
         env.define_path("CARGO_HOME", os.path.join(self.build_folder, "cargo"))
         env.prepend_path("PKG_CONFIG_PATH", self.generators_folder)
