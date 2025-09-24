@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/cugraph/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "2feb532683afd595d9c2f86f867f9b5b281b1e972a42ecad75c93cc20472b854"
