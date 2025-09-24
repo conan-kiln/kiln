@@ -29,7 +29,7 @@ class WhisperCppConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "with_openmp": True,
-        "with_cuda": True,
+        "with_cuda": False,
         "with_openvino": False,
         "with_coreml": False,
         "coreml_allow_fallback": False,
