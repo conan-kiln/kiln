@@ -1,0 +1,97 @@
+--- a/cpp/CMakeLists.txt
++++ b/cpp/CMakeLists.txt
+@@ -14,9 +14,9 @@
+   message(STATUS "Using ccache: ${CCACHE_PROGRAM}")
+ endif()
+ 
+-set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED True)
+ 
++if(0)
+ include(CTest)
+ include(FetchContent)
+ 
+@@ -69,6 +69,12 @@
+   GIT_TAG v3.12.0
+ )
+ FetchContent_MakeAvailable(json)
++endif()
++
++find_package(websocketpp REQUIRED)
++find_package(asio REQUIRED)
++find_package(nlohmann_json REQUIRED)
++find_package(tl-expected REQUIRED)
+ 
+ if(DEFINED SANITIZE)
+   if(NOT CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+@@ -94,11 +100,7 @@
+ 
+ ### C
+ 
+-corrosion_import_crate(
+-  MANIFEST_PATH ../c/Cargo.toml
+-  CRATES foxglove_c
+-  FLAGS ${SANITIZER_CARGO_FLAGS}
+-)
++find_package(foxglove-sdk-c REQUIRED)
+ if(DEFINED SANITIZE)
+   # Rust does not have flags for certain sanitizers so we strip them out
+   string(REGEX REPLACE undefined "" rust_sanitizers ${SANITIZE})
+@@ -108,12 +110,6 @@
+   corrosion_add_target_rustflags(foxglove -Zsanitizer=${rust_sanitizers} -Cforce-frame-pointers=yes)
+ endif()
+ 
+-if(WIN32)
+-  target_link_libraries(foxglove-static INTERFACE Bcrypt SChannel Crypt32 Ncrypt)
+-elseif(APPLE)
+-  target_link_libraries(foxglove-static INTERFACE "-framework Security" "-framework CoreFoundation")
+-endif()
+-
+ 
+ ### C++
+ 
+@@ -123,7 +119,7 @@
+     "foxglove/src/*.cpp"
+ )
+ 
+-add_library(foxglove_cpp_obj OBJECT "${foxglove_cpp_srcs}")
++add_library(foxglove_cpp_obj "${foxglove_cpp_srcs}")
+ set_property(TARGET foxglove_cpp_obj PROPERTY POSITION_INDEPENDENT_CODE True)
+ set_property(TARGET foxglove_cpp_obj PROPERTY CXX_STANDARD 17)
+ set_property(TARGET foxglove_cpp_obj PROPERTY CXX_STANDARD_REQUIRED True)
+@@ -131,14 +127,27 @@
+ target_compile_options(foxglove_cpp_obj PUBLIC ${SANITIZER_COMPILE_OPTIONS} ${STRICT_COMPILE_OPTIONS})
+ target_link_options(foxglove_cpp_obj PUBLIC ${SANITIZER_LINK_OPTIONS})
+ 
+-add_library(foxglove_cpp_static STATIC)
+-add_library(foxglove_cpp_shared SHARED)
+-target_link_libraries(foxglove_cpp_static PUBLIC foxglove_cpp_obj)
+-target_link_libraries(foxglove_cpp_static PRIVATE foxglove-static)
+-target_link_libraries(foxglove_cpp_shared PUBLIC foxglove_cpp_obj)
+-target_link_libraries(foxglove_cpp_shared PRIVATE foxglove-shared)
+-
+-
++if(BUILD_SHARED_LIBS)
++  set_target_properties(foxglove_cpp_obj PROPERTIES OUTPUT_NAME foxglove_cpp_shared)
++else()
++  set_target_properties(foxglove_cpp_obj PROPERTIES OUTPUT_NAME foxglove_cpp_static)
++endif()
++target_link_libraries(foxglove_cpp_obj PUBLIC 
++  foxglove-sdk-c::foxglove-sdk-c
++  websocketpp::websocketpp
++  asio::asio
++  nlohmann_json::nlohmann_json
++  tl::expected
++)
++
++install(TARGETS foxglove_cpp_obj
++  ARCHIVE DESTINATION lib
++  LIBRARY DESTINATION lib
++  RUNTIME DESTINATION bin
++)
++install(DIRECTORY foxglove/include/ DESTINATION include)
++
++return()
+ ### Tests
+ 
+ file(GLOB_RECURSE foxglove_test_srcs CONFIGURE_DEPENDS

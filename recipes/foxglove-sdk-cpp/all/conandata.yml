@@ -1,0 +1,7 @@
+sources:
+  "0.14.2":
+    url: "https://github.com/foxglove/foxglove-sdk/archive/refs/tags/sdk/v0.14.2.tar.gz"
+    sha256: "7c5fe36986be228641c9b243416e3de69b510d45feacbcb39491601ba12b0cd6"
+patches:
+  "0.14.2":
+    - patch_file: "patches/0.14-cmake-fixes.patch"
