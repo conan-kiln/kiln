@@ -1,0 +1,10 @@
+find_package(fmt REQUIRED)
+find_package(absl REQUIRED)
+find_package(libcuckoo REQUIRED)
+find_package(Boost REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(nvtx3 REQUIRED)
+find_package(Taskflow REQUIRED)
+find_package(dlpack REQUIRED)
+
+link_libraries(CUDA::cuFile dlpack::dlpack)

@@ -17,6 +17,9 @@ class LibCuckooConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -28,6 +31,7 @@ class LibCuckooConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         replace_in_file(self, "CMakeLists.txt",
                         "cmake_minimum_required(VERSION 3.1.0)",
                         "cmake_minimum_required(VERSION 3.5.0)")
