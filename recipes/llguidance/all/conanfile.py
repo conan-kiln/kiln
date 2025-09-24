@@ -125,6 +125,7 @@ class LLGuidanceConan(ConanFile):
             shutil.copy2(path, os.path.join(dest, path.name))
 
     def package_info(self):
+        self.cpp_info.set_property("nosoname", True)
         self.cpp_info.libs = ["llguidance"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m"]
