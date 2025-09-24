@@ -80,8 +80,6 @@ class CublasConan(ConanFile):
                                      os.path.join(self.package_folder, "bin"))
 
     def package_info(self):
-        self.cpp_info.set_property("pkg_config_name", "none")
-
         lib = "cublas" if self.options.get_safe("shared", True) else "cublas_static"
         self.cpp_info.components["cublas_"].set_property("cmake_target_name", f"CUDA::{lib}")
         if self.options.cmake_alias:
@@ -102,7 +100,7 @@ class CublasConan(ConanFile):
         if self.options.cmake_alias:
             alias = "cublasLt_static" if self.options.get_safe("shared", True) else "cublasLt"
             self.cpp_info.components["cublasLt"].set_property("cmake_target_aliases", [f"CUDA::{alias}"])
-        self.cpp_info.components["cublasLt"].set_property("pkg_config_name", ["cublasLt"])  # unofficial
+        self.cpp_info.components["cublasLt"].set_property("pkg_config_name", "cublasLt")  # unofficial
         self.cpp_info.components["cublasLt"].libs = [lib]
         if self.options.get_safe("use_stubs"):
             self.cpp_info.components["cublasLt"].libdirs = ["lib/stubs", "lib"]
@@ -115,3 +113,5 @@ class CublasConan(ConanFile):
         self.cpp_info.components["nvblas"].set_property("cmake_target_name", "CUDA::nvblas")
         self.cpp_info.components["nvblas"].libs = ["nvblas"]
         self.cpp_info.components["nvblas"].requires = ["cublas_"]
+
+        self.cpp_info.set_property("pkg_config_name", "_cublas_aggregate_")
