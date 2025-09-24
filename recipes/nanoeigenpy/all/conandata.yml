@@ -1,0 +1,4 @@
+sources:
+  "0.4.0":
+    url: "https://github.com/Simple-Robotics/nanoeigenpy/archive/refs/tags/v0.4.0.tar.gz"
+    sha256: "87232e28188a47b61c11b59b6672429ba6ff50945a895f65c32569bbb0058353"
