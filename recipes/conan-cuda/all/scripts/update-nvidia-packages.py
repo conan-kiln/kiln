@@ -49,6 +49,12 @@ nv_packages = {
     "nvvm": ["libnvvm", "cuda_nvcc"],
 }
 
+cutensornet_versions = {
+    "25.09.0": "2.9.0",
+    "25.06.0": "2.8.0",
+    "25.03.0": "2.7.0",
+}
+
 
 def find_conanfiles():
     return sorted(f for f in recipes_root.rglob("**/conanfile.py") if not f.parent.name.startswith("test_"))
@@ -142,6 +148,10 @@ def find_all_redist_package_versions(redist_conan_packages):
                 for nv_pkg_name in info["nv_packages"]:
                     if nv_pkg_name in result:
                         version, cuda_versions, url = result[nv_pkg_name]
+                        if conan_pkg == "cutensornet":
+                            if Version(version) < "25.03.0":
+                                continue
+                            version = cutensornet_versions.get(version.rsplit(".", 1)[0], version)
                         if conan_pkg not in versions:
                             versions[conan_pkg] = {}
                         if version not in versions[conan_pkg]:
