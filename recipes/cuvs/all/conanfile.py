@@ -49,7 +49,7 @@ class CuVsConan(ConanFile):
     def requirements(self):
         self.requires("cutlass/[>=3 <5]", transitive_headers=True, transitive_libs=True)
         self.requires("raft/[>=25.08]", transitive_headers=True, transitive_libs=True)
-        self.requires("dlpack/[>=0.8 <1]", transitive_headers=True)
+        self.requires("dlpack/[>=0.8]", transitive_headers=True)
         if self.options.with_hnswlib:
             self.requires("hnswlib/0.8.0-cuvs", transitive_headers=True)
         if self.options.multi_gpu:
