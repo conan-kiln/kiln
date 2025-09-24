@@ -43,7 +43,7 @@ class CuDfConan(ConanFile):
         self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
         self.cuda.requires("nvcomp")
         self.cuda.requires("nvtx", transitive_headers=True, transitive_libs=True)
-        self.cuda.requires("cucollections", transitive_headers=True, transitive_libs=True)
+        self.requires("cucollections/[>0.0.1+git.20250529]", transitive_headers=True, transitive_libs=True)
         self.requires("bshoshany-thread-pool/[^4.1.0]", transitive_headers=True, transitive_libs=True)
         self.requires("dlpack/[^1]")
         self.requires("flatbuffers/[~24.3.25]")
