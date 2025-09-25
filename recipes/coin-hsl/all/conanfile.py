@@ -2,6 +2,7 @@ import os
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
+from conan.tools.build import cross_building
 from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -40,7 +41,7 @@ class CoinHslConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[<1]")
+        self.requires("lapack/latest")
         self.requires("metis/[^5.1]")
         self.requires("openmp/system")
 
@@ -85,7 +86,8 @@ class CoinHslConan(ConanFile):
         tc.project_options["modules"] = False  # Don't install Fortran modules
         tc.project_options["libmetis_version"] = str(self.dependencies["metis"].ref.version.major)
         tc.generate()
-        replace_in_file(self, "conan_meson_native.ini", "[binaries]", f"[binaries]\nfc = '{self._fortran_compiler}'")
+        meson_ini = "conan_meson_cross.ini" if cross_building(self) else "conan_meson_native.ini"
+        replace_in_file(self, meson_ini, "[binaries]", f"[binaries]\nfortran = '{self._fortran_compiler}'")
 
         deps = PkgConfigDeps(self)
         deps.set_property("openblas", "pkg_config_aliases", ["blas", "lapack"])

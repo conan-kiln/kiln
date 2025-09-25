@@ -23,7 +23,6 @@ class FaissRecipe(ConanFile):
         "c_api": [True, False],
         "lto": [True, False],
         "with_cuda": [True, False],
-        "with_mkl": [True, False],
         "with_cuvs": [True, False],
     }
     default_options = {
@@ -33,7 +32,6 @@ class FaissRecipe(ConanFile):
         "c_api": True,
         "lto": False,
         "with_cuda": False,
-        "with_mkl": False,
         "with_cuvs": False,
     }
 
@@ -60,10 +58,7 @@ class FaissRecipe(ConanFile):
     def requirements(self):
         # #include <omp.h> and #pragma omp is used in multiple public headers
         self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
-        if self.options.with_mkl:
-            self.requires("onemkl/[*]")
-        else:
-            self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("lapack/latest")
         if self.options.with_cuda:
             self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
             self.cuda.requires("cublas", transitive_headers=True, transitive_libs=True)
@@ -100,7 +95,7 @@ class FaissRecipe(ConanFile):
         tc.cache_variables["FAISS_ENABLE_C_API"] = self.options.c_api
         tc.cache_variables["FAISS_ENABLE_GPU"] = self.options.with_cuda
         tc.cache_variables["FAISS_ENABLE_CUVS"] = self.options.with_cuvs
-        tc.cache_variables["FAISS_ENABLE_MKL"] = self.options.with_mkl
+        tc.cache_variables["FAISS_ENABLE_MKL"] = self.dependencies["blas"].options.provider == "mkl"
         tc.cache_variables["FAISS_ENABLE_PYTHON"] = False
         tc.cache_variables["FAISS_ENABLE_EXTRAS"] = False
         tc.cache_variables["BUILD_TESTING"] = False
@@ -139,10 +134,7 @@ class FaissRecipe(ConanFile):
             component.set_property("cmake_target_name", lib)
             component.libs = [lib]
             component.requires = ["openmp::openmp"]
-            if self.options.with_mkl:
-                component.requires.append("onemkl::mkl")
-            else:
-                component.requires.append("openblas::openblas")
+            component.requires.append("lapack::lapack")
             if self.options.with_cuda:
                 component.requires.extend([
                     "cudart::cudart_",

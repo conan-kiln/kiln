@@ -19,7 +19,7 @@ class BlasfeoConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "use_external_blas": [False, "openblas"],
+        "use_external_blas": [True, False],
         "target": ["x64_automatic", "x64_intel_skylake_x", "x64_intel_haswell",
                    "x64_intel_sandy_bridge", "x64_intel_core", "x64_amd_bulldozer",
                    "armv8a_apple_m1", "armv8a_arm_cortex_a76", "armv8a_arm_cortex_a73",
@@ -69,7 +69,7 @@ class BlasfeoConan(ConanFile):
 
     def requirements(self):
         if self.options.use_external_blas:
-            self.requires("openblas/[>=0.3.0]")
+            self.requires("blas/latest")
 
     def build_requirements(self):
         self.tool_requires("nasm/[^2.16]")

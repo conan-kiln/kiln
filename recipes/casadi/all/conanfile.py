@@ -190,7 +190,7 @@ class PackageConan(ConanFile):
         if self.options.with_knitro:
             self.requires("knitro/[*]")
         if self.options.with_lapack:
-            self.requires("openblas/[>=0.3 <1]")
+            self.requires("lapack/latest")
         if self.options.with_libzip:
             self.requires("libzip/[*]")
         if self.options.with_madnlp:
@@ -405,6 +405,7 @@ class PackageConan(ConanFile):
         deps.set_property("tinyxml2", "cmake_target_name", "tinyxml2::tinyxml2")
         deps.set_property("worhp", "cmake_file_name", "WORHP")
         deps.set_property("worhp", "cmake_target_name", "worhp::worhp")
+        deps.set_property("lapack-reference::lapack", "cmake_target_name", "lapack-reference")
         if self._swig_required:
             deps.build_context_activated.append("swig")
             deps.build_context_build_modules.append("swig")

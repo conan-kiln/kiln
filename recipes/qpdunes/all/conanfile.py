@@ -33,7 +33,7 @@ class QpDunesConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
         if self.options.with_openmp:
             self.requires("openmp/system")
 
@@ -59,7 +59,6 @@ class QpDunesConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "LAPACK")
         deps.generate()
 
     def build(self):

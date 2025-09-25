@@ -36,7 +36,6 @@ class SuiteSparseSpqrConan(ConanFile):
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        self.options["openblas"].build_lapack = True
         self.options["suitesparse-cholmod"].build_supernodal = True
         self.options["suitesparse-cholmod"].build_matrixops = True
         if self.options.cuda:
@@ -58,8 +57,6 @@ class SuiteSparseSpqrConan(ConanFile):
             self.cuda.requires("nvrtc")
 
     def validate(self):
-        if not self.dependencies["openblas"].options.build_lapack:
-            raise ConanInvalidConfiguration("-o openblas/*:build_lapack=True is required")
         if self.options.cuda:
             if not self.dependencies["suitesparse-cholmod"].options.cuda:
                 raise ConanInvalidConfiguration("suitesparse-spqr/*:cuda=True option requires suitesparse-cholmod/*:cuda=True")
@@ -86,10 +83,6 @@ class SuiteSparseSpqrConan(ConanFile):
         tc.variables["SPQR_USE_CUDA"] = self.options.cuda
         tc.variables["SUITESPARSE_DEMOS"] = False
         tc.variables["SUITESPARSE_USE_FORTRAN"] = False  # Fortran sources are translated to C instead
-        # FIXME: Find a way to not hardcode this. The system BLAS gets used otherwise.
-        tc.variables["BLAS_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_FOUND"] = True
         tc.variables["BUILD_TESTING"] = False
         if self.options.cuda:
             tc.variables["CMAKE_CUDA_ARCHITECTURES"] = str(self.settings.cuda.architectures).replace(",", ";")

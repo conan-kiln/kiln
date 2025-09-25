@@ -20,14 +20,14 @@ class GuanaqoConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "precision_quad": [True, False],
-        "with_blas": [False, "openblas", "mkl"],
+        "with_blas": [True, False],
         "with_openmp": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "precision_quad": False,
-        "with_blas": "openblas",
+        "with_blas": True,
         "with_openmp": True,
     }
     implements = ["auto_shared_fpic"]
@@ -38,10 +38,8 @@ class GuanaqoConan(ConanFile):
     def requirements(self):
         if self.options.with_openmp:
             self.requires("openmp/system")
-        if self.options.with_blas == "openblas":
-            self.requires("openblas/[>=0.3 <1]", transitive_headers=True)
-        elif self.options.with_blas == "mkl":
-            self.requires("onemkl/[*]", transitive_headers=True)
+        if self.options.with_blas:
+            self.requires("lapack/latest", transitive_headers=True)
 
     def validate(self):
         check_min_cppstd(self, 20, gnu_extensions=self.options.precision_quad)
@@ -57,16 +55,14 @@ class GuanaqoConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.cache_variables["GUANAQO_WITH_CXX_23"] = valid_min_cppstd(self, 23)
         tc.cache_variables["GUANAQO_WITH_TESTS"] = False
-        tc.cache_variables["GUANAQO_WITH_BLAS"] = self.options.with_blas != False
-        tc.cache_variables["GUANAQO_WITH_OPENBLAS"] = self.options.with_blas == "openblas"
-        tc.cache_variables["GUANAQO_WITH_MKL"] = self.options.with_blas == "mkl"
+        tc.cache_variables["GUANAQO_WITH_BLAS"] = self.options.with_blas
         tc.cache_variables["GUANAQO_WITH_OPENMP"] = self.options.with_openmp
         if self.options.with_blas:
-            if self.options.with_blas == "openblas":
-                interface = self.dependencies["openblas"].options.interface
-            elif self.options.with_blas == "mkl":
-                interface = self.dependencies["onemkl"].options.interface
-            tc.cache_variables["GUANAQO_BLAS_INDEX_TYPE"] = "long long" if interface == "ilp64" else "int"
+            blas_provider = str(self.dependencies["blas"].options.provider)
+            tc.cache_variables["GUANAQO_WITH_OPENBLAS"] = blas_provider == "openblas"
+            tc.cache_variables["GUANAQO_WITH_MKL"] = blas_provider == "mkl"
+            is_64bit = self.dependencies["blas"].options.interface == "ilp64"
+            tc.cache_variables["GUANAQO_BLAS_INDEX_TYPE"] = "long long" if is_64bit else "int"
         tc.cache_variables["GUANAQO_WITH_TRACING"] = False
         tc.cache_variables["GUANAQO_WITH_ITT"] = False
         tc.cache_variables["GUANAQO_WITH_QUAD_PRECISION"] = self.options.precision_quad
@@ -118,12 +114,13 @@ class GuanaqoConan(ConanFile):
             self.cpp_info.components["blas"].set_property("cmake_target_name", "guanaqo::blas")
             self.cpp_info.components["blas"].set_property("cmake_target_aliases", ["guanaqo::blas-lapack-lib"])
             self.cpp_info.components["blas"].libs = ["guanaqo-blas" + self._lib_suffix]
-            self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_BLAS")
             # self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_HL_BLAS_TRACING")
             self.cpp_info.requires = ["core"]
-            if self.options.with_blas == "openblas":
-                self.cpp_info.components["blas"].requires.append("openblas::openblas")
-                self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_OPENBLAS")
-            elif self.options.with_blas == "mkl":
-                self.cpp_info.components["blas"].requires.append("onemkl::onemkl")
-                self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_MKL")
+            if self.options.with_blas:
+                self.cpp_info.components["blas"].requires.append("blas::blas")
+                self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_BLAS")
+                blas_provider = str(self.dependencies["blas"].options.provider)
+                if blas_provider == "openblas":
+                    self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_OPENBLAS")
+                elif blas_provider == "mkl":
+                    self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_MKL")

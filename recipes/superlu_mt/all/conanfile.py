@@ -39,16 +39,13 @@ class SuperLuMtConan(ConanFile):
     implements = ["auto_shared_fpic"]
     languages = ["C"]
 
-    def export_sources(self):
-        copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
         # Unvendoring COLAMD causes missing symbols in Octave
         # self.requires("suitesparse-colamd/[*]")
-        self.requires("openblas/[*]")
+        self.requires("blas/latest")
         if self.options.threading == "openmp":
             self.requires("openmp/system")
 
@@ -68,7 +65,6 @@ class SuperLuMtConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["CMAKE_PROJECT_SuperLU_MT_INCLUDE"] = "conan_deps.cmake"
         tc.cache_variables["PLAT"] = "_OPENMP" if self.options.threading == "openmp" else "_PTHREAD"
         tc.cache_variables["enable_tests"] = False
         tc.cache_variables["enable_examples"] = False
@@ -81,8 +77,7 @@ class SuperLuMtConan(ConanFile):
         tc.cache_variables["enable_fortran"] = False
         tc.cache_variables["enable_internal_blaslib"] = False
         tc.cache_variables["TPL_ENABLE_INTERNAL_BLASLIB"] = False
-        tc.cache_variables["TPL_BLAS_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.cache_variables["LONGINT"] = self.dependencies["openblas"].options.interface == "ilp64"
+        tc.cache_variables["LONGINT"] = self.dependencies["blas"].options.interface == "ilp64"
         tc.generate()
 
         deps = CMakeDeps(self)

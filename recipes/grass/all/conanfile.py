@@ -26,11 +26,11 @@ class GrassConan(ConanFile):
         "i18n": [True, False],
         "with_bzlib": [True, False],
         "with_cairo": [True, False],
-        "with_cblas": [True, False],
+        "with_blas": [True, False],
         "with_fftw": [True, False],
         "with_freetype": [True, False],
         "with_geos": [True, False],
-        "with_lapacke": [True, False],
+        "with_lapack": [True, False],
         "with_liblas": [True, False],
         "with_libpng": [True, False],
         "with_mysql": [False, "libmysqlclient", "mariadb-connector-c"],
@@ -50,11 +50,11 @@ class GrassConan(ConanFile):
         "i18n": False,
         "with_bzlib": False,
         "with_cairo": False,
-        "with_cblas": False,
+        "with_blas": False,
         "with_fftw": True,  # Can't be disabled currently
         "with_freetype": True,  # Can't be disabled currently
         "with_geos": True,
-        "with_lapacke": False,
+        "with_lapack": False,
         "with_liblas": False,
         "with_libpng": True,
         "with_mysql": False,
@@ -87,8 +87,10 @@ class GrassConan(ConanFile):
             self.requires("bzip2/[^1.0.8]")
         if self.options.with_cairo:
             self.requires("cairo/[^1.18.0]")
-        if self.options.with_cblas or self.options.with_lapacke:
-            self.requires("openblas/[>=0.3.28 <1]", options={"build_lapack": True})
+        if self.options.with_blas:
+            self.requires("blas/latest")
+        if self.options.with_lapack:
+            self.requires("lapack/latest")
         if self.options.with_fftw:
             self.requires("fftw/[^3.3.10]")
         if self.options.with_freetype:
@@ -178,8 +180,8 @@ class GrassConan(ConanFile):
         tc.cache_variables["WITH_NLS"] = self.options.i18n
         # Computing options
         tc.cache_variables["WITH_FFTW"] = self.options.with_fftw
-        tc.cache_variables["WITH_CBLAS"] = self.options.with_cblas
-        tc.cache_variables["WITH_LAPACKE"] = self.options.with_lapacke
+        tc.cache_variables["WITH_CBLAS"] = self.options.with_blas
+        tc.cache_variables["WITH_LAPACKE"] = self.options.with_lapack
         tc.cache_variables["WITH_OPENMP"] = self.options.with_openmp
         # Data format options
         tc.cache_variables["WITH_TIFF"] = self.options.with_tiff
@@ -205,8 +207,10 @@ class GrassConan(ConanFile):
         deps.set_property("geos", "cmake_target_name", "GEOS::geos_c")
         deps.set_property("liblas", "cmake_file_name", "LibLAS")
         deps.set_property("liblas", "cmake_target_name", "LIBLAS")
-        deps.set_property("openblas", "cmake_file_name", "CBLAS")
-        deps.set_property("openblas", "cmake_target_name", "CBLAS::CBLAS")
+        deps.set_property("blas", "cmake_file_name", "CBLAS")
+        deps.set_property("blas", "cmake_target_name", "CBLAS::CBLAS")
+        deps.set_property("lapack", "cmake_file_name", "LAPACKE")
+        deps.set_property("lapack", "cmake_target_name", "LAPACKE::LAPACKE")
         deps.set_property("proj", "cmake_file_name", "PROJ")
         deps.set_property("proj", "cmake_target_name", "PROJ::proj")
         deps.generate()

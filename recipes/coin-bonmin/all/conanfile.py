@@ -28,7 +28,7 @@ class BonminConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "tools": False,
-        "with_asl": True,
+        "with_asl": False,
     }
     implements = ["auto_shared_fpic"]
 

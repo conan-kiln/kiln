@@ -139,7 +139,7 @@ class CeresSolverConan(ConanFile):
             if Version(self.version) < "2.2.0":
                 self.requires("suitesparse-cxsparse/[^4.4.1]")
         if self.options.get_safe("use_lapack"):
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("lapack/latest")
         if self._require_metis:
             self.requires("metis/5.2.1")
         if self.options.get_safe("use_TBB"):
@@ -166,9 +166,6 @@ class CeresSolverConan(ConanFile):
         # https://github.com/ceres-solver/ceres-solver/blob/2.2.0/CMakeLists.txt#L203
         if self.options.use_eigen_sparse and self.dependencies["eigen"].options.MPL2_only:
             raise ConanInvalidConfiguration("use_eigen_sparse=True requires eigen with MPL2_only=False")
-
-        if self.options.get_safe("use_lapack") and not self.dependencies["openblas"].options.build_lapack:
-            raise ConanInvalidConfiguration("use_lapack=True requires openblas with build_lapack=True")
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
@@ -233,7 +230,6 @@ class CeresSolverConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "LAPACK")
         deps.set_property("metis", "cmake_file_name", "METIS")
         deps.set_property("metis", "cmake_target_name", "METIS::METIS")
         deps.set_property("suitesparse-cxsparse", "cmake_target_name", "CXSparse::CXSparse")
@@ -311,7 +307,7 @@ class CeresSolverConan(ConanFile):
             if Version(self.version) < "2.2.0":
                 requires.append("suitesparse-cxsparse::suitesparse-cxsparse")
         if self.options.get_safe("use_lapack"):
-            requires.append("openblas::openblas")
+            requires.append("lapack::lapack")
         if self._require_metis:
             requires.append("metis::metis")
         if self.options.get_safe("use_TBB"):

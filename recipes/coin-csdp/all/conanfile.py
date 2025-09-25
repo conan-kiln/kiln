@@ -40,12 +40,14 @@ class CoinCsdpConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
         if self.options.with_openmp:
             self.requires("openmp/system")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Fix error: implicit declaration of function ‘printf’
+        replace_in_file(self, "lib/user_exit.c", "#include <signal.h>", "#include <signal.h>\n#include <stdio.h>")
 
     def generate(self):
         tc = CMakeToolchain(self)

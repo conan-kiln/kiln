@@ -84,8 +84,8 @@ class SCIPConan(ConanFile):
             self.requires("coin-ipopt/[^3]")
         if self.options.with_gmp:
             self.requires("gmp/[^6.3.0]")
-        if self.options.get_safe("with_lapack"):
-            self.requires("openblas/[<1]")
+        if self.options.with_lapack:
+            self.requires("lapack/latest")
         if self.options.with_papilo:
             self.requires("papilo/[^2]")
         if self.options.with_readline:
@@ -204,7 +204,7 @@ class SCIPConan(ConanFile):
         tc.cache_variables["ZIMPL"] = self.options.with_zimpl
         tc.cache_variables["AMPL"] = self.options.with_ampl
         tc.cache_variables["IPOPT"] = self.options.with_ipopt
-        tc.cache_variables["LAPACK"] = self.options.get_safe("with_lapack", False)
+        tc.cache_variables["LAPACK"] = self.options.with_lapack
         tc.cache_variables["WORHP"] = self.options.with_worhp
         tc.cache_variables["CONOPT"] = self.options.get_safe("with_conopt", False)
         tc.cache_variables["THREADSAFE"] = True

@@ -54,7 +54,7 @@ class OctaveConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
         self.requires("fftw/[^3.3]")
         self.requires("pcre2/[^10]")
         self.requires("readline/[*]")
@@ -143,8 +143,9 @@ class OctaveConan(ConanFile):
             "--with-z",
             "--with-bz2",
             "--with-pcre2",
-            "--with-blas=openblas",
-            "--with-lapack=openblas",
+            # FIXME: picks up system blas/lapack
+            "--with-blas",
+            "--with-lapack",
 
             f"--with-amd={yes_no(self.options.with_suitesparse)}",
             f"--with-camd={yes_no(self.options.with_suitesparse)}",
@@ -248,7 +249,7 @@ class OctaveConan(ConanFile):
         self.cpp_info.components["octmex"].requires = ["octave_", "octinterp"]
 
         requires = [
-            "openblas::openblas",
+            "lapack::lapack",
             "fftw::fftw",
             "pcre2::pcre2",
             "readline::readline",

@@ -30,7 +30,7 @@ class DlibConan(ConanFile):
         "with_sse2": [True, False, "auto"],
         "with_sse4": [True, False, "auto"],
         "with_avx": [True, False, "auto"],
-        "with_openblas": [True, False],
+        "with_lapack": [True, False],
         "with_cuda": [True, False],
     }
     default_options = {
@@ -44,7 +44,7 @@ class DlibConan(ConanFile):
         "with_sse2": "auto",
         "with_sse4": "auto",
         "with_avx": "auto",
-        "with_openblas": True,
+        "with_lapack": True,
         "with_cuda": False,
     }
 
@@ -79,8 +79,8 @@ class DlibConan(ConanFile):
             self.requires("libwebp/[^1.3.2]")
         if self.options.with_sqlite3:
             self.requires("sqlite3/[>=3.45.0 <4]")
-        if self.options.with_openblas:
-            self.requires("openblas/[>=0.3.28 <1]")
+        if self.options.with_lapack:
+            self.requires("lapack/latest")
 
         if self.options.with_cuda:
             # Used in public dlib/cuda/cuda_utils.h
@@ -157,11 +157,11 @@ class DlibConan(ConanFile):
         tc.cache_variables["DLIB_JPEG_SUPPORT"] = self.options.with_jpeg
         tc.cache_variables["DLIB_WEBP_SUPPORT"] = self.options.with_webp
         tc.cache_variables["DLIB_LINK_WITH_SQLITE3"] = self.options.with_sqlite3
-        tc.cache_variables["DLIB_USE_BLAS"] = True    # FIXME: all the logic behind is not sufficiently under control
-        tc.cache_variables["DLIB_USE_LAPACK"] = True  # FIXME: all the logic behind is not sufficiently under control
+        tc.cache_variables["DLIB_USE_BLAS"] = self.options.with_lapack
+        tc.cache_variables["DLIB_USE_LAPACK"] = self.options.with_lapack
         tc.cache_variables["DLIB_PNG_SUPPORT"] = self.options.with_png
         tc.cache_variables["DLIB_GIF_SUPPORT"] = self.options.with_gif
-        tc.cache_variables["DLIB_USE_MKL_FFT"] = False
+        tc.cache_variables["DLIB_USE_MKL_FFT"] = self.dependencies["blas"].options.provider == "mkl"
         tc.cache_variables["DLIB_USE_CUDA"] = self.options.with_cuda
         tc.cache_variables["DLIB_USE_CUDA_COMPUTE_CAPABILITIES"] = ","  # Let CudaToolchain manage this
         # Skip the unnecessary test compiles that don't play well with Conan

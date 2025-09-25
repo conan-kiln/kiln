@@ -94,7 +94,7 @@ class OneMathConan(ConanFile):
         if self.options.mklcpu or self.options.mklgpu:
             self.requires("onemkl/[*]", transitive_headers=True, transitive_libs=True)
         if self.options.netlib_blas:
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("blas/latest")
         if self.options.portfft:
             self.requires("portfft/[*]")
 
@@ -178,8 +178,8 @@ class OneMathConan(ConanFile):
 
         deps = CMakeDeps(self)
         if self.options.netlib_blas:
-            deps.set_property("openblas", "cmake_file_name", "NETLIB")
-            deps.set_property("openblas", "cmake_target_name", "ONEMATH::NETLIB::NETLIB")
+            deps.set_property("blas", "cmake_file_name", "NETLIB")
+            deps.set_property("blas", "cmake_target_name", "ONEMATH::NETLIB::NETLIB")
         if self.options.cublas:
             deps.set_property("cublas", "cmake_target_name", "ONEMATH::cuBLAS::cuBLAS")
         if self.options.curand:
@@ -248,7 +248,7 @@ class OneMathConan(ConanFile):
         if self.options.netlib_blas:
             self.cpp_info.components["onemath_blas_netlib"].set_property("cmake_target_name", "ONEMATH::onemath_blas_netlib")
             self.cpp_info.components["onemath_blas_netlib"].libs = ["onemath_blas_netlib"]
-            self.cpp_info.components["onemath_blas_netlib"].requires = ["openblas::openblas"]
+            self.cpp_info.components["onemath_blas_netlib"].requires = ["blas::blas"]
 
         if self.options.generic_sycl_blas:
             self.cpp_info.components["onemath_blas_generic"].set_property("cmake_target_name", "ONEMATH::onemath_blas_generic")

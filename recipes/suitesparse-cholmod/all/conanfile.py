@@ -1,7 +1,6 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
@@ -73,8 +72,6 @@ class SuiteSparseCholmodConan(ConanFile):
             self.cuda.requires("nvrtc")
 
     def validate(self):
-        if self.options.build_supernodal and not self.dependencies["openblas"].options.build_lapack:
-            raise ConanInvalidConfiguration("-o openblas/*:build_lapack=True is required when build_supernodal=True")
         if self.options.cuda:
             self.cuda.validate_settings()
 
@@ -101,10 +98,6 @@ class SuiteSparseCholmodConan(ConanFile):
         tc.variables["SUITESPARSE_USE_CUDA"] = self.options.cuda
         tc.variables["SUITESPARSE_DEMOS"] = False
         tc.variables["SUITESPARSE_USE_FORTRAN"] = False  # Fortran sources are translated to C instead
-        # FIXME: Find a way to not hardcode this. The system BLAS gets used otherwise.
-        tc.variables["BLAS_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_FOUND"] = True
         tc.variables["BUILD_TESTING"] = False
         if self.options.cuda:
             tc.variables["CMAKE_CUDA_ARCHITECTURES"] = str(self.settings.cuda.architectures).replace(",", ";")

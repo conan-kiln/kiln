@@ -2,6 +2,7 @@ import os
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
+from conan.tools.build import cross_building
 from conan.tools.meson import Meson, MesonToolchain
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
@@ -32,6 +33,10 @@ class CutestConan(ConanFile):
         executables = self.conf.get("tools.build:compiler_executables", default={}, check_type=dict)
         return executables.get("fortran")
 
+    def configure(self):
+        if "arm" in str(self.settings.arch):
+            self.options.quadruple.value = False
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -41,11 +46,6 @@ class CutestConan(ConanFile):
                 f"{self.name} requires a Fortran compiler. "
                 "Please provide one by setting tools.build:compiler_executables={'fortran': '...'}."
             )
-
-    def validate(self):
-        if self.options.quadruple:
-            if "arm" in str(self.settings.arch):
-                raise ConanInvalidConfiguration("quadruple=True is not supported on ARM architectures")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=0.62.0]")
@@ -61,7 +61,8 @@ class CutestConan(ConanFile):
         tc.project_options["modules"] = False
         tc.project_options["default_library"] = "shared"
         tc.generate()
-        replace_in_file(self, "conan_meson_native.ini", "[binaries]", f"[binaries]\nfc = '{self._fortran_compiler}'")
+        meson_ini = "conan_meson_cross.ini" if cross_building(self) else "conan_meson_native.ini"
+        replace_in_file(self, meson_ini, "[binaries]", f"[binaries]\nfortran = '{self._fortran_compiler}'")
 
     def build(self):
         meson = Meson(self)

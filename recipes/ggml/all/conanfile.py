@@ -338,8 +338,8 @@ class GgmlConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if self.options.with_blas and not is_apple_os(self):
-            self.requires("openblas/[>=0.3.20 <1]")
+        if self.options.with_blas:
+            self.requires("blas/latest")
         if self.options.with_openmp:
             self.requires("openmp/system")
         if self.options.cpu:
@@ -387,6 +387,10 @@ class GgmlConan(ConanFile):
                         "find_library(memkind memkind REQUIRED)",
                         "find_package(memkind REQUIRED)")
 
+    @property
+    def _use_accelerate(self):
+        return self.options.with_blas and self.dependencies["blas"].options.provider == "accelerate"
+
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["GGML_BUILD_TESTS"] = False
@@ -399,9 +403,9 @@ class GgmlConan(ConanFile):
 
         # Backends
         tc.cache_variables["GGML_CPU"] = self.options.cpu
-        tc.cache_variables["GGML_ACCELERATE"] = self.options.with_blas and is_apple_os(self)
+        tc.cache_variables["GGML_ACCELERATE"] = self._use_accelerate
         tc.cache_variables["GGML_BLAS"] = self.options.with_blas
-        tc.cache_variables["GGML_BLAS_VENDOR"] = "Apple" if is_apple_os(self) else "OpenBLAS"
+        tc.cache_variables["GGML_BLAS_VENDOR"] = "Apple" if self._use_accelerate else "OpenBLAS"
         tc.cache_variables["GGML_LLAMAFILE"] = self.options.with_llamafile
         tc.cache_variables["GGML_CUDA"] = self.options.with_cuda
         tc.cache_variables["GGML_MUSA"] = self.options.with_musa
@@ -553,7 +557,7 @@ class GgmlConan(ConanFile):
                 self.cpp_info.components["ggml-cpu"].requires.append("kleidiai::kleidiai")
             if self.options.with_memkind:
                 self.cpp_info.components["ggml-cpu"].requires.append("memkind::memkind")
-            if self.options.with_blas and is_apple_os(self):
+            if self._use_accelerate:
                 self.cpp_info.components["ggml-cpu"].frameworks = ["Accelerate"]
 
         # Backend components
@@ -587,7 +591,7 @@ class GgmlConan(ConanFile):
         if self.options.with_blas:
             self.cpp_info.components["ggml-blas"].set_property("cmake_target_name", "ggml::ggml-blas")
             self.cpp_info.components["ggml-blas"].libs = ["ggml-blas"]
-            self.cpp_info.components["ggml-blas"].requires = ["ggml-base", "openblas::openblas"]
+            self.cpp_info.components["ggml-blas"].requires = ["ggml-base", "blas::blas"]
             self.cpp_info.components["ggml"].requires.append("ggml-blas")
 
         if self.options.with_sycl:

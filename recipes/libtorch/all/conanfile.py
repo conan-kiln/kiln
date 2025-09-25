@@ -22,7 +22,7 @@ class LibtorchConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "blas": ["armpl", "blis", "eigen", "mkl", "openblas", "accelerate"],
+        "blas": ["generic", "eigen"],
         "build_lazy_ts_backend": [True, False],
         "build_lite_interpreter": [True, False],
         "per_operator_headers": [True, False],
@@ -70,7 +70,7 @@ class LibtorchConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "blas": "openblas",
+        "blas": "generic",
         "build_lazy_ts_backend": True,
         "build_lite_interpreter": False,
         "per_operator_headers": False,
@@ -202,17 +202,17 @@ class LibtorchConan(ConanFile):
 
     @property
     def _blas_cmake_option_value(self):
+        if self.options.blas == "eigen":
+            return "Eigen"
+        blas_provider = str(self.dependencies["blas"].options.provider)
         return {
             "accelerate": "vecLib",
-            "apl": "APL",
             "armpl": "APL",
             "atlas": "ATLAS",
-            "eigen": "Eigen",
-            "flame": "FLAME",
+            "blis": "FLAME",
             "mkl": "MKL",
             "openblas": "OpenBLAS",
-            "generic": "Generic",
-        }[str(self.options.blas)]
+        }[blas_provider]
 
     @property
     def _use_nnpack_family(self):
@@ -235,9 +235,8 @@ class LibtorchConan(ConanFile):
             self.requires("sleef/[^3.6.1]", transitive_headers=True, transitive_libs=True)
         if self._require_flatbuffers:
             self.requires("flatbuffers/[~24.3.25]", libs=False, transitive_headers=True)
-        if self.options.blas == "openblas":
-            # Also provides LAPACK, currently
-            self.requires("openblas/[>=0.3.28 <1]")
+        if self.options.blas == "generic":
+            self.requires("lapack/latest")
         if self.options.with_openmp:
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
         if self.options.with_fbgemm:
@@ -310,11 +309,6 @@ class LibtorchConan(ConanFile):
         check_min_cppstd(self, 17)
         if self.settings.get_safe("compiler.cstd"):
             check_min_cstd(self, 11)
-        if self.options.blas != "openblas":
-            # FIXME: add an independent LAPACK package to CCI
-            raise ConanInvalidConfiguration("'-o libtorch/*:blas=openblas' is currently required for LAPACK support")
-        if self.options.blas == "accelerate" and not is_apple_os(self):
-            raise ConanInvalidConfiguration("blas=accelerate is only available on Apple platforms")
         if self.options.get_safe("with_mpi") and not self.dependencies["openmpi"].options.with_cuda:
             raise ConanInvalidConfiguration("openmpi must be built with CUDA support (-o openmpi/*:with_cuda=True)")
         miniz_dep = self.dependencies["miniz"]
@@ -429,7 +423,7 @@ class LibtorchConan(ConanFile):
         tc.cache_variables["CONAN_LIBTORCH_USE_SLEEF"] = self._require_sleef
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
         # These try_compile checks fail with a static OpenBLAS for some reason
-        if self.options.blas == "openblas":
+        if self.options.blas == "generic":
             tc.cache_variables["OPEN_LAPACK_WORKS"] = True
             tc.cache_variables["LAPACK_CGESDD_WORKS"] = True
         tc.generate()
@@ -589,8 +583,8 @@ class LibtorchConan(ConanFile):
             torch_cpu.requires.append("ittapi::ittapi")
         if self.options.with_nnpack:
             torch_cpu.requires.append("nnpack::nnpack")
-        if self.options.blas == "openblas":
-            torch_cpu.requires.append("openblas::openblas")
+        if self.options.blas == "generic":
+            torch_cpu.requires.append("lapack::lapack")
         if self.options.with_openmp:
             torch_cpu.requires.append("openmp::openmp")
         if self.options.with_opencl:
@@ -614,8 +608,6 @@ class LibtorchConan(ConanFile):
                 torch_cpu.requires.append("ucc::ucc")
         if self.settings.os == "Linux":
             torch_cpu.system_libs.extend(["dl", "m", "pthread", "rt"])
-        if self.options.blas == "accelerate":
-            torch_cpu.frameworks.append("Accelerate")
 
         if self.options.with_cuda:
             torch_cuda = self.cpp_info.components["torch_cuda"]

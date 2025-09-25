@@ -63,7 +63,7 @@ class SleqpConan(ConanFile):
         elif self.options.fact_backend in ["ma27", "ma57", "ma86", "ma97"]:
             self.requires("coin-hsl/[*]")
         elif self.options.fact_backend == "lapack":
-            self.requires("openblas/[<1]")
+            self.requires("lapack/latest")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -117,7 +117,6 @@ class SleqpConan(ConanFile):
         deps.set_property("gurobi", "cmake_file_name", "GUROBI")
         deps.set_property("highs", "cmake_file_name", "HIGHS")
         deps.set_property("soplex", "cmake_file_name", "SOPLEX")
-        deps.set_property("openblas", "cmake_file_name", "LAPACK")
         deps.generate()
 
     def build(self):

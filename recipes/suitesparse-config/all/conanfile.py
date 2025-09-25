@@ -32,11 +32,11 @@ class SuiteSparseConfigConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.28 <1]", transitive_headers=True, transitive_libs=True)
+        self.requires("lapack/latest", transitive_headers=True, transitive_libs=True)
         self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
 
     def build_requirements(self):
-        self.tool_requires("cmake/[>=3.22 <5]")
+        self.tool_requires("cmake/[>=3.22]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -47,7 +47,6 @@ class SuiteSparseConfigConan(ConanFile):
         tc.variables["BUILD_STATIC_LIBS"] = not self.options.shared
         tc.variables["SUITESPARSE_USE_OPENMP"] = True
         tc.variables["SUITESPARSE_USE_CUDA"] = False
-        tc.variables["BLA_VENDOR"] = "OpenBLAS"
         tc.variables["SUITESPARSE_DEMOS"] = False
         tc.variables["SUITESPARSE_USE_STRICT"] = True  # don't allow implicit dependencies
         tc.variables["SUITESPARSE_USE_FORTRAN"] = False  # Fortran sources are translated to C instead
@@ -55,7 +54,6 @@ class SuiteSparseConfigConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "BLAS")
         deps.generate()
 
     def build(self):
@@ -86,7 +84,7 @@ class SuiteSparseConfigConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "SuiteSparse_config")
 
         self.cpp_info.libs = ["suitesparseconfig"]
-        self.cpp_info.includedirs.append(os.path.join("include", "suitesparse"))
+        self.cpp_info.includedirs.append("include/suitesparse")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.append("m")

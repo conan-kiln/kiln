@@ -20,7 +20,6 @@ class MatXConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type", "cuda"
     options = {
-        "blas": ["blis", "openblas", "nvpl"],
         "complex_op_nan_checks": [True, False],
         "disable_cub_cache": [True, False],
         "with_cudss": [True, False],
@@ -31,7 +30,6 @@ class MatXConan(ConanFile):
         "with_openmp": [True, False],
     }
     default_options = {
-        "blas": "openblas",
         "complex_op_nan_checks": False,
         "disable_cub_cache": False,
         "with_cudss": True,
@@ -47,16 +45,11 @@ class MatXConan(ConanFile):
 
     @property
     def _is_32bit_index(self):
-        blas_pkg = {
-            "nvpl": "nvpl_blas",
-        }.get(str(self.options.blas), str(self.options.blas))
-        return self.dependencies[blas_pkg].options.get_safe("interface", "lp64") == "lp64"
+        return self.dependencies["blas"].options.get_safe("interface", "lp64") == "lp64"
 
     def config_options(self):
         if self.settings.arch not in ["x86_64", "x86"]:
             del self.options.with_fftw
-        if self.settings.arch == "armv8":
-            self.options.blas = "nvpl"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -67,16 +60,11 @@ class MatXConan(ConanFile):
         self.cuda.requires("cufft")
         self.cuda.requires("cusolver")
         self.cuda.requires("curand")
+        self.requires("lapack/latest")
         if self.options.with_nvtx:
             self.requires("nvtx/[^3]")
         if self.options.with_nvtiff:
             self.cuda.requires("nvtiff")
-        if self.options.blas == "nvpl":
-            self.requires("nvpl_blas/[<1]")
-        elif self.options.blas == "blis":
-            self.requires("blis/[<1]")
-        elif self.options.blas == "openblas":
-            self.requires("openblas/[<1]")
         if self.options.with_cutensor:
             self.cuda.requires("cutensornet")
             self.cuda.requires("cutensor")
@@ -92,8 +80,6 @@ class MatXConan(ConanFile):
         if self.cuda.version < "11.8":
             raise ConanInvalidConfiguration("MatX requires CUDA 11.8 or higher")
         self.cuda.check_min_cuda_architecture(60)
-        if self.options.blas == "nvpl":
-            self.options["nvpl_blas"].interface = "ilp64"
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.23.1]")
@@ -129,13 +115,15 @@ class MatXConan(ConanFile):
             self.cpp_info.defines.append("MATX_INDEX_32_BIT")
         if self.options.with_openmp:
             self.cpp_info.defines.append("MATX_EN_OMP")
-        if self.options.blas == "nvpl":
+        blas_provider = self.dependencies["blas"].options.provider
+        if blas_provider == "nvpl":
             self.cpp_info.defines.append("MATX_EN_NVPL")
             self.cpp_info.defines.append("NVPL_LAPACK_COMPLEX_CUSTOM")
-        elif self.options.blas == "blis":
+        elif blas_provider == "blis":
             self.cpp_info.defines.append("MATX_EN_BLIS")
-        elif self.options.blas == "openblas":
+        elif blas_provider == "openblas":
             self.cpp_info.defines.append("MATX_EN_OPENBLAS")
+            self.cpp_info.defines.append("MATX_EN_OPENBLAS_LAPACK")
         if self.options.get_safe("with_fftw"):
             self.cpp_info.defines.append("MATX_EN_X86_FFTW")
         if self.options.with_cutensor:

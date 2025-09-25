@@ -62,7 +62,7 @@ class ScsConan(ConanFile):
 
     def requirements(self):
         if self.options.with_lapack:
-            self.requires("openblas/[>=0.3 <1]")
+            self.requires("lapack/latest")
         if self.options.with_mkl:
             self.requires("onemkl/[*]")
         if self.options.with_openmp:
@@ -97,8 +97,6 @@ class ScsConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "LAPACK")
-        deps.set_property("openblas", "cmake_target_name", "LAPACK::LAPACK")
         deps.generate()
 
     def build(self):
@@ -132,8 +130,6 @@ class ScsConan(ConanFile):
             self.cpp_info.components["scscudss"].set_property("cmake_target_name", "scs::scscudss")
             self.cpp_info.components["scscudss"].libs = ["scscudss"]
             self.cpp_info.components["scscudss"].requires = ["cudart::cudart_", "cudss::cudss_"]
-            if self.options.with_lapack:
-                self.cpp_info.components["scscudss"].requires.append("openblas::openblas")
 
         for _, component in self.cpp_info.components.items():
             component.includedirs = ["include/scs"]
@@ -144,4 +140,4 @@ class ScsConan(ConanFile):
             if self.options.with_openmp:
                 component.requires.append("openmp::openmp")
             if self.options.with_lapack:
-                component.requires.append("openblas::openblas")
+                component.requires.append("lapack::lapack")

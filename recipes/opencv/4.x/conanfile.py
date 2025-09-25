@@ -506,7 +506,7 @@ class OpenCVConan(ConanFile):
             return ["eigen::eigen"] if self.options.with_eigen else []
 
         def lapack():
-            return ["openblas::openblas"] if self.options.with_lapack else []
+            return ["lapack::lapack"] if self.options.get_safe("with_lapack") else []
 
         def clp():
             return ["coin-clp::coin-clp"] if self.options.get_safe("with_clp") else []
@@ -1254,8 +1254,7 @@ class OpenCVConan(ConanFile):
         if self.options.with_eigen:
             self.requires("eigen/3.4.0")
         if self.options.get_safe("with_lapack"):
-            # TODO: add a BLAS/LAPACK meta-package for Conan
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("lapack/latest")
         if self.options.get_safe("with_clp"):
             self.requires("coin-clp/[^1.17.6]")
         if self.options.with_cuda:

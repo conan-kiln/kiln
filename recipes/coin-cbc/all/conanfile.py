@@ -32,7 +32,7 @@ class CoinCbcConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "parallel": True,
-        "with_asl": True,
+        "with_asl": False,
         "with_nauty": True,
         "with_dylp": False,
         "with_vol": False,

@@ -31,7 +31,7 @@ class TrlibConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.0 <1]")
+        self.requires("lapack/latest")
 
     def validate(self):
         if self.settings.get_safe("compiler.cstd"):
@@ -51,7 +51,6 @@ class TrlibConan(ConanFile):
         tc.cache_variables["BUILD_TESTING"] = False
         tc.generate()
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "BLAS")
         deps.generate()
 
     def build(self):
