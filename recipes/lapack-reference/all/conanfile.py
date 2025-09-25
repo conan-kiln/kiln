@@ -53,7 +53,7 @@ class LapackReferenceConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("blas/latest")
 
     def validate(self):
         if not self._fortran_compiler:
@@ -105,7 +105,7 @@ class LapackReferenceConan(ConanFile):
         self.cpp_info.components["lapack"].set_property("cmake_target_name", "lapack")
         self.cpp_info.components["lapack"].set_property("pkg_config_name", "lapack")
         self.cpp_info.components["lapack"].libs = ["lapack"]
-        self.cpp_info.components["lapack"].requires = ["openblas::openblas"]
+        self.cpp_info.components["lapack"].requires = ["blas::blas"]
         if not self.options.shared:
             if self.settings.os in ["Linux", "FreeBSD"]:
                 self.cpp_info.components["lapack"].system_libs.append("m")
