@@ -31,6 +31,7 @@ class OneMKLConan(ConanFile):
         "omp_offload": [True, False],
         "blacs": [True, False],
         "mpi": ["intelmpi", "openmpi"],
+        "compatibility_headers": [True, False],
     }
     default_options = {
         "interface": "lp64",
@@ -43,6 +44,7 @@ class OneMKLConan(ConanFile):
         "omp_offload": True,
         "blacs": False,
         "mpi": "intelmpi",
+        "compatibility_headers": True,
     }
     options_description = {
         "interface": "GNU or Intel interface to use",
@@ -153,6 +155,12 @@ class OneMKLConan(ConanFile):
             for static_lib in Path(self.package_folder, "lib").glob("*.a"):
                 if static_lib.with_suffix(".so").exists():
                     rm(self, f"{static_lib.stem}.so*", os.path.join(self.package_folder, "lib"))
+
+        if self.options.compatibility_headers:
+            save(self, os.path.join(self.package_folder, "include", "blas.h"), '#include "mkl_blas.h"\n')
+            save(self, os.path.join(self.package_folder, "include", "cblas.h"), '#include "mkl_cblas.h"\n')
+            save(self, os.path.join(self.package_folder, "include", "lapack.h"), '#include "mkl_lapack.h"\n')
+            save(self, os.path.join(self.package_folder, "include", "lapacke.h"), '#include "mkl_lapacke.h"\n')
 
     @cached_property
     def _mkl_lib(self):
