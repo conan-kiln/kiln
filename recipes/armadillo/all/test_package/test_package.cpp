@@ -1,5 +1,5 @@
-#include <iostream>
 #include <armadillo>
+#include <iostream>
 
 using namespace std;
 using namespace arma;
@@ -127,7 +127,7 @@ main(int argc, char** argv)
               { 4, 5, 6 },
               { 7, 8, 9 } };
 
-  imat BB = { { 3, 2, 1 }, 
+  imat BB = { { 3, 2, 1 },
               { 6, 5, 4 },
               { 9, 8, 7 } };
 
@@ -144,7 +144,7 @@ main(int argc, char** argv)
   Q.print("Q:");
 
   // 2D field of matrices; 3D fields are also supported
-  field<mat> F(4,3); 
+  field<mat> F(4,3);
 
   for(uword col=0; col < F.n_cols; ++col)
       for(uword row=0; row < F.n_rows; ++row)
@@ -153,13 +153,6 @@ main(int argc, char** argv)
         }
 
   F.print("F:");
-
-  // Test that the result of the use_extern_rng option in the conan recipe
-#ifdef ARMA_USE_EXTERN_RNG
-  cout << "ARMA_USE_EXTERN_RNG set." << endl;
-#else
-  cout << "ARMA_USE_EXTERN_RNG not set." << endl;
-#endif
 
   arma::vec v2{1,2,3,4};
   arma::arma_rng::set_seed(1237);
@@ -202,6 +195,4 @@ main(int argc, char** argv)
 #else
   std::cout << "ARMA_USE_HDF5 not set" << std::endl;
 #endif
-
-  return 0;
 }

@@ -1,10 +1,8 @@
 import os
 import textwrap
-from pathlib import Path
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
-from conan.tools.build import check_min_cppstd
+from conan.tools.build import check_min_cppstd, valid_min_cppstd
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
 from conan.tools.files import *
 from conan.tools.scm import Version
@@ -14,248 +12,102 @@ required_conan_version = ">=2.1"
 
 class ArmadilloConan(ConanFile):
     name = "armadillo"
+    description = "Armadillo is a high quality C++ library for linear algebra and scientific computing, aiming towards a good balance between speed and ease of use."
     license = "Apache-2.0"
     homepage = "http://arma.sourceforge.net"
-    description = "Armadillo is a high quality C++ library for linear algebra and scientific computing, aiming towards a good balance between speed and ease of use."
-    topics = (
-        "linear algebra",
-        "scientific computing",
-        "matrix",
-        "vector",
-        "math",
-        "blas",
-        "lapack",
-        "mkl",
-        "hdf5",
-    )
+    topics = ("linear algebra", "scientific computing", "matrix", "vector", "math", "hdf5", "header-only")
     settings = "os", "arch", "compiler", "build_type"
     package_type = "library"
     options = {
+        "header_only": [True, False],
         "shared": [True, False],
         "fPIC": [True, False],
-        "use_blas": [
-            False,
-            "openblas",
-            "intel_mkl",
-            "system_blas",
-            "system_flexiblas",
-            "framework_accelerate",
-        ],
-        "use_lapack": [
-            False,
-            "openblas",
-            "intel_mkl",
-            "system_lapack",
-            "system_atlas",
-            "framework_accelerate",
-        ],
-        "use_hdf5": [True, False],
-        "use_superlu": [False, "system_superlu"],
-        "use_extern_rng": [True, False],
-        "use_arpack": [False, "system_arpack"],
-        "use_wrapper": [True, False],
+        "with_blas": [True, False],
+        "with_lapack": [True, False],
+        "with_hdf5": [True, False],
+        "with_superlu": [True, False],
+        "with_arpack": [True, False],
+        "with_openmp": [True, False],
     }
     default_options = {
+        "header_only": True,
         "shared": False,
         "fPIC": True,
-        "use_blas": "openblas",
-        "use_lapack": "openblas",
-        "use_hdf5": True,
-        "use_superlu": False,
-        "use_extern_rng": False,
-        "use_arpack": False,
-        "use_wrapper": False,
+        "with_blas": True,
+        "with_lapack": True,
+        "with_hdf5": False,
+        "with_superlu": False,
+        "with_arpack": False,
+        "with_openmp": True,
     }
-    # Values that must be set for multiple options to be valid
-    _co_dependencies = {
-        "intel_mkl": [
-            "use_blas",
-            "use_lapack",
-        ],
-        "framework_accelerate": [
-            "use_blas",
-            "use_lapack",
-        ],
-    }
-
-    def export_sources(self):
-        export_conandata_patches(self)
+    implements = ["auto_header_only", "auto_shared_fpic"]
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-        if self.settings.os == "Macos":
-            # Macos will default to Accelerate framework
-            self.options.use_blas = "framework_accelerate"
-            self.options.use_lapack = "framework_accelerate"
-
-        # According with the CMakeLists file in armadillo, MinGW doesn't correctly handle thread_local.
-        # If any of MINGW, MSYS, CYGWIN or MSVC are True in during cmake configure, the ARMA_USE_EXTERN_RNG option will be set to false.
-        # Therefore, in these cases we remove the `use_extern_rng` option in conan
-        if self.settings.os == "Windows":
-            del self.options.use_extern_rng
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-
-        if self.options.use_blas == "openblas":
-            self.options["openblas"].build_lapack = (
-                self.options.use_lapack == "openblas"
-            )
-
     def validate(self):
-        check_min_cppstd(self, 11)
-
-        if self.settings.os != "Macos" and (
-            self.options.use_blas == "framework_accelerate"
-            or self.options.use_lapack == "framework_accelerate"
-        ):
-            raise ConanInvalidConfiguration(
-                "framework_accelerate can only be used on Macos"
-            )
-
-        for value, options in self._co_dependencies.items():
-            options_without_value = [x for x in options if self.options.get_safe(x) != value]
-            if options_without_value and (len(options) != len(options_without_value)):
-                raise ConanInvalidConfiguration(
-                    f"Options {', '.join(options)} must all be set to '{value}' to use this feature. "
-                    f"To fix this, set option {', '.join(options_without_value)} to '{value}'."
-                )
-
-        if (
-            self.options.use_lapack == "openblas"
-            and self.options.use_blas != "openblas"
-        ):
-            raise ConanInvalidConfiguration(
-                "OpenBLAS can only provide LAPACK functionality when also providing BLAS functionality. Set use_blas=openblas and try again."
-            )
-
-        deprecated_opts = sorted({
-            opt for opt in [
-                str(self.options.use_blas),
-                str(self.options.use_lapack),
-            ] if "system" in opt
-        })
-
-        for opt in deprecated_opts:
-            self.output.warning(
-                f"DEPRECATION NOTICE: Value '{opt}' uses armadillo's default dependency search and will be replaced when this package becomes available in ConanCenter"
-            )
-
-        # Ignore use_extern_rng when the option has been removed
-        if self.options.use_wrapper and not self.options.get_safe("use_extern_rng", True):
-            raise ConanInvalidConfiguration(
-                "The wrapper requires the use of an external RNG. Set use_extern_rng=True and try again."
-            )
-
-        if not self.options.shared and self.options.use_wrapper:
-            raise ConanInvalidConfiguration("Building the armadillo run-time wrapper library requires armadillo/*:shared=True")
+        check_min_cppstd(self, 14)
 
     def requirements(self):
-        # Optional requirements
-        # TODO: "atlas/3.10.3" # Pending https://github.com/conan-io/conan-center-index/issues/6757
-        # TODO: "superlu/5.2.2" # Pending https://github.com/conan-io/conan-center-index/issues/6756
-        # TODO: "arpack/1.0" # Pending https://github.com/conan-io/conan-center-index/issues/6755
-        # TODO: "flexiblas/3.0.4" # Pending https://github.com/conan-io/conan-center-index/issues/6827
-
-        # The armadillo library no longer takes any responsibility for linking hdf5 as of v12.x. This means
-        # it will have to be linked manually by consumers if desired.
-        # See https://gitlab.com/conradsnicta/armadillo-code/-/issues/227 for more information.
-        if self.options.use_hdf5 and Version(self.version) < "12":
-            # Use the conan dependency if the system lib isn't being used
-            # Libraries not required to be propagated transitively when the armadillo run-time wrapper is used
-            self.requires("hdf5/[^1.8]", transitive_headers=True, transitive_libs=not self.options.use_wrapper)
-
-        if self.options.use_blas == "openblas":
-            # Libraries not required to be propagated transitively when the armadillo run-time wrapper is used
-            self.requires("openblas/[>=0.3.28 <1]", transitive_libs=not self.options.use_wrapper)
-        if (
-            self.options.use_blas == "intel_mkl"
-            and self.options.use_lapack == "intel_mkl"
-        ):
-            # Consumers can override this requirement with their own
-            # by using self.requires("intel-mkl/version@user/channel, override=True)
-            # in their consumer conanfile.py
-            if (
-                self.options.use_blas == "intel_mkl"
-                or self.options.use_lapack == "intel_mkl"
-            ):
-                self.output.warning(
-                    "The intel-mkl package does not exist in CCI. To use an Intel MKL package, override this requirement with your own recipe."
-                )
-            self.requires("intel-mkl/2021.4")
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.variables["ARMA_USE_LAPACK"] = self.options.use_lapack
-        tc.variables["ARMA_USE_BLAS"] = self.options.use_blas
-        tc.variables["ARMA_USE_ATLAS"] = self.options.use_lapack == "system_atlas"
-        tc.variables["ARMA_USE_HDF5"] = self.options.use_hdf5
-        tc.variables["ARMA_USE_HDF5_CMAKE"] = self.options.use_hdf5
-        tc.variables["ARMA_USE_ARPACK"] = self.options.use_arpack
-        tc.variables["ARMA_USE_EXTERN_RNG"] = self.options.get_safe("use_exern_rng", default=False)
-        tc.variables["ARMA_USE_SUPERLU"] = self.options.use_superlu
-        tc.variables["ARMA_USE_WRAPPER"] = self.options.use_wrapper
-        tc.variables["ARMA_USE_ACCELERATE"] = (
-            self.options.use_blas == "framework_accelerate"
-            or self.options.use_lapack == "framework_accelerate"
-        ) and self.settings.os == "Macos"
-        tc.variables["DETECT_HDF5"] = self.options.use_hdf5
-        tc.variables["ALLOW_OPENBLAS_MACOS"] = self.options.use_blas == "openblas" and self.settings.os == "Macos"
-        tc.variables["OPENBLAS_PROVIDES_LAPACK"] = self.options.use_lapack == "openblas"
-        tc.variables["ALLOW_BLAS_LAPACK_MACOS"] = self.options.use_blas != "framework_accelerate"
-        tc.variables["BUILD_SHARED_LIBS"] = self.options.shared
-        tc.variables["BUILD_SMOKE_TEST"] = False
-        tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
-        if Version(self.version) < "14.0.0": # pylint: disable=conan-condition-evals-to-constant
-            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
-        tc.generate()
-
-        deps = CMakeDeps(self)
-        deps.generate()
+        if self.options.with_blas:
+            self.requires("blas/latest", transitive_headers=True, transitive_libs=True)
+        if self.options.with_lapack:
+            self.requires("lapack/latest", transitive_headers=True, transitive_libs=True)
+        if self.options.with_hdf5:
+            self.requires("hdf5/[^1.8]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_arpack:
+            self.requires("arpack-ng/[^3]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_superlu:
+            self.requires("superlu/[*]", transitive_headers=True, transitive_libs=True)
+        if self.options.with_openmp:
+            self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 14)", "")
+        template = textwrap.dedent("""\
+            if(USE_@pkg@)
+                find_package(@pkg@ REQUIRED)
+            endif()
+        """)
+        save(self, "cmake_aux/Modules/ARMA_FindBLAS.cmake", template.replace("@pkg@", "BLAS"))
+        save(self, "cmake_aux/Modules/ARMA_FindLAPACK.cmake", template.replace("@pkg@", "LAPACK"))
+        save(self, "cmake_aux/Modules/ARMA_FindARPACK.cmake", template.replace("@pkg@", "ARPACK"))
+        save(self, "cmake_aux/Modules/ARMA_FindSuperLU.cmake", template.replace("@pkg@", "SuperLU"))
+        save(self, "cmake_aux/Modules/ARMA_FindATLAS.cmake", "")
+        save(self, "cmake_aux/Modules/ARMA_FindFlexiBLAS.cmake", "")
+        save(self, "cmake_aux/Modules/ARMA_FindMKL.cmake", "")
+        save(self, "cmake_aux/Modules/ARMA_FindOpenBLAS.cmake", "")
+        # Don't hard-code paths
+        replace_in_file(self, "include/armadillo_bits/config.hpp.cmake", "${ARMA_SUPERLU_INCLUDE_DIR}/", "")
+        replace_in_file(self, "include/armadillo_bits/config.hpp.cmake", "${CMAKE_REQUIRED_INCLUDES}", "")
+        replace_in_file(self, "include/armadillo_bits/config.hpp.cmake", "${ARMA_LIBS}", "")
 
-    def _patch_sources(self):
-        def _override_pkg_module(pkg, content):
-            save(self, Path(self.source_folder, "cmake_aux", "Modules", f"ARMA_Find{pkg}.cmake"), content)
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.cache_variables["HEADER_ONLY"] = self.options.header_only
+        tc.cache_variables["STATIC_LIB"] = not self.options.get_safe("shared", False)
+        tc.cache_variables["OPENBLAS_PROVIDES_LAPACK"] = False
+        tc.cache_variables["ALLOW_FLEXIBLAS_LINUX"] = False
+        tc.cache_variables["BUILD_SMOKE_TEST"] = False
+        tc.cache_variables["USE_BLAS"] = self.options.with_blas
+        tc.cache_variables["USE_LAPACK"] = self.options.with_lapack
+        tc.cache_variables["USE_ARPACK"] = self.options.with_arpack
+        tc.cache_variables["USE_SuperLU"] = self.options.with_superlu
+        if self.options.with_blas:
+            tc.preprocessor_definitions["ARMA_BLAS_UNDERSCORE"] = ""
+            if self.dependencies["blas"].options.interface == "ilp64":
+                tc.preprocessor_definitions["ARMA_BLAS_LONG_LONG"] = ""
+                tc.preprocessor_definitions["ARMA_BLAS_64BIT_INT"] = ""
+                tc.preprocessor_definitions["ARMA_SUPERLU_64BIT_INT"] = ""
+        tc.generate()
 
-        def _disable_pkg_module(pkg, var=None):
-            _override_pkg_module(pkg, f"set({var or pkg}_FOUND NO)")
-
-        if self.options.use_blas == "openblas":
-            _override_pkg_module("OpenBLAS", "find_package(OpenBLAS REQUIRED)")
-        else:
-            _disable_pkg_module("OpenBLAS")
-
-        if self.options.use_blas == "intel_mkl" and self.options.use_lapack == "intel_mkl":
-            _override_pkg_module("MKL", "find_package(OpenBLAS REQUIRED)")
-        else:
-            _disable_pkg_module("MKL")
-
-        _disable_pkg_module("HDF5")
-        if self.options.use_lapack != "system_lapack":
-            _disable_pkg_module("LAPACK")
-        if self.options.use_blas != "system_blas":
-            _disable_pkg_module("BLAS")
-        if self.options.use_lapack != "system_atlas":
-            _disable_pkg_module("ATLAS")
-        if not self.options.use_arpack:
-            _disable_pkg_module("ARPACK")
-        if not self.options.use_superlu:
-            _disable_pkg_module("SuperLU5", "SUPERLU")
-        if self.options.use_blas != "system_flexiblas" or self.settings.os != "Linux":
-            _disable_pkg_module("FLEXIBLAS")
+        deps = CMakeDeps(self)
+        deps.set_property("arpack-ng", "cmake_file_name", "ARPACK")
+        deps.set_property("superlu", "cmake_file_name", "SuperLU")
+        deps.generate()
 
     def build(self):
-        self._patch_sources()
-
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -269,11 +121,8 @@ class ArmadilloConan(ConanFile):
                     return line.split("\"")[-2].strip()
         return ""
 
-    @property
-    def _module_vars_rel_path(self):
-        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
-
     def _create_cmake_module_variables(self, module_file):
+        v = Version(self.version)
         content = textwrap.dedent(f"""\
             set(ARMADILLO_FOUND TRUE)
             if(DEFINED Armadillo_INCLUDE_DIRS)
@@ -282,9 +131,9 @@ class ArmadilloConan(ConanFile):
             if(DEFINED Armadillo_LIBRARIES)
                 set(ARMADILLO_LIBRARIES ${{Armadillo_LIBRARIES}})
             endif()
-            set(ARMADILLO_VERSION_MAJOR "{Version(self.version).major}")
-            set(ARMADILLO_VERSION_MINOR "{Version(self.version).minor}")
-            set(ARMADILLO_VERSION_PATCH "{Version(self.version).patch}")
+            set(ARMADILLO_VERSION_MAJOR "{v.major}")
+            set(ARMADILLO_VERSION_MINOR "{v.minor}")
+            set(ARMADILLO_VERSION_PATCH "{v.patch}")
             if(DEFINED Armadillo_VERSION_STRING)
                 set(ARMADILLO_VERSION_STRING ${{Armadillo_VERSION_STRING}})
             else()
@@ -295,77 +144,61 @@ class ArmadilloConan(ConanFile):
         save(self, module_file, content)
 
     def package(self):
+        copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "NOTICE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-
-        copy(self, "LICENSE.txt", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
-        copy(self, "NOTICE.txt", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
-        self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_vars_rel_path))
-
+        self._create_cmake_module_variables(os.path.join(self.package_folder, "share/conan/armadillo-variables.cmake"))
 
     def package_info(self):
-        self.cpp_info.libs = ["armadillo"]
-        self.cpp_info.set_property("pkg_config_name", "armadillo")
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "Armadillo")
-        self.cpp_info.set_property("cmake_target_name", "Armadillo::Armadillo")
-        self.cpp_info.set_property("cmake_target_aliases", ["armadillo", "armadillo::armadillo"])
-        self.cpp_info.set_property("cmake_build_modules", [self._module_vars_rel_path])
+        self.cpp_info.set_property("cmake_target_name", "armadillo")  # ArmadilloConfig.cmake
+        self.cpp_info.set_property("cmake_target_aliases", ["Armadillo::Armadillo"])  # FindArmadillo.cmake
+        self.cpp_info.set_property("cmake_build_modules", ["share/conan/armadillo-variables.cmake"])
+        self.cpp_info.set_property("pkg_config_name", "armadillo")
 
-        if self.options.get_safe("use_extern_rng"):
-            self.cpp_info.defines.append("ARMA_USE_EXTERN_RNG")
+        if self.options.header_only:
+            self.cpp_info.libdirs = []
+            self.cpp_info.bindirs = []
+        else:
+            self.cpp_info.libs = ["armadillo"]
 
-        if self.settings.build_type == "Release":
+        self.cpp_info.builddirs = ["share/conan"]
+
+        if self.options.with_blas:
+            self.cpp_info.defines.append("ARMA_BLAS_UNDERSCORE")
+            self.cpp_info.defines.append("ARMA_USE_FORTRAN_HIDDEN_ARGS")
+            if self.dependencies["blas"].options.interface == "ilp64":
+                self.cpp_info.defines.append("ARMA_BLAS_LONG_LONG")
+                self.cpp_info.defines.append("ARMA_BLAS_64BIT_INT")
+                self.cpp_info.defines.append("ARMA_SUPERLU_64BIT_INT")
+            if self.dependencies["blas"].options.provider == "mkl":
+                self.cpp_info.defines.append("ARMA_USE_MKL_ALLOC")
+
+        if self.settings.build_type not in ["Debug", "RelWithDebInfo"]:
             self.cpp_info.defines.append("ARMA_NO_DEBUG")
 
-        # The wrapper library links everything together. If disabled, system libs must be
-        # linked manually
-        if not self.options.use_wrapper:
-            self.cpp_info.defines.append("ARMA_DONT_USE_WRAPPER")
-            if self.options.use_blas == "framework_accelerate":
-                self.cpp_info.frameworks.append("Accelerate")
+        if valid_min_cppstd(self, 17):
+            self.cpp_info.defines.append("ARMA_HAVE_CXX17")
+        if valid_min_cppstd(self, 20):
+            self.cpp_info.defines.append("ARMA_HAVE_CXX20")
+        if valid_min_cppstd(self, 23):
+            self.cpp_info.defines.append("ARMA_HAVE_CXX23")
 
-        if self.options.use_hdf5:
-            self.cpp_info.defines.append("ARMA_USE_HDF5")
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_HDF5")
+        def _set_use_define(name, value):
+            if value:
+                self.cpp_info.defines.append(f"ARMA_USE_{name}")
+            else:
+                self.cpp_info.defines.append(f"ARMA_DONT_USE_{name}")
 
-        if self.options.use_blas:
-            self.cpp_info.defines.append("ARMA_USE_BLAS")
-            if self.options.use_blas == "system_blas" and not self.options.use_wrapper:
-                self.cpp_info.system_libs.extend(["blas"])
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_BLAS")
-
-        if self.options.use_lapack:
-            self.cpp_info.defines.append("ARMA_USE_LAPACK")
-            if (
-                self.options.use_lapack == "system_lapack"
-                and not self.options.use_wrapper
-            ):
-                self.cpp_info.system_libs.extend(["lapack"])
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_LAPACK")
-
-        if self.options.use_arpack:
-            self.cpp_info.defines.append("ARMA_USE_ARPACK")
-            if not self.options.use_wrapper:
-                self.cpp_info.system_libs.extend(["arpack"])
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_ARPACK")
-
-        if self.options.use_superlu:
-            self.cpp_info.defines.append("ARMA_USE_SUPERLU")
-            if not self.options.use_wrapper:
-                self.cpp_info.system_libs.extend(["superlu"])
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_SUPERLU")
-
-        if self.options.use_lapack == "system_atlas":
-            self.cpp_info.defines.append("ARMA_USE_ATLAS")
-            if not self.options.use_wrapper:
-                self.cpp_info.system_libs.extend(["atlas"])
-        else:
-            self.cpp_info.defines.append("ARMA_DONT_USE_ATLAS")
+        _set_use_define("WRAPPER", not self.options.header_only)
+        _set_use_define("HDF5", self.options.with_hdf5)
+        _set_use_define("BLAS", self.options.with_blas)
+        _set_use_define("LAPACK", self.options.with_lapack)
+        _set_use_define("ARPACK", self.options.with_arpack)
+        _set_use_define("SUPERLU", self.options.with_superlu)
+        _set_use_define("OPENMP", self.options.with_openmp)
+        _set_use_define("ATLAS", False)
