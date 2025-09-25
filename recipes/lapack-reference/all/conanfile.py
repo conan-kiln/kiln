@@ -53,7 +53,7 @@ class LapackReferenceConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("blas/latest")
+        self.requires("blas/latest", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
         if not self._fortran_compiler:
@@ -62,8 +62,15 @@ class LapackReferenceConan(ConanFile):
                 "Please add one to `tools.build:compiler_executables={'fortran': '...'}`."
             )
 
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.18]")
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    @property
+    def _is_64bit(self):
+        return self.dependencies["blas"].options.interface == "ilp64"
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -77,6 +84,8 @@ class LapackReferenceConan(ConanFile):
         tc.variables["USE_OPTIMIZED_LAPACK"] = False
         tc.variables["CBLAS"] = False
         tc.variables["LAPACKE"] = True
+        tc.variables["BUILD_INDEX64"] = self._is_64bit
+        tc.variables["BUILD_INDEX64_EXT_API"] = False
         # VerifyFortranC module in CMake fails to build a test executable otherwise.
         tc.variables["CMAKE_Fortran_FLAGS"] = "-fPIC"
         tc.variables["CMAKE_POSITION_INDEPENDENT_CODE"] = True
@@ -106,6 +115,8 @@ class LapackReferenceConan(ConanFile):
         self.cpp_info.components["lapack"].set_property("pkg_config_name", "lapack")
         self.cpp_info.components["lapack"].libs = ["lapack"]
         self.cpp_info.components["lapack"].requires = ["blas::blas"]
+        if self._is_64bit:
+            self.cpp_info.components["lapack"].defines.append("LAPACK_ILP64")
         if not self.options.shared:
             if self.settings.os in ["Linux", "FreeBSD"]:
                 self.cpp_info.components["lapack"].system_libs.append("m")
