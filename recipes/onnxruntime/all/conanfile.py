@@ -109,7 +109,7 @@ class OnnxRuntimeConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.27 <5]")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

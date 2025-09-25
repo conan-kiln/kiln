@@ -63,7 +63,7 @@ class CuOSDConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
 

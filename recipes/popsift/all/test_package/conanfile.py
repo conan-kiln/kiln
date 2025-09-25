@@ -20,7 +20,7 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def generate(self):
         cuda_tc = self.cuda.CudaToolchain()

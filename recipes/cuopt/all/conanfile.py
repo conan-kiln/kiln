@@ -60,7 +60,7 @@ class CuoptConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.26.4]")
         self.tool_requires("rapids-cmake/25.08.00")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

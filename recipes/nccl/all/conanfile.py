@@ -53,7 +53,7 @@ class NcclConan(ConanFile):
             raise ConanInvalidConfiguration("rdma-core must be built with 'build_libmlx5=True' to use the 'with_mlx5' option.")
 
     def build_requirements(self):
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         # The build also requires Python 3 for code generation
 
     def source(self):

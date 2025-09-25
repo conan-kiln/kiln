@@ -68,7 +68,7 @@ class OsqpConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18]")
         if self.options.backend == "cuda":
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

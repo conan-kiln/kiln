@@ -116,7 +116,7 @@ class NvshmemConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.19 <5]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         if self.options.build_bitcode_library and self.settings.compiler != "clang":
             self.tool_requires("clang/[*]")
 

@@ -1424,7 +1424,7 @@ class OpenCVConan(ConanFile):
         if self.options.get_safe("with_qt"):
             self.tool_requires("qt/<host_version>")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version][0], strip_root=True)

@@ -88,7 +88,7 @@ class XgboostConan(ConanFile):
         if self.options.get_safe("plugin_federated"):
             self.tool_requires("grpc/<host_version>")
         if self.options.cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["xgboost"], strip_root=True)

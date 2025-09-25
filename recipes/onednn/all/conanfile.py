@@ -134,7 +134,7 @@ class OneDNNConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18]")
         if self.options.get_safe("gpu_vendor") == "nvidia":
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         info = self.conan_data["sources"][self.version]

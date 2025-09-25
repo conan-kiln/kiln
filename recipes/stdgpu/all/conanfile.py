@@ -63,7 +63,7 @@ class StdgpuConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
         if self.options.backend == "cuda":
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def validate(self):
         check_min_cppstd(self, 17 if self.version != "1.3.0" else 14)

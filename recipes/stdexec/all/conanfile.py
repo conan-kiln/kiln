@@ -93,7 +93,7 @@ class StdexecConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.25.0 <5]")
         if self.options.enable_cuda and not self.options.header_only:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

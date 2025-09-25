@@ -67,7 +67,7 @@ class JitifyConan(ConanFile):
 
     def build_requirements(self):
         if not self.options.get_safe("header_only"):
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

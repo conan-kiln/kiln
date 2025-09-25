@@ -134,7 +134,7 @@ class DaliConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         self.tool_requires("protobuf/<host_version>")
 
     def source(self):

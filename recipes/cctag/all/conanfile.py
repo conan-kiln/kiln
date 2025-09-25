@@ -77,7 +77,7 @@ class CCTagConan(ConanFile):
 
     def build_requirements(self):
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
             self.tool_requires("cmake/[>=3.18]")
 
     def source(self):

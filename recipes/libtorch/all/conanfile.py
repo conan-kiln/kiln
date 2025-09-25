@@ -331,7 +331,7 @@ class LibtorchConan(ConanFile):
         if self._require_flatbuffers:
             self.tool_requires("flatbuffers/<host_version>")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["pytorch"], strip_root=True)
