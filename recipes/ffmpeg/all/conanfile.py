@@ -2,7 +2,6 @@ import io
 import os
 import re
 import shutil
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -265,10 +264,7 @@ class FFMpegConan(ConanFile):
     languages = ["C"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)

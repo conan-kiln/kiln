@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -33,10 +32,7 @@ class NvBenchConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def config_options(self):
         if self.settings.os == "Windows":

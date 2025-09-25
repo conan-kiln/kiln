@@ -155,10 +155,7 @@ class PclConan(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     # The component details have been extracted from their CMakeLists.txt files using
     # https://gist.github.com/valgur/e54e39b6a8931b58cc1776515104c828
