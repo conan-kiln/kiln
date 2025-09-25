@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/cuml/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "c40e6738633ae0feb6284888b1a844e536d3eb9f7abf24df1fa5c874d0c1c302"
