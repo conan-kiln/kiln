@@ -16,6 +16,7 @@ class LapackConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "shared": [True, False],
         "provider": [
             "reference",
             "openblas",
@@ -29,12 +30,26 @@ class LapackConan(ConanFile):
         ],
     }
     default_options = {
+        "shared": False,
         "provider": "openblas",
     }
+
+    @cached_property
+    def _dep_name(self):
+        provider = str(self.options.provider)
+        return {
+            "reference": "lapack-reference",
+            "mkl": "onemkl",
+            "nvpl": "nvpl_blas",
+        }.get(provider, provider)
 
     def configure(self):
         if self.options.provider != "reference":
             self.options["blas"].provider = self.options.provider
+        if self.options.provider in ["mkl", "nvpl", "accelerate"]:
+            self.options.shared.value = True
+        else:
+            self.options[self._dep_name].shared = self.options.shared
         self.options["openblas"].build_lapack = self.options.provider == "openblas"
 
     def requirements(self):
@@ -57,8 +72,11 @@ class LapackConan(ConanFile):
                 raise ConanInvalidConfiguration(
                     "-o blas/latest:provider and -o lapack/latest:provider must match "
                     f"({self.dependencies['blas'].options.provider} != {self.options.provider})")
-        if self.options.provider == "openblas" and not self.dependencies["openblas"].options.build_lapack:
+        if self.options.provider == "openblas" and not self.dependencies["blas"].options.build_lapack:
             raise ConanInvalidConfiguration("-o openblas/*:build_lapack must be enabled")
+        if self.options.provider not in ["mkl", "nvpl", "accelerate"]:
+            if self._dependency.options.shared != self.options.shared:
+                raise ConanInvalidConfiguration(f"-o {self._dependency.ref}:shared != {self.options.shared} value from -o {self.ref}:shared")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")

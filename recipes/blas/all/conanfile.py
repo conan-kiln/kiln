@@ -20,6 +20,7 @@ class BlasConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "shared": [True, False],
         "provider": [
             "openblas",
             "mkl",
@@ -34,6 +35,7 @@ class BlasConan(ConanFile):
         "interface": ["lp64", "ilp64"],
     }
     default_options = {
+        "shared": False,
         "provider": "openblas",
         "interface": "lp64",
     }
@@ -48,6 +50,10 @@ class BlasConan(ConanFile):
 
     def configure(self):
         self.options[self._dep_name].interface = self.options.interface
+        if self.options.provider in ["mkl", "nvpl", "accelerate"]:
+            self.options.shared.value = True
+        else:
+            self.options[self._dep_name].shared = self.options.shared
 
     def requirements(self):
         if self.options.provider == "openblas":
@@ -73,6 +79,9 @@ class BlasConan(ConanFile):
             raise ConanInvalidConfiguration("Accelerate provider is only available on Apple OS-s")
         if self._dependency.options.interface != self.options.interface:
             raise ConanInvalidConfiguration(f"-o {self._dependency.ref}:interface != {self.options.interface} value from -o {self.ref}:interface")
+        if self.options.provider not in ["mkl", "nvpl", "accelerate"]:
+            if self._dependency.options.shared != self.options.shared:
+                raise ConanInvalidConfiguration(f"-o {self._dependency.ref}:shared != {self.options.shared} value from -o {self.ref}:shared")
 
     def package(self):
         bla_vendor = {
