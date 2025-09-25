@@ -194,8 +194,8 @@ class OpenblasConan(ConanFile):
         tc.variables["BUILD_TESTING"] = False
         tc.variables["BUILD_WITHOUT_LAPACK"] = not self.options.build_lapack
         tc.variables["BUILD_RELAPACK"] = self.options.get_safe("build_relapack", False)
-        tc.variables["NOFORTRAN"] = self.options.use_fortran
-        tc.variables["C_LAPACK"] = not self.options.use_fortran
+        tc.variables["NOFORTRAN"] = self.options.get_safe("use_fortran", False)
+        tc.variables["C_LAPACK"] = not self.options.get_safe("use_fortran", False)
         tc.variables["INTERFACE64"] = self.options.interface == "ilp64"
         tc.variables["USE_THREAD"] = self.options.threading != "serial"
         tc.variables["USE_OPENMP"] = self.options.threading == "openmp"
