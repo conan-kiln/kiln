@@ -56,7 +56,7 @@ class OneMKLConan(ConanFile):
         "blacs": "Export BLACS, SCALAPACK and CDFT targets",
         "mpi": "BLACS MPI interface to use",
     }
-    provides = ["blas", "lapack", "mkl"]
+    provides = ["mkl"]
 
     def config_options(self):
         if self.settings.compiler == "intel-cc":
@@ -74,7 +74,7 @@ class OneMKLConan(ConanFile):
         if not self.options.blacs:
             del self.options.mpi
         else:
-            self.provides = ["onemkl", "blacs", "scalapack"]
+            self.provides = ["onemkl", "mkl", "blacs", "scalapack"]
 
     def package_id(self):
         del self.info.settings.compiler
@@ -196,7 +196,6 @@ class OneMKLConan(ConanFile):
         # Core library
         self.cpp_info.components["mkl-core"].libs = ["mkl_core"]
         self.cpp_info.components["mkl-core"].system_libs = ["pthread", "m", "dl"]
-        self.cpp_info.components["mkl-core"].includedirs.append(os.path.join("include", "oneapi"))
         if not is_msvc(self) and self.options.get_safe("shared", True) and not self.options.sdl:
             # Hacky fix to handle circular dependencies between the shared libraries
             self.cpp_info.components["mkl-core"].sharedlinkflags = ["-Wl,--start-group"]
