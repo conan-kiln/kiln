@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-24:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-25:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -31,6 +31,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - antlr4/4.13.2
 - apr-util/1.6.3
 - apr/1.7.6
+- apriltag/3.4.5
 - arbiter/cci.20231122
 - arm-compute-library/52.2.0
 - armadillo/12.6.7
@@ -52,6 +53,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - automake/1.18.1
 - aws-cdi-sdk/2.4.1
 - azure-sdk-for-cpp/1.13.0
+- basalt/git.20240831
 - bazel/7.6.1
 - bazel/8.4.1
 - bear/3.1.6
@@ -178,10 +180,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cublasmp/0.4.0.789
 - cublasmp/0.5.1.65
 - cublasmp/0.6.0.84
+- cucim/25.08.00
 - cucollections/0.0.1+git.20250529
 - cucollections/0.0.1+git.20250822
 - cuda-api-wrappers/0.6.9
-- cuda-api-wrappers/0.8.1
 - cuda-cal/0.4.3.36
 - cuda-cal/0.4.4.50
 - cuda-cccl/1.8.1
@@ -342,6 +344,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cufile/1.7.2.10
 - cufile/1.8.1.2
 - cufile/1.9.1.3
+- cugraph-gnn/25.08.00
+- cugraph/25.08.00
 - culibos/11.4.148
 - culibos/11.5.117
 - culibos/11.6.55
@@ -357,6 +361,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - culibos/12.8.90
 - culibos/12.9.79
 - culibos/13.0.85
+- cumlprims_mg/25.08.00
 - cuobjdump/13.0.85
 - cuopt/25.08.00
 - cuosd/0.0.0+git.20250627
@@ -475,6 +480,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - fenster/0.1.0
 - ffmpeg/5.1.7
 - ffmpeg/6.1.3
+- ffmpeg/7.1.2
+- ffmpeg/8.0.0
 - ffnvcodec/10.0.26.2
 - ffnvcodec/11.1.5.3
 - ffnvcodec/12.2.72.0
@@ -487,6 +494,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - fmi2/2.0.5
 - fontconfig/2.16.2
 - fortran/cci.latest
+- foxglove-sdk-c/0.14.2
+- foxglove-sdk-cpp/0.14.2
 - freeglut/3.6.0
 - freertos-kernel/11.1.0
 - fribidi/1.0.16
@@ -555,6 +564,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - google-cloud-cpp/1.42.2
 - googleapis/cci.20250506
 - gpu.cpp/0.1.0
+- gputreehsap/22.02.00
 - grass/8.5.0-cci.20240507
 - grpc/1.72.2
 - grpc/1.74.1
@@ -589,6 +599,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gtsam_points/1.1.0
 - guanaqo/1.0.0-alpha.17
 - gumbo-parser/0.13.0
+- gunrock/2.1.0
 - gurobi/10.0.3
 - gurobi/11.0.3
 - gurobi/12.0.3
@@ -744,6 +755,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libwacom/2.15.0
 - libwebp/1.6.0
 - libx11/1.8.10
+- libx264/git.20240224
 - libx265/3.6
 - libx265/4.1
 - libxau/1.0.11
@@ -816,6 +828,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mkfontscale/1.2.3
 - mlir/19.1.7
 - mlir/20.1.7
+- moderngpu/2.13.0
 - mold/2.40.4
 - moltenvk/1.2.11
 - moltenvk/1.2.7
@@ -831,8 +844,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mujoco/3.3.6
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
-- nanobind/2.4.0
-- nanobind/2.7.0
+- nanobind/2.9.2
+- nanoeigenpy/0.4.0
 - nanoflann/1.2.3
 - nanoflann/1.5.5
 - nanoflann/1.6.3
@@ -988,7 +1001,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvrtc/12.8.93
 - nvrtc/12.9.86
 - nvrtc/13.0.88
-- nvshmem/3.3.20
+- nvshmem/3.4.5
 - nvtiff/0.3.1.56
 - nvtiff/0.4.0.62
 - nvtiff/0.5.1.75
@@ -1024,6 +1037,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
 - ooqp/0.99.27
+- openapv/0.2.0.3
 - opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
 - opencl-clhpp-headers/2025.07.22
@@ -1136,9 +1150,13 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - readline/8.3.1
 - reduct-cpp/1.14.0
 - renderdoc/1.37
+- rerun-c/0.25.1
+- rerun-cpp/0.25.1
 - rmlui/5.1
 - rmm/25.06.00
 - rmm/25.08.00
+- rocksdb/8.8.1
+- rocksdb/9.10.0
 - rosx_introspection/1.0.2
 - roundingsat/0.0.0+git.20240602
 - roundingsat/0.0.0+git.20250909
@@ -1151,6 +1169,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - rust/1.81.0
 - rust/1.84.0
 - rust/1.85.1
+- rust/1.90.0
 - sassy/git.20250312
 - sbepp/1.4.2
 - sbepp/1.5.1
@@ -1168,6 +1187,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sdl_ttf/2.20.2
 - sdl_ttf/2.22.0
 - secsipidx/1.3.2
+- sentencepiece/0.2.1
 - serf/1.3.10
 - sfcgal/1.5.0
 - sfl/1.9.0
@@ -1288,9 +1308,11 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - tinyexr/1.0.12
 - tinyobjloader/2.0.0-rc13
 - tk/8.6.16
+- tl-expected/1.3.1
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
 - tracy/0.11.1
+- treelite/4.4.1
 - trianglemeshdistance/1.0.0+git.20240817
 - trlib/0.4+git.20240730
 - tsid/1.8.0
