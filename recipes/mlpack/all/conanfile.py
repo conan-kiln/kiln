@@ -22,30 +22,13 @@ class MlpackConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 
-    @property
-    def _min_cppstd(self):
-        if Version(self.version) >= "4.4.0":
-            return 17
-        if is_msvc(self):
-            return 17
-        return 14
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "gcc": "5",
-            "clang": "5",
-            "apple-clang": "5",
-            "msvc": "191",
-        }
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("armadillo/[^12.6.4]")
+        self.requires("armadillo/[*]")
+        self.requires("ensmallen/[^2.21.0]")
         self.requires("cereal/[^1.3.2]")
-        self.requires("ensmallen/2.21.0")
         self.requires("stb/[*]")
         # https://github.com/mlpack/mlpack/blob/4.4.0/src/mlpack/methods/det/dt_utils_impl.hpp#L184
         self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
@@ -54,24 +37,12 @@ class MlpackConan(ConanFile):
         self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-            )
-
-        if not self.dependencies["armadillo"].options.use_blas or not self.dependencies["armadillo"].options.use_lapack:
+        check_min_cppstd(self, 17)
+        if not self.dependencies["armadillo"].options.with_blas or not self.dependencies["armadillo"].options.with_lapack:
             raise ConanInvalidConfiguration("mlpack requires armadillo to be built with BLAS and LAPACK support.")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
-    def _configure_headers(self):
-        # https://github.com/mlpack/mlpack/blob/4.3.0/src/mlpack/config.hpp
-        config_hpp = os.path.join(self.package_folder, "include", "mlpack", "config.hpp")
-        replace_in_file(self, config_hpp, "// #define MLPACK_HAS_STB", "#define MLPACK_HAS_STB")
-        replace_in_file(self, config_hpp, "// #define MLPACK_HAS_NO_STB_DIR", "// #define MLPACK_HAS_NO_STB_DIR")
 
     def package(self):
         copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
@@ -79,7 +50,6 @@ class MlpackConan(ConanFile):
              os.path.join(self.source_folder, "src"),
              os.path.join(self.package_folder, "include"),
              excludes=["mlpack/bindings/*", "mlpack/tests/*", "mlpack/CMakeLists.txt"])
-        self._configure_headers()
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "mlpack")
@@ -88,6 +58,8 @@ class MlpackConan(ConanFile):
 
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
+
+        self.cpp_info.defines.append("MLPACK_USE_SYSTEM_STB")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.extend(["m", "pthread"])
