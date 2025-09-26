@@ -172,7 +172,7 @@ class LibsystemdConan(ConanFile):
         # that it is not enough to use the 'PkgConfigDeps' generator here. It
         # is also required to provide a path to the header files directly to
         # the compiler.
-        for dependency in self.dependencies.values():
+        for dependency in reversed(self.dependencies.host.topological_sort.values()):
             for includedir in dependency.cpp_info.aggregated_components().includedirs:
                 tc.c_args.append(f"-I{includedir}")
 

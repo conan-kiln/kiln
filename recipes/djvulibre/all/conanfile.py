@@ -96,7 +96,7 @@ class DjVuLibreConan(ConanFile):
             # Custom AutotoolsDeps for cl like compilers
             # workaround for https://github.com/conan-io/conan/issues/12784
             cpp_info = CppInfo(self)
-            for dependency in self.dependencies.values():
+            for dependency in reversed(self.dependencies.host.topological_sort.values()):
                 cpp_info.merge(dependency.cpp_info.aggregated_components())
             env = Environment()
             env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])

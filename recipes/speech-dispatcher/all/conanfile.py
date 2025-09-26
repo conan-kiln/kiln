@@ -114,7 +114,7 @@ class SpeechDispatcherConan(ConanFile):
         deps.generate()
 
         cpp_info = CppInfo(self)
-        for dependency in self.dependencies.values():
+        for dependency in reversed(self.dependencies.host.topological_sort.values()):
             cpp_info.merge(dependency.cpp_info.aggregated_components())
         env = Environment()
         env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])
