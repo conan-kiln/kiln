@@ -1,6 +1,6 @@
 --- libpkgconf/path.c
 +++ libpkgconf/path.c
-@@ -170,7 +170,7 @@
+@@ -177,7 +177,7 @@
  		return 0;
  
  	iter = workbuf = strdup(text);
