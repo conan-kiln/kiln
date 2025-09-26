@@ -72,7 +72,7 @@ class LapackConan(ConanFile):
                 raise ConanInvalidConfiguration(
                     "-o blas/latest:provider and -o lapack/latest:provider must match "
                     f"({self.dependencies['blas'].options.provider} != {self.options.provider})")
-        if self.options.provider == "openblas" and not self.dependencies["blas"].options.build_lapack:
+        if self.options.provider == "openblas" and not self.dependencies["openblas"].options.build_lapack:
             raise ConanInvalidConfiguration("-o openblas/*:build_lapack must be enabled")
         if self.options.provider not in ["mkl", "nvpl", "accelerate"]:
             if self._dependency.options.shared != self.options.shared:
