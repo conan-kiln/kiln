@@ -4,6 +4,7 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -116,8 +117,9 @@ class SuiteSparseSpqrConan(ConanFile):
             self.cpp_info.set_property("cmake_target_aliases", ["SuiteSparse::SPQR_static"])
         self.cpp_info.set_property("pkg_config_name", "SPQR")
 
-        self.cpp_info.libs = ["spqr"]
-        self.cpp_info.includedirs.append(os.path.join("include", "suitesparse"))
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+        self.cpp_info.libs = ["spqr" + suffix]
+        self.cpp_info.includedirs.append("include/suitesparse")
         self.cpp_info.requires = [
             "suitesparse-config::suitesparse-config",
             "suitesparse-cholmod::suitesparse-cholmod",

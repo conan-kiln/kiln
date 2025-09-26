@@ -3,6 +3,7 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -77,13 +78,15 @@ class SuiteSparseLagraphConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "LAGraph")
 
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+
         self.cpp_info.components["LAGraph"].set_property("cmake_target_name", "SuiteSparse::LAGraph")
         if not self.options.shared:
             self.cpp_info.components["KLU"].set_property("cmake_target_aliases", ["SuiteSparse::LAGraph_static"])
         self.cpp_info.components["LAGraph"].set_property("pkg_config_name", "LAGraph")
-        self.cpp_info.components["LAGraph"].libs = ["lagraph"]
+        self.cpp_info.components["LAGraph"].libs = ["lagraph" + suffix]
         self.cpp_info.components["LAGraph"].requires = ["suitesparse-graphblas::suitesparse-graphblas"]
-        self.cpp_info.components["LAGraph"].includedirs.append(os.path.join("include", "suitesparse"))
+        self.cpp_info.components["LAGraph"].includedirs.append("include/suitesparse")
         self.cpp_info.components["LAGraph"].defines.append("LG_DLL")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["LAGraph"].system_libs.extend(["m", "pthread"])
@@ -92,6 +95,6 @@ class SuiteSparseLagraphConan(ConanFile):
         if not self.options.shared:
             self.cpp_info.components["KLU"].set_property("cmake_target_aliases", ["SuiteSparse::LAGraph_static"])
         self.cpp_info.components["LAGraphX"].set_property("pkg_config_name", "LAGraphX")
-        self.cpp_info.components["LAGraphX"].libs = ["lagraphx"]
+        self.cpp_info.components["LAGraphX"].libs = ["lagraphx" + suffix]
         self.cpp_info.components["LAGraphX"].requires = ["LAGraph"]
 

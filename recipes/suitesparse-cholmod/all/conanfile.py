@@ -3,6 +3,7 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -131,8 +132,9 @@ class SuiteSparseCholmodConan(ConanFile):
             self.cpp_info.set_property("cmake_target_aliases", ["SuiteSparse::CHOLMOD_static"])
         self.cpp_info.set_property("pkg_config_name", "CHOLMOD")
 
-        self.cpp_info.libs = ["cholmod"]
-        self.cpp_info.includedirs.append(os.path.join("include", "suitesparse"))
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+        self.cpp_info.libs = ["cholmod" + suffix]
+        self.cpp_info.includedirs.append("include/suitesparse")
         self.cpp_info.requires = [
             "suitesparse-config::suitesparse-config",
             "suitesparse-amd::suitesparse-amd",

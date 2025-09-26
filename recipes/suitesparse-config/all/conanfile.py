@@ -4,6 +4,7 @@ import re
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -83,7 +84,8 @@ class SuiteSparseConfigConan(ConanFile):
             self.cpp_info.set_property("cmake_target_aliases", ["SuiteSparse::SuiteSparseConfig_static"])
         self.cpp_info.set_property("pkg_config_name", "SuiteSparse_config")
 
-        self.cpp_info.libs = ["suitesparseconfig"]
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+        self.cpp_info.libs = ["suitesparseconfig" + suffix]
         self.cpp_info.includedirs.append("include/suitesparse")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
