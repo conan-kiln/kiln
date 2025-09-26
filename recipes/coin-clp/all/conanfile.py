@@ -152,7 +152,6 @@ class CoinClpConan(ConanFile):
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
-        deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
         deps.set_property("ampl-asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
         deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
         deps.generate()

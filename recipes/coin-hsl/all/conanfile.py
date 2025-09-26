@@ -90,7 +90,6 @@ class CoinHslConan(ConanFile):
         replace_in_file(self, meson_ini, "[binaries]", f"[binaries]\nfortran = '{self._fortran_compiler}'")
 
         deps = PkgConfigDeps(self)
-        deps.set_property("openblas", "pkg_config_aliases", ["blas", "lapack"])
         deps.generate()
 
     def build(self):

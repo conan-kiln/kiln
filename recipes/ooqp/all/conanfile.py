@@ -47,7 +47,7 @@ class OoqpConan(ConanFile):
         if not cross_building(self):
             VirtualRunEnv(self).generate(scope="build")
         tc = AutotoolsToolchain(self)
-        tc.configure_args.append("BLAS=-lopenblas")
+        tc.configure_args.append("BLAS= ")
         tc.configure_args.append("MA27LIB=-lcoinhsl")
         tc.configure_args.append("MA57LIB=-lcoinhsl")
         tc.make_args.append(f"prefix={unix_path(self, self.package_folder)}")
