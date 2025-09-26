@@ -206,7 +206,7 @@ class LibtorchConan(ConanFile):
             return "Eigen"
         blas_provider = str(self.dependencies["blas"].options.provider)
         return {
-            "accelerate": "vecLib",
+            "accelerate": "accelerate",
             "armpl": "APL",
             "atlas": "ATLAS",
             "blis": "FLAME",
@@ -229,8 +229,8 @@ class LibtorchConan(ConanFile):
         self.requires("miniz/3.0.2-pytorch")
         self.requires("nlohmann_json/[^3]", transitive_headers=True)
         self.requires("onnx/[^1.13]", transitive_headers=True, transitive_libs=True)
-        self.requires("pocketfft/[*]")  # FIXME: not used if MKL is enabled
         self.requires("protobuf/[>=3.21.12]")
+        self.requires("pocketfft/[*]")
         if self._require_sleef:
             self.requires("sleef/[^3.6.1]", transitive_headers=True, transitive_libs=True)
         if self._require_flatbuffers:
@@ -424,6 +424,9 @@ class LibtorchConan(ConanFile):
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
         # These try_compile checks fail with a static OpenBLAS for some reason
         if self.options.blas == "generic":
+            tc.cache_variables["ACCELERATE_LAPACK_WORKS"] = True
+            tc.cache_variables["APL_LAPACK_WORKS"] = True
+            tc.cache_variables["FLEXIBLAS_LAPACK_WORKS"] = True
             tc.cache_variables["OPEN_LAPACK_WORKS"] = True
             tc.cache_variables["LAPACK_CGESDD_WORKS"] = True
         tc.generate()
