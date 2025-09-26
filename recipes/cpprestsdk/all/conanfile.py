@@ -64,7 +64,8 @@ class CppRestSDKConan(ConanFile):
         return modules
 
     def requirements(self):
-        self.requires("boost/[^1.74.0 <1.87]", options={f"with_{module}": True for module in self._boost_modules})
+        self.requires("boost/[^1.74.0 <1.87]", transitive_headers=True,
+                      options={f"with_{module}": True for module in self._boost_modules})
         self.requires("openssl/[>=1.1 <4]")
         if self.options.with_compression:
             self.requires("zlib-ng/[^2.0]")
