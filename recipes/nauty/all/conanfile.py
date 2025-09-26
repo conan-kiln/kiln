@@ -77,6 +77,9 @@ class NautyConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "nauty.h",
+                        "#pragma instrinsic",
+                        "#pragma intrinsic")
 
     def generate(self):
         tc = AutotoolsToolchain(self)
