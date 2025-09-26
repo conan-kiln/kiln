@@ -1,0 +1,24 @@
+--- a/nauty-h.in
++++ b/nauty-h.in
+@@ -1115,6 +1115,10 @@
+ typedef set nauty_set;
+ #endif
+ 
++#ifdef __cplusplus
++extern "C" {
++#endif
++
+ typedef struct
+ {
+     double grpsize1;        /* size of group is */
+@@ -1465,10 +1469,6 @@
+ 
+ /* The following is for C++ programs that read nauty.h.  Compile nauty
+    itself using C, not C++.  */
+-
+-#ifdef __cplusplus
+-extern "C" {
+-#endif
+ 
+ #ifndef NAUTY_IN_MAGMA
+ #if MALLOC_DEC==2

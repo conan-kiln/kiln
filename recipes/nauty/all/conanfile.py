@@ -17,17 +17,15 @@ class NautyConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://pallini.di.uniroma1.it/"
     topics = ("graph-theory", "automorphism", "isomorphism")
-    package_type = "library"
+    package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
         "fPIC": [True, False],
         "tls": [True, False],
         "wordsize": [16, 32, 64, 128],
         "small": [True, False],
     }
     default_options = {
-        "shared": False,
         "fPIC": True,
         "tls": True,
         "wordsize": 64,
@@ -44,6 +42,7 @@ class NautyConan(ConanFile):
     languages = ["C"]
 
     def export_sources(self):
+        export_conandata_patches(self)
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def config_options(self):
@@ -77,6 +76,7 @@ class NautyConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
         replace_in_file(self, "nauty.h",
                         "#pragma instrinsic",
                         "#pragma intrinsic")
