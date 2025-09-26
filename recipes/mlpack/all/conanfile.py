@@ -6,7 +6,6 @@ from conan.tools.build import check_min_cppstd
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -17,7 +16,6 @@ class MlpackConan(ConanFile):
     license = "BSD-3-Clause"
     homepage = "https://github.com/mlpack/mlpack"
     topics = ("machine-learning", "deep-learning", "regression", "nearest-neighbor-search", "scientific-computing", "header-only")
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
@@ -26,7 +24,7 @@ class MlpackConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("armadillo/[*]")
+        self.requires("armadillo/[<14]")
         self.requires("ensmallen/[^2.21.0]")
         self.requires("cereal/[^1.3.2]")
         self.requires("stb/[*]")
