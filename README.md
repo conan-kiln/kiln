@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-25:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-26:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -34,8 +34,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - apriltag/3.4.5
 - arbiter/cci.20231122
 - arm-compute-library/52.2.0
-- armadillo/12.6.7
-- armadillo/12.8.1
+- armadillo/15.0.3
 - armpl/25.07.0
 - arpack-ng/3.9.1
 - asio-grpc/1.7.0
@@ -60,9 +59,12 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - binutils/2.41
 - binutils/2.44
 - bison/3.5.3
+- blas/latest
 - blasfeo/0.1.4.2
 - blasfeo/0.1.4.2+git.20250704
 - blis/0.9.0
+- blis/1.2
+- blis/2.0
 - bluez/5.83
 - boost/1.71.0
 - boost/1.74.0
@@ -361,6 +363,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - culibos/12.8.90
 - culibos/12.9.79
 - culibos/13.0.85
+- cuml/25.08.00
 - cumlprims_mg/25.08.00
 - cuobjdump/13.0.85
 - cuopt/25.08.00
@@ -427,7 +430,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cutest/2.5.8
 - cutlass/2.11.0
 - cutlass/3.9.2
-- cutlass/4.2.0
+- cutlass/4.2.1
 - cuvs/25.08.00
 - cuxxfilt/13.0.85
 - cv-cuda/0.15.0
@@ -663,7 +666,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - kokkos/4.7.00
 - kvikio/25.08.00
 - ladel/0.0.4
-- lapack/3.12.0
+- lapack-reference/3.12.1
+- lapack/latest
 - laszip/2.0.2
 - lbfgsb/3.0
 - lbfgspp/0.4.0
