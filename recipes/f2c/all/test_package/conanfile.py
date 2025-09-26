@@ -31,8 +31,7 @@ class TestPackageConan(ConanFile):
             VCVars(self).generate()
 
             env = Environment()
-            automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
             crt = "-MT" if is_msvc_static_runtime(self) else "-MD"
             env.define("CC", f"{compile_wrapper} cl -nologo {crt}")
             env.define("LD", "link lib")

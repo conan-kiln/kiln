@@ -54,7 +54,7 @@ class TestPackageConan(ConanFile):
 
         # Use two instances of AutotoolsToolchain with namespaceas,
         # as we have two different projects with different settings.
-        ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+        ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
         msvc_vars = {
             "CC": "cl -nologo",
             "CXX": "cl -nologo",
