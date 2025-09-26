@@ -6,7 +6,7 @@ from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc, msvc_runtime_flag
+from conan.tools.microsoft import is_msvc, msvc_runtime_flag, unix_path
 
 required_conan_version = ">=2.1"
 
@@ -59,10 +59,12 @@ class CoinDyLPConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
+            ar_wrapper = unix_path(self, self.dependencies.build["automake"].conf_info.get("user.automake:lib-wrapper"))
             env.define("CC", "cl -nologo")
             env.define("CXX", "cl -nologo")
             env.define("LD", "link -nologo")
-            env.define("AR", "lib -nologo")
+            env.define("AR", f"{ar_wrapper} lib")
+            env.define("NM", "dumpbin -symbols")
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
@@ -76,6 +78,8 @@ class CoinDyLPConan(ConanFile):
             shutil.copy(gnu_config, os.path.join(self.source_folder, "DyLP"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="DyLP")
+        # Fix a failure on Windows. The am data is not needed anyway.
+        replace_in_file(self, os.path.join(self.source_folder, "DyLP", "Makefile.in"), " install-data-am", "")
         autotools.configure(build_script_folder="DyLP")
         autotools.make()
 
