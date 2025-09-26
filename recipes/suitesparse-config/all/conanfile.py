@@ -88,3 +88,6 @@ class SuiteSparseConfigConan(ConanFile):
 
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.append("m")
+
+        # All available BLAS implementations currently available under blas/latest use a single underscore suffix
+        self.cpp_info.defines.append("BLAS64_SUFFIX=_")
