@@ -107,6 +107,12 @@ class NautyConan(ConanFile):
             autotools = Autotools(self)
             autotools.configure()
 
+        if is_msvc(self):
+            # Match the Windows convention and typedef for booleans
+            replace_in_file(self, os.path.join(self.source_folder, "nauty.h"),
+                            "typedef int boolean;",
+                            "typedef unsigned char boolean;")
+
         # Build with CMake for MSVC and shared library output support
         cmake = CMake(self)
         cmake.configure()
