@@ -1,19 +1,18 @@
 import os
 
-from conan import ConanFile, conan_version
+from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
-class ensmallenRecipe(ConanFile):
+
+class EnsmallenRecipe(ConanFile):
     name = "ensmallen"
     description = "ensmallen is a high quality C++ library for non-linear numerical optimization."
     license = "BSD-3-Clause"
     homepage = "https://github.com/mlpack/ensmallen"
     topics = ("optimization", "numerical", "header-only")
-
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 
@@ -24,44 +23,27 @@ class ensmallenRecipe(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("armadillo/[^12.6.4]")
+        self.requires("armadillo/[*]")
         self.requires("openmp/system")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
-        deps = CMakeDeps(self)
-        deps.set_property("armadillo", "cmake_file_name", "Armadillo")
-        deps.set_property("armadillo", "cmake_target_name", "Armadillo::Armadillo")
-        deps.set_property("armadillo", "cmake_config_version_compat", "AnyNewerVersion")
-        deps.generate()
         tc = CMakeToolchain(self)
         tc.variables["USE_OPENMP"] = True
         tc.generate()
-
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def build(self):
-        # TODO: Remove when conan 1.x support is dropped. This is largely resolved by the above
-        # specification of AnyNewerVersion for the compatibility policy, but this feature isn't
-        # available below version 2.0.12.
-        if conan_version < Version("2.0.12"):
-            # Remove hard requirement on armadillo 9.800.0
-            # This is a minimum requirement, use latest
-            replace_in_file(
-                self,
-                os.path.join(self.source_folder, "CMakeLists.txt"),
-                "find_package(Armadillo 9.800.0 REQUIRED)",
-                "find_package(Armadillo REQUIRED)",
-            )
         cmake = CMake(self)
         cmake.configure()
 
     def package(self):
+        copy(self, "LICENSE.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-
-        copy(self, "LICENSE.txt", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         rmdir(self, os.path.join(self.package_folder, "lib"))
 
     def package_info(self):
