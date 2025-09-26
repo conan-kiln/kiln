@@ -1,12 +1,16 @@
 cmake_minimum_required(VERSION 3.15)
-project(test_package CXX CUDA)
+project(test_package CXX)
 
 find_package(Torch REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
 target_link_libraries(${PROJECT_NAME} torch)
 target_compile_features(test_package PRIVATE cxx_std_17)
-set_target_properties(${PROJECT_NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+if(TARGET torch_cuda)
+    enable_language(CUDA)
+    target_link_libraries(${PROJECT_NAME} torch_cuda)
+    set_target_properties(${PROJECT_NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+endif()
 
 # Workaround for
 # CompositeViewCopyKernels.cpp:(.text+0x1a280): failed to convert GOTPCREL relocation against '_ZN3c1019UndefinedTensorImpl10_singletonE'; relink with --no-relax
