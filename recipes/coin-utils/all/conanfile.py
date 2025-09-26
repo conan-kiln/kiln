@@ -40,6 +40,12 @@ class CoinUtilsConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+            del self.options.shared
+            self.package_type = "static-library"
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -156,7 +162,7 @@ class CoinUtilsConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "coinutils")
-        self.cpp_info.libs = ["CoinUtils"]
+        self.cpp_info.libs = ["CoinUtils" if self.settings.os != "Windows" else "libCoinUtils"]
         self.cpp_info.includedirs.append("include/coin")
         if self.settings.os in ["FreeBSD", "Linux"]:
             self.cpp_info.system_libs = ["m", "pthread", "rt"]
