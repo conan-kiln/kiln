@@ -157,6 +157,7 @@ class ArmadilloConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "Armadillo")
         self.cpp_info.set_property("cmake_target_name", "armadillo")  # ArmadilloConfig.cmake
         self.cpp_info.set_property("cmake_target_aliases", ["Armadillo::Armadillo"])  # FindArmadillo.cmake
+        self.cpp_info.set_property("cmake_config_version_compat", "AnyNewerVersion")
         self.cpp_info.set_property("cmake_build_modules", ["share/conan/armadillo-variables.cmake"])
         self.cpp_info.set_property("pkg_config_name", "armadillo")
 
