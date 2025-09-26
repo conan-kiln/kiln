@@ -1,3 +1,7 @@
 versions:
   "15.0.3":
     folder: all
+  "14.6.2":
+    folder: all
+  "12.8.3":
+    folder: all

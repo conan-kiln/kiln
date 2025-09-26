@@ -46,7 +46,7 @@ class ArmadilloConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def validate(self):
-        check_min_cppstd(self, 14)
+        check_min_cppstd(self, 14 if Version(self.version) >= 14 else 11)
 
     def requirements(self):
         if self.options.with_blas:
@@ -64,7 +64,11 @@ class ArmadilloConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 14)", "")
+        if Version(self.version) < 14:
+            replace_in_file(self, "CMakeLists.txt",
+                            "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)",
+                            "cmake_minimum_required(VERSION 3.5 FATAL_ERROR)")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD ", "# set(CMAKE_CXX_STANDARD ")
         template = textwrap.dedent("""\
             if(USE_@pkg@)
                 find_package(@pkg@ REQUIRED)
@@ -85,7 +89,10 @@ class ArmadilloConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["HEADER_ONLY"] = self.options.header_only
+        if Version(self.version) >= 14:
+            tc.cache_variables["HEADER_ONLY"] = self.options.header_only
+        else:
+            tc.cache_variables["ARMA_USE_WRAPPER"] = not self.options.header_only
         tc.cache_variables["STATIC_LIB"] = not self.options.get_safe("shared", False)
         tc.cache_variables["OPENBLAS_PROVIDES_LAPACK"] = False
         tc.cache_variables["ALLOW_FLEXIBLAS_LINUX"] = False

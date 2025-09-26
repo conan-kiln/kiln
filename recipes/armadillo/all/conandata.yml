@@ -2,3 +2,9 @@ sources:
   "15.0.3":
     url: "https://downloads.sourceforge.net/arma/armadillo-15.0.3.tar.xz"
     sha256: "9f55ec10f0a91fb6479ab4ed2b37a52445aee917706a238d170b5220c022fe43"
+  "14.6.2":
+    url: "https://downloads.sourceforge.net/arma/armadillo-14.6.2.tar.xz"
+    sha256: "49ddb76670b1d1a142f760637e653ec5b20ba730e7630a2f3c2b13d324c37e08"
+  "12.8.3":
+    url: "https://downloads.sourceforge.net/arma/armadillo-12.8.3.tar.xz"
+    sha256: "2922589f6387796504b340da6bb954bef3d87574c298515893289edd2d890151"
