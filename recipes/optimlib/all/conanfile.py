@@ -15,7 +15,6 @@ class OptimLibConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://github.com/kthohr/optim"
     topics = ("numerical-optimization", "optimization", "automatic-differentiation", "evolutionary-algorithms")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -34,32 +33,17 @@ class OptimLibConan(ConanFile):
         "floating_point_type": "double",
         "with_openmp": False,
     }
-
-    @property
-    def _min_cppstd(self):
-        return 11
+    implements = ["auto_header_only", "auto_shared_fpic"]
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-
-    def configure(self):
-        if self.options.header_only:
-            self.package_type = "header-library"
-            self.options.rm_safe("shared")
-            self.options.rm_safe("fPIC")
-        elif self.options.shared:
-            self.options.rm_safe("fPIC")
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
         if self.options.linear_alg_lib == "arma":
-            self.requires("armadillo/[^12.6.4]", transitive_headers=True, transitive_libs=True)
+            self.requires("armadillo/[*]", transitive_headers=True, transitive_libs=True)
         elif self.options.linear_alg_lib == "eigen":
             self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
         if self.options.with_openmp:
@@ -74,8 +58,7 @@ class OptimLibConan(ConanFile):
         if self.settings.os == "Windows":
             # "Use of this library with Windows-based systems, with or without MSVC, is not supported."
             raise ConanInvalidConfiguration("Windows is not supported")
-
-        check_min_cppstd(self, self._min_cppstd)
+        check_min_cppstd(self, 11)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["source"], strip_root=True)
