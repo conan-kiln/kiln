@@ -1,6 +1,7 @@
 import os
 
 from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMakeToolchain, CMake
 from conan.tools.cmake.cmakedeps.cmakedeps import CMakeDeps
 from conan.tools.files import *
@@ -43,6 +44,11 @@ class CoinCsdpConan(ConanFile):
         self.requires("lapack/latest")
         if self.options.with_openmp:
             self.requires("openmp/system")
+
+    def validate(self):
+        if self.settings.compiler == "msvc":
+            # includes several sys/ headers
+            raise ConanInvalidConfiguration("MSVC is not supported")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
