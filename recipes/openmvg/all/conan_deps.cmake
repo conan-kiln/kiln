@@ -29,3 +29,11 @@ custom_find_package(TIFF REQUIRED)
 
 # Don't link against the optional CUDA kernels lib
 set(CERES_LIBRARIES Ceres::ceres)
+
+find_package(easyexif REQUIRED)
+find_package(hnswlib REQUIRED)
+link_libraries(hnswlib::hnswlib)
+if(OpenMVG_USE_SPECTRA)
+    find_package(spectra REQUIRED)
+    link_libraries(Spectra::Spectra)
+endif()

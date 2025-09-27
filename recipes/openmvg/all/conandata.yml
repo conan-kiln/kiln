@@ -18,7 +18,7 @@ patches:
       patch_type: "portability"
       patch_source: "https://github.com/openMVG/openMVG/pull/1979"
   "2.0":
-    - patch_file: "patches/2.1/0001-fix-linking.patch"
+    - patch_file: "patches/2.0/0001-fix-linking.patch"
       patch_description: "Fix internal dependency visibility issues"
       patch_type: "bugfix"
     - patch_file: "patches/2.0/0002-dont-force-c++11.patch"
