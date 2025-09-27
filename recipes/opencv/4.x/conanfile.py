@@ -1840,6 +1840,7 @@ class OpenCVConan(ConanFile):
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "cmake"))
         if os.path.isfile(os.path.join(self.package_folder, "setup_vars_opencv4.cmd")):
+            mkdir(self, os.path.join(self.package_folder, "share"))
             rename(self, os.path.join(self.package_folder, "setup_vars_opencv4.cmd"),
                          os.path.join(self.package_folder, "share", "setup_vars_opencv4.cmd"))
         self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_vars_rel_path))
