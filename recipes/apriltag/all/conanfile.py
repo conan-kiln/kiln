@@ -43,7 +43,7 @@ class ApriltagConan(ConanFile):
         tc.cache_variables["BUILD_EXAMPLES"] = False
         tc.variables["BUILD_PYTHON_WRAPPER"] = False
         if self.settings.os == "Windows":
-            tc.preprocessor_definitions["NOMINMAX"] = ""
+            tc.preprocessor_definitions["NOMINMAX"] = None
         tc.generate()
 
     def build(self):

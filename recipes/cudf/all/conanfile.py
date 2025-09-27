@@ -115,7 +115,7 @@ class CuDfConan(ConanFile):
         tc.cache_variables["FETCHCONTENT_FULLY_DISCONNECTED"] = True
         tc.cache_variables["CMAKE_PREFIX_PATH"] = self.generators_folder.replace("\\", "/")
         tc.cache_variables["rapids-cmake-dir"] = self.dependencies.build["rapids-cmake"].cpp_info.builddirs[0].replace("\\", "/")
-        tc.preprocessor_definitions["ZSTD_STATIC_LINKING_ONLY"] = ""
+        tc.preprocessor_definitions["ZSTD_STATIC_LINKING_ONLY"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

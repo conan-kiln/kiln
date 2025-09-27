@@ -79,7 +79,7 @@ class QuickfixConan(ConanFile):
         tc.variables["HAVE_POSTGRESQL"] = self.options.with_postgres
         tc.variables["HAVE_MYSQL"] = bool(self.options.with_mysql)
         if self.options.enable_boost_atomic_count:
-            tc.preprocessor_definitions["ENABLE_BOOST_ATOMIC_COUNT"] = ""
+            tc.preprocessor_definitions["ENABLE_BOOST_ATOMIC_COUNT"] = None
             inc = self.dependencies["boost"].cpp_info.includedir
             tc.extra_cxxflags.append(f"-I{inc}")
         tc.generate()

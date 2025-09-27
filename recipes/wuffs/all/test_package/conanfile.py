@@ -18,7 +18,7 @@ class TestPackageConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         if self.dependencies["wuffs"].options.header_only:
-            tc.preprocessor_definitions["WUFFS_IMPLEMENTATION"] = ""
+            tc.preprocessor_definitions["WUFFS_IMPLEMENTATION"] = None
         tc.generate()
 
     def build(self):

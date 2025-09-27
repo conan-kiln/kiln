@@ -224,7 +224,7 @@ class PopplerConan(ConanFile):
         if self.options.shared:
             tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
         else:
-            tc.preprocessor_definitions["POPPLER_STATIC"] = ""
+            tc.preprocessor_definitions["POPPLER_STATIC"] = None
 
         tc.cache_variables["CMAKE_TRY_COMPILE_CONFIGURATION"] = str(self.settings.build_type)
 

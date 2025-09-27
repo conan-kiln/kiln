@@ -168,7 +168,7 @@ class FollyConan(ConanFile):
             tc.cache_variables["MSVC_LANGUAGE_VERSION"] = cxx_std_value
             tc.cache_variables["MSVC_ENABLE_ALL_WARNINGS"] = False
             tc.cache_variables["MSVC_USE_STATIC_RUNTIME"] = is_msvc_static_runtime(self)
-            tc.preprocessor_definitions["NOMINMAX"] = ""
+            tc.preprocessor_definitions["NOMINMAX"] = None
 
         tc.cache_variables["BOOST_LINK_STATIC"] = not self.dependencies["boost"].options.get_safe("shared", False)
 

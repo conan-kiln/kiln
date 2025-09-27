@@ -102,11 +102,11 @@ class ArmadilloConan(ConanFile):
         tc.cache_variables["USE_ARPACK"] = self.options.with_arpack
         tc.cache_variables["USE_SuperLU"] = self.options.with_superlu
         if self.options.with_blas:
-            tc.preprocessor_definitions["ARMA_BLAS_UNDERSCORE"] = ""
+            tc.preprocessor_definitions["ARMA_BLAS_UNDERSCORE"] = None
             if self.dependencies["blas"].options.interface == "ilp64":
-                tc.preprocessor_definitions["ARMA_BLAS_LONG_LONG"] = ""
-                tc.preprocessor_definitions["ARMA_BLAS_64BIT_INT"] = ""
-                tc.preprocessor_definitions["ARMA_SUPERLU_64BIT_INT"] = ""
+                tc.preprocessor_definitions["ARMA_BLAS_LONG_LONG"] = None
+                tc.preprocessor_definitions["ARMA_BLAS_64BIT_INT"] = None
+                tc.preprocessor_definitions["ARMA_SUPERLU_64BIT_INT"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

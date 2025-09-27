@@ -87,8 +87,8 @@ class IridescenceConan(ConanFile):
             tc.preprocessor_definitions["ImGuiConfigFlags_DockingEnable"] = "0"
         if self.settings.os == "Windows":
             # TODO: submit a patch upstream
-            tc.preprocessor_definitions["_USE_MATH_DEFINES"] = ""
-            tc.preprocessor_definitions["NOMINMAX"] = ""
+            tc.preprocessor_definitions["_USE_MATH_DEFINES"] = None
+            tc.preprocessor_definitions["NOMINMAX"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

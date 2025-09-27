@@ -83,10 +83,10 @@ class PolyscopeConan(ConanFile):
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
         if self.settings.os == "Windows" and not self.options.get_safe("shared"):
             # Avoid the default IMGUI_API=__declspec(dllimport)
-            tc.preprocessor_definitions["IMGUI_API"] = ""
+            tc.preprocessor_definitions["IMGUI_API"] = None
         # #error "GLM: GLM_GTX_norm is an experimental extension and may change in the future.
         #         Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it."
-        tc.preprocessor_definitions["GLM_ENABLE_EXPERIMENTAL"] = ""
+        tc.preprocessor_definitions["GLM_ENABLE_EXPERIMENTAL"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

@@ -98,7 +98,7 @@ class NautyConan(ConanFile):
         if self.options.small:
             tc.preprocessor_definitions["MAXN"] = "WORDSIZE"
         if self.options.tls:
-            tc.preprocessor_definitions["USE_TLS"] = ""
+            tc.preprocessor_definitions["USE_TLS"] = None
         tc.generate()
 
     def build(self):

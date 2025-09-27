@@ -42,7 +42,7 @@ class ImGuizmoConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.preprocessor_definitions["IMGUI_DEFINE_MATH_OPERATORS"] = ""
+        tc.preprocessor_definitions["IMGUI_DEFINE_MATH_OPERATORS"] = None
         tc.generate()
         tc = CMakeDeps(self)
         tc.generate()

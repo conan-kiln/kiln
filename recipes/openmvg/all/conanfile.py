@@ -168,7 +168,7 @@ class OpenmvgConan(ConanFile):
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0177"] = "NEW"
 
         if self.settings.os == "Windows":
-            tc.preprocessor_definitions["NOMINMAX"] = ""
+            tc.preprocessor_definitions["NOMINMAX"] = None
             # Fix a missing /bigobj flag for 'matching' and 'multiview' components
             # and add the equivalent for MinGW as well
             if is_msvc(self):

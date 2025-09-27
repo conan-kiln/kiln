@@ -58,7 +58,7 @@ class ZyreConan(ConanFile):
         tc.variables["ZYRE_BUILD_STATIC"] = not self.options.shared
         tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = self.options.shared
         if not self.options.shared:
-            tc.preprocessor_definitions["ZYRE_STATIC"] = ""
+            tc.preprocessor_definitions["ZYRE_STATIC"] = None
         # Relocatable shared lib on Macos
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0042"] = "NEW"
         tc.generate()
