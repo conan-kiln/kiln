@@ -1,23 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
 project(easyexif)
 
-include(GNUInstallDirs)
-
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-if(WIN32 AND BUILD_SHARED_LIBS)
-  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-endif()
+add_library(easyexif exif.cpp)
+target_include_directories(easyexif PUBLIC exif.h)
+set_target_properties(easyexif PROPERTIES PUBLIC_HEADER exif.h)
 
-add_library(easyexif ${EASYEXIF_SRC_DIR}/exif.cpp)
-target_include_directories(easyexif PUBLIC ${EASYEXIF_SRC_DIR}/exif.h)
-set_target_properties(
-    easyexif
-    PROPERTIES
-    PUBLIC_HEADER "${EASYEXIF_SRC_DIR}/exif.h"
-)
-
+include(GNUInstallDirs)
 install(TARGETS easyexif
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/easyexif
 )

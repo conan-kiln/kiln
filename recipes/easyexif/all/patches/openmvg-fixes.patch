@@ -1,0 +1,72 @@
+diff --git a/exif.h b/exif.h
+--- a/exif.h
++++ b/exif.h
+@@ -47,7 +47,7 @@
+   //
+   // PARAM 'data': A pointer to a JPEG image.
+   // PARAM 'length': The length of the JPEG image.
+-  // RETURN:  PARSE_EXIF_SUCCESS (0) on succes with 'result' filled out
++  // RETURN:  PARSE_EXIF_SUCCESS (0) on success with 'result' filled out
+   //          error code otherwise, as defined by the PARSE_EXIF_ERROR_* macros
+   int parseFrom(const unsigned char *data, unsigned length);
+   int parseFrom(const std::string &data);
+@@ -79,6 +79,7 @@
+   std::string DateTimeDigitized;    // Digitization date and time (may not exist)
+   std::string SubSecTimeOriginal;   // Sub-second time that original picture was taken
+   std::string Copyright;            // File copyright information
++  std::string ImageUniqueID;        // Unique identifier assigned to the picture
+   double ExposureTime;              // Exposure time in seconds
+   double FNumber;                   // F/stop
+   unsigned short ExposureProgram;   // Exposure program
+diff --git a/exif.cpp b/exif.cpp
+--- a/exif.cpp
++++ b/exif.cpp
+@@ -33,6 +33,8 @@
+ #include <algorithm>
+ #include <cstdint>
+ #include <stdio.h>
++#include <limits>
++#include <memory>
+ #include <vector>
+ 
+ using std::string;
+@@ -347,7 +349,7 @@
+       }
+       // and cut zero byte at the end, since we don't want that in the
+       // std::string
+-      if (result.val_string()[result.val_string().length() - 1] == '\0') {
++      if (!result.val_string().empty())  {
+         result.val_string().resize(result.val_string().length() - 1);
+       }
+       break;
+@@ -890,19 +892,20 @@
+   ImageWidth = 0;
+   ImageHeight = 0;
+ 
++
+   // Geolocation
+-  GeoLocation.Latitude = 0;
+-  GeoLocation.Longitude = 0;
+-  GeoLocation.Altitude = 0;
++  GeoLocation.Latitude = std::numeric_limits<double>::infinity();
++  GeoLocation.Longitude = std::numeric_limits<double>::infinity();
++  GeoLocation.Altitude = std::numeric_limits<double>::infinity();
+   GeoLocation.AltitudeRef = 0;
+-  GeoLocation.DOP = 0;
+-  GeoLocation.LatComponents.degrees = 0;
+-  GeoLocation.LatComponents.minutes = 0;
+-  GeoLocation.LatComponents.seconds = 0;
++  GeoLocation.DOP = std::numeric_limits<double>::infinity();
++  GeoLocation.LatComponents.degrees = std::numeric_limits<double>::infinity();
++  GeoLocation.LatComponents.minutes = std::numeric_limits<double>::infinity();
++  GeoLocation.LatComponents.seconds = std::numeric_limits<double>::infinity();
+   GeoLocation.LatComponents.direction = '?';
+-  GeoLocation.LonComponents.degrees = 0;
+-  GeoLocation.LonComponents.minutes = 0;
+-  GeoLocation.LonComponents.seconds = 0;
++  GeoLocation.LonComponents.degrees = std::numeric_limits<double>::infinity();
++  GeoLocation.LonComponents.minutes = std::numeric_limits<double>::infinity();
++  GeoLocation.LonComponents.seconds = std::numeric_limits<double>::infinity();
+   GeoLocation.LonComponents.direction = '?';
+ 
+   // LensInfo
