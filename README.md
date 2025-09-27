@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-26:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-27:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -34,6 +34,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - apriltag/3.4.5
 - arbiter/cci.20231122
 - arm-compute-library/52.2.0
+- armadillo/12.8.3
+- armadillo/14.6.2
 - armadillo/15.0.3
 - armpl/25.07.0
 - arpack-ng/3.9.1
@@ -106,6 +108,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/3.28.6
 - cmake/3.29.7
 - cmake/3.30.5
+- cmake/3.31.8
 - cmake/4.0.3
 - cmrc/2.0.1+git.20230724
 - cnmem/1.0.0+git.20181128
@@ -474,6 +477,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - embree/3.13.3
 - embree/3.13.5
 - emsdk/4.0.6
+- ensmallen/2.22.1
 - f2c/20240312
 - faac/1.31.1
 - faiss/1.12.0
@@ -832,6 +836,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mkfontscale/1.2.3
 - mlir/19.1.7
 - mlir/20.1.7
+- mlpack/4.6.2
 - moderngpu/2.13.0
 - mold/2.40.4
 - moltenvk/1.2.11
@@ -1106,7 +1111,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pipewire/1.4.2
 - piqp/0.6.1
 - pistache/0.4.26
-- pkgconf/2.4.3
+- pkgconf/2.5.1
 - plf_list/2.77
 - pocketfft/0.0.0+git.20241130
 - podofo/0.10.5
