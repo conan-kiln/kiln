@@ -30,6 +30,7 @@ custom_find_package(TIFF REQUIRED)
 # Don't link against the optional CUDA kernels lib
 set(CERES_LIBRARIES Ceres::ceres)
 
+find_package(vlfeat REQUIRED)
 find_package(easyexif REQUIRED)
 find_package(hnswlib REQUIRED)
 link_libraries(hnswlib::hnswlib)
