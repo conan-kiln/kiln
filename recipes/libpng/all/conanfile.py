@@ -145,12 +145,15 @@ class LibpngConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "libpng")
         self.cpp_info.set_property("pkg_config_aliases", [f"libpng{major_min_version}"])
 
-        self.cpp_info.includedirs.append(os.path.join("include", f"libpng{major_min_version}"))
+        self.cpp_info.includedirs.append(f"include/libpng{major_min_version}")
 
         prefix = "lib" if (is_msvc(self) or self._is_clang_cl) else ""
         suffix = major_min_version
-        if self.settings.os == "Windows" and self.settings.build_type == "Debug":
-            suffix += "d"
+        if self.settings.os == "Windows":
+            if not self.options.shared:
+                suffix += "_static"
+            if self.settings.build_type == "Debug":
+                suffix += "d"
         self.cpp_info.libs = [f"{prefix}png{suffix}"]
         if self.settings.os in ["Linux", "Android", "FreeBSD", "SunOS", "AIX"]:
             self.cpp_info.system_libs.append("m")
