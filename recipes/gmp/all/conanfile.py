@@ -1,14 +1,13 @@
 import os
-import stat
 
 from conan import ConanFile
-from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
+from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
 
-required_conan_version = ">=2.18"
+required_conan_version = ">=2.4"
 
 
 class GmpConan(ConanFile):
@@ -39,6 +38,7 @@ class GmpConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
+        copy(self, "yasm_wrapper.sh", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def config_options(self):
         # GMP does not export symbols for a shared build on Windows
@@ -62,17 +62,24 @@ class GmpConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def build_requirements(self):
-        self.tool_requires("m4/[^1.4.20]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/latest")
-        if is_msvc(self):
-            self.tool_requires("yasm/[^1.3.0]")  # Needed for determining 32-bit word size
-            self.tool_requires("automake/[^1.18.1]")  # Needed for lib-wrapper
+            if is_msvc(self):
+                self.tool_requires("yasm/[^1.3.0]")  # Needed for determining 32-bit word size
+                self.tool_requires("automake/[^1.18.1]")  # Needed for lib-wrapper
+        self.tool_requires("libtool/[*]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Disable unwanted subdirs
+        replace_in_file(self, "Makefile.am",
+                        "SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc",
+                        "SUBDIRS = mpn mpz mpq mpf printf rand cxx")
+        # Don't embed compiler info
+        replace_in_file(self, "gmp-h.in", '#define __GMP_CC "@CC@"', "")
+        replace_in_file(self, "gmp-h.in", '#define __GMP_CFLAGS "@CFLAGS@"', "")
 
     def generate(self):
         tc = AutotoolsToolchain(self)
@@ -87,8 +94,11 @@ class GmpConan(ConanFile):
         if is_msvc(self):
             tc.configure_args.extend([
                 "ac_cv_c_restrict=restrict",
+                "ac_cv_func_memset=yes",
                 "gmp_cv_asm_label_suffix=:",
-                "lt_cv_sys_global_symbol_pipe=cat",  # added to get further in shared MSVC build, but it gets stuck later
+                "gmp_cv_asm_w32=.word",
+                "gmp_cv_check_libm_for_build=no",
+                "lt_cv_deplibs_check_method=pass_all",
             ])
             tc.extra_cxxflags.append("-EHsc")
         env = tc.environment() # Environment must be captured *after* setting extra_cflags, etc. to pick up changes
@@ -98,16 +108,17 @@ class GmpConan(ConanFile):
                 "x86": "x86",
                 "x86_64": "amd64",
             }[str(self.settings.arch)]
+            env.define("CCAS", f"{yasm_wrapper} -a x86 -m {yasm_machine} -p gas -r raw -f win32 -g null -X gnu")
             ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", "cl -nologo")
-            env.define("CCAS", f"{yasm_wrapper} -a x86 -m {yasm_machine} -p gas -r raw -f win32 -g null -X gnu")
             env.define("CXX", "cl -nologo")
             env.define("LD", "link -nologo")
             env.define("AR", f'{ar_wrapper} "lib -nologo"')
+            env.define("NM", "dumpbin -nologo -symbols")
+            tc.configure_args.append('nm_interface="MS dumpbin"')
         tc.generate(env)
 
     def _patch_sources(self):
-        # Usage allowed after consideration with CCI maintainers
         for it in self.conan_data.get("patches", {}).get(self.version, []):
             if "patch_os" not in it or self.settings.os == it["patch_os"]:
                 entry = it.copy()
@@ -117,16 +128,15 @@ class GmpConan(ConanFile):
                     entry["patch_description"] = patch_file
                 patch(self, patch_file=patch_file_path, **entry)
 
-        # Fix permission issue
-        if is_apple_os(self):
-            configure_file = os.path.join(self.source_folder, "configure")
-            configure_stats = os.stat(configure_file)
-            os.chmod(configure_file, configure_stats.st_mode | stat.S_IEXEC)
-
     def build(self):
         self._patch_sources()
         autotools = Autotools(self)
+        autotools.autoreconf()
         autotools.configure()
+        # fix build error on C++23 due to removal of unprototyped functions (#27479)
+        replace_in_file(self, os.path.join(self.source_folder, "configure"),
+                        "void g(){}",
+                        "void g(int a,t1 const* b,t1 c,t2 d,t1 const* e,int f){}")
         autotools.make()
 
     def package(self):
