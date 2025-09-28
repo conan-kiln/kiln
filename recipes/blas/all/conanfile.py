@@ -68,7 +68,9 @@ class BlasConan(ConanFile):
             self.requires("nvpl_blas/[<1]")
 
     def package_id(self):
-        self.info.clear()
+        self.info.settings.clear()
+        del self.info.options.shared
+        del self.info.options.interface
 
     @cached_property
     def _dependency(self):
