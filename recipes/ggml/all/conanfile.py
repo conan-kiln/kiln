@@ -102,7 +102,7 @@ class GgmlConan(ConanFile):
         "metal_embed_library": [True, False],
 
         # SYCL
-        "sycl_target": ["nvidia", "amd", "generic"],
+        "sycl_target": ["intel", "nvidia", "amd"],
         "sycl_f16": [True, False],
         "sycl_graph": [True, False],
         "sycl_dnn": [True, False],
@@ -195,7 +195,7 @@ class GgmlConan(ConanFile):
         "metal_embed_library": True,
 
         # SYCL defaults
-        "sycl_target": "generic",
+        "sycl_target": "intel",
         "sycl_f16": False,
         "sycl_graph": True,
         "sycl_dnn": True,
@@ -598,12 +598,7 @@ class GgmlConan(ConanFile):
             self.cpp_info.components["ggml-sycl"].set_property("cmake_target_name", "ggml::ggml-sycl")
             self.cpp_info.components["ggml-sycl"].libs = ["ggml-sycl"]
             self.cpp_info.components["ggml-sycl"].requires = ["ggml-base"]
-            if self.options.sycl_target == "nvidia":
-                self.cpp_info.components["ggml-sycl"].requires.append("onemath::onemath_blas_cublas")
-            elif self.options.sycl_target == "amd":
-                self.cpp_info.components["ggml-sycl"].requires.append("onemath::onemath_blas_rocblas")
-            else:
-                self.cpp_info.components["ggml-sycl"].requires.append("onemath::onemath_dynamic")
+            self.cpp_info.components["ggml-sycl"].requires.append("onemath::onemath")
 
         if self.options.with_musa:
             self.cpp_info.components["ggml-musa"].set_property("cmake_target_name", "ggml::ggml-musa")
