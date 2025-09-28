@@ -1,0 +1,8 @@
+Linux:
+  intel-openmp:
+    url: https://files.pythonhosted.org/packages/18/9a/4bc28b11aa6b8706104a2cc4c3d4ce87b56094daec366d15bfef3afe89c1/intel_openmp-2025.0.5-py2.py3-none-manylinux_2_28_x86_64.whl
+    sha256: 0d7efd0b97e0ddf3ae9264bac586c5fcd7a681da1533112e1e51a78be9dfa42c
+Windows:
+  intel-openmp:
+    url: https://files.pythonhosted.org/packages/ef/c8/f249e5501ba5b6d3f9244de8bf092000e05254cea634ca5d9843650ead28/intel_openmp-2025.0.5-py2.py3-none-win_amd64.whl
+    sha256: 308ef48251d79dd238f215b58d4b8b2a18eec82d38437246374c0377bec2ac96
