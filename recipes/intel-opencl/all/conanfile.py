@@ -39,6 +39,7 @@ class IntelOpenCLConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires("opencl-headers/[*]", transitive_headers=True)
         self.requires(f"intel-ur/{self.version}")
 
     def validate(self):
@@ -54,12 +55,18 @@ class IntelOpenCLConan(ConanFile):
         self._get_pypi_package("intel-opencl-rt")
 
     def package(self):
-        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
+        if self.settings.os == "Windows":
+            move_folder_contents(self, os.path.join(self.build_folder, "data", "Library"), self.package_folder)
+            copy(self, "*", os.path.join(self.build_folder, "data"), self.package_folder)
+        else:
+            move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
         copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*", os.path.join(self.package_folder, "share/doc/opencl/licensing"), os.path.join(self.package_folder, "licenses"))
-        rmdir(self, os.path.join(self.package_folder, "bin"))
+        if self.settings.os != "Windows":
+            rmdir(self, os.path.join(self.package_folder, "bin"))
         rmdir(self, os.path.join(self.package_folder, "etc", "compiler"))
         rmdir(self, os.path.join(self.package_folder, "share"))
+        rmdir(self, os.path.join(self.package_folder, "Scripts"))
         # Replace hard copies with symlinks
         if self.settings.os in ["Linux", "FreeBSD"]:
             libdir = Path(self.package_folder, "lib")
@@ -73,5 +80,10 @@ class IntelOpenCLConan(ConanFile):
                         target_path.symlink_to(p.name)
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_find_mode", "both")
+        self.cpp_info.set_property("cmake_module_file_name", "OpenCL")
+        self.cpp_info.set_property("cmake_file_name", "OpenCLICDLoader")
+        self.cpp_info.set_property("cmake_target_name", "OpenCL::OpenCL")
         self.cpp_info.libs = ["OpenCL"]
+        self.cpp_info.includedirs = []
         self.cpp_info.resdirs = ["etc"]
