@@ -56,10 +56,15 @@ class IntelDpcppSyclConan(ConanFile):
         self._get_pypi_package("intel-cmplr-lib-rt")
 
     def package(self):
-        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
+        if self.settings.os == "Windows":
+            move_folder_contents(self, os.path.join(self.build_folder, "data", "Library"), self.package_folder)
+            copy(self, "*", os.path.join(self.build_folder, "data"), self.package_folder)
+        else:
+            move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
         copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
         # Don't vendor onnxruntime
         rm(self, "*onnxruntime*", os.path.join(self.package_folder, "lib"))
+        rm(self, "*onnxruntime*", os.path.join(self.package_folder, "bin"))
         # Replace hard copies with symlinks
         if self.settings.os in ["Linux", "FreeBSD"]:
             libdir = Path(self.package_folder, "lib")
@@ -81,3 +86,6 @@ class IntelDpcppSyclConan(ConanFile):
 
         self.cpp_info.libs = ["sycl"]
         self.cpp_info.resdirs = ["opt", "lib/clang"]
+
+        if self.settings.compiler == "msvc":
+            self.cpp_info.cxxflags = ["/Zc:__cplusplus"]
