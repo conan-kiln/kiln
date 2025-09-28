@@ -154,10 +154,10 @@ class OneMKLConan(ConanFile):
             raise ConanInvalidConfiguration(f"{self.settings.os} is not supported")
         if self.settings.arch != "x86_64":
             raise ConanInvalidConfiguration("Only x86_64 architecture is supported")
-        if self.settings.compiler not in ["intel-cc", "clang", "apple-clang"]:
+        if self.settings.compiler not in ["intel-cc", "clang"]:
             if self.options.sycl:
                 raise ConanInvalidConfiguration(f"{self.settings.compiler} does not support SYCL.")
-        if self.options.threading == "gnu" and self.settings.compiler not in ["gcc", "clang", "apple-clang"]:
+        if self.options.threading == "gnu" and self.settings.compiler not in ["gcc", "clang"]:
             raise ConanInvalidConfiguration("threading=gnu option is only available with GCC or Clang compilers.")
 
     def _get_pypi_package(self, name):
@@ -172,7 +172,7 @@ class OneMKLConan(ConanFile):
             self._get_pypi_package("mkl-static")
 
         if self.options.sycl:
-            if not self.options.get_safe("shared", True) or Version(self.version) < "2025.2.0":
+            if not self.options.get_safe("shared", True) or self.settings.os == "Windows" or Version(self.version) < "2025.2.0":
                 # provides a monolithic libmkl_sycl.a
                 self._get_pypi_package("mkl-devel-dpcpp")
             if Version(self.version) >= "2025.2.0":
@@ -245,6 +245,12 @@ class OneMKLConan(ConanFile):
             # Create a linker script libmkl_sycl.so file that is otherwise provided by mkl-devel-dpcpp
             ldflags = [f"-lmkl_sycl_{domain}" for domain in self._sycl_domains if self.options.get_safe(f"sycl_{domain}")]
             save(self, os.path.join(self.package_folder, "lib", "libmkl_sycl.so"), f"INPUT({' '.join(ldflags)})\n")
+
+        if self.options.sycl and self.settings.os == "Windows":
+            if self.options.shared:
+                rm(self, "mkl_sycl.lib", os.path.join(self.package_folder, "lib"))
+            else:
+                rm(self, "mkl_sycl_*_dll.lib", os.path.join(self.package_folder, "lib"))
 
         if self.options.compatibility_headers:
             save(self, os.path.join(self.package_folder, "include", "blas.h"), '#include "mkl_blas.h"\n')
@@ -371,7 +377,13 @@ class OneMKLConan(ConanFile):
         if self.options.sycl:
             sycl_comp = self.cpp_info.components["mkl-sycl"]
             sycl_comp.set_property("cmake_target_name", "MKL::MKL_SYCL")
-            sycl_comp.requires.append(self._mkl_lib)
+            if not self.options.get_safe("shared", True):
+                sycl_comp.libs = ["mkl_sycl"]
+            sycl_comp.requires = [
+                self._mkl_lib,
+                "intel-dpcpp-sycl::intel-dpcpp-sycl",
+                "intel-opencl::intel-opencl",
+            ]
 
             sycl_comp.cflags = ["-fsycl"]
             sycl_comp.cxxflags = ["-fsycl"]
@@ -390,17 +402,20 @@ class OneMKLConan(ConanFile):
                 component_name = f"mkl-sycl-{domain}"
                 comp = self.cpp_info.components[component_name]
                 comp.set_property("cmake_target_name", f"MKL::MKL_SYCL::{domain.upper()}")
-                comp.libs = [f"mkl_sycl_{domain}{suffix}"]
-                comp.requires = [
-                    self._mkl_lib,
-                    "intel-dpcpp-sycl::intel-dpcpp-sycl",
-                    "intel-opencl::intel-opencl",
-                ]
-                comp.cflags = ["-fsycl"]
-                comp.cxxflags = ["-fsycl"]
-                comp.sharedlinkflags = sycl_link_flags
-                comp.exelinkflags = sycl_link_flags
-                sycl_comp.requires.append(component_name)
+                if not self.options.get_safe("shared", True):
+                    comp.requires = ["mkl-sycl"]
+                else:
+                    comp.libs = [f"mkl_sycl_{domain}{suffix}"]
+                    comp.requires = [
+                        self._mkl_lib,
+                        "intel-dpcpp-sycl::intel-dpcpp-sycl",
+                        "intel-opencl::intel-opencl",
+                    ]
+                    comp.cflags = ["-fsycl"]
+                    comp.cxxflags = ["-fsycl"]
+                    comp.sharedlinkflags = sycl_link_flags
+                    comp.exelinkflags = sycl_link_flags
+                    sycl_comp.requires.append(component_name)
 
             if self.options.get_safe("omp_offload"):
                 mkl_comp.requires.append("mkl-sycl")
