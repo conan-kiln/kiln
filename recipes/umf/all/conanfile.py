@@ -83,6 +83,10 @@ class UmfConan(ConanFile):
         pool_jemalloc = Path("src/pool/pool_jemalloc.c")
         content = re.sub("je_(?!pool)", "", pool_jemalloc.read_text())
         pool_jemalloc.write_text(content)
+        if Version(self.version) < 1:
+            # FIXME: not sure why .rc compilation fails on Windows
+            replace_in_file(self, "src/CMakeLists.txt", "${CMAKE_CURRENT_BINARY_DIR}/libumf.rc", "")
+            replace_in_file(self, "src/proxy_lib/CMakeLists.txt", "${CMAKE_CURRENT_BINARY_DIR}/proxy_lib.rc", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
