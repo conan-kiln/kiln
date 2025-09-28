@@ -31,6 +31,7 @@ class IntelDpcppSyclConan(ConanFile):
 
     def requirements(self):
         self.requires("umf/[<1]", options={"shared": True})
+        self.requires(f"intel-ur/{self.version}")
 
     def package_id(self):
         del self.info.settings.compiler
@@ -53,15 +54,12 @@ class IntelDpcppSyclConan(ConanFile):
     def build(self):
         self._get_pypi_package("intel-sycl-rt")
         self._get_pypi_package("intel-cmplr-lib-rt")
-        self._get_pypi_package("intel-cmplr-lib-ur")
-        self._get_pypi_package("intel-cmplr-lic-rt")
 
     def package(self):
         move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
-        copy(self, "*", os.path.join(self.package_folder, "licensing/compiler"), os.path.join(self.package_folder, "licenses"))
-        rmdir(self, os.path.join(self.package_folder, "licensing"))
+        copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
         # Don't vendor onnxruntime
-        rm(self, "onnxruntime", os.path.join(self.package_folder, "lib"))
+        rm(self, "*onnxruntime*", os.path.join(self.package_folder, "lib"))
         # Replace hard copies with symlinks
         if self.settings.os in ["Linux", "FreeBSD"]:
             libdir = Path(self.package_folder, "lib")
