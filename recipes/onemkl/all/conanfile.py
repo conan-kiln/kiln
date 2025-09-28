@@ -135,6 +135,13 @@ class OneMKLConan(ConanFile):
         if self.options.threading == "tbb":
             # Requires libonetbb.so.12
             self.requires("onetbb/[>=2021]")
+        elif self.options.threading == "intel":
+            v = Version(self.version)
+            self.requires(f"intel-openmp/[~{v.major}.{v.minor}]")
+        if self.options.sycl:
+            v = Version(self.version)
+            self.requires(f"intel-dpcpp-sycl/[~{v.major}.{v.minor}]")
+            self.requires(f"intel-opencl/[~{v.major}.{v.minor}]")
 
     def validate(self):
         # TODO: add Windows support
@@ -318,8 +325,7 @@ class OneMKLConan(ConanFile):
         if self.options.threading == "intel":
             self.cpp_info.components["mkl-iomp"].set_property("pkg_config_name", f"mkl-{linkage}-{interface}-iomp")
             self.cpp_info.components["mkl-iomp"].libs = ["mkl_intel_thread"]
-            self.cpp_info.components["mkl-iomp"].system_libs = ["libiomp5md" if self.settings.os == "Windows" else "iomp5"]
-            self.cpp_info.components["mkl-iomp"].requires = [interface_lib]
+            self.cpp_info.components["mkl-iomp"].requires = [interface_lib, "intel-openmp::intel-openmp"]
 
         # Cluster libraries
         if self.options.blacs:
@@ -374,8 +380,11 @@ class OneMKLConan(ConanFile):
                 comp = self.cpp_info.components[component_name]
                 comp.set_property("cmake_target_name", f"MKL::MKL_SYCL::{domain.upper()}")
                 comp.libs = [f"mkl_sycl_{domain}"]
-                sycl_comp.system_libs = ["sycl", "OpenCL"]
-                comp.requires = [self._mkl_lib]
+                comp.requires = [
+                    self._mkl_lib,
+                    "intel-dpcpp-sycl::intel-dpcpp-sycl",
+                    "intel-opencl::intel-opencl",
+                ]
                 comp.cflags = ["-fsycl"]
                 comp.cxxflags = ["-fsycl"]
                 comp.sharedlinkflags = sycl_link_flags
