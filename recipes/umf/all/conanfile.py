@@ -29,7 +29,7 @@ class UmfConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_jemalloc": True,
+        "with_jemalloc": False,
         "with_level_zero": True,
         "with_cuda": False,
     }
