@@ -7,8 +7,6 @@ import requests
 import yaml
 from conan.tools.scm import Version
 
-MIN_VERSION = "2024"
-
 PACKAGES = {
     "onemkl": [
         "mkl",
@@ -30,11 +28,18 @@ PACKAGES = {
         "onemkl-sycl-distributed-dft",
         "onemkl-devel-sycl-distributed-dft",
     ],
+    "intel-dpcpp-sycl": [
+        "intel-sycl-rt",
+        "intel-cmplr-lib-rt",
+        "intel-cmplr-lib-ur",
+        "intel-cmplr-lic-rt",
+    ],
+    "intel-tcmlib": ["tcmlib"],
 }
 
-ROOT_PACKAGE = {
-    "onemkl": "mkl",
-    "onemkl-sycl": "mkl-dpcpp",
+MIN_VERSIONS = {
+    "onemkl": "2024",
+    "intel-dpcpp-sycl": "2025.1",
 }
 
 recipes_root = pathlib.Path(__file__).resolve().parent.parent.parent.parent
@@ -134,14 +139,16 @@ def main():
     check_for_new_onemkl_packages(intel_packages)
 
     for conan_package in PACKAGES:
+        packages = PACKAGES[conan_package]
         print(f"Fetching versions for {conan_package} ...")
-        versions = get_versions(ROOT_PACKAGE[conan_package])
-        selected_versions = select_versions(versions, MIN_VERSION)
+        root_package = packages[0]
+        versions = get_versions(root_package)
+        min_version = MIN_VERSIONS.get(conan_package, "0")
+        selected_versions = select_versions(versions, min_version)
 
         print(f"Found {len(selected_versions)} versions")
 
         print("Indexing package release files from PyPI ...")
-        packages = PACKAGES[conan_package]
         per_package_filemaps = {}
         for pkg in packages:
             print(f"  -> {pkg}")
