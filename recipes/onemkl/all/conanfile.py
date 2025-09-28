@@ -2,11 +2,13 @@ import os
 from functools import cached_property
 from pathlib import Path
 
+import yaml
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -32,6 +34,16 @@ class OneMKLConan(ConanFile):
         "blacs": [True, False],
         "mpi": ["intelmpi", "openmpi"],
         "compatibility_headers": [True, False],
+        # SYCL submodules
+        "sycl_blas": [True, False],
+        "sycl_lapack": [True, False],
+        "sycl_data_fitting": [True, False],
+        "sycl_dft": [True, False],
+        "sycl_rng": [True, False],
+        "sycl_sparse": [True, False],
+        "sycl_stats": [True, False],
+        "sycl_vm": [True, False],
+        "sycl_distributed_dft": [True, False],
     }
     default_options = {
         "interface": "lp64",
@@ -45,6 +57,16 @@ class OneMKLConan(ConanFile):
         "blacs": False,
         "mpi": "intelmpi",
         "compatibility_headers": True,
+        # SYCL submodules
+        "sycl_blas": True,
+        "sycl_lapack": True,
+        "sycl_data_fitting": True,
+        "sycl_dft": True,
+        "sycl_rng": True,
+        "sycl_sparse": True,
+        "sycl_stats": True,
+        "sycl_vm": True,
+        "sycl_distributed_dft": True,
     }
     options_description = {
         "interface": "GNU or Intel interface to use",
@@ -60,6 +82,18 @@ class OneMKLConan(ConanFile):
     }
     provides = ["mkl"]
 
+    @cached_property
+    def _packages(self):
+        with open(os.path.join(self.recipe_folder, "sources", f"{self.version}.yml")) as f:
+            return yaml.safe_load(f)[str(self.settings.os)]
+
+    @property
+    def _sycl_domains(self):
+        return ["blas", "lapack", "data_fitting", "dft", "rng", "sparse", "stats", "vm", "distributed_dft"]
+
+    def export(self):
+        copy(self, f"{self.version}.yml", os.path.join(self.recipe_folder, "sources"), os.path.join(self.export_folder, "sources"))
+
     def config_options(self):
         if self.settings.compiler == "intel-cc":
             self.options.interface = "ilp64"
@@ -71,12 +105,18 @@ class OneMKLConan(ConanFile):
     def configure(self):
         if not self.options.get_safe("shared", True):
             del self.options.sdl
-        if not self.options.sycl or self.options.get_safe("sdl"):
-            self.options.rm_safe("omp_offload")
         if not self.options.blacs:
             del self.options.mpi
         else:
             self.provides = ["onemkl", "mkl", "blacs", "scalapack"]
+        if not self.options.sycl or self.options.get_safe("sdl"):
+            self.options.rm_safe("omp_offload")
+        if not self.options.sycl:
+            for opt, _ in list(self.options.items()):
+                if opt.startswith("sycl_"):
+                    self.options.rm_safe(opt)
+        if Version(self.version) < "2025.2.0":
+            self.options.rm_safe("sycl_distributed_dft")
 
     def package_id(self):
         del self.info.settings.compiler
@@ -94,7 +134,7 @@ class OneMKLConan(ConanFile):
     def requirements(self):
         if self.options.threading == "tbb":
             # Requires libonetbb.so.12
-            self.requires("onetbb/[>=2021 <2023]")
+            self.requires("onetbb/[>=2021]")
 
     def validate(self):
         # TODO: add Windows support
@@ -110,27 +150,51 @@ class OneMKLConan(ConanFile):
         if self.options.threading == "gnu" and self.settings.compiler not in ["gcc", "clang", "apple-clang"]:
             raise ConanInvalidConfiguration("threading=gnu option is only available with GCC or Clang compilers.")
 
-    def _download_and_extract_deb(self, info):
-        download(self, **info, filename="pkg.deb")
-        self.run(f"ar x pkg.deb")
-        self.run(f"tar -xf data.tar.*")
-        rm(self, "data.tar.*", self.build_folder)
-        os.unlink("pkg.deb")
+    def _get_pypi_package(self, name):
+        get(self, **self._packages[name], destination=self.build_folder, strip_root=True)
 
     def build(self):
-        for info in self.conan_data["sources"][self.version][str(self.settings.os)]:
-            if "-devel" in info["url"] and self.options.get_safe("shared", True):
-                continue
-            if "-cluster" in info["url"] and not self.options.blacs:
-                continue
-            if "-sycl" in info["url"] and not self.options.sycl:
-                continue
-            self._download_and_extract_deb(info)
-        root = next(Path(self.build_folder).rglob(".toolkit_linking_tool")).parent
-        move_folder_contents(self, root, self.source_folder)
+        self._get_pypi_package("mkl-devel")
+        self._get_pypi_package("mkl-include")
+        if self.options.get_safe("shared", True):
+            self._get_pypi_package("mkl")
+        else:
+            self._get_pypi_package("mkl-static")
+
+        if self.options.sycl:
+            if not self.options.get_safe("shared", True) or Version(self.version) < "2025.2.0":
+                # provides a monolithic libmkl_sycl.a
+                self._get_pypi_package("mkl-devel-dpcpp")
+            if Version(self.version) >= "2025.2.0":
+                self._get_pypi_package("onemkl-sycl-include")
+            if self.options.sycl_blas:
+                self._get_pypi_package("onemkl-sycl-blas")
+            if self.options.sycl_lapack:
+                self._get_pypi_package("onemkl-sycl-lapack")
+            if self.options.sycl_data_fitting:
+                self._get_pypi_package("onemkl-sycl-datafitting")
+            if self.options.sycl_dft:
+                self._get_pypi_package("onemkl-sycl-dft")
+            if self.options.sycl_rng:
+                self._get_pypi_package("onemkl-sycl-rng")
+            if self.options.sycl_sparse:
+                self._get_pypi_package("onemkl-sycl-sparse")
+            if self.options.sycl_stats:
+                self._get_pypi_package("onemkl-sycl-stats")
+            if self.options.sycl_vm:
+                self._get_pypi_package("onemkl-sycl-vm")
+            if self.options.get_safe("sycl_distributed_dft"):
+                if self.options.get_safe("shared", True):
+                    self._get_pypi_package("onemkl-sycl-distributed-dft")
+                else:
+                    self._get_pypi_package("onemkl-devel-sycl-distributed-dft")
+
+        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.source_folder)
 
     def package(self):
-        copy(self, "license.txt", os.path.join(self.source_folder, "share/doc/mkl/licensing"), os.path.join(self.package_folder, "licenses"))
+        copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*", os.path.join(self.source_folder, "share/doc/mkl/licensing"), os.path.join(self.package_folder, "licenses"))
+
         mkdir(self, os.path.join(self.package_folder, "include"))
         mkdir(self, os.path.join(self.package_folder, "lib"))
         move_folder_contents(self, os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
@@ -155,6 +219,11 @@ class OneMKLConan(ConanFile):
             for static_lib in Path(self.package_folder, "lib").glob("*.a"):
                 if static_lib.with_suffix(".so").exists():
                     rm(self, f"{static_lib.stem}.so*", os.path.join(self.package_folder, "lib"))
+
+        # Restore symlinks
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            for f in Path(self.package_folder, "lib").glob("*.so.*"):
+                Path(str(f).rsplit(".so", 1)[0] + ".so").symlink_to(f.name)
 
         if self.options.compatibility_headers:
             save(self, os.path.join(self.package_folder, "include", "blas.h"), '#include "mkl_blas.h"\n')
@@ -278,10 +347,8 @@ class OneMKLConan(ConanFile):
 
         # SYCL support
         if self.options.sycl:
-            domains = ["blas", "lapack", "dft", "sparse", "rng", "stats", "vm", "data_fitting"]
             sycl_comp = self.cpp_info.components["mkl-sycl"]
             sycl_comp.set_property("cmake_target_name", "MKL::MKL_SYCL")
-            sycl_comp.requires = [f"mkl-sycl-{domain}" for domain in domains]
             sycl_comp.requires.append(self._mkl_lib)
 
             sycl_comp.cflags = ["-fsycl"]
@@ -295,8 +362,11 @@ class OneMKLConan(ConanFile):
             sycl_comp.sharedlinkflags.extend(sycl_link_flags)
             sycl_comp.exelinkflags.extend(sycl_link_flags)
 
-            for domain in domains:
-                comp = self.cpp_info.components[f"mkl-sycl-{domain}"]
+            for domain in self._sycl_domains:
+                if not self.options.get_safe(f"sycl_{domain}"):
+                    continue
+                component_name = f"mkl-sycl-{domain}"
+                comp = self.cpp_info.components[component_name]
                 comp.set_property("cmake_target_name", f"MKL::MKL_SYCL::{domain.upper()}")
                 comp.libs = [f"mkl_sycl_{domain}"]
                 sycl_comp.system_libs = ["sycl", "OpenCL"]
@@ -305,6 +375,7 @@ class OneMKLConan(ConanFile):
                 comp.cxxflags = ["-fsycl"]
                 comp.sharedlinkflags = sycl_link_flags
                 comp.exelinkflags = sycl_link_flags
+                sycl_comp.requires.append(component_name)
 
             if self.options.get_safe("omp_offload"):
                 mkl_comp.requires.append("mkl-sycl")
@@ -321,5 +392,3 @@ class OneMKLConan(ConanFile):
 
         self.runenv_info.define_path("MKLROOT", self.package_folder)
         self.buildenv_info.define_path("MKLROOT", self.package_folder)
-        # Make mkl_link_tool available in build context
-        self.buildenv_info.prepend_path("PATH", os.path.join(self.package_folder, "bin"))
