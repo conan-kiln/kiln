@@ -47,7 +47,7 @@ class OneMKLConan(ConanFile):
         "sycl_distributed_dft": [True, False],
     }
     default_options = {
-        "shared": False,
+        "shared": True,
         "interface": "lp64",
         "sdl": True,
         "interface_type": "intel",
