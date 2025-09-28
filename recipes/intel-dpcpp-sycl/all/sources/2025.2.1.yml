@@ -1,0 +1,26 @@
+Linux:
+  intel-sycl-rt:
+    url: https://files.pythonhosted.org/packages/a0/00/5621dd3aa9e078ebed8b5b73fe86986e4554398466f218b3125f7f76c7a9/intel_sycl_rt-2025.2.1-py2.py3-none-manylinux_2_28_x86_64.whl
+    sha256: d44dd7e76cf7b624de9106f3d9c3d541f6f20d83e861f724b055867fd351b064
+  intel-cmplr-lib-rt:
+    url: https://files.pythonhosted.org/packages/1c/a9/a3d904890e2c5ea906db65c90b912553a94da44d4e81f26641b0d124cedb/intel_cmplr_lib_rt-2025.2.1-py2.py3-none-manylinux_2_28_x86_64.whl
+    sha256: 13e53cf4ee3d910db5ed46cf994c99dd391b50d6efb553cf3dd029b866d79a86
+  intel-cmplr-lib-ur:
+    url: https://files.pythonhosted.org/packages/92/18/28198666e0ee1709a471c3e376001146e629214d67553bc9fa3e7bbc9b8e/intel_cmplr_lib_ur-2025.2.1-py2.py3-none-manylinux_2_28_x86_64.whl
+    sha256: ecc6eba009ead8ea819d931107ba11e2b502f5d8ebbd287e4901074a764f9792
+  intel-cmplr-lic-rt:
+    url: https://files.pythonhosted.org/packages/24/87/c2229d6dbda1a9b949f009c9a0b1f14141b2725bb526964e6e263328935a/intel_cmplr_lic_rt-2025.2.1-py2.py3-none-manylinux_2_28_x86_64.whl
+    sha256: aeaad4648cc0baaefffb0a0f8c1c2d1de01e5396711c3e69e36fab90030889d8
+Windows:
+  intel-sycl-rt:
+    url: https://files.pythonhosted.org/packages/11/71/ee0944c6eebf297b2963bef7ebc712d605982e85374bcafe12b9c467826f/intel_sycl_rt-2025.2.1-py2.py3-none-win_amd64.whl
+    sha256: 97f6b66550a8211b37d17664efec98268ea59ca9ca3715da883505029e5dc74b
+  intel-cmplr-lib-rt:
+    url: https://files.pythonhosted.org/packages/af/fc/89aac6ca9d5c92eacbe6619021d9311d7269f47613c6e50f5519c9ed7ce3/intel_cmplr_lib_rt-2025.2.1-py2.py3-none-win_amd64.whl
+    sha256: 0676b41ace402b5a641851eb3775abf1d712cd412b47e3a5b23b9f8c1f6a9c8d
+  intel-cmplr-lib-ur:
+    url: https://files.pythonhosted.org/packages/a8/70/938e81f58886fd4e114d5a5480d98c1396e73e40b7650f566ad0c4395311/intel_cmplr_lib_ur-2025.2.1-py2.py3-none-win_amd64.whl
+    sha256: 497348e3bcb9fa0e079ade2d7cf2c10931e78eb9845285d1b6bb6dcd2764964a
+  intel-cmplr-lic-rt:
+    url: https://files.pythonhosted.org/packages/12/c1/a9d132d0f7089aaca377aee9caa8bba8f4616066181d2c1a897655aa071c/intel_cmplr_lic_rt-2025.2.1-py2.py3-none-win_amd64.whl
+    sha256: 345a31c25b1d059a6f146f61404949d2bd8127b92c86effaec0d7202a9ca735d
