@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-27:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-28:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -462,6 +462,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - dynamic-graph/4.4.3
 - dynolog/0.5.0
 - dynolog/0.5.1-git.20250624
+- easyexif/1.0+openmvg.20200322
 - egl-headers/20220525
 - egl-headers/20250527
 - eigen/3.3.7
@@ -731,7 +732,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libnop/cci.20211103
 - libosmium/2.20.0
 - libpciaccess/0.18.1
-- libpng/1.6.49
 - libpq/17.0
 - libprotobuf-mutator/1.5
 - libproxy/0.5.9
@@ -1214,6 +1214,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - snopt-mockup/89
 - soplex/3.1.1
 - spectra/1.1.0
+- spectra/1.2.0
 - speech-dispatcher/0.12
 - spirv-cross/1.3.290.0
 - spirv-headers/1.3.250.1
