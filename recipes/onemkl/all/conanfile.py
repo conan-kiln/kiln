@@ -225,6 +225,11 @@ class OneMKLConan(ConanFile):
             for f in Path(self.package_folder, "lib").glob("*.so.*"):
                 Path(str(f).rsplit(".so", 1)[0] + ".so").symlink_to(f.name)
 
+        if self.options.sycl and self.settings.os in ["Linux", "FreeBSD"]:
+            # Create a linker script libmkl_sycl.so file that is otherwise provided by mkl-devel-dpcpp
+            ldflags = [f"-lmkl_sycl_{domain}" for domain in self._sycl_domains if self.options.get_safe(f"sycl_{domain}")]
+            save(self, os.path.join(self.package_folder, "lib", "libmkl_sycl.so"), f"INPUT({' '.join(ldflags)})\n")
+
         if self.options.compatibility_headers:
             save(self, os.path.join(self.package_folder, "include", "blas.h"), '#include "mkl_blas.h"\n')
             save(self, os.path.join(self.package_folder, "include", "cblas.h"), '#include "mkl_cblas.h"\n')
