@@ -29,6 +29,7 @@ PACKAGES = {
         "onemkl-devel-sycl-distributed-dft",
     ],
     "intel-openmp": ["intel-openmp"],
+    "intel-opencl": ["intel-opencl-rt"],
     "intel-ur": ["intel-cmplr-lib-ur"],
     "intel-tcmlib": ["tcmlib"],
     "intel-dpcpp-sycl": [
@@ -40,6 +41,7 @@ PACKAGES = {
 MIN_VERSIONS = {
     "onemkl": "2024",
     "intel-openmp": "2024",
+    "intel-opencl": "2024",
     "intel-ur": "2024",
     "intel-dpcpp-sycl": "2025.1",
 }
