@@ -91,6 +91,8 @@ class OneMathConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires(f"intel-dpcpp-sycl/[~{self.settings.compiler.version}]")
+
         if self.options.mklcpu or self.options.mklgpu:
             self.requires("onemkl/[*]", transitive_headers=True, transitive_libs=True)
         if self.options.netlib_blas:
@@ -174,6 +176,8 @@ class OneMathConan(ConanFile):
             tc.cache_variables["HIP_TARGETS"] = self.options.hip_targets
         tc.cache_variables["BUILD_FUNCTIONAL_TESTS"] = False
         tc.cache_variables["BUILD_EXAMPLES"] = False
+        if self.options.mklcpu or self.options.mklgpu:
+            tc.cache_variables["MKL_INCLUDE"] = self.dependencies["onemkl"].package_folder.replace("\\", "/") + "/include"
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -309,7 +313,7 @@ class OneMathConan(ConanFile):
 
         sycl = self.cpp_info.components["onemath_sycl"]
         sycl.set_property("cmake_target_name", "ONEMATH::SYCL::SYCL")
-        sycl.system_libs = ["sycl"]
+        sycl.requires = ["intel-dpcpp-sycl::intel-dpcpp-sycl"]
         sycl.cxxflags = ["-fsycl"]
         if self.settings.os != "Windows":
             ldflags = ["-fsycl"]
