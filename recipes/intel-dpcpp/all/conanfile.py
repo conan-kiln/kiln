@@ -11,8 +11,8 @@ from conan.tools.files import *
 required_conan_version = ">=2.1"
 
 
-class PackageConan(ConanFile):
-    name = "intel-oneapi-dpcpp-cpp"
+class IntelDpcppConan(ConanFile):
+    name = "intel-dpcpp"
     description = "Intel oneAPI DPC++/C++ Compiler"
     # https://intel.ly/393CijO
     license = "DocumentRef-license.txt:LicenseRef-Intel-DevTools-EULA"
