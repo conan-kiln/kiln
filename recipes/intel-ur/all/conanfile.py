@@ -47,9 +47,13 @@ class IntelUrConan(ConanFile):
 
     def build(self):
         self._get_pypi_package("intel-cmplr-lib-ur")
+        if self.settings.os == "Windows":
+            move_folder_contents(self, os.path.join(self.build_folder, "data", "Library"), self.source_folder)
+        else:
+            move_folder_contents(self, os.path.join(self.build_folder, "data"), self.source_folder)
 
     def package(self):
-        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
+        move_folder_contents(self, self.source_folder, self.package_folder)
         copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
         # Replace hard copies with symlinks
         if self.settings.os in ["Linux", "FreeBSD"]:
@@ -65,3 +69,4 @@ class IntelUrConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.includedirs = []
+        self.cpp_info.libs = ["ur_loader"]
