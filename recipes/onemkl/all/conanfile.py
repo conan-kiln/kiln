@@ -20,9 +20,10 @@ class OneMKLConan(ConanFile):
     license = "DocumentRef-license.txt:LicenseRef-Intel-DevTools-EULA"
     homepage = "https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html"
     topics = ("intel", "oneapi", "math", "blas", "lapack", "linear-algebra", "pre-built")
-    package_type = "shared-library"  # static is not supported due to Conan's inability to handle circular library dependencies
+    package_type = "library"  # shared-library on Linux
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "shared": [True, False],
         "interface": ["lp64", "ilp64"],
         "sdl": [True, False],
         "interface_type": ["intel", "gf"],
@@ -46,6 +47,7 @@ class OneMKLConan(ConanFile):
         "sycl_distributed_dft": [True, False],
     }
     default_options = {
+        "shared": False,
         "interface": "lp64",
         "sdl": True,
         "interface_type": "intel",
@@ -95,12 +97,18 @@ class OneMKLConan(ConanFile):
         copy(self, f"{self.version}.yml", os.path.join(self.recipe_folder, "sources"), os.path.join(self.export_folder, "sources"))
 
     def config_options(self):
+        if self.settings.os != "Windows":
+            # static is not supported due to Conan's inability to handle circular library dependencies
+            del self.options.shared
+            self.package_type = "shared-library"
         if self.settings.compiler == "intel-cc":
             self.options.interface = "ilp64"
             self.options.threading = "intel"
             self.options.sycl = True
         else:
             del self.options.omp_offload
+        if Version(self.version) < "2025.2.0" or self.settings.os == "Windows":
+            del self.options.sycl_distributed_dft
 
     def configure(self):
         if not self.options.get_safe("shared", True):
@@ -115,8 +123,6 @@ class OneMKLConan(ConanFile):
             for opt, _ in list(self.options.items()):
                 if opt.startswith("sycl_"):
                     self.options.rm_safe(opt)
-        if Version(self.version) < "2025.2.0":
-            self.options.rm_safe("sycl_distributed_dft")
 
     def package_id(self):
         del self.info.settings.compiler
@@ -144,16 +150,13 @@ class OneMKLConan(ConanFile):
             self.requires(f"intel-opencl/[~{v.major}.{v.minor}]")
 
     def validate(self):
-        # TODO: add Windows support
-        if self.settings.os not in ["FreeBSD", "Linux"]:
+        if self.settings.os not in ["FreeBSD", "Linux", "Windows"]:
             raise ConanInvalidConfiguration(f"{self.settings.os} is not supported")
         if self.settings.arch != "x86_64":
             raise ConanInvalidConfiguration("Only x86_64 architecture is supported")
         if self.settings.compiler not in ["intel-cc", "clang", "apple-clang"]:
             if self.options.sycl:
                 raise ConanInvalidConfiguration(f"{self.settings.compiler} does not support SYCL.")
-            if self.options.threading == "intel":
-                raise ConanInvalidConfiguration("threading=intel options is only available with an Intel or Clang compiler.")
         if self.options.threading == "gnu" and self.settings.compiler not in ["gcc", "clang", "apple-clang"]:
             raise ConanInvalidConfiguration("threading=gnu option is only available with GCC or Clang compilers.")
 
@@ -196,7 +199,11 @@ class OneMKLConan(ConanFile):
                 else:
                     self._get_pypi_package("onemkl-devel-sycl-distributed-dft")
 
-        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.source_folder)
+        if self.settings.os == "Windows":
+            move_folder_contents(self, os.path.join(self.build_folder, "data", "Library"), self.source_folder)
+            copy(self, "*", os.path.join(self.build_folder, "data"), self.source_folder)
+        else:
+            move_folder_contents(self, os.path.join(self.build_folder, "data"), self.source_folder)
 
     def package(self):
         copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
@@ -206,10 +213,12 @@ class OneMKLConan(ConanFile):
         mkdir(self, os.path.join(self.package_folder, "lib"))
         move_folder_contents(self, os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
         move_folder_contents(self, os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        if self.settings.os == "Windows" and self.options.get_safe("shared", True):
+            mkdir(self, os.path.join(self.package_folder, "bin"))
+            move_folder_contents(self, os.path.join(self.source_folder, "bin"), os.path.join(self.package_folder, "bin"))
+
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        if os.path.exists(os.path.join(self.package_folder, "lib", "intel64")):
-            os.unlink(os.path.join(self.package_folder, "lib", "intel64"))
 
         # Keep only the libraries for the selected interface.
         # Could theoretically package both, but the other interface is just a gigabyte of dead weight.
@@ -269,6 +278,7 @@ class OneMKLConan(ConanFile):
             mkl_comp.requires.append("lapack95")
 
         interface = self.options.interface.value
+        suffix = "_dll" if self.settings.os == "Windows" and self.options.get_safe("shared", True) else ""
 
         # Single Dynamic Library (SDL) interface
         if self.options.get_safe("sdl"):
@@ -283,8 +293,9 @@ class OneMKLConan(ConanFile):
             self.runenv_info.define("MKL_THREADING_LAYER", self.options.threading.value.upper())
 
         # Core library
-        self.cpp_info.components["mkl-core"].libs = ["mkl_core"]
-        self.cpp_info.components["mkl-core"].system_libs = ["pthread", "m", "dl"]
+        self.cpp_info.components["mkl-core"].libs = [f"mkl_core{suffix}"]
+        if self.settings.os in ["Linux", "FreeBSD"] and not self.options.get_safe("shared", True):
+            self.cpp_info.components["mkl-core"].system_libs = ["pthread", "m", "dl"]
         if not is_msvc(self) and self.options.get_safe("shared", True) and not self.options.sdl:
             # Hacky fix to handle circular dependencies between the shared libraries
             self.cpp_info.components["mkl-core"].sharedlinkflags = ["-Wl,--start-group"]
@@ -297,21 +308,21 @@ class OneMKLConan(ConanFile):
         interface_lib = f"mkl-{self.options.interface_type}"
         linkage = "dynamic" if self.options.get_safe("shared", True) else "static"
         if self.options.interface_type == "gf":
-            self.cpp_info.components["mkl-gf"].libs = [f"mkl_gf_{interface}"]
+            self.cpp_info.components["mkl-gf"].libs = [f"mkl_gf_{interface}{suffix}"]
             self.cpp_info.components["mkl-gf"].requires = ["mkl-core"]
         elif self.options.interface_type == "intel":
-            self.cpp_info.components["mkl-intel"].libs = [f"mkl_intel_{interface}"]
+            self.cpp_info.components["mkl-intel"].libs = [f"mkl_intel_{interface}{suffix}"]
             self.cpp_info.components["mkl-intel"].requires = ["mkl-core"]
 
         # Threading backend libraries
         if self.options.threading == "sequential":
             self.cpp_info.components["mkl-seq"].set_property("pkg_config_name", f"mkl-{linkage}-{interface}-seq")
-            self.cpp_info.components["mkl-seq"].libs = ["mkl_sequential"]
+            self.cpp_info.components["mkl-seq"].libs = [f"mkl_sequential{suffix}"]
             self.cpp_info.components["mkl-seq"].requires = [interface_lib]
 
         if self.options.threading == "tbb":
             self.cpp_info.components["mkl-tbb"].set_property("pkg_config_name", f"mkl-{linkage}-{interface}-tbb")
-            self.cpp_info.components["mkl-tbb"].libs = ["mkl_tbb_thread"]
+            self.cpp_info.components["mkl-tbb"].libs = [f"mkl_tbb_thread{suffix}"]
             self.cpp_info.components["mkl-tbb"].requires = [interface_lib, "onetbb::onetbb"]
 
         if self.options.threading == "gnu":
@@ -324,36 +335,36 @@ class OneMKLConan(ConanFile):
 
         if self.options.threading == "intel":
             self.cpp_info.components["mkl-iomp"].set_property("pkg_config_name", f"mkl-{linkage}-{interface}-iomp")
-            self.cpp_info.components["mkl-iomp"].libs = ["mkl_intel_thread"]
+            self.cpp_info.components["mkl-iomp"].libs = [f"mkl_intel_thread{suffix}"]
             self.cpp_info.components["mkl-iomp"].requires = [interface_lib, "intel-openmp::intel-openmp"]
 
         # Cluster libraries
         if self.options.blacs:
             self.cpp_info.components["cdft"].set_property("cmake_target_name", "MKL::MKL_CDFT")
-            self.cpp_info.components["cdft"].libs = ["mkl_cdft_core"]
+            self.cpp_info.components["cdft"].libs = [f"mkl_cdft_core{suffix}"]
             self.cpp_info.components["cdft"].requires = [f"blacs-{self.options.mpi}"]
             self.cpp_info.components["cdft"].requires = [self._mkl_lib]
 
             self.cpp_info.components["scalapack"].set_property("cmake_target_name", "MKL::MKL_SCALAPACK")
-            self.cpp_info.components["scalapack"].libs = [f"mkl_scalapack_{interface}"]
+            self.cpp_info.components["scalapack"].libs = [f"mkl_scalapack_{interface}{suffix}"]
             self.cpp_info.components["scalapack"].requires = [f"blacs-{self.options.mpi}"]
             self.cpp_info.components["scalapack"].requires = [self._mkl_lib]
 
             self.cpp_info.components["blacs"].set_property("cmake_target_name", "MKL::MKL_BLACS")
             self.cpp_info.components["blacs"].requires = [f"blacs-{self.options.mpi}"]
             if self.options.mpi == "intelmpi":
-                self.cpp_info.components["blacs-intelmpi"].libs = [f"mkl_blacs_intelmpi_{interface}"]
+                self.cpp_info.components["blacs-intelmpi"].libs = [f"mkl_blacs_intelmpi_{interface}{suffix}"]
                 self.cpp_info.components["blacs-intelmpi"].requires = [self._mkl_lib]
             if self.options.mpi == "openmpi":
-                self.cpp_info.components["blacs-openmpi"].libs = [f"mkl_blacs_openmpi_{interface}"]
+                self.cpp_info.components["blacs-openmpi"].libs = [f"mkl_blacs_openmpi_{interface}{suffix}"]
                 self.cpp_info.components["blacs-openmpi"].requires = [self._mkl_lib]
 
         # Fortran95 API libraries
         if self.options.blas95:
-            self.cpp_info.components["blas95"].libs = [f"mkl_blas95_{interface}"]
+            self.cpp_info.components["blas95"].libs = [f"mkl_blas95_{interface}{suffix}"]
             self.cpp_info.components["blas95"].requires = [self._mkl_lib]
         if self.options.lapack95:
-            self.cpp_info.components["lapack95"].libs = [f"mkl_lapack95_{interface}"]
+            self.cpp_info.components["lapack95"].libs = [f"mkl_lapack95_{interface}{suffix}"]
             self.cpp_info.components["lapack95"].requires = [self._mkl_lib]
 
         # SYCL support
@@ -379,7 +390,7 @@ class OneMKLConan(ConanFile):
                 component_name = f"mkl-sycl-{domain}"
                 comp = self.cpp_info.components[component_name]
                 comp.set_property("cmake_target_name", f"MKL::MKL_SYCL::{domain.upper()}")
-                comp.libs = [f"mkl_sycl_{domain}"]
+                comp.libs = [f"mkl_sycl_{domain}{suffix}"]
                 comp.requires = [
                     self._mkl_lib,
                     "intel-dpcpp-sycl::intel-dpcpp-sycl",
