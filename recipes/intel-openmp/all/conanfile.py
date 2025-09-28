@@ -30,7 +30,8 @@ class IntelOpenMPConan(ConanFile):
 
     def package_id(self):
         del self.info.settings.compiler
-        del self.info.settings.build_type
+        if self.info.settings.os != "Windows":
+            del self.info.settings.build_type
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -51,13 +52,19 @@ class IntelOpenMPConan(ConanFile):
         self._get_pypi_package("intel-openmp")
 
     def package(self):
-        move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
+        if self.settings.os == "Windows":
+            move_folder_contents(self, os.path.join(self.build_folder, "data", "Library"), self.package_folder)
+            copy(self, "*", os.path.join(self.build_folder, "data"), self.package_folder)
+        else:
+            move_folder_contents(self, os.path.join(self.build_folder, "data"), self.package_folder)
         copy(self, "LICENSE.txt", self.build_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*", os.path.join(self.package_folder, "share/doc/compiler/licensing/openmp"), os.path.join(self.package_folder, "licenses"))
         rm(self, "*.a", os.path.join(self.package_folder, "lib"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
+        if self.settings.os == "Windows" and self.settings.build_type not in ["Debug", "RelWithDebInfo"]:
+            rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
 
     def package_info(self):
-        self.cpp_info.libs = ["iomp5"]
+        self.cpp_info.libs = ["libiomp5md" if self.settings.os == "Windows" else "iomp5"]
         self.cpp_info.includedirs = ["opt/compiler/include"]
