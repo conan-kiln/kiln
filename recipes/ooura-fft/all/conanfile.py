@@ -1,23 +1,20 @@
 import os
+import textwrap
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
-required_conan_version = ">=2.1"
+required_conan_version = ">=2.4"
 
 
-class FftConan(ConanFile):
-    name = "fft"
+class OouraFftConan(ConanFile):
+    name = "ooura-fft"
+    description = "This is a package to calculate Discrete Fourier/Cosine/Sine Transforms of 2,3-dimensional sequences of length 2^N."
     license = "LicenseRef-LICENSE"
     homepage = "http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html"
-    description = (
-        "This is a package to calculate Discrete Fourier/Cosine/Sine "
-        "Transforms of 2,3-dimensional sequences of length 2^N."
-    )
     topics = ("fft2d", "fft3d", "dct", "dst", "dft")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -34,18 +31,15 @@ class FftConan(ConanFile):
         "max_threads": 4,
         "threads_begin_n": 65536,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     exports_sources = ["CMakeLists.txt", "fft_build.c", "fft.h", "fft2.h", "fft3.h", "dct.h"]
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
         if not self.options.threads:
             del self.options.max_threads
             del self.options.threads_begin_n
@@ -83,11 +77,11 @@ class FftConan(ConanFile):
         cmake.build()
 
     def package(self):
-        save(self, os.path.join(self.package_folder, "licenses", "LICENSE"),
-"""Copyright
-    Copyright(C) 1997,2001 Takuya OOURA (email: ooura@kurims.kyoto-u.ac.jp).
-    You may use, copy, modify this code for any purpose and
-    without fee. You may distribute this ORIGINAL package.""")
+        save(self, os.path.join(self.package_folder, "licenses", "LICENSE"), textwrap.dedent("""\
+            Copyright(C) 1997,2001 Takuya OOURA (email: ooura@kurims.kyoto-u.ac.jp).
+            You may use, copy, modify this code for any purpose and
+            without fee. You may distribute this ORIGINAL package.
+        """))
         cmake = CMake(self)
         cmake.install()
 
