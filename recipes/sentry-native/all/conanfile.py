@@ -47,15 +47,6 @@ class SentryNativeConan(ConanFile):
         "wer": False,
     }
 
-    @property
-    def _min_cppstd(self):
-        # Sentry-native broke support of C++17 in 0.7.8 and fixed it in 0.7.19
-        # https://github.com/getsentry/sentry-native/releases/tag/0.7.19
-        if self.options.get_safe("with_crashpad") == "sentry" and "0.7.8" <= Version(self.version) < "0.7.19":
-            return "20"
-        else:
-            return "17"
-
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
@@ -75,7 +66,7 @@ class SentryNativeConan(ConanFile):
         if self.settings.os == "Macos":
             self.options.backend = "crashpad"
         if self.settings.os in ("FreeBSD", "Linux"):
-            self.options.backend = "breakpad" if Version(self.version) < "0.7.0" else "crashpad"
+            self.options.backend = "crashpad"
         if self.settings.os not in ("Linux", "Android") or self.options.backend != "crashpad" or self.options.with_crashpad != "sentry":
             del self.options.crashpad_with_tls
 
@@ -109,7 +100,7 @@ class SentryNativeConan(ConanFile):
                 self.requires("openssl/[>=1.1 <4]")
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
+        check_min_cppstd(self, 17)
         if self.options.transport == "winhttp" and self.settings.os != "Windows":
             raise ConanInvalidConfiguration("The winhttp transport is only supported on Windows")
         if self.settings.compiler == "apple-clang" and Version(self.settings.compiler.version) < "10.0":
@@ -125,9 +116,6 @@ class SentryNativeConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["SENTRY_BACKEND"] = self.options.backend
-        # See https://github.com/getsentry/sentry-native/pull/928
-        if Version(self.version) < "0.7.0" and self.options.backend == "crashpad":
-            tc.variables["SENTRY_CRASHPAD_SYSTEM"] = self.options.with_crashpad == "google"
         if self.options.backend == "breakpad":
             tc.variables["SENTRY_BREAKPAD_SYSTEM"] = self.options.with_breakpad == "google"
         tc.variables["SENTRY_ENABLE_INSTALL"] = True
