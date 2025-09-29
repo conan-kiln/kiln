@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-28:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-29:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -652,7 +652,29 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - imgui/1.91.9b
 - imlib2/1.12.3
 - implot/0.17.cci.20250319
-- intel-oneapi-dpcpp-cpp/2025.1.1
+- intel-dpcpp-sycl/2025.1.1
+- intel-dpcpp-sycl/2025.2.1
+- intel-dpcpp/2025.1.1
+- intel-dpcpp/2025.2.1
+- intel-opencl/2024.0.3
+- intel-opencl/2024.1.2
+- intel-opencl/2024.2.1
+- intel-opencl/2025.0.5
+- intel-opencl/2025.1.1
+- intel-opencl/2025.2.1
+- intel-openmp/2024.0.3
+- intel-openmp/2024.1.2
+- intel-openmp/2024.2.1
+- intel-openmp/2025.0.5
+- intel-openmp/2025.1.1
+- intel-openmp/2025.2.1
+- intel-tcmlib/1.2.0
+- intel-tcmlib/1.3.0
+- intel-tcmlib/1.4.0
+- intel-ur/2024.2.1
+- intel-ur/2025.0.5
+- intel-ur/2025.1.1
+- intel-ur/2025.2.1
 - ios-cmake/4.4.1
 - iridescence/0.1.6
 - isl/0.27
@@ -678,7 +700,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lbfgspp/0.4.0
 - ldns/1.8.4
 - lessmsi/2.8.1
-- level-zero/1.22.4
+- level-zero/1.24.3
 - libalsa/1.2.14
 - libbasisu/1.16.4
 - libbpf/1.4.6
@@ -1040,7 +1062,12 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - onednn-openvino/3.6.2.cci.20250514
 - onednn/3.8.1
 - onednn/3.9.0
-- onemath/0.7
+- onemath/0.8
+- onemkl/2024.0.0
+- onemkl/2024.1.0
+- onemkl/2024.2.2
+- onemkl/2025.0.1
+- onemkl/2025.1.0
 - onemkl/2025.2.0
 - oniguruma/6.9.10
 - onnxruntime/1.18.2
@@ -1330,6 +1357,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ucc/1.5.0
 - ucxx/0.45.01
 - ufbx/0.18.2
+- umf/0.11.2
+- umf/1.0.3
 - uno/2.0.3
 - usearch/2.9.1
 - userspace-rcu/0.15.3
