@@ -73,7 +73,7 @@ class OnnxRuntimeConan(ConanFile):
         self.requires("boost/[^1.71.0]", headers=True, libs=False)  # for mp11, header only, no need for libraries
         self.requires("safeint/[^3.0.28]")
         self.requires("nlohmann_json/[^3]")
-        eigen_version = "[^4, include_prerelease]" if Version(self.version) >= "1.19.0" else "3.4.0"
+        eigen_version = "[^5.0]" if Version(self.version) >= "1.19.0" else "3.4.0"
         self.requires(f"eigen/{eigen_version}")
         self.requires("ms-gsl/[^4.0.0]")
         self.requires("cpuinfo/[>=cci.20231129]")
