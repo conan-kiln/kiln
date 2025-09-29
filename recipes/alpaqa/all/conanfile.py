@@ -67,7 +67,7 @@ class AlpaqaConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("guanaqo/[^1.0, include_prerelease]", transitive_headers=True)
         if self.options.with_casadi:
             self.requires("casadi/[^3.7]", transitive_headers=True)

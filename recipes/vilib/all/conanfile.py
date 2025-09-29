@@ -37,7 +37,7 @@ class VilibConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True, options={"highgui": True})
         self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
 
@@ -57,6 +57,7 @@ class VilibConan(ConanFile):
         rmdir(self, os.path.join("visual_lib", "test"))
         apply_conandata_patches(self)
         replace_in_file(self, "CMakeLists.txt", " -Werror", "")
+        replace_in_file(self, "CMakeLists.txt", "CXX_STANDARD 11", "")
 
     def generate(self):
         tc = CMakeToolchain(self)

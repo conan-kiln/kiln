@@ -24,7 +24,7 @@ class TinyADConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
 
     @property
     def _compilers_minimum_version(self):

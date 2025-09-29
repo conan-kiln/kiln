@@ -87,7 +87,7 @@ class OpenmvgConan(ConanFile):
         self.requires("coin-osi/[>=0.108.10 <1]")
         self.requires("coin-utils/[^2.11.11]")
         self.requires("coin-lemon/1.3.1", transitive_headers=True, transitive_libs=True)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("flann/[^1]", transitive_headers=True, transitive_libs=True)
         self.requires("hnswlib/[<1]")
         self.requires("easyexif/[1.0+openmvg.*]")
@@ -140,6 +140,10 @@ class OpenmvgConan(ConanFile):
         # Ensure internal dependencies are not used by accident
         replace_in_file(self, "src/CMakeLists.txt", "set(OpenMVG_USE_INTERNAL_", "# set(OpenMVG_USE_INTERNAL_")
         replace_in_file(self, "src/CMakeLists.txt", "find_package(OpenMP)", "find_package(OpenMP REQUIRED)")
+        # Eigen v5 compatibility
+        replace_in_file(self, "src/openMVG/numeric/eigen_alias_definition.hpp",
+                        "#include <initializer_list>",
+                        "#include <cassert>\n#include <initializer_list>")
 
     def generate(self):
         tc = CMakeToolchain(self)

@@ -45,8 +45,8 @@ class GtsamPointsPackage(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
-        self.requires("gtsam/4.2", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
+        self.requires("gtsam/[^4.2]", transitive_headers=True, transitive_libs=True)
         self.requires("nanoflann/[~1.3]", transitive_headers=True, transitive_libs=True)
         self.requires("boost/[^1.71.0]", transitive_headers=True, transitive_libs=True)
         if self.options.openmp:

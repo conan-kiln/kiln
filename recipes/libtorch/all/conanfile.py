@@ -222,7 +222,7 @@ class LibtorchConan(ConanFile):
         self.requires("concurrentqueue/[^1.0]", transitive_headers=True, transitive_libs=True)
         self.requires("cpp-httplib/[>=0.18.0 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("cpuinfo/[*]", transitive_headers=True, transitive_libs=True)
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
         self.requires("fmt/[*]", transitive_headers=True, transitive_libs=True)
         self.requires("kineto/[>=0.4.0 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("libbacktrace/[*]")

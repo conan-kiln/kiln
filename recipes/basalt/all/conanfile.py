@@ -48,7 +48,7 @@ class BasaltConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("sophus/[^1]", transitive_headers=True)
         self.requires("cereal/[^1.3]", transitive_headers=True)
         self.requires("onetbb/[*]", transitive_headers=True, transitive_libs=True)
@@ -79,6 +79,8 @@ class BasaltConan(ConanFile):
         for p in Path("thirdparty").iterdir():
             if p.is_dir() and p.name not in ["basalt-headers", "apriltag"]:
                 rmdir(self, p)
+        # Relax an Eigen versin check
+        replace_in_file(self, "CMakeLists.txt", "Eigen3 3.4.0", "Eigen3")
 
     def generate(self):
         tc = CMakeToolchain(self)

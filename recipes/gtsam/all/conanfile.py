@@ -19,7 +19,6 @@ class GtsamConan(ConanFile):
                    "smoothing and mapping (SAM) in robotics and vision")
     topics = ("mapping", "smoothing", "optimization", "factor-graphs",
               "state-estimation", "computer-vision", "robotics")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -113,7 +112,7 @@ class GtsamConan(ConanFile):
         self.requires("boost/[^1.71.0]", transitive_headers=True, options={
             f"with_{comp}": True for comp in self._required_boost_components
         })
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("spectra/[^1.1.0]")
         if self.options.with_TBB:
             self.requires("onetbb/[>=2021 <2023]", transitive_headers=True, transitive_libs=True)
@@ -181,6 +180,8 @@ class GtsamConan(ConanFile):
             replace_in_file(self, "CMakeLists.txt",
                             "cmake_minimum_required(VERSION 3.0)",
                             "cmake_minimum_required(VERSION 3.5)")
+        if self.version == "4.1.1":
+            replace_in_file(self, "cmake/GtsamMakeConfigFile.cmake", "${${PACKAGE_NAME}_VERSION}", f'"{self.version}"')
 
     def generate(self):
         tc = CMakeToolchain(self)

@@ -15,7 +15,6 @@ class GlimPackage(ConanFile):
     license = "MIT"
     homepage = "https://github.com/koide3/glim"
     topics = ("localization", "mapping", "gpu", "ros", "imu", "lidar", "slam", "3d", "rgb-d")
-
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -44,7 +43,7 @@ class GlimPackage(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True)
         self.requires("gtsam/[~4.2]", transitive_headers=True, transitive_libs=True)
         self.requires("gtsam_points/[^1.0.6]", transitive_headers=True, transitive_libs=True)

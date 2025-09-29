@@ -35,6 +35,7 @@ class Nmslib(ConanFile):
     options_description = {
         "build_extras": "Add support for Signature Quadratic Form Distance (SQFD). Not supported on MSVC.",
     }
+    implements = ["auto_shared_fpic"]
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -46,29 +47,22 @@ class Nmslib(ConanFile):
             # Not available on MSVC
             # https://github.com/nmslib/nmslib/blob/v2.1.1/similarity_search/include/space/space_sqfd.h#L19
             del self.options.build_extras
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
+            del self.options.shared
+            self.package_type = "static-library"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
         if self.options.get_safe("build_extras"):
-            # Eigen is only used internally, no need for transitive_*
-            self.requires("eigen/3.4.0")
-
-    def validate(self):
-        check_min_vs(self, 190)  # TODO: add reason in message
-        if is_msvc(self) and self.options.shared:
-            raise ConanInvalidConfiguration(
-                "Visual Studio shared builds are not supported (.lib artifacts missing)"
-            )
+            self.requires("eigen/[>=3.3 <6]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        # The finite-math-only optimization has no effect and can cause linking errors
+        # when linked against glibc >= 2.31
+        replace_in_file(self, "similarity_search/CMakeLists.txt", "-Ofast", "-Ofast -fno-finite-math-only")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -81,18 +75,10 @@ class Nmslib(ConanFile):
             raise ConanException("CMAKE_POLICY_VERSION_MINIMUM hardcoded to 3.5, check if new version supports CMake 4")
         tc.generate()
         deps = CMakeDeps(self)
+        deps.set_property("eigen", "cmake_file_name", "EIGEN")
         deps.generate()
 
-    def _patch_sources(self):
-        replace_in_file(self, os.path.join(self.source_folder, "similarity_search", "CMakeLists.txt"),
-                        "EIGEN3", "Eigen3")
-        # The finite-math-only optimization has no effect and can cause linking errors
-        # when linked against glibc >= 2.31
-        replace_in_file(self, os.path.join(self.source_folder, "similarity_search", "CMakeLists.txt"),
-                        "-Ofast", "-Ofast -fno-finite-math-only")
-
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure(build_script_folder="similarity_search")
         cmake.build()

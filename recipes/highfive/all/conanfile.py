@@ -42,14 +42,13 @@ class HighFiveConan(ConanFile):
         if self.options.get_safe("with_boost", True):
             self.requires("boost/[^1.71.0]")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.with_xtensor:
             self.requires("xtensor/[>=0.24.7 <1]")
         if self.options.with_opencv:
             self.requires("opencv/[^4.5]")
 
     def package_id(self):
-        # INFO: We only set different compiler definitions. The package content is the same.
         self.info.clear()
 
     def validate(self):
@@ -58,9 +57,10 @@ class HighFiveConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         # Support CMake v4
-        replace_in_file(self, "CMakeLists.txt",
-                        "cmake_minimum_required(VERSION 3.1)",
-                        "cmake_minimum_required(VERSION 3.5)")
+        if Version(self.version) < 3:
+            replace_in_file(self, "CMakeLists.txt",
+                            "cmake_minimum_required(VERSION 3.1)",
+                            "cmake_minimum_required(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)

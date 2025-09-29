@@ -39,7 +39,7 @@ class PiqpConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_blasfeo:
             self.requires("blasfeo/[>=0.1 <1]", transitive_headers=True, transitive_libs=True)
         if self.options.with_openmp:
@@ -55,6 +55,7 @@ class PiqpConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "include/piqp/dense/ldlt_no_pivot.hpp", "EIGEN_NOEXCEPT", "noexcept")
 
     def generate(self):
         tc = CMakeToolchain(self)

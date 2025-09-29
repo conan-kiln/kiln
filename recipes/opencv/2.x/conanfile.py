@@ -70,7 +70,7 @@ class OpenCVConan(ConanFile):
         "fPIC": True,
         # global options
         "with_eigen": True,
-        "with_tbb": True,
+        "with_tbb": False,
         "world": False,
         # highgui module options
         "with_jpeg": True,
@@ -351,7 +351,7 @@ class OpenCVConan(ConanFile):
     def requirements(self):
         self.requires("zlib-ng/[^2.0]")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.with_tbb:
             # opencv 2.x doesn't support onetbb >= 2021
             self.requires("onetbb/[^2020.3]")

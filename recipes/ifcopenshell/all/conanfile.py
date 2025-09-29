@@ -84,7 +84,7 @@ class IfcopenshellConan(ConanFile):
         if self.options.build_ifcgeom:
             self.requires("opencascade/[^7.5]", transitive_headers=True, transitive_libs=True)
             # ifcgeom/taxonomy.h
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
             if self.options.with_cgal:
                 # Used in ifcgeom/kernels/cgal public headers
                 self.requires("cgal/[>=5.6]", transitive_headers=True, transitive_libs=True)

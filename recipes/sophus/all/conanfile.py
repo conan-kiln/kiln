@@ -27,7 +27,7 @@ class SophusConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("fmt/[>=5]", transitive_headers=True)
 
     def package_id(self):

@@ -54,7 +54,7 @@ class H5ppConan(ConanFile):
     def requirements(self):
         self.requires("hdf5/[^1.8]", transitive_headers=True, transitive_libs=True)
         if Version(self.version) < "1.10.0" or self.options.get_safe("with_eigen"):
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if Version(self.version) < "1.10.0" or self.options.get_safe("with_spdlog"):
             self.requires("spdlog/[^1.8]", transitive_headers=True, transitive_libs=True)
         if Version(self.version) >= "1.10.0" and self.options.with_zlib:
@@ -80,7 +80,6 @@ class H5ppConan(ConanFile):
             includedir = os.path.join(self.source_folder, "include")
         copy(self, "*", includedir, os.path.join(self.package_folder, "include"))
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
-
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "h5pp")

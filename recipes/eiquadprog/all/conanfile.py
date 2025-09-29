@@ -33,7 +33,7 @@ class EiquadprogConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate(self):
         if self.settings.compiler == "msvc":
@@ -41,6 +41,10 @@ class EiquadprogConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Add a missing include
+        replace_in_file(self, "src/eiquadprog-fast.cpp",
+                        "#include <iostream>",
+                        "#include <iostream>\n#include <cassert>")
 
     def generate(self):
         tc = CMakeToolchain(self)

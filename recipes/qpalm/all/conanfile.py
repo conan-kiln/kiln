@@ -42,7 +42,7 @@ class QpalmConan(ConanFile):
         if self.options.with_ladel:
             self.requires("ladel/[>=0.0.4 <1]", transitive_headers=True)
         if self.options.cxx:
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate(self):
         if self.settings.get_safe("compiler.cstd"):

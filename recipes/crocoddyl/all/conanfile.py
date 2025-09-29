@@ -52,7 +52,7 @@ class CrocoddylConan(ConanFile):
     def requirements(self):
         self.requires("pinocchio/[^3.4.0]", transitive_headers=True, transitive_libs=True)
         self.requires("boost/[^1.71.0]", transitive_headers=True, transitive_libs=True)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_openmp:
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
         if self.options.codegen:

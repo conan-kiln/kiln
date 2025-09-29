@@ -31,13 +31,15 @@ class Gm2calcConan(ConanFile):
 
     def requirements(self):
         self.requires("boost/[^1.71.0]")
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate(self):
         check_min_cppstd(self, 14)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 14)", "")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_C_STANDARD 11)", "")
         # Fix src/slhaea.h:25:10: fatal error: boost/algorithm/string/classification.hpp: No such file or directory
         save(self, "src/CMakeLists.txt", "\ninclude_directories(${Boost_INCLUDE_DIRS})", append=True)
         # Disable examples, test and doc

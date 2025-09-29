@@ -17,7 +17,6 @@ class SplinterConan(ConanFile):
     license = "MPL-2.0"
     homepage = "https://github.com/bgrimstad/splinter"
     topics = ("splines", "interpolation", "smoothing", "function-approximation")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -48,7 +47,7 @@ class SplinterConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[^3.3]", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
         check_min_cppstd(self, 11)

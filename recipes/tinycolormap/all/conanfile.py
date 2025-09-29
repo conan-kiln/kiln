@@ -35,7 +35,7 @@ class TinycolormapConan(ConanFile):
 
     def requirements(self):
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.with_qt:
             # Fails with qInitResources_gui_shaders() if transitive_libs=False
             self.requires("qt/[>=5.15 <7]", transitive_headers=True, transitive_libs=True)

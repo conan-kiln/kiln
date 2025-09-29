@@ -40,7 +40,7 @@ class HyhoundConan(ConanFile):
     def requirements(self):
         self.requires("guanaqo/[^1.0, include_prerelease]", transitive_headers=True, transitive_libs=True)
         if self.options.enable_ocp:
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate(self):
         check_min_cppstd(self, 17)

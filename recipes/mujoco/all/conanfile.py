@@ -44,7 +44,7 @@ class MujocoConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
         self.requires("tinyxml2/[*]")
         self.requires("tinyobjloader/[^2, include_prerelease]")
         self.requires("libccd/[^2.1]", options={"double_precision": True})

@@ -84,7 +84,7 @@ class OpenCVConan(ConanFile):
         if self.options.with_tiff:
             self.requires("libtiff/[>=4.5 <5]")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.parallel == "openmp":
             # not used in any public headers
             self.requires("openmp/system")

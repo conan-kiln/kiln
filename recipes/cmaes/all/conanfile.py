@@ -44,7 +44,7 @@ class CmaesConan(ConanFile):
 
     def requirements(self):
         # Transitive header: https://github.com/CMA-ES/libcmaes/blob/v0.10/include/libcmaes/eigenmvn.h#L36
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.openmp:
             # pragma omp is used in genopheno.h public header
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)

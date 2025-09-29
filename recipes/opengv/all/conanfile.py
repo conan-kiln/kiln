@@ -35,7 +35,7 @@ class opengvConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_python_bindings:
             self.requires("pybind11/[^2.10.1]")
 
@@ -53,6 +53,8 @@ class opengvConan(ConanFile):
         replace_in_file(self, "CMakeLists.txt",
                         "cmake_minimum_required(VERSION 3.1.3)",
                         "cmake_minimum_required(VERSION 3.5)")
+        replace_in_file(self, "CMakeLists.txt", "CXX_STANDARD 11", "")
+        replace_in_file(self, "include/opengv/types.hpp", "#include <stdlib.h>", "#include <cassert>\n#include <cstdlib>")
 
     def generate(self):
         tc = CMakeToolchain(self)

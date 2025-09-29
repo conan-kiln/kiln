@@ -47,6 +47,7 @@ class CoalConan(ConanFile):
         "boost/*:with_thread": True,
         "boost/*:with_date_time": True,
         "boost/*:with_filesystem": True,
+        "boost/*:with_serialization": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -71,7 +72,7 @@ class CoalConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("boost/[^1.71.0]", transitive_headers=True, transitive_libs=True)
         self.requires("assimp/[^5.1.6]")
         if self.options.with_octomap:

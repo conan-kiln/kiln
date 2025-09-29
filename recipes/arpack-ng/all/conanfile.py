@@ -51,7 +51,7 @@ class ArpackNgConan(ConanFile):
     def requirements(self):
         self.requires("lapack/latest")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate_build(self):
         if not self._fortran_compiler:

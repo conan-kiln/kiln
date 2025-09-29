@@ -36,6 +36,10 @@ class MetavisionSdkConan(ConanFile):
         # Advanced SDK options
         "advanced_sdk_repo_url": None,
         "ubuntu_version": "jammy",
+
+        "boost/*:with_filesystem": True,
+        "boost/*:with_program_options": True,
+        "boost/*:with_timer": True,
     }
 
     @property
@@ -60,11 +64,7 @@ class MetavisionSdkConan(ConanFile):
         # metavision/psee_hw_layer/boards/utils/psee_libusb.h
         self.requires("libusb/[^1.0.26]", transitive_headers=True)
         # several headers, e.g. metavision/sdk/core/preprocessors/json_parser.h
-        self.requires("boost/[^1.71.0]", transitive_headers=True, options={
-            "with_filesystem": True,
-            "with_program_options": True,
-            "with_timer": True,
-        })
+        self.requires("boost/[^1.71.0]", transitive_headers=True)
         # OpenCV is used in many public headers
         opencv_extra = {"videoio": True}
         if self.options.advanced_sdk_repo_url:
@@ -83,7 +83,7 @@ class MetavisionSdkConan(ConanFile):
             self.requires("glfw/[^3.4]", transitive_headers=True)
 
         if self.options.advanced_sdk_repo_url:
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
             # self.requires("boost/[^1.71.0]", force=True)
             # self.requires("opencv/4.5.5", force=True)
             # self.requires("protobuf/3.12.4", force=True)

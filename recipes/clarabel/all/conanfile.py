@@ -37,7 +37,7 @@ class ClarabelConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.serde:
             self.requires("openssl/[>=1.1 <4]")
 

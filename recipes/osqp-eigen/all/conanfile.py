@@ -31,7 +31,7 @@ class OSQPEigenConan(ConanFile):
 
     def requirements(self):
         self.requires("osqp/[>=0.6 <2]", transitive_headers=True, transitive_libs=True)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate(self):
         check_min_cppstd(self, 14)

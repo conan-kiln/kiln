@@ -25,7 +25,7 @@ class SpectraConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
 
     def package_id(self):
         self.info.clear()

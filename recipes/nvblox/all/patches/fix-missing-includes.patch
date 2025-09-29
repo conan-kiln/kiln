@@ -1,0 +1,54 @@
+--- a/nvblox/include/nvblox/geometry/internal/impl/plane_impl.h
++++ b/nvblox/include/nvblox/geometry/internal/impl/plane_impl.h
+@@ -14,6 +14,8 @@
+ limitations under the License.
+ */
+ #pragma once
++
++#include <cassert>
+ 
+ namespace nvblox {
+ 
+--- a/nvblox/include/nvblox/integrators/internal/cuda/impl/decayer_impl.cuh
++++ b/nvblox/include/nvblox/integrators/internal/cuda/impl/decayer_impl.cuh
+@@ -18,6 +18,8 @@
+ #include "nvblox/integrators/internal/cuda/projective_integrators_common.cuh"
+ #include "nvblox/integrators/internal/integrators_common.h"
+ #include "nvblox/interpolation/interpolation_2d.h"
++
++#include <cassert>
+ 
+ namespace nvblox {
+ 
+--- a/nvblox/src/integrators/freespace_integrator.cu
++++ b/nvblox/src/integrators/freespace_integrator.cu
+@@ -19,6 +19,8 @@
+ #include "nvblox/integrators/internal/cuda/projective_integrators_common.cuh"
+ #include "nvblox/integrators/internal/integrators_common.h"
+ #include "nvblox/utils/timing.h"
++
++#include <cassert>
+ 
+ namespace nvblox {
+ 
+--- a/nvblox/src/mesh/mesh_integrator_appearance.cu
++++ b/nvblox/src/mesh/mesh_integrator_appearance.cu
+@@ -15,6 +15,7 @@
+ */
+ #include <cuda_runtime.h>
+ #include <type_traits>  // Ensure this is included
++#include <cassert>
+ 
+ #include "nvblox/integrators/internal/integrators_common.h"
+ #include "nvblox/map/accessors.h"
+--- a/nvblox/src/semantics/mask_from_detections.cu
++++ b/nvblox/src/semantics/mask_from_detections.cu
+@@ -14,6 +14,8 @@
+ limitations under the License.
+ */
+ #include "nvblox/semantics/mask_from_detections.h"
++
++#include <cassert>
+ 
+ #include "nvblox/core/unified_vector.h"
+ #include "nvblox/utils/timing.h"

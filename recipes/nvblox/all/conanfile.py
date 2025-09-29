@@ -35,7 +35,7 @@ class NvbloxConan(ConanFile):
         self.cuda.requires("nvtx", transitive_headers=True)
         self.cuda.requires("curand", transitive_headers=True)
         self.requires("stdgpu/1.3.0-nvblox.20240211", transitive_headers=True, transitive_libs=True, options={"backend": "cuda"})
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("gflags/[^2]", transitive_headers=True, transitive_libs=True)
         self.requires("glog/[>=0.5 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("sqlite3/[^3]")

@@ -1252,7 +1252,7 @@ class OpenCVConan(ConanFile):
         # core module dependencies
         self.requires("zlib-ng/[^2.0]")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.get_safe("with_lapack"):
             self.requires("lapack/latest")
         if self.options.get_safe("with_clp"):

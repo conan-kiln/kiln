@@ -53,6 +53,8 @@ class CeresSolverConan(ConanFile):
         "use_CXX11_threads": False,
         "use_OpenMP": True,
         "use_TBB": False,
+
+        "eigen/*:MPL2_only": False,
     }
     options_description = {
         "use_cuda": "Enable CUDA support.",
@@ -102,21 +104,20 @@ class CeresSolverConan(ConanFile):
         if Version(self.version) < "2.1.0":
             del self.options.use_cuda
 
-        # https://github.com/ceres-solver/ceres-solver/blob/2.2.0/CMakeLists.txt#L168-L175
-        if self.settings.os == "iOS":
-            del self.options.use_lapack
-            del self.options.use_suitesparse
-
         if not is_apple_os(self) or self.version < "2.0.0":
             del self.options.use_accelerate
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
+        if self.options.get_safe("use_eigen_metis"):
+            self.options.use_eigen_sparse.value = True
         if not self.options.get_safe("use_cuda"):
             del self.settings.cuda
-        if self.options.use_eigen_sparse:
-            self.options["eigen"].MPL2_only = False
+        # https://github.com/ceres-solver/ceres-solver/blob/2.2.0/CMakeLists.txt#L168-L175
+        if self.settings.os == "iOS":
+            self.options.use_lapack.value = False
+            self.options.use_suitesparse.value = False
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -125,20 +126,23 @@ class CeresSolverConan(ConanFile):
     def _require_metis(self):
         if Version(self.version) < "2.2.0":
             return False
-        return self.options.get_safe("use_eigen_metis") or self.options.get_safe("use_suitesparse")
+        return self.options.get_safe("use_eigen_metis") or self.options.use_suitesparse
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        if Version(self.version) >= "2.0":
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
+        else:
+            self.requires("eigen/[^3.3]", transitive_headers=True)
         if Version(self.version, qualifier=True) >= "2.3.0":
             self.requires("abseil/[>=20240116]", transitive_headers=True, transitive_libs=True)
         elif not self._use_miniglog:
             self.requires("glog/0.6.0", transitive_headers=True, transitive_libs=True)
-        if self.options.get_safe("use_suitesparse"):
+        if self.options.use_suitesparse:
             self.requires("suitesparse-spqr/[^4.3.4]")
             self.requires("suitesparse-cholmod/[^5.3.0]")
             if Version(self.version) < "2.2.0":
                 self.requires("suitesparse-cxsparse/[^4.4.1]")
-        if self.options.get_safe("use_lapack"):
+        if self.options.use_lapack:
             self.requires("lapack/latest")
         if self._require_metis:
             self.requires("metis/5.2.1")
@@ -156,25 +160,24 @@ class CeresSolverConan(ConanFile):
 
     def validate(self):
         check_min_cppstd(self, self._min_cppstd)
-
         if self.options.get_safe("use_cuda"):
             self.cuda.validate_settings()
-
-        if self.options.get_safe("use_eigen_metis") and not self.options.use_eigen_sparse:
-            raise ConanInvalidConfiguration("use_eigen_metis requires use_eigen_sparse=True")
-
         # https://github.com/ceres-solver/ceres-solver/blob/2.2.0/CMakeLists.txt#L203
-        if self.options.use_eigen_sparse and self.dependencies["eigen"].options.MPL2_only:
-            raise ConanInvalidConfiguration("use_eigen_sparse=True requires eigen with MPL2_only=False")
+        if self.options.use_eigen_sparse:
+            if self.dependencies["eigen"].ref.version < 5 and self.dependencies["eigen"].options.MPL2_only:
+                raise ConanInvalidConfiguration("use_eigen_sparse=True requires eigen with MPL2_only=False")
 
     def build_requirements(self):
-        self.tool_requires("cmake/[>=3.18 <5]")
+        self.tool_requires("cmake/[>=3.18]")
         if Version(self.version) >= "2.2.0" and self.options.use_cuda:
             self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        if Version(self.version) < "2.0":
+            replace_in_file(self, "CMakeLists.txt", "cmake_minimum_required(VERSION 2.8.0)", "cmake_minimum_required(VERSION 3.5)")
+            replace_in_file(self, "CMakeLists.txt", "cmake_policy(VERSION 2.8)", "")
         copy(self, "FindSuiteSparse.cmake", self.export_sources_folder, os.path.join(self.source_folder, "cmake"))
         if Version(self.version) >= "2.2.0":
             # Don't force CMAKE_CUDA_ARCHITECTURES, let CudaToolchain handle it
@@ -194,11 +197,11 @@ class CeresSolverConan(ConanFile):
         tc.variables["EIGENSPARSE"] = self.options.use_eigen_sparse
         if Version(self.version, qualifier=True) < "2.3.0":
             tc.variables["GFLAGS"] = False # useless for the lib itself, gflags is not a direct dependency
-        tc.variables["LAPACK"] = self.options.get_safe("use_lapack", False)
+        tc.variables["LAPACK"] = self.options.use_lapack
         tc.variables["MINIGLOG"] = self._use_miniglog
         tc.variables["SCHUR_SPECIALIZATIONS"] = self.options.use_schur_specializations
-        tc.variables["SUITESPARSE"] = self.options.get_safe("use_suitesparse", False)
-        if self.options.get_safe("use_suitesparse"):
+        tc.variables["SUITESPARSE"] = self.options.use_suitesparse
+        if self.options.use_suitesparse:
             tc.variables["SuiteSparse_VERSION"] = str(self.dependencies["suitesparse-config"].ref.version)
             tc.variables["SuiteSparse_Partition_FOUND"] = self.dependencies["suitesparse-cholmod"].options.build_partition
 
@@ -301,12 +304,12 @@ class CeresSolverConan(ConanFile):
             ])
         elif not self._use_miniglog:
             requires.append("glog::glog")
-        if self.options.get_safe("use_suitesparse"):
+        if self.options.use_suitesparse:
             requires.append("suitesparse-cholmod::suitesparse-cholmod")
             requires.append("suitesparse-spqr::suitesparse-spqr")
             if Version(self.version) < "2.2.0":
                 requires.append("suitesparse-cxsparse::suitesparse-cxsparse")
-        if self.options.get_safe("use_lapack"):
+        if self.options.use_lapack:
             requires.append("lapack::lapack")
         if self._require_metis:
             requires.append("metis::metis")

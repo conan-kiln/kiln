@@ -1,12 +1,10 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -29,27 +27,10 @@ class LibpointmatcherConan(ConanFile):
         "fPIC": True,
         "with_openmp": True,
     }
-
-    @property
-    def _min_cppstd(self):
-        return "17"
-
-    @property
-    def _compilers_minimum_version(self):
-        # https://github.com/norlab-ulaval/libpointmatcher/blob/1.4.3/CMakeLists.txt#L240
-        return {
-            "gcc": "9",
-            "clang": "5",
-            "apple-clang": "7",
-            "msvc": "190",
-        }
+    implements = ["auto_shared_fpic"]
 
     def export_sources(self):
         export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
 
     def configure(self):
         if self.options.shared:
@@ -64,7 +45,7 @@ class LibpointmatcherConan(ConanFile):
 
     def requirements(self):
         self.requires("boost/[^1.71.0]", transitive_headers=True, libs=False)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("libnabo/1.0.7")
         self.requires("yaml-cpp/[>=0.7.0 <1]", transitive_headers=True)
         if self.options.with_openmp:
@@ -72,12 +53,7 @@ class LibpointmatcherConan(ConanFile):
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-            )
+        check_min_cppstd(self, 17)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

@@ -29,7 +29,7 @@ class QpmadConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
 
     def validate(self):
         check_min_cppstd(self, 14)

@@ -55,7 +55,7 @@ class LightGBMConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
         self.requires("fast_double_parser/[>=0.7.0 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("fmt/[>=5]", transitive_headers=True, transitive_libs=True)
         if self.options.get_safe("with_openmp"):
