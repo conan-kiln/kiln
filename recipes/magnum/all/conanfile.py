@@ -20,7 +20,6 @@ class MagnumConan(ConanFile):
     license = "MIT"
     homepage = "https://magnum.graphics"
     topics = ("magnum", "graphics", "middleware", "graphics", "rendering", "gamedev", "opengl", "3d", "2d", "opengl", "game-engine", "pre-built")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -277,6 +276,7 @@ class MagnumConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt", "cmake_minimum_required(VERSION 3.4)", "cmake_minimum_required(VERSION 3.5)")
         replace_in_file(self, "CMakeLists.txt",
                         'set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})', "")
         # Get rid of cmake_dependent_option, it can activate features when we try to disable them,
