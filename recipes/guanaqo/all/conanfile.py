@@ -117,7 +117,7 @@ class GuanaqoConan(ConanFile):
             # self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_HL_BLAS_TRACING")
             self.cpp_info.requires = ["core"]
             if self.options.with_blas:
-                self.cpp_info.components["blas"].requires.append("blas::blas")
+                self.cpp_info.components["blas"].requires.append("lapack::lapack")
                 self.cpp_info.components["blas"].defines.append("GUANAQO_WITH_BLAS")
                 blas_provider = str(self.dependencies["blas"].options.provider)
                 if blas_provider == "openblas":
