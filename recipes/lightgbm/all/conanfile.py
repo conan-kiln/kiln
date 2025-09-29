@@ -44,7 +44,6 @@ class LightGBMConan(ConanFile):
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
-        export_conandata_patches(self)
 
     def configure(self):
         if self.options.shared:
@@ -78,16 +77,7 @@ class LightGBMConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
-        if Version(self.version) < "4.0":
-            # For CMake v4 support
-            replace_in_file(self, "CMakeLists.txt",
-                            "cmake_minimum_required(VERSION ",
-                            "cmake_minimum_required(VERSION 3.18) # ")
-        # Fix vendored dependency includes
-        if Version(self.version) < "4.6.0":
-            for lib in ["fmt", "fast_double_parser"]:
-                replace_in_file(self, "include/LightGBM/utils/common.h", f"../../../external_libs/{lib}/include/", "")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD", "# set(CMAKE_CXX_STANDARD")
         # Unvendor Eigen3
         replace_in_file(self, "CMakeLists.txt", "include_directories(${EIGEN_DIR})", "")
         # Avoid OpenMP_CXX_FLAGS
@@ -95,8 +85,7 @@ class LightGBMConan(ConanFile):
                         'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")',
                         'link_libraries(OpenMP::OpenMP_CXX)')
         # Let CudaToolchain handle CUDA architectures
-        if Version(self.version) >= "4.6.0":
-            replace_in_file(self, "CMakeLists.txt", " CUDA_ARCHITECTURES ", " # CUDA_ARCHITECTURES ")
+        replace_in_file(self, "CMakeLists.txt", " CUDA_ARCHITECTURES ", " # CUDA_ARCHITECTURES ")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -107,7 +96,7 @@ class LightGBMConan(ConanFile):
         tc.cache_variables["BUILD_CLI"] = False
         if is_apple_os(self):
             tc.cache_variables["APPLE_OUTPUT_DYLIB"] = True
-        tc.variables["_MAJOR_VERSION"] = Version(self.version).major
+        tc.variables["_MAJOR_VERSION"] = str(Version(self.version).major)
         tc.generate()
 
         deps = CMakeDeps(self)
