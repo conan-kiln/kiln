@@ -32,14 +32,17 @@ class LibiglConan(ConanFile):
     implements = ["auto_header_only", "auto_shared_fpic"]
 
     def export_sources(self):
-        export_conandata_patches(self)
         copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        # Eigen v5.0.0 is not compatible as of v2.6.0
+        # include/igl/is_symmetric.cpp:42:35: error: ‘Eigen::DenseBase ... has no member named ‘nonZeros’
+        #    42 |   return (A-A.transpose()).eval().nonZeros() == 0;
+        # https://gitlab.com/libeigen/eigen/-/merge_requests/740
+        self.requires("eigen/[^3.3]", transitive_headers=True)
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.16]")
@@ -55,7 +58,9 @@ class LibiglConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        # Eigen v5 compatibility
+        replace_in_file(self, "include/igl/redux.h", "#include <Eigen/Core>", "#include <cassert>\n#include <Eigen/Core>")
+        save(self, "include/igl/igl_inline.h", "\n\n#include <cassert>", append=True)
 
     def generate(self):
         env = VirtualBuildEnv(self)
