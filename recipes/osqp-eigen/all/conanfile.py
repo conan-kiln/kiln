@@ -10,7 +10,7 @@ required_conan_version = ">=2.1"
 
 class OSQPEigenConan(ConanFile):
     name = "osqp-eigen"
-    description = "short description"
+    description = "Simple Eigen-C++ wrapper for OSQP library"
     license = "BSD-3-Clause"
     homepage = "https://github.com/robotology/osqp-eigen"
     topics = ("optimization", "quadratic-programming", "convex-optimization", "qp", "osqp")

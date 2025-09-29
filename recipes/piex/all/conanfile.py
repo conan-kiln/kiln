@@ -11,8 +11,8 @@ required_conan_version = ">=2.1"
 
 class PiexConan(ConanFile):
     name = "piex"
-    description = "short description"
-    license = "The Preview Image Extractor (PIEX) is designed to find and extract the largest JPEG compressed preview image contained in a RAW file."
+    description = "The Preview Image Extractor (PIEX) is designed to find and extract the largest JPEG compressed preview image contained in a RAW file."
+    license = "Apache-2.0"
     homepage = "https://github.com/google/piex"
     topics = ("raw", "image", "preview", "thumbnail")
     package_type = "library"
