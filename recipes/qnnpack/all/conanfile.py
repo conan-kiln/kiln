@@ -36,9 +36,9 @@ class QnnpackConan(ConanFile):
     def requirements(self):
         self.requires("cpuinfo/[>=cci.20231129]")
         self.requires("fp16/[>=cci.20210320]")
-        self.requires("fxdiv/cci.20200417")
-        self.requires("pthreadpool/cci.20231129", transitive_headers=True)
-        self.requires("psimd/cci.20200517")
+        self.requires("fxdiv/[>=cci.20200417]")
+        self.requires("pthreadpool/[>=cci.20231129]", transitive_headers=True)
+        self.requires("psimd/[>=cci.20200517]")
 
     def validate(self):
         check_min_cppstd(self, 11)
