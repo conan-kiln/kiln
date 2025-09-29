@@ -126,7 +126,7 @@ class DirectfbConan(ConanFile):
         if self.options.with_jasper:
             self.requires("jasper/[^4.2]")
         if self.options.with_ffmpeg:
-            self.requires("ffmpeg/[>=4 <8]")
+            self.requires("ffmpeg/[>=4]")
         if self.options.with_freetype:
             self.requires("freetype/[^2.13.2]")
         if self.options.with_v4l2:

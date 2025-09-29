@@ -47,7 +47,7 @@ class GStLibAVConan(ConanFile):
     def requirements(self):
         self.requires(f"gstreamer/{self.version}", transitive_headers=True, transitive_libs=True)
         self.requires(f"gst-plugins-base/{self.version}", transitive_headers=True, transitive_libs=True)
-        self.requires("ffmpeg/[>=6 <8]")
+        self.requires("ffmpeg/[>=6]")
 
     def validate(self):
         if (

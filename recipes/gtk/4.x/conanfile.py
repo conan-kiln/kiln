@@ -142,7 +142,7 @@ class GtkConan(ConanFile):
         if self.options.with_vulkan:
             self.requires("vulkan-loader/[^1.3.239.0]")
         if self.options.get_safe("with_ffmpeg"):
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
 
         if self.options.with_gstreamer:
             self.requires("gst-plugins-base/[^1.24]")

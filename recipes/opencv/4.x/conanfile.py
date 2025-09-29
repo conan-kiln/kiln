@@ -1330,7 +1330,7 @@ class OpenCVConan(ConanFile):
             self.requires("quirc/1.2")
         # videoio module dependencies
         if self.options.get_safe("with_ffmpeg"):
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
         if self.options.get_safe("with_gstreamer"):
             self.requires("gst-plugins-base/[^1.16]")
             self.requires("gstreamer/[^1.16]")
