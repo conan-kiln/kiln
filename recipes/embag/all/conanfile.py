@@ -34,7 +34,7 @@ class EmbagConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("boost/[1.74.0]", transitive_headers=True, options={"with_iostreams": True})
+        self.requires("boost/[^1.74.0]", transitive_headers=True, options={"with_iostreams": True})
         self.requires("lz4/[^1.9.4]", transitive_headers=True)
         self.requires("bzip2/[^1.0.8]", transitive_headers=True)
 
