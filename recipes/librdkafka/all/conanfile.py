@@ -79,7 +79,7 @@ class LibrdkafkaConan(ConanFile):
             self.requires("libcurl/[>=7.78.0 <9]")
 
     def build_requirements(self):
-        if self._depends_on_cyrus_sasl:
+        if self._depends_on_cyrus_sasl and not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
 
     def source(self):

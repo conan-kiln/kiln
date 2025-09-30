@@ -50,8 +50,8 @@ class CppKafkaConan(ConanFile):
         tc.variables["CPPKAFKA_DISABLE_TESTS"] = True
         tc.variables["CPPKAFKA_DISABLE_EXAMPLES"] = True
         tc.variables["CPPKAFKA_RDKAFKA_STATIC_LIB"] = False # underlying logic is useless
-        if Version(self.version) < "0.4.1" and self.settings.os == "Windows":
-            tc.preprocessor_definitions["NOMINMAX"] = 1
+        if self.settings.os == "Windows":
+            tc.preprocessor_definitions["NOMINMAX"] = None
         tc.generate()
         cd = CMakeDeps(self)
         cd.generate()
