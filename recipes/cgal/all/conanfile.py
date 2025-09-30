@@ -2,44 +2,22 @@ import os
 import textwrap
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
-from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout, CMakeDeps
 from conan.tools.files import *
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
+
 class CgalConan(ConanFile):
     name = "cgal"
-    description = "C++ library that provides easy access to efficient and reliable algorithms" \
-                  " in computational geometry."
+    description = "C++ library that provides easy access to efficient and reliable algorithms in computational geometry."
     license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
     homepage = "https://github.com/CGAL/cgal"
     topics = ("cgal", "geometry", "algorithms")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
-    generators = "CMakeDeps"
-
-    @property
-    def _requires_cpp17(self):
-        return Version(self.version) >= "6.0"
-
-    @property
-    def _min_cppstd(self):
-        return "17" if self._requires_cpp17 else "14"
-
-    @property
-    def _minimum_compilers_version(self):
-        return {
-            "msvc": "191",
-            "gcc": "7" if self._requires_cpp17 else "5",
-            "clang": "7" if self._requires_cpp17 else "5",
-            "apple-clang": "5.1",
-        }
-
-    def export_sources(self):
-        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -57,22 +35,18 @@ class CgalConan(ConanFile):
         self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._minimum_compilers_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support.",
-            )
+        check_min_cppstd(self, 17 if Version(self.version) >= "6.0" else 14)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
         replace_in_file(self,  os.path.join(self.source_folder, "CMakeLists.txt"),
                         "if(NOT PROJECT_NAME)", "if(1)", strict=False)
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -80,26 +54,23 @@ class CgalConan(ConanFile):
         cmake.build()
 
     def package(self):
+        copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        copy(self, "LICENSE*", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         rmdir(self, os.path.join(self.package_folder, "share"))
         rmdir(self, os.path.join(self.package_folder, "bin"))
         rm(self, "*Config*.cmake", os.path.join(self.package_folder, "lib", "cmake", "CGAL"))
         rm(self, "Find*.cmake", os.path.join(self.package_folder, "lib", "cmake", "CGAL"))
-        self._create_cmake_module_variables(
-            os.path.join(self.package_folder, self._cmake_module_file_rel_path)
-        )
+        self._create_cmake_module_variables(os.path.join(self.package_folder, "lib/cmake/CGAL/conan-set-official-variables.cmake"))
 
     def _create_cmake_module_variables(self, module_file):
-        '''
+        """
         CGAL requires C++14 or C++17, and specific compilers flags to enable the possibility to set FPU rounding modes.
         This CMake module, from the upstream CGAL pull-request https://github.com/CGAL/cgal/pull/7512, takes
         care of all the known compilers CGAL has ever supported.
-        '''
-        content = ""
+        """
         if Version(self.version) < "6.0":
-            content = textwrap.dedent('''\
+            content = textwrap.dedent("""\
                 function(CGAL_setup_CGAL_flags target)
                   # CGAL now requires C++14. `decltype(auto)` is used as a marker of
                   # C++14.
@@ -164,33 +135,26 @@ class CgalConan(ConanFile):
                     endif()
                   endif()
                 endfunction()
-            ''')
-
+            """)
         else:
-            content = textwrap.dedent('''\
+            content = textwrap.dedent("""\
                 include(${CMAKE_CURRENT_LIST_DIR}/CGAL_SetupCGALDependencies.cmake)
-            ''')
-        content += textwrap.dedent('''\
+            """)
+        content += textwrap.dedent("""\
             CGAL_setup_CGAL_flags(CGAL::CGAL)
 
             # CGAL use may rely on the presence of those two variables
             set(CGAL_USE_GMP  TRUE CACHE INTERNAL "CGAL library is configured to use GMP")
             set(CGAL_USE_MPFR TRUE CACHE INTERNAL "CGAL library is configured to use MPFR")
-        ''')
+        """)
         save(self, module_file, content)
 
-    @property
-    def _cmake_module_file_rel_path(self):
-        return os.path.join("lib", "cmake", "CGAL", f"conan-official-{self.name}-variables.cmake")
-
-    @property
-    def _module_subfolder(self):
-        return os.path.join("lib", "cmake", "CGAL")
-
     def package_info(self):
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("m")
-        self.cpp_info.builddirs.append(self._module_subfolder)
         self.cpp_info.set_property("cmake_find_package", "CGAL")
         self.cpp_info.set_property("cmake_target_name", "CGAL::CGAL")
-        self.cpp_info.set_property("cmake_build_modules", [self._cmake_module_file_rel_path])
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.system_libs = ["m"]
+        self.cpp_info.libdirs = []
+        self.cpp_info.bindirs = []
+        self.cpp_info.builddirs = ["lib/cmake/CGAL"]
+        self.cpp_info.set_property("cmake_build_modules", ["lib/cmake/CGAL/conan-set-official-variables.cmake"])
