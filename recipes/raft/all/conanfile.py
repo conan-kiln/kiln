@@ -14,7 +14,7 @@ class RaftConan(ConanFile):
     license = "Apache-2.0"
     homepage = "https://github.com/rapidsai/raft"
     topics = ("cuda", "gpu", "machine-learning", "data-science", "linear-algebra")
-    package_type = "header-library"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type", "cuda"
     options = {
         "header_only": [True, False],
