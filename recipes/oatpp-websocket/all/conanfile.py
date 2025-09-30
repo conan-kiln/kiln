@@ -30,7 +30,7 @@ class OatppWebSocketConan(ConanFile):
 
     @property
     def _version(self):
-        return str(self.version).replace(".latest", "")
+        return str(self.version).replace("+latest", "")
 
     def config_options(self):
         if self.settings.os == "Windows":
