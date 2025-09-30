@@ -1,12 +1,10 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -17,7 +15,6 @@ class OatppOpenSSLConan(ConanFile):
     homepage = "https://github.com/oatpp/oatpp-openssl"
     description = "Oat++ OpenSSL library"
     topics = ("oat++", "oatpp", "openssl")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -28,8 +25,18 @@ class OatppOpenSSLConan(ConanFile):
         "shared": False,
         "fPIC": True,
     }
-
     implements = ["auto_shared_fpic"]
+
+    @property
+    def _version(self):
+        return str(self.version).replace(".latest", "")
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+        if is_msvc(self):
+            self.package_type = "static-library"
+            del self.options.shared
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -43,20 +50,16 @@ class OatppOpenSSLConan(ConanFile):
     def validate(self):
         check_min_cppstd(self, 11)
 
-        if is_msvc(self) and self.info.options.shared:
-            raise ConanInvalidConfiguration(f"{self.ref} cannot be built as shared library with msvc")
-
-        if self.info.settings.compiler == "gcc" and Version(self.info.settings.compiler.version) < "5":
-            raise ConanInvalidConfiguration(f"{self.ref} requires GCC >=5")
-
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 3.1 FATAL_ERROR)",
+                        "cmake_minimum_required(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["OATPP_BUILD_TESTS"] = False
         tc.cache_variables["OATPP_MODULES_LOCATION"] = "INSTALLED"
-        # Honor BUILD_SHARED_LIBS from conan_toolchain (see https://github.com/conan-io/conan/issues/11840)
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
         tc.generate()
         deps = CMakeDeps(self)
@@ -77,17 +80,12 @@ class OatppOpenSSLConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "oatpp-openssl")
         self.cpp_info.set_property("cmake_target_name", "oatpp::oatpp-openssl")
 
-        self.cpp_info.includedirs = [
-            os.path.join("include", f"oatpp-{self.version}", "oatpp-openssl")
-        ]
-        self.cpp_info.libdirs = [os.path.join("lib", f"oatpp-{self.version}")]
+        self.cpp_info.libs = ["oatpp-openssl"]
+        self.cpp_info.libdirs = [f"lib/oatpp-{self._version}"]
+        self.cpp_info.includedirs = [f"include/oatpp-{self._version}/oatpp-openssl"]
         if self.settings.os == "Windows" and self.options.shared:
-            self.cpp_info.bindirs = [os.path.join("bin", f"oatpp-{self.version}")]
+            self.cpp_info.bindirs = [f"bin/oatpp-{self._version}"]
         else:
             self.cpp_info.bindirs = []
-        self.cpp_info.libs = ["oatpp-openssl"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs = ["pthread"]
-
-        self.cpp_info.set_property("cmake_target_name", "oatpp::oatpp-openssl")
-        self.cpp_info.requires = ["oatpp::oatpp", "openssl::openssl"]
+            self.cpp_info.system_libs = ["m", "pthread"]
