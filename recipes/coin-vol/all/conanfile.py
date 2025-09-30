@@ -6,7 +6,7 @@ from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc, msvc_runtime_flag
+from conan.tools.microsoft import is_msvc, msvc_runtime_flag, unix_path
 
 required_conan_version = ">=2.1"
 
@@ -31,6 +31,12 @@ class VolConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+        # Uses std::bind2nd, which is removed in C++17
+        self.settings.compiler.cppstd = 14
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -51,6 +57,12 @@ class VolConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Fix missing includes
+        replace_in_file(self, "Vol/src/OsiVol/OsiVolSolverInterface.cpp",
+                        "#include <numeric>",
+                        "#include <numeric>\n"
+                        "#include <algorithm>\n"
+                        "#include <functional>")
 
     def generate(self):
         def yes_no(v):
@@ -64,10 +76,12 @@ class VolConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
+            ar_wrapper = unix_path(self, self.dependencies.build["automake"].conf_info.get("user.automake:lib-wrapper"))
             env.define("CC", "cl -nologo")
             env.define("CXX", "cl -nologo")
             env.define("LD", "link -nologo")
-            env.define("AR", "lib -nologo")
+            env.define("AR", f"{ar_wrapper} lib")
+            env.define("NM", "dumpbin -symbols")
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
@@ -82,6 +96,8 @@ class VolConan(ConanFile):
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Vol")
         autotools.configure(build_script_folder="Vol")
+        # Fix a failure on Windows. The am data is not needed anyway.
+        replace_in_file(self, os.path.join(self.source_folder, "Vol", "Makefile.in"), " install-data-am", "")
         autotools.make()
 
     def package(self):

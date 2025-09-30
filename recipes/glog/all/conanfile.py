@@ -34,7 +34,7 @@ class GlogConan(ConanFile):
 
     # Either ng-log or Abseil Logging is the recommended successor to glog.
     # ng-log 0.8.x also provides a glog-compatible API.
-    deprecated = "ng-log"
+    deprecated = "glog is deprecated - use ng-log or Abseil Logging instead"
 
     def config_options(self):
         if self.settings.os == "Windows":

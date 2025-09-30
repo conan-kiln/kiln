@@ -28,6 +28,8 @@ class GiciConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
+
+        "opencv/*:highgui": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -40,7 +42,7 @@ class GiciConan(ConanFile):
 
     def requirements(self):
         # Used in a public header in gici/imu/imu_types.h
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         # svo/common/types.h
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True)
         # gici/utility/option.h

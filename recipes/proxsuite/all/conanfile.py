@@ -30,7 +30,7 @@ class ProxSuiteConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.vectorization:
             self.requires("simde/[>=0.8 <1]", transitive_headers=True)
         if self.options.openmp:

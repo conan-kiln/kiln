@@ -15,7 +15,7 @@ class PkgConfConan(ConanFile):
     license = "ISC"
     homepage = "https://git.sr.ht/~kaniini/pkgconf"
     topics = ("build", "configuration")
-    package_type = "application"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
@@ -25,6 +25,7 @@ class PkgConfConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
+        "enable_lib": False,
     }
     languages = ["C"]
 
@@ -36,7 +37,6 @@ class PkgConfConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
-        self.options.enable_lib = self.context == "host"
 
     def configure(self):
         if self.options.shared:
@@ -44,6 +44,7 @@ class PkgConfConan(ConanFile):
         if not self.options.enable_lib:
             self.options.rm_safe("fPIC")
             self.options.rm_safe("shared")
+            self.package_type = "application"
 
     def layout(self):
         basic_layout(self, src_folder="src")

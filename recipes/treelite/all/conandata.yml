@@ -1,0 +1,4 @@
+sources:
+  "4.4.1":
+    url: "https://github.com/dmlc/treelite/archive/refs/tags/4.4.1.tar.gz"
+    sha256: "fdaaf0e24037d18d2c34c3909b247877abf0f64ea32a6f8fff86bc8627524216"

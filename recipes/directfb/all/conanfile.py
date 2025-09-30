@@ -126,7 +126,7 @@ class DirectfbConan(ConanFile):
         if self.options.with_jasper:
             self.requires("jasper/[^4.2]")
         if self.options.with_ffmpeg:
-            self.requires("ffmpeg/[>=4 <8]")
+            self.requires("ffmpeg/[>=4]")
         if self.options.with_freetype:
             self.requires("freetype/[^2.13.2]")
         if self.options.with_v4l2:
@@ -138,11 +138,11 @@ class DirectfbConan(ConanFile):
         if self.options.with_x11:
             self.requires("xorg/system")
             if self.options.with_vdpau:
-                self.requires("libvdpau/1.5")
+                self.requires("libvdpau/[^1.5]")
         if self.options.get_safe("with_alsa"):
             self.requires("libalsa/[^1.2.13]")
         if self.options.get_safe("with_vorbis"):
-            self.requires("vorbis/1.3.7")
+            self.requires("vorbis/[^1.3.7]")
         if self.options.get_safe("with_mad"):
             self.requires("libmad/0.15.1b")
         # self.requires("tremor/1.2.1")

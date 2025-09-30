@@ -2,7 +2,9 @@ import os
 import shutil
 
 from conan import ConanFile
+from conan.tools import CppInfo
 from conan.tools.apple import fix_apple_shared_install_name
+from conan.tools.env import Environment
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps, AutotoolsDeps
 from conan.tools.layout import basic_layout
@@ -43,8 +45,14 @@ class CoinClpConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+            del self.options.shared
+            self.package_type = "static-library"
+
     def configure(self):
-        if self.options.shared:
+        if self.options.get_safe("shared"):
             self.options.rm_safe("fPIC")
         if not self.options.enable_aboca:
             del self.options.aboca_inherit
@@ -52,7 +60,7 @@ class CoinClpConan(ConanFile):
             # Can't use GLPK without AMD or CHOLMOD
             self.options.with_amd.value = True
         if self.options.with_cholmod:
-            # AMD is a transitive dep of CHOLMOD anyway
+            # AMD is a transitive dep of CHOLMOD
             self.options.with_amd.value = True
 
     def layout(self):
@@ -82,6 +90,8 @@ class CoinClpConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/latest")
+            if is_msvc(self):
+                self.tool_requires("automake/[^1.18.1]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -97,7 +107,6 @@ class CoinClpConan(ConanFile):
             f"--enable-amd-libcheck={yes_no(self.options.with_amd)}",
             f"--enable-cholmod-libcheck={yes_no(self.options.with_cholmod)}",
             "--without-wsmp",
-            "--without-metis",  # not really used
             # These are only used for sample datasets
             "--without-netlib",
             "--without-sample",
@@ -142,23 +151,34 @@ class CoinClpConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
-            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", f"{compile_wrapper} link -nologo")
-            env.define("AR", f"{ar_wrapper} \"lib -nologo\"")
+            env.define("AR", f'{ar_wrapper} "lib -nologo"')
             env.define("NM", "dumpbin -symbols")
         tc.generate(env)
 
         deps = PkgConfigDeps(self)
-        deps.set_property("openblas", "pkg_config_aliases", ["coinblas", "coinlapack"])
         deps.set_property("ampl-asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
         deps.set_property("glpk", "pkg_config_aliases", ["coinglpk"])
         deps.generate()
 
-        deps = AutotoolsDeps(self)
-        deps.generate()
+        if is_msvc(self):
+            cpp_info = CppInfo(self)
+            for dependency in reversed(self.dependencies.host.topological_sort.values()):
+                cpp_info.merge(dependency.cpp_info.aggregated_components())
+            env = Environment()
+            env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])
+            env.append("_LINK_", [lib if lib.endswith(".lib") else f"{lib}.lib" for lib in cpp_info.libs])
+            env.append("LDFLAGS", [f"-L{unix_path(self, p)}" for p in cpp_info.libdirs] + cpp_info.sharedlinkflags + cpp_info.exelinkflags)
+            env.append("CXXFLAGS", cpp_info.cxxflags)
+            env.append("CFLAGS", cpp_info.cflags)
+            env.vars(self).save_script("conanautotoolsdeps_cl_workaround")
+        else:
+            deps = AutotoolsDeps(self)
+            deps.generate()
 
     def build(self):
         buildtools = self.dependencies.build["coin-buildtools"].cpp_info.resdirs[0]
@@ -168,6 +188,8 @@ class CoinClpConan(ConanFile):
             shutil.copy(gnu_config, os.path.join(self.source_folder, "Clp"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Clp")
+        # Fix a failure on Windows. The am data is not needed anyway.
+        replace_in_file(self, os.path.join(self.source_folder, "Clp", "Makefile.in"), " install-data-am", "")
         autotools.configure(build_script_folder="Clp")
         autotools.make()
 
@@ -181,10 +203,6 @@ class CoinClpConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
-        if is_msvc(self):
-            for l in ("Clp", "ClpSolver", "OsiClp"):
-                rename(self, os.path.join(self.package_folder, "lib", f"lib{l}.a"),
-                             os.path.join(self.package_folder, "lib", f"{l}.lib"))
 
     def package_info(self):
         self.cpp_info.components["clp"].set_property("pkg_config_name", "clp")

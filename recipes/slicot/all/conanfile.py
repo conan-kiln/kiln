@@ -39,7 +39,7 @@ class SlicotConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
 
     def validate_build(self):
         if not self._fortran_compiler:
@@ -77,4 +77,3 @@ class SlicotConan(ConanFile):
                 self.cpp_info.system_libs = ["m", "mvec"]
             if "gfortran" in self._fortran_compiler:
                 self.cpp_info.system_libs.append("gfortran")
-        self.cpp_info.requires = ["openblas::openblas"]

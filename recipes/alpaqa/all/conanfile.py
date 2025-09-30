@@ -67,7 +67,7 @@ class AlpaqaConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("guanaqo/[^1.0, include_prerelease]", transitive_headers=True)
         if self.options.with_casadi:
             self.requires("casadi/[^3.7]", transitive_headers=True)
@@ -84,7 +84,7 @@ class AlpaqaConan(ConanFile):
         if self.options.with_lbfgspp:
             self.requires("lbfgspp/[>=0.4 <1]")
         if self.options.with_blas:
-            self.requires("openblas/[>=0.3 <1]")
+            self.requires("blas/latest")
         if self.options.with_openmp:
             self.requires("openmp/system")
 
@@ -178,7 +178,7 @@ class AlpaqaConan(ConanFile):
             self.cpp_info.components["core"].defines.append("ALPAQA_WITH_OCP")
         if self.options.with_blas:
             self.cpp_info.components["core"].defines.append("EIGEN_USE_BLAS")
-            self.cpp_info.components["core"].requires.append("openblas::openblas")
+            self.cpp_info.components["core"].requires.append("blas::blas")
         if self.options.with_openmp:
             self.cpp_info.components["core"].requires.append("openmp::openmp")
         if self.options.with_json:

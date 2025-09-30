@@ -15,7 +15,6 @@ class StellaVslamConan(ConanFile):
     license = "BSD-2-Clause AND BSD-3-Clause AND MIT"
     homepage = "https://github.com/stella-cv/stella_vslam"
     topics = ("visual-slam", "computer-vision")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -33,6 +32,11 @@ class StellaVslamConan(ConanFile):
         "build_pangolin_viewer": False,
         "build_socket_viewer": False,
         "with_gtsam": True,
+
+        "opencv/*:aruco": True,
+        "opencv/*:highgui": True,
+        "opencv/*:objdetect": True,
+        "opencv/*:videoio": True,
     }
 
     def export_sources(self):
@@ -54,14 +58,11 @@ class StellaVslamConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("g2o/[>=20230806]", transitive_headers=True, transitive_libs=True)
         self.requires("openmp/system")
         self.requires("nlohmann_json/[^3]", transitive_headers=True, transitive_libs=True)
-        self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True, options={
-            "highgui": True,
-            "videoio": True,
-        })
+        self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True)
         self.requires("spdlog/[^1.8]", transitive_headers=True, transitive_libs=True)
         self.requires("sqlite3/[>=3.45.0 <4]", transitive_headers=True, transitive_libs=True)
         self.requires("stella-cv-fbow/[>=cci.20240508]", transitive_headers=True, transitive_libs=True)
@@ -103,6 +104,7 @@ class StellaVslamConan(ConanFile):
         rmdir(self, os.path.join(self.source_folder, "3rd"))
         # Latest g2o requires C++17 or newer. Let Conan set the C++ standard.
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 11)", "")
+        replace_in_file(self, "CMakeLists.txt", "cmake_minimum_required(VERSION 3.1)", "cmake_minimum_required(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)

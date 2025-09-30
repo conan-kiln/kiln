@@ -43,9 +43,9 @@ class TestPackageConan(ConanFile):
         opts = self.dependencies[self.tested_reference_str].options
         tc = CMakeToolchain(self)
         if str(opts.get_safe("docking")) == "True":
-            tc.preprocessor_definitions["DOCKING"] = ""
+            tc.preprocessor_definitions["DOCKING"] = None
         if str(opts.get_safe("enable_test_engine")) == "True":
-            tc.preprocessor_definitions["ENABLE_TEST_ENGINE"] = ""
+            tc.preprocessor_definitions["ENABLE_TEST_ENGINE"] = None
         for backend in self._backends:
             if str(opts.get_safe(f"backend_{backend}", False)) == "True":
                 tc.preprocessor_definitions[f"IMGUI_IMPL_{backend.upper()}"] = ""

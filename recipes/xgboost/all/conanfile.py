@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -50,10 +49,7 @@ class XgboostConan(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -92,7 +88,7 @@ class XgboostConan(ConanFile):
         if self.options.get_safe("plugin_federated"):
             self.tool_requires("grpc/<host_version>")
         if self.options.cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version]["xgboost"], strip_root=True)

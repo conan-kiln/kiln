@@ -40,13 +40,12 @@ class CubicInterpolationConan(ConanFile):
             "with_math": True,
             "with_serialization": True,
         })
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
 
     def validate(self):
         check_min_cppstd(self, 14)
-
         if is_msvc(self) and self.options.shared:
-            raise ConanInvalidConfiguration(f"{self.ref} shared is not supported with Visual Studio")
+            raise ConanInvalidConfiguration("shared=True is not supported on MSVC")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

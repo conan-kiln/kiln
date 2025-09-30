@@ -1,0 +1,93 @@
+import os
+import textwrap
+
+from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.files import *
+
+required_conan_version = ">=2.4"
+
+
+class OouraFftConan(ConanFile):
+    name = "ooura-fft"
+    description = "This is a package to calculate Discrete Fourier/Cosine/Sine Transforms of 2,3-dimensional sequences of length 2^N."
+    license = "LicenseRef-LICENSE"
+    homepage = "http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html"
+    topics = ("fft2d", "fft3d", "dct", "dst", "dft")
+    package_type = "library"
+    settings = "os", "arch", "compiler", "build_type"
+    options = {
+        "shared": [True, False],
+        "fPIC": [True, False],
+        "threads": [True, False],
+        "max_threads": ["ANY"],
+        "threads_begin_n": ["ANY"],
+    }
+    default_options = {
+        "shared": False,
+        "fPIC": True,
+        "threads": False,
+        "max_threads": 4,
+        "threads_begin_n": 65536,
+    }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
+
+    exports_sources = ["CMakeLists.txt", "fft_build.c", "fft.h", "fft2.h", "fft3.h", "dct.h"]
+
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+        if not self.options.threads:
+            del self.options.max_threads
+            del self.options.threads_begin_n
+
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+
+    def validate(self):
+        def _is_power_of_two(n):
+            return (n != 0) and (n & (n-1) == 0)
+
+        if self.options.threads:
+            if not self.options.max_threads.isdigit():
+                raise ConanInvalidConfiguration("max_threads must be an integer")
+            if not self.options.threads_begin_n.isdigit():
+                raise ConanInvalidConfiguration("threads_begin_n must be an integer")
+            if not _is_power_of_two(int(self.options.max_threads)):
+                raise ConanInvalidConfiguration("max_threads must be a power of 2")
+
+    def source(self):
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["FFT_SRC_DIR"] = self.source_folder.replace("\\", "/")
+        tc.variables["FFT_THREADS"] = self.options.threads
+        if self.options.threads:
+            tc.variables["FFT_MAX_THREADS"] = self.options.max_threads
+            tc.variables["FFT_THREADS_BEGIN_N"] = self.options.threads_begin_n
+        tc.generate()
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure(build_script_folder="..")
+        cmake.build()
+
+    def package(self):
+        save(self, os.path.join(self.package_folder, "licenses", "LICENSE"), textwrap.dedent("""\
+            Copyright(C) 1997,2001 Takuya OOURA (email: ooura@kurims.kyoto-u.ac.jp).
+            You may use, copy, modify this code for any purpose and
+            without fee. You may distribute this ORIGINAL package.
+        """))
+        cmake = CMake(self)
+        cmake.install()
+
+    def package_info(self):
+        self.cpp_info.libs = ["fft"]
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.system_libs.append("m")
+            if self.options.threads:
+                self.cpp_info.system_libs.append("pthread")

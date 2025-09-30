@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd, check_min_cstd
@@ -64,10 +63,7 @@ class DaliConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -138,7 +134,7 @@ class DaliConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         self.tool_requires("protobuf/<host_version>")
 
     def source(self):

@@ -2,7 +2,6 @@ import io
 import os
 import re
 import shutil
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -60,6 +59,7 @@ class FFMpegConan(ConanFile):
         "with_libx265": [True, False],
         "with_libvpx": [True, False],
         "with_libmp3lame": [True, False],
+        "with_liboapv": [True, False],
         "with_libfdk_aac": [True, False],
         "with_libwebp": [True, False],
         "with_ssl": [False, "openssl", "securetransport"],
@@ -86,6 +86,7 @@ class FFMpegConan(ConanFile):
         "with_xlib": [True, False],
         "with_ffnvcodec": [True, False],
         "with_cuda": [True, False],
+        "with_whisper": [True, False],
         "disable_everything": [True, False],
         "disable_all_encoders": [True, False],
         "disable_encoders": [None, "ANY"],
@@ -152,6 +153,7 @@ class FFMpegConan(ConanFile):
         "with_libx265": True,  # GPL
         "with_libvpx": True,
         "with_libmp3lame": True,
+        "with_liboapv": False,
         "with_libfdk_aac": True,  # non-free
         "with_libwebp": True,
         "with_ssl": "openssl",
@@ -178,6 +180,7 @@ class FFMpegConan(ConanFile):
         "with_xlib": True,
         "with_ffnvcodec": True,
         "with_cuda": False,
+        "with_whisper": False,
         "disable_everything": False,
         "disable_all_encoders": False,
         "disable_encoders": None,
@@ -235,6 +238,7 @@ class FFMpegConan(ConanFile):
             "with_libx265": ["avcodec"],
             "with_libvpx": ["avcodec"],
             "with_libmp3lame": ["avcodec"],
+            "with_liboapv": ["avcodec"],
             "with_libfdk_aac": ["avcodec"],
             "with_libwebp": ["avcodec"],
             "with_cuda": ["avfilter", "with_ffnvcodec"],
@@ -254,24 +258,13 @@ class FFMpegConan(ConanFile):
             "with_libdav1d": ["avcodec"],
             "with_mediacodec": ["with_jni"],
             "with_xlib": ["avdevice"],
+            "with_whisper": ["avfilter"],
         }
 
     languages = ["C"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
-
-    @property
-    def _version_supports_libsvtav1(self):
-        return Version(self.version) >= "5.1.0"
-
-    @property
-    def _version_supports_harfbuzz(self):
-        # https://github.com/FFmpeg/FFmpeg/compare/n6.0.1...n6.1#diff-90d08e583c4c9c6f391b2ae90f819f600a6326928ea9512c9e0c6d98e9f29ac2R235
-        return Version(self.version) >= "6.1"
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -301,12 +294,17 @@ class FFMpegConan(ConanFile):
         if not self.settings.os == "Android":
             del self.options.with_jni
             del self.options.with_mediacodec
-        if not self._version_supports_libsvtav1:
-            self.options.rm_safe("with_libsvtav1")
-        if not self._version_supports_harfbuzz:
-            self.options.rm_safe("with_harfbuzz")
         if self.settings.os == "Android":
             del self.options.with_libfdk_aac
+        if Version(self.version) < "5.1.0":
+            self.options.rm_safe("with_libsvtav1")
+        if Version(self.version) < "6.1":
+            self.options.rm_safe("with_harfbuzz")
+        if Version(self.version) < "8.0":
+            self.options.rm_safe("with_liboapv")
+            self.options.rm_safe("with_whisper")
+        else:
+            del self.options.postproc
 
     def configure(self):
         if self.options.shared:
@@ -333,7 +331,7 @@ class FFMpegConan(ConanFile):
         if self.options.get_safe("with_fontconfig"):
             self.requires("fontconfig/[^2.15.0]")
         if self.options.get_safe("with_fribidi"):
-            self.requires("fribidi/1.0.13")
+            self.requires("fribidi/[^1.0.13]")
         if self.options.get_safe("with_harfbuzz"):
             self.requires("harfbuzz/[*]")
         if self.options.with_openjpeg:
@@ -341,7 +339,7 @@ class FFMpegConan(ConanFile):
         if self.options.with_openh264:
             self.requires("openh264/[^2.4.1]")
         if self.options.with_vorbis:
-            self.requires("vorbis/1.3.7")
+            self.requires("vorbis/[^1.3.7]")
         if self.options.with_opus:
             self.requires("opus/[^1.4]")
         if self.options.with_zeromq:
@@ -349,13 +347,15 @@ class FFMpegConan(ConanFile):
         if self.options.with_sdl:
             self.requires("sdl/[^2.30.9]")
         if self.options.with_libx264:
-            self.requires("libx264/cci.20240224")
+            self.requires("libx264/[*]")
         if self.options.with_libx265:
             self.requires("libx265/[>=3.4 <5]")
         if self.options.with_libvpx:
             self.requires("libvpx/[^1.14.1]")
         if self.options.with_libmp3lame:
             self.requires("libmp3lame/3.100")
+        if self.options.get_safe("with_liboapv"):
+            self.requires("openapv/[>=0.2.0]")
         if self.options.get_safe("with_libfdk_aac"):
             self.requires("libfdk_aac/2.0.3")
         if self.options.with_libwebp:
@@ -367,17 +367,17 @@ class FFMpegConan(ConanFile):
         if self.options.get_safe("with_xcb") or self.options.get_safe("with_xlib"):
             self.requires("xorg/system")
         if self.options.get_safe("with_soxr"):
-            self.requires("soxr/0.1.3")
+            self.requires("soxr/[>=0.1.3 <1]")
         if self.options.get_safe("with_pulse"):
             self.requires("pulseaudio/[^17.0]")
         if self.options.get_safe("with_sndio"):
-            self.requires("libsndio/1.9.0")
+            self.requires("libsndio/[^1.9.0]")
         if self.options.get_safe("with_vaapi"):
             self.requires("libva/[^2.21]")
         if self.options.get_safe("with_vdpau"):
-            self.requires("libvdpau/1.5")
+            self.requires("libvdpau/[^1.5]")
         if self.options.get_safe("with_vulkan"):
-            self.requires("vulkan-loader/[^1.3.239.0]")
+            self.requires("vulkan-loader/[^1.3.277]")
         if self.options.get_safe("with_libsvtav1"):
             self.requires("libsvtav1/[^2.1.0]")
         if self.options.with_libaom:
@@ -391,6 +391,8 @@ class FFMpegConan(ConanFile):
             self.requires(f"ffnvcodec/[^{self.cuda.major}]")
         elif self.options.with_ffnvcodec:
             self.requires("ffnvcodec/[*]")
+        if self.options.get_safe("with_whisper"):
+            self.requires("whisper-cpp/[^1.7.5]")
 
     def validate(self):
         if self.options.with_ssl == "securetransport" and not is_apple_os(self):
@@ -423,7 +425,7 @@ class FFMpegConan(ConanFile):
             if self.settings.arch == "armv8" and is_msvc(self):
                 self.tool_requires("gas-preprocessor/[*]")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -463,7 +465,7 @@ class FFMpegConan(ConanFile):
             # warning LNK4049: locally defined symbol x264_bit_depth imported
             replace_in_file(self, os.path.join(self.source_folder, "libavcodec", "libx264.c"),
                                   "#define X264_API_IMPORTS 1", "")
-        if self.options.with_ssl == "openssl":
+        if self.options.with_ssl == "openssl" and Version(self.version) < "8.0":
             # https://trac.ffmpeg.org/ticket/5675
             openssl_libs = load(self, os.path.join(self.build_folder, "openssl_libs.list"))
             replace_in_file(self, os.path.join(self.source_folder, "configure"),
@@ -546,7 +548,6 @@ class FFMpegConan(ConanFile):
             opt_enable_disable("avformat", self.options.avformat),
             opt_enable_disable("swresample", self.options.swresample),
             opt_enable_disable("swscale", self.options.swscale),
-            opt_enable_disable("postproc", self.options.postproc),
             opt_enable_disable("avfilter", self.options.avfilter),
 
             # Dependencies
@@ -600,7 +601,7 @@ class FFMpegConan(ConanFile):
             opt_enable_disable("ffnvcodec", self.options.with_cuda),
             # Licenses
             opt_enable_disable("nonfree", self.options.get_safe("with_libfdk_aac") or self.options.with_cuda or
-                               (self.options.with_ssl and (self.options.with_libx264 or self.options.with_libx265 or self.options.postproc))),
+                               (self.options.with_ssl and (self.options.with_libx264 or self.options.with_libx265 or self.options.get_safe("postproc")))),
             opt_enable_disable("gpl", self.options.with_libx264 or self.options.with_libx265)
         ]
 
@@ -645,10 +646,17 @@ class FFMpegConan(ConanFile):
         args += _split_and_format_options_string("enable-filter", self.options.enable_filters)
         args += _split_and_format_options_string("disable-filter", self.options.disable_filters)
 
-        if self._version_supports_libsvtav1:
-            args.append(opt_enable_disable("libsvtav1", self.options.get_safe("with_libsvtav1")))
-        if self._version_supports_harfbuzz:
-            args.append(opt_enable_disable("libharfbuzz", self.options.get_safe("with_harfbuzz")))
+        if Version(self.version) < "8.0":
+            args.append(opt_enable_disable("postproc", self.options.postproc))
+        if "with_libsvtav1" in self.options:
+            args.append(opt_enable_disable("libsvtav1", self.options.with_libsvtav1))
+        if "with_harfbuzz" in self.options:
+            args.append(opt_enable_disable("libharfbuzz", self.options.with_harfbuzz))
+        if "with_liboapv" in self.options:
+            args.append(opt_enable_disable("liboapv", self.options.with_liboapv))
+        if "with_whisper" in self.options:
+            args.append(opt_enable_disable("whisper", self.options.with_whisper))
+
         if is_apple_os(self):
             # relocatable shared libs
             args.append("--install-name-dir=@rpath")
@@ -723,7 +731,7 @@ class FFMpegConan(ConanFile):
             # Custom AutotoolsDeps for cl like compilers
             # workaround for https://github.com/conan-io/conan/issues/12784
             cpp_info = CppInfo(self)
-            for dependency in self.dependencies.values():
+            for dependency in reversed(self.dependencies.host.topological_sort.values()):
                 cpp_info.merge(dependency.cpp_info.aggregated_components())
             env = Environment()
             env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])
@@ -830,7 +838,7 @@ class FFMpegConan(ConanFile):
             swresample = _add_component("swresample", [])
             if self.options.get_safe("with_soxr"):
                 swresample.requires.append("soxr::soxr")
-        if self.options.postproc:
+        if self.options.get_safe("postproc"):
             _add_component("postproc", [])
 
         if self.settings.os in ("FreeBSD", "Linux"):
@@ -851,6 +859,8 @@ class FFMpegConan(ConanFile):
                 avdevice.system_libs = ["ole32", "psapi", "strmiids", "uuid", "oleaut32", "shlwapi", "gdi32", "vfw32"]
             avutil.system_libs = ["user32", "bcrypt"]
             avformat.system_libs = ["secur32"]
+            if Version(self.version) >= "8.0":
+                avformat.system_libs.extend(["ncrypt", "crypt32"])
         elif is_apple_os(self):
             if self.options.avdevice:
                 avdevice.frameworks = ["CoreFoundation", "Foundation", "CoreGraphics"]
@@ -909,6 +919,8 @@ class FFMpegConan(ConanFile):
                 avcodec.requires.append("libvpx::libvpx")
             if self.options.with_libmp3lame:
                 avcodec.requires.append("libmp3lame::libmp3lame")
+            if self.options.get_safe("with_liboapv"):
+                avcodec.requires.append("openapv::openapv")
             if self.options.get_safe("with_libfdk_aac"):
                 avcodec.requires.append("libfdk_aac::libfdk_aac")
             if self.options.with_libwebp:
@@ -956,6 +968,8 @@ class FFMpegConan(ConanFile):
                 avfilter.frameworks.append("CoreImage")
             if Version(self.version) >= "5.0" and is_apple_os(self):
                 avfilter.frameworks.append("Metal")
+            if self.options.get_safe("with_whisper"):
+                avfilter.requires.append("whisper-cpp::whisper-cpp")
 
         if self.options.get_safe("with_libdrm"):
             avutil.requires.append("libdrm::libdrm_libdrm")
@@ -963,12 +977,11 @@ class FFMpegConan(ConanFile):
             avutil.requires.append("libva::libva")
         if self.options.get_safe("with_xcb"):
             avutil.requires.append("xorg::x11")
-
         if self.options.get_safe("with_vdpau"):
             avutil.requires.append("libvdpau::libvdpau")
-
         if self.options.with_ssl == "openssl":
             avutil.requires.append("openssl::ssl")
-
         if self.options.get_safe("with_vulkan"):
             avutil.requires.append("vulkan-loader::vulkan-loader")
+            if Version(self.version) >= "8.0":
+                avfilter.requires.append("vulkan-loader::vulkan-loader")

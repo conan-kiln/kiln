@@ -18,7 +18,12 @@ class NvplLapackConan(ConanFile):
     topics = ("cuda", "nvpl", "lapack", "lapacke", "linear-algebra", "matrix-factorization")
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
-    provides = "lapack"
+    options = {
+        "compatibility_headers": [True, False],
+    }
+    default_options = {
+        "compatibility_headers": True,
+    }
 
     python_requires = "conan-cuda/latest"
 
@@ -45,10 +50,24 @@ class NvplLapackConan(ConanFile):
     def build(self):
         self.cuda.download_package("nvpl_lapack", platform_id="linux-sbsa")
 
+    @property
+    def _backend_name(self):
+        blas_opts = self.dependencies["nvpl_blas"].options
+        name = f"nvpl_lapack_{blas_opts.interface}"
+        if blas_opts.threading == "omp":
+            name += "_gomp"
+        else:
+            name += "_seq"
+        return name
+
     def package(self):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
-        copy(self, "*.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        copy(self, "libnvpl_lapack_core.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        copy(self, f"lib{self._backend_name}.so*", os.path.join(self.source_folder, "lib"), os.path.join(self.package_folder, "lib"))
+        if self.options.compatibility_headers:
+            save(self, os.path.join(self.package_folder, "include", "lapack.h"), '#include "nvpl_lapack.h"\n')
+            save(self, os.path.join(self.package_folder, "include", "lapacke.h"), '#include "nvpl_lapacke.h"\n')
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "nvpl_lapack")
@@ -65,9 +84,4 @@ class NvplLapackConan(ConanFile):
                 component.requires.append("nvpl_lapack_core")
 
         _add_component("nvpl_lapack_core")
-        _add_component("nvpl_lapack_lp64_seq")
-        _add_component("nvpl_lapack_ilp64_seq")
-        _add_component("nvpl_lapack_lp64_gomp")
-        _add_component("nvpl_lapack_ilp64_gomp")
-
-        self.cpp_info.components["_prohibit_aggregate_target_"].cflags = ["_dont_use_aggregate_nvpl_lapack_target_"]
+        _add_component(self._backend_name)

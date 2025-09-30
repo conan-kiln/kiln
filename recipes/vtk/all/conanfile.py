@@ -292,11 +292,11 @@ class VtkConan(ConanFile):
             # Dawn recipe is not yet merged: #24735
             self.requires("dawn/cci.20240726")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.with_expat:
             self.requires("expat/[>=2.6.2 <3]")
         if self.options.with_ffmpeg:
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
         if self.options.with_fontconfig:
             self.requires("fontconfig/[^2.15.0]")
         if self.options.with_freetype:

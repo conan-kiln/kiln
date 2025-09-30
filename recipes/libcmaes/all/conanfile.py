@@ -2,8 +2,7 @@ import os
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
-from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
-from conan.tools.cmake.cmakedeps.cmakedeps import CMakeDeps
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake, cmake_layout
 from conan.tools.files import *
 
 required_conan_version = ">=2.1"
@@ -18,7 +17,6 @@ class LibcmaesConan(ConanFile):
     license = "LGPL-3.0-or-later"
     homepage = "https://github.com/CMA-ES/libcmaes"
     topics = ("optimization", "minimization")
-
     package_type = "library"
     settings = "os", "compiler", "build_type", "arch"
     options = {
@@ -47,7 +45,7 @@ class LibcmaesConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_openmp:
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
         if self.options.with_glog:

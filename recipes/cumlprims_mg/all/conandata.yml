@@ -1,0 +1,4 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/cumlprims_mg/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "e191a333a33878628a96c8c6a785673c2d6792750c5cafc2857a0450962b1cb8"

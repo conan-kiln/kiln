@@ -1,18 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
-project(PackageTest CXX)
+project(test_package CXX)
 
 find_package(Armadillo CONFIG REQUIRED)
-if (LINK_HDF5)
-    find_package(HDF5)
-    set(HDF5_TARGETS HDF5::HDF5)
-endif()
 
-add_executable(example src/example.cpp)
-target_link_libraries(example Armadillo::Armadillo ${HDF5_TARGETS})
-set_property(TARGET example PROPERTY CXX_STANDARD 11)
+add_executable(test_package test_package.cpp)
+target_link_libraries(test_package Armadillo::Armadillo)
 
 # Test whether variables from https://cmake.org/cmake/help/latest/module/FindArmadillo.html are properly defined
-
 set(_custom_vars
     ARMADILLO_FOUND
     ARMADILLO_INCLUDE_DIRS

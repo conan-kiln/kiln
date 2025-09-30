@@ -4,9 +4,10 @@ diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
 @@ -274,8 +274,8 @@
  endif()
  
- # --- [ PocketFFT
+-# --- [ PocketFFT
 -set(AT_POCKETFFT_ENABLED 0)
 -if(NOT AT_MKL_ENABLED)
++include(CheckFunctionExists)
 +set(AT_POCKETFFT_ENABLED 1)
 +if(0)
    set(POCKETFFT_INCLUDE_DIR "${Torch_SOURCE_DIR}/third_party/pocketfft/")

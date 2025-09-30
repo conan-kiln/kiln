@@ -189,7 +189,7 @@ class GdalConan(ConanFile):
         # https://github.com/OSGeo/gdal/blob/v3.7.1/port/cpl_minizip_ioapi.h#L26
         self.requires("zlib-ng/[^2.0]", transitive_headers=True, transitive_libs=True)
         if self.options.with_armadillo:
-            self.requires("armadillo/[^12.6.4]")
+            self.requires("armadillo/[*]")
         if self.options.with_arrow:
             self.requires("arrow/18.1.0")
         if self.options.with_basisu:

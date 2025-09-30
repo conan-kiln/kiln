@@ -19,7 +19,7 @@ class TestPackageConan(ConanFile):
         tc = CMakeToolchain(self)
         if self.dependencies["roundingsat"].ref.version == "0.0.0+git.20240602":
             tc.cache_variables["RS_OLD_API"] = True
-            tc.preprocessor_definitions["RS_OLD_API"] = ""
+            tc.preprocessor_definitions["RS_OLD_API"] = None
         tc.generate()
 
     def build(self):

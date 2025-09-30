@@ -29,7 +29,7 @@ class WhisperCppConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "with_openmp": True,
-        "with_cuda": True,
+        "with_cuda": False,
         "with_openvino": False,
         "with_coreml": False,
         "coreml_allow_fallback": False,
@@ -71,7 +71,7 @@ class WhisperCppConan(ConanFile):
 
     def build_requirements(self):
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
             self.tool_requires("cmake/[>=3.18]")
 
     def layout(self):

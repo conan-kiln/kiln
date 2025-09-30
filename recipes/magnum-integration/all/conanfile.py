@@ -49,10 +49,10 @@ class MagnumIntegrationConan(ConanFile):
             self.requires("bullet3/3.25", transitive_headers=True, transitive_libs=True)
         if self.options.with_eigen:
             # Used in Magnum/EigenIntegration/Integration.h
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_glm:
             # Used in Magnum/GlmIntegration/Integration.h
-            self.requires("glm/cci.20230113", transitive_headers=True, transitive_libs=True)
+            self.requires("glm/[^1.0.1]", transitive_headers=True, transitive_libs=True)
         if self.options.with_imgui:
             # Used in Magnum/ImGuiIntegration/Integration.h
             self.requires("imgui/[^1.90]", transitive_headers=True, transitive_libs=True)

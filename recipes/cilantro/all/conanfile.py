@@ -1,7 +1,6 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
@@ -35,30 +34,21 @@ class CilantroConan(ConanFile):
         "with_openmp": True,
         "with_pangolin": False,
     }
+    implements = ["auto_shared_fpic"]
 
     def export_sources(self):
         export_conandata_patches(self)
         copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.options["qhull/*"].shared = False
-        self.options["qhull/*"].reentrant = True
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("spectra/[^1.0.1]", transitive_headers=True, transitive_libs=True)
-        self.requires("nanoflann/1.5.2", transitive_headers=True, transitive_libs=True)
+        self.requires("nanoflann/[^1.5.2]", transitive_headers=True, transitive_libs=True)
         self.requires("tinyply/2.3.4", transitive_headers=True, transitive_libs=True)
-        self.requires("qhull/8.1.alpha4", transitive_headers=True, transitive_libs=True)
+        self.requires("qhull/[^8.1.alpha4]", transitive_headers=True, transitive_libs=True)
         if self.options.with_openmp:
             # '#pragma omp' is used in public headers
             self.requires("openmp/system", transitive_headers=True, transitive_libs=True)
@@ -67,9 +57,6 @@ class CilantroConan(ConanFile):
 
     def validate(self):
         check_min_cppstd(self, 17)
-        qhull = self.dependencies["qhull"].options
-        if qhull.shared or not qhull.reentrant:
-            raise ConanInvalidConfiguration("qhull must be built with -o qhull/*:shared=False -o qhull/*:reentrant=True")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

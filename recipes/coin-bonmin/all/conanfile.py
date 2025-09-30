@@ -28,7 +28,7 @@ class BonminConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "tools": False,
-        "with_asl": True,
+        "with_asl": False,
     }
     implements = ["auto_shared_fpic"]
 
@@ -96,9 +96,8 @@ class BonminConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
-            automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, automake_conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", "link -nologo")

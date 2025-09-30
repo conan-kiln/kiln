@@ -55,7 +55,7 @@ class NumpyConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.26 <1]")
+        self.requires("blas/latest")
         if not self._python_executable:
             self.requires("cpython/[^3]", transitive_headers=True, transitive_libs=True)
 

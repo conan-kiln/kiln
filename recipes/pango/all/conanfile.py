@@ -86,7 +86,7 @@ class PangoConan(ConanFile):
         if self.options.get_safe("with_xft"):
             self.requires("libxft/[^2.3.8]")
             self.requires("xorg/system")  # for xorg::xrender
-        self.requires("fribidi/1.0.13")
+        self.requires("fribidi/[^1.0.13]")
         if self.options.with_introspection:
             self.requires("glib-gir/[^2.82]")
 

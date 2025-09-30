@@ -44,7 +44,7 @@ class SuperLUConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[*]")
+        self.requires("blas/latest")
         self.requires("metis/[^5.2.1]")
 
     def validate(self):
@@ -73,11 +73,10 @@ class SuperLUConan(ConanFile):
         tc.cache_variables["enable_fortran"] = False
         tc.cache_variables["enable_internal_blaslib"] = False
         tc.cache_variables["TPL_ENABLE_INTERNAL_BLASLIB"] = False
-        tc.cache_variables["TPL_BLAS_LIBRARIES"] = "OpenBLAS::OpenBLAS"
         tc.cache_variables["TPL_ENABLE_METISLIB"] = True
         tc.cache_variables["TPL_METIS_LIBRARIES"] = "metis::metis"
         tc.cache_variables["TPL_METIS_INCLUDE_DIRS"] = ";"
-        tc.cache_variables["XSDK_INDEX_SIZE"] = 64 if self.dependencies["openblas"].options.interface == "ilp64" else 32
+        tc.cache_variables["XSDK_INDEX_SIZE"] = 64 if self.dependencies["blas"].options.interface == "ilp64" else 32
         tc.generate()
 
         deps = CMakeDeps(self)

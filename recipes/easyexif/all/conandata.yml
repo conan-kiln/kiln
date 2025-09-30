@@ -1,4 +1,9 @@
 sources:
-  "1.0":
-    sha256: e4251ae76a172bfd676e9e24a5a27b970a81d1731296822ef1afaeb4857f045a
-    url: https://github.com/mayanklahiri/easyexif/archive/v1.0.tar.gz
+  "1.0+openmvg.20200322":
+    url: "https://github.com/mayanklahiri/easyexif/archive/cd994a3b6009bc3c1f84062e96bd7f5ad16e85f6.tar.gz"
+    sha256: "79ce95e1e0241793c464fb45b94825f693d7ab97f0c74fa17221a5eb6f12bd0c"
+patches:
+  "1.0+openmvg.20200322":
+    - patch_file: "patches/openmvg-fixes.patch"
+      patch_description: "OpenMVG fixes and changes rebased onto the latest easyexif version"
+      patch_source: "https://github.com/openMVG/openMVG/tree/abb209953961fef72554829a998a1655629f9eb6/src/third_party/easyexif"

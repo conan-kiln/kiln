@@ -1,7 +1,6 @@
 import os
 import re
 import textwrap
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -257,10 +256,7 @@ class OpenCVConan(ConanFile):
     default_options.update({_name: False for _name in OPENCV_EXTRA_MODULES_OPTIONS})
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     @property
     def _is_cl_like(self):
@@ -510,7 +506,7 @@ class OpenCVConan(ConanFile):
             return ["eigen::eigen"] if self.options.with_eigen else []
 
         def lapack():
-            return ["openblas::openblas"] if self.options.with_lapack else []
+            return ["lapack::lapack"] if self.options.get_safe("with_lapack") else []
 
         def clp():
             return ["coin-clp::coin-clp"] if self.options.get_safe("with_clp") else []
@@ -1256,10 +1252,9 @@ class OpenCVConan(ConanFile):
         # core module dependencies
         self.requires("zlib-ng/[^2.0]")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0")
+            self.requires("eigen/[>=3.3 <6]")
         if self.options.get_safe("with_lapack"):
-            # TODO: add a BLAS/LAPACK meta-package for Conan
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("lapack/latest")
         if self.options.get_safe("with_clp"):
             self.requires("coin-clp/[^1.17.6]")
         if self.options.with_cuda:
@@ -1335,7 +1330,7 @@ class OpenCVConan(ConanFile):
             self.requires("quirc/1.2")
         # videoio module dependencies
         if self.options.get_safe("with_ffmpeg"):
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
         if self.options.get_safe("with_gstreamer"):
             self.requires("gst-plugins-base/[^1.16]")
             self.requires("gstreamer/[^1.16]")
@@ -1428,7 +1423,7 @@ class OpenCVConan(ConanFile):
         if self.options.get_safe("with_qt"):
             self.tool_requires("qt/<host_version>")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version][0], strip_root=True)
@@ -1845,6 +1840,7 @@ class OpenCVConan(ConanFile):
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "cmake"))
         if os.path.isfile(os.path.join(self.package_folder, "setup_vars_opencv4.cmd")):
+            mkdir(self, os.path.join(self.package_folder, "share"))
             rename(self, os.path.join(self.package_folder, "setup_vars_opencv4.cmd"),
                          os.path.join(self.package_folder, "share", "setup_vars_opencv4.cmd"))
         self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_vars_rel_path))

@@ -1,13 +1,12 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration, ConanException
+from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd, check_max_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import *
 from conan.tools.microsoft import is_msvc_static_runtime
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -20,7 +19,6 @@ class LibiglConan(ConanFile):
     license = "MPL-2.0"
     homepage = "https://libigl.github.io/"
     topics = ("geometry", "matrices", "algorithms", "header-only")
-
     package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -31,46 +29,25 @@ class LibiglConan(ConanFile):
         "fPIC": True,
         "header_only": False,
     }
+    implements = ["auto_header_only", "auto_shared_fpic"]
 
     def export_sources(self):
-        export_conandata_patches(self)
         copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-
-    def configure(self):
-        if self.options.header_only:
-            self.options.rm_safe("fPIC")
-            # No automatic detection for non "library" package-types, manually override
-            self.package_type = "header-library"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if Version(self.version) >= "2.5.0":
-            self.requires("eigen/3.4.0", transitive_headers=True)
-        else:
-            # 3.4.0 is not compatible with older versions
-            self.requires("eigen/3.3.9", transitive_headers=True)
+        # Eigen v5.0.0 is not compatible as of v2.6.0
+        # include/igl/is_symmetric.cpp:42:35: error: ‘Eigen::DenseBase ... has no member named ‘nonZeros’
+        #    42 |   return (A-A.transpose()).eval().nonZeros() == 0;
+        # https://gitlab.com/libeigen/eigen/-/merge_requests/740
+        self.requires("eigen/[^3.3]", transitive_headers=True)
 
     def build_requirements(self):
-        self.tool_requires("cmake/[>=3.16 <5]")
-
-    def package_id(self):
-        if self.info.options.header_only:
-            self.info.clear()
-
-    def validate_build(self):
-        if (os.getenv('CONAN_CENTER_BUILD_SERVICE') is not None and
-                Version(self.version) == "2.3.0" and self.settings.build_type == "Debug"):
-            raise ConanInvalidConfiguration("Debug build disabled from building in CCI due to excessive memory use in ConanCenter CI")
+        self.tool_requires("cmake/[>=3.16]")
 
     def validate(self):
-        if Version(self.version) < "2.4.0" and "arm" in self.settings.arch:
-            raise ConanInvalidConfiguration(f"Old versions of this library do not support {self.settings.arch} architecture")
         if self.settings.arch == "x86":
             raise ConanInvalidConfiguration(f"Architecture {self.settings.arch} is not supported")
         if is_msvc_static_runtime(self) and not self.options.header_only:
@@ -81,79 +58,51 @@ class LibiglConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        apply_conandata_patches(self)
+        # Eigen v5 compatibility
+        replace_in_file(self, "include/igl/redux.h", "#include <Eigen/Core>", "#include <cassert>\n#include <Eigen/Core>")
+        save(self, "include/igl/igl_inline.h", "\n\n#include <cassert>", append=True)
 
     def generate(self):
         env = VirtualBuildEnv(self)
         env.generate()
 
         tc = CMakeToolchain(self)
-        tc.variables["CMAKE_PROJECT_libigl_INCLUDE"] = "conan_deps.cmake"
-        tc.variables["LIBIGL_USE_STATIC_LIBRARY"] = not self.options.header_only
-        tc.variables["LIBIGL_POSITION_INDEPENDENT_CODE"] = self.options.get_safe("fPIC", True)
+        tc.cache_variables["CMAKE_PROJECT_libigl_INCLUDE"] = "conan_deps.cmake"
+        tc.cache_variables["LIBIGL_USE_STATIC_LIBRARY"] = not self.options.header_only
+        tc.cache_variables["LIBIGL_POSITION_INDEPENDENT_CODE"] = self.options.get_safe("fPIC", True)
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0048"] = "NEW"
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
 
         # All these dependencies are needed to build the examples or the tests
-        tc.variables["LIBIGL_BUILD_TUTORIALS"] = False
-        tc.variables["LIBIGL_BUILD_TESTS"] = False
-        tc.variables["LIBIGL_BUILD_PYTHON"] = False
+        tc.cache_variables["LIBIGL_BUILD_TUTORIALS"] = False
+        tc.cache_variables["LIBIGL_BUILD_TESTS"] = False
+        tc.cache_variables["LIBIGL_BUILD_PYTHON"] = False
 
-        if Version(self.version) >= "2.4.0":
-            tc.variables["LIBIGL_EMBREE"] = False
-            tc.variables["LIBIGL_GLFW"] = False
-            tc.variables["LIBIGL_IMGUI"] = False
-            tc.variables["LIBIGL_OPENGL"] = False
-            tc.variables["LIBIGL_STB"] = False
-            tc.variables["LIBIGL_PREDICATES"] = False
-            tc.variables["LIBIGL_SPECTRA"] = False
-            tc.variables["LIBIGL_XML"] = False
-            tc.variables["LIBIGL_COPYLEFT_CORE"] = False
-            tc.variables["LIBIGL_COPYLEFT_CGAL"] = False
-            tc.variables["LIBIGL_COPYLEFT_COMISO"] = False
-            tc.variables["LIBIGL_COPYLEFT_TETGEN"] = False
-            tc.variables["LIBIGL_RESTRICTED_MATLAB"] = False
-            tc.variables["LIBIGL_RESTRICTED_MOSEK"] = False
-            tc.variables["LIBIGL_RESTRICTED_TRIANGLE"] = False
-            tc.variables["LIBIGL_GLFW_TESTS"] = False
-        else:
-            tc.variables["LIBIGL_EXPORT_TARGETS"] = True
-            tc.variables["LIBIGL_WITH_EMBREE"] = False
-            tc.variables["LIBIGL_WITH_OPENGL_GLFW"] = False
-            tc.variables["LIBIGL_WITH_OPENGL_GLFW_IMGUI"] = False
-            tc.variables["LIBIGL_WITH_OPENGL"] = False
-            tc.variables["LIBIGL_WITH_PNG"] = False
-            tc.variables["LIBIGL_WITH_PREDICATES"] = False
-            tc.variables["LIBIGL_WITH_XML"] = False
-            tc.variables["LIBIGL_WITH_CGAL"] = False
-            tc.variables["LIBIGL_WITH_COMISO"] = False
-            tc.variables["LIBIGL_WITH_CORK"] = False
-            tc.variables["LIBIGL_WITH_TETGEN"] = False
-            tc.variables["LIBIGL_WITH_MATLAB"] = False
-            tc.variables["LIBIGL_WITH_MOSEK"] = False
-            tc.variables["LIBIGL_WITH_TRIANGLE"] = False
-            tc.variables["LIBIGL_WITH_PYTHON"] = False
+        tc.cache_variables["LIBIGL_EMBREE"] = False
+        tc.cache_variables["LIBIGL_GLFW"] = False
+        tc.cache_variables["LIBIGL_IMGUI"] = False
+        tc.cache_variables["LIBIGL_OPENGL"] = False
+        tc.cache_variables["LIBIGL_STB"] = False
+        tc.cache_variables["LIBIGL_PREDICATES"] = False
+        tc.cache_variables["LIBIGL_SPECTRA"] = False
+        tc.cache_variables["LIBIGL_XML"] = False
+        tc.cache_variables["LIBIGL_COPYLEFT_CORE"] = False
+        tc.cache_variables["LIBIGL_COPYLEFT_CGAL"] = False
+        tc.cache_variables["LIBIGL_COPYLEFT_COMISO"] = False
+        tc.cache_variables["LIBIGL_COPYLEFT_TETGEN"] = False
+        tc.cache_variables["LIBIGL_RESTRICTED_MATLAB"] = False
+        tc.cache_variables["LIBIGL_RESTRICTED_MOSEK"] = False
+        tc.cache_variables["LIBIGL_RESTRICTED_TRIANGLE"] = False
+        tc.cache_variables["LIBIGL_GLFW_TESTS"] = False
         tc.generate()
 
         deps = CMakeDeps(self)
         deps.generate()
 
-    def _patch_sources(self):
-        if Version(self.version) < "2.4.0":
-            libigl_cmake = os.path.join(self.source_folder, "cmake", "libigl.cmake")
-            replace_in_file(self, libigl_cmake, "-fPIC", "")
-            replace_in_file(self, libigl_cmake, "INTERFACE_POSITION_INDEPENDENT_CODE ON", "")
-
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
-        try:
-            cmake.build()
-        except ConanException:
-            # Workaround for C3I running out of memory during build
-            self.conf.define("tools.build:jobs", 1)
-            cmake.build()
+        cmake.build()
 
     def package(self):
         cmake = CMake(self)

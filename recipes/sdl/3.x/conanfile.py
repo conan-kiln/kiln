@@ -230,7 +230,7 @@ class SDLConan(ConanFile):
         if self.options.get_safe("alsa"):
             self.requires("libalsa/[^1.2.10]")
         if self.options.get_safe("sndio"):
-            self.requires("libsndio/1.9.0")
+            self.requires("libsndio/[^1.9.0]")
         if self.options.get_safe("wayland"):
             self.requires("wayland/[^1.22.0]")
             self.requires("xkbcommon/[^1.6.0]")

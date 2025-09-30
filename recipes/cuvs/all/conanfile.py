@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -38,10 +37,7 @@ class CuVsConan(ConanFile):
     }
     implements = ["auto_shared_fpic", "auto_header_only"]
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -49,7 +45,7 @@ class CuVsConan(ConanFile):
     def requirements(self):
         self.requires("cutlass/[>=3 <5]", transitive_headers=True, transitive_libs=True)
         self.requires("raft/[>=25.08]", transitive_headers=True, transitive_libs=True)
-        self.requires("dlpack/[>=0.8 <1]", transitive_headers=True)
+        self.requires("dlpack/[>=0.8]", transitive_headers=True)
         if self.options.with_hnswlib:
             self.requires("hnswlib/0.8.0-cuvs", transitive_headers=True)
         if self.options.multi_gpu:
@@ -67,7 +63,7 @@ class CuVsConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.30.4]")
         self.tool_requires("rapids-cmake/25.08.00")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -44,10 +43,7 @@ class SuperSCSConan(ConanFile):
     languages = ["C"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -74,7 +70,7 @@ class SuperSCSConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.0 <1]")
+        self.requires("blas/latest")
         if self.options.build_direct:
             self.requires("suitesparse-ldl/[^3.3]")
         if self.options.with_openmp:
@@ -106,7 +102,7 @@ class SuperSCSConan(ConanFile):
         tc.cache_variables["USE_OPENMP"] = self.options.with_openmp
         tc.cache_variables["FLOAT"] = self.options.float32
         tc.cache_variables["DLONG"] = not self.options.int32
-        tc.cache_variables["BLAS64"] = self.dependencies["openblas"].options.interface == "ilp64"
+        tc.cache_variables["BLAS64"] = self.dependencies["blas"].options.interface == "ilp64"
         tc.cache_variables["GPU"] = self.options.with_cuda
         if self.options.casadi_compatibility:
             tc.preprocessor_definitions["SCS_CASADI"] = "1"
@@ -153,6 +149,6 @@ class SuperSCSConan(ConanFile):
                 component.defines.append("SCS_CASADI=1")
             if self.settings.os in ["Linux", "FreeBSD"]:
                 component.system_libs.extend(["m", "rt"])
-            component.requires.append("openblas::openblas")
+            component.requires.append("blas::blas")
             if self.options.with_openmp:
                 component.requires.append("openmp::openmp")

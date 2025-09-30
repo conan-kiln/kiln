@@ -8,6 +8,7 @@ import threading
 import time
 
 from conan import ConanFile
+from conan.tools.build import build_jobs
 
 # Keep the original value in case limit_build_jobs() is applied multiple times
 _max_jobs_original = None
@@ -21,7 +22,7 @@ def limit_build_jobs(conanfile: ConanFile, gb_mem_per_job: float):
     mem_free_gb = _get_free_memory_gb()
     max_jobs = max(math.floor(mem_free_gb / gb_mem_per_job), 1)
     global _max_jobs_original
-    _max_jobs_original = _max_jobs_original or int(conanfile.conf.get("tools.build:jobs", default=os.cpu_count()))
+    _max_jobs_original = _max_jobs_original or int(build_jobs(conanfile))
     if _max_jobs_original > max_jobs:
         conanfile.output.warning(f"Limiting the number of build jobs to {max_jobs} "
                                  f"to fit the available {mem_free_gb:.1f} GB of memory "
@@ -31,7 +32,7 @@ def limit_build_jobs(conanfile: ConanFile, gb_mem_per_job: float):
 
 @contextlib.contextmanager
 def monitor_memory_usage(conanfile: ConanFile, log_every_n_seconds: float = None, terminate_threshold_gb: float = 0.5):
-    num_jobs = int(conanfile.conf.get("tools.build:jobs", default=os.cpu_count()))
+    num_jobs = int(build_jobs(conanfile))
     baseline_mem_usage = _get_free_memory_gb()
     peak_mem_usage = 0
     stop_event = threading.Event()

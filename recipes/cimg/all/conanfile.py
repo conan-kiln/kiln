@@ -26,6 +26,7 @@ class CImgConan(ConanFile):
         "enable_fftw": [True, False],
         "enable_heif": [True, False],
         "enable_jpeg": [True, False],
+        "enable_lapack": [True, False],
         "enable_magick": [True, False],
         "enable_opencv": [True, False],
         "enable_openexr": [True, False],
@@ -44,6 +45,7 @@ class CImgConan(ConanFile):
         "enable_fftw": False,
         "enable_heif": False,
         "enable_jpeg": True,
+        "enable_lapack": False,
         "enable_magick": False,
         "enable_opencv": False,
         "enable_openexr": False,
@@ -63,7 +65,7 @@ class CImgConan(ConanFile):
         "enable_fftw": "Enable faster Discrete Fourier Transform computation, using the FFTW3 library",
         "enable_heif": "Support HEIF (.heic and .avif) image files, using libheif",
         "enable_jpeg": "Support JPEG (.jpg) image files, using the JPEG library",
-        # "enable_lapack": "Enable the use of LAPACK routines for matrix computations",
+        "enable_lapack": "Enable the use of LAPACK routines for matrix computations",
         "enable_magick": "Add support of most classical image file formats, using the Magick++ library",
         # "enable_minc2": "Support MINC2 (.mnc) image files, using the MINC2 library",
         "enable_opencv": "Enable OpenCV support",
@@ -89,6 +91,7 @@ class CImgConan(ConanFile):
             ("enable_fftw", "cimg_use_fftw3"),
             ("enable_heif", "cimg_use_heif"),
             ("enable_jpeg", "cimg_use_jpeg"),
+            ("enable_lapack", "cimg_use_lapack"),
             ("enable_magick", "cimg_use_magick"),
             ("enable_opencv", "cimg_use_opencv"),
             ("enable_openexr", "cimg_use_openexr"),
@@ -100,7 +103,6 @@ class CImgConan(ConanFile):
             ("enable_zlib", "cimg_use_zlib"),
             # TODO:
             # ("enable_minc2", "cimg_use_minc2"),
-            # ("enable_lapack", "cimg_use_lapack"),
             # ("enable_board", "cimg_use_board"),
         ]:
             if self.options.get_safe(option):
@@ -154,9 +156,11 @@ class CImgConan(ConanFile):
         if self.options.enable_tiff:
             self.requires("libtiff/[>=4.5 <5]")
         if self.options.enable_ffmpeg:
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
         if self.options.enable_opencv:
             self.requires("opencv/[^4.5]", options={"highgui": True, "videoio": True})
+        if self.options.enable_lapack:
+            self.requires("lapack/latest")
         if self.options.enable_magick:
             self.requires("imagemagick/7.0.11-14")
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.enable_display:
@@ -235,6 +239,8 @@ class CImgConan(ConanFile):
             requires.append("ffmpeg::avcodec")
             requires.append("ffmpeg::avformat")
             requires.append("ffmpeg::swscale")
+        if self.options.enable_lapack:
+            requires.append("lapack::lapack")
         if self.options.enable_magick:
             requires.append("imagemagick::Magick++")
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.enable_display:

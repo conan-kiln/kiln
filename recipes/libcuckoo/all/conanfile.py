@@ -2,7 +2,7 @@ import os
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 
 required_conan_version = ">=2.1"
@@ -17,9 +17,8 @@ class LibCuckooConan(ConanFile):
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
 
-    @property
-    def _minimum_cpp_standard(self):
-        return 11
+    def export_sources(self):
+        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -28,11 +27,14 @@ class LibCuckooConan(ConanFile):
         self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, self._minimum_cpp_standard)
+        check_min_cppstd(self, 11)
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 3.1.0)",
+                        "cmake_minimum_required(VERSION 3.5.0)")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -42,8 +44,6 @@ class LibCuckooConan(ConanFile):
         tc.variables["BUILD_UNIT_TESTS"] = False
         tc.variables["BUILD_UNIVERSAL_BENCHMARK"] = False
         tc.generate()
-        deps = CMakeDeps(self)
-        deps.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -52,7 +52,6 @@ class LibCuckooConan(ConanFile):
 
     def package(self):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        # Install with CMake
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))

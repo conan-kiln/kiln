@@ -168,8 +168,8 @@ class UsocketsConan(ConanFile):
             tc = AutotoolsToolchain(self)
             env = tc.environment()
             if is_msvc(self):
-                compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
-                ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+                compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+                ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
                 env.define("CC", f"{compile_wrapper} cl -nologo")
                 env.define("CXX", f"{compile_wrapper} cl -nologo")
                 env.define("LD", f"{compile_wrapper} link -nologo")

@@ -93,7 +93,7 @@ class GStPluginsUglyConan(ConanFile):
         self.requires(f"gst-plugins-base/{self.version}", transitive_headers=True, transitive_libs=True)
         self.requires("glib/[^2.70.0]", transitive_headers=True, transitive_libs=True)
         if self.options.x264:
-            self.requires("libx264/cci.20240224")
+            self.requires("libx264/[*]")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.3 <2]")

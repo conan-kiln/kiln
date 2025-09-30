@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -19,10 +18,7 @@ class NvbloxConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type", "cuda"
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -39,7 +35,7 @@ class NvbloxConan(ConanFile):
         self.cuda.requires("nvtx", transitive_headers=True)
         self.cuda.requires("curand", transitive_headers=True)
         self.requires("stdgpu/1.3.0-nvblox.20240211", transitive_headers=True, transitive_libs=True, options={"backend": "cuda"})
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("gflags/[^2]", transitive_headers=True, transitive_libs=True)
         self.requires("glog/[>=0.5 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("sqlite3/[^3]")
@@ -49,7 +45,7 @@ class NvbloxConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.22]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

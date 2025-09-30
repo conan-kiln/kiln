@@ -1,9 +1,8 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.build import check_min_cppstd, check_min_cstd, can_run, stdcpp_library
+from conan.tools.build import check_min_cppstd, check_min_cstd, can_run, stdcpp_library, cross_building
 from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
@@ -37,10 +36,7 @@ class SpralConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     @property
     def _fortran_compiler(self):
@@ -58,7 +54,7 @@ class SpralConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[<1]")
+        self.requires("lapack/latest")
         self.requires("metis/[^5.1]")
         if self.options.with_hwloc:
             self.requires("hwloc/[^2.0]")
@@ -77,7 +73,7 @@ class SpralConan(ConanFile):
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[^2.2]")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def validate_build(self):
         if not self._fortran_compiler:
@@ -99,10 +95,10 @@ class SpralConan(ConanFile):
         tc.project_options["gpu"] = self.options.with_cuda
         tc.project_options["libmetis_version"] = str(self.dependencies["metis"].ref.version.major)
         tc.generate()
-        replace_in_file(self, "conan_meson_native.ini", "[binaries]", f"[binaries]\nfc = '{self._fortran_compiler}'")
+        meson_ini = "conan_meson_cross.ini" if cross_building(self) else "conan_meson_native.ini"
+        replace_in_file(self, meson_ini, "[binaries]", f"[binaries]\nfortran = '{self._fortran_compiler}'")
 
         deps = PkgConfigDeps(self)
-        deps.set_property("openblas", "pkg_config_aliases", ["blas", "lapack"])
         deps.set_property("cublas::cublas_", "pkg_config_name", "cublas")
         deps.generate()
 
@@ -125,7 +121,7 @@ class SpralConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["spral"]
-        self.cpp_info.requires = ["openblas::openblas", "metis::metis"]
+        self.cpp_info.requires = ["lapack::lapack", "metis::metis"]
         if self.options.with_hwloc:
             self.cpp_info.requires.append("hwloc::hwloc")
         if self.options.with_cuda:

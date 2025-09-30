@@ -95,10 +95,11 @@ class CunitConan(ConanFile):
         env = tc.environment()
 
         if is_msvc(self):
-            automake_info = self.dependencies.build["automake"].conf_info
-            env.append("CC", f'{unix_path(self, automake_info.get("user.automake:compile-wrapper", check_type=str))} cl -nologo')
-            env.append("CXX", f'{unix_path(self, automake_info.get("user.automake:compile-wrapper", check_type=str))} cl -nologo')
-            env.append("AR", f'{unix_path(self, automake_info.get("user.automake:lib-wrapper", check_type=str))} lib')
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
+            env.append("CC", f'{compile_wrapper} cl -nologo')
+            env.append("CXX", f'{compile_wrapper} cl -nologo')
+            env.append("AR", f'{ar_wrapper} lib')
             env.define("LD", "link -nologo")
             env.append("NM", "dumpbin -symbols")
             env.append("OBJDUMP", ":")

@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -28,10 +27,7 @@ class CuDfConan(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -43,7 +39,7 @@ class CuDfConan(ConanFile):
         self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
         self.cuda.requires("nvcomp")
         self.cuda.requires("nvtx", transitive_headers=True, transitive_libs=True)
-        self.cuda.requires("cucollections", transitive_headers=True, transitive_libs=True)
+        self.requires("cucollections/[>0.0.1+git.20250529]", transitive_headers=True, transitive_libs=True)
         self.requires("bshoshany-thread-pool/[^4.1.0]", transitive_headers=True, transitive_libs=True)
         self.requires("dlpack/[^1]")
         self.requires("flatbuffers/[~24.3.25]")
@@ -64,7 +60,7 @@ class CuDfConan(ConanFile):
         self.tool_requires("cmake/[>=3.30.4]")
         self.tool_requires("rapids-cmake/25.10.00-git.20250822")
         self.tool_requires("jitify/<host_version>")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -119,7 +115,7 @@ class CuDfConan(ConanFile):
         tc.cache_variables["FETCHCONTENT_FULLY_DISCONNECTED"] = True
         tc.cache_variables["CMAKE_PREFIX_PATH"] = self.generators_folder.replace("\\", "/")
         tc.cache_variables["rapids-cmake-dir"] = self.dependencies.build["rapids-cmake"].cpp_info.builddirs[0].replace("\\", "/")
-        tc.preprocessor_definitions["ZSTD_STATIC_LINKING_ONLY"] = ""
+        tc.preprocessor_definitions["ZSTD_STATIC_LINKING_ONLY"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

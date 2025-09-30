@@ -64,7 +64,7 @@ class ImplotConan(ConanFile):
         tc.variables["IMPLOT_SRC_DIR"] = self.source_folder.replace("\\", "/")
         if Version(self.version) < "0.16":
             # Set in code since v0.16 https://github.com/epezent/implot/commit/33c5a965f55f80057f197257d1d1cdb06523e963
-            tc.preprocessor_definitions["IMGUI_DEFINE_MATH_OPERATORS"] = ""
+            tc.preprocessor_definitions["IMGUI_DEFINE_MATH_OPERATORS"] = None
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

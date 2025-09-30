@@ -22,7 +22,7 @@ class GtsamGnssPackage(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("gtsam/4.3-pre.20250201")
+        self.requires("gtsam/4.3-a0")
 
     def package_id(self):
         self.info.clear()

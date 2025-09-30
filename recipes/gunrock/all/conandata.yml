@@ -1,0 +1,4 @@
+sources:
+  "2.1.0":
+    url: "https://github.com/gunrock/gunrock/archive/refs/tags/v2.1.0.tar.gz"
+    sha256: "b3968cd3fde5d6ae6421ff668528933c6a3e75d7d8bb1119e00f904e14bf1120"

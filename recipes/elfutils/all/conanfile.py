@@ -123,8 +123,22 @@ class ElfutilsConan(ConanFile):
             # ./configure ignores system_libs
             tc.extra_ldflags.append("-pthread")
         tc.generate()
-        deps = AutotoolsDeps(self)
-        deps.generate()
+        if self.settings.compiler == "msvc":
+            # Custom AutotoolsDeps for cl-like compilers
+            # workaround for https://github.com/conan-io/conan/issues/12784
+            cpp_info = CppInfo(self)
+            for dependency in reversed(self.dependencies.host.topological_sort.values()):
+                cpp_info.merge(dependency.cpp_info.aggregated_components())
+            env = Environment()
+            env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])
+            env.append("_LINK_", [lib if lib.endswith(".lib") else f"{lib}.lib" for lib in cpp_info.libs])
+            env.append("LDFLAGS", [f"-L{unix_path(self, p)}" for p in cpp_info.libdirs] + cpp_info.sharedlinkflags + cpp_info.exelinkflags)
+            env.append("CXXFLAGS", cpp_info.cxxflags)
+            env.append("CFLAGS", cpp_info.cflags)
+            env.vars(self).save_script("conanautotoolsdeps_cl_workaround")
+        else:
+            deps = AutotoolsDeps(self)
+            deps.generate()
         deps = PkgConfigDeps(self)
         deps.generate()
 

@@ -8,9 +8,6 @@ if(MSVC)
   add_compile_options(/Zp8)
 endif()
 
-# https://github.com/vlfeat/vlfeat/blob/v0.9.21/Makefile#L154-L158
-set(CMAKE_C_STANDARD 99)
-
 # https://github.com/vlfeat/vlfeat/blob/v0.9.21/make/dll.mak#L40
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 
@@ -56,6 +53,13 @@ if(ENABLE_OPENMP)
   find_package(OpenMP REQUIRED)
   target_link_libraries(vl PRIVATE OpenMP::OpenMP_C)
 endif()
+
+if(BUILD_SHARED_LIBS)
+  target_compile_definitions(vl PRIVATE VL_BUILD_DLL)
+else()
+  target_compile_definitions(vl PUBLIC VL_STATIC)
+endif()
+target_compile_features(vl PRIVATE c_std_99)
 
 include(GNUInstallDirs)
 install(

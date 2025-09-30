@@ -49,9 +49,9 @@ class ArpackNgConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
         if self.options.with_eigen:
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def validate_build(self):
         if not self._fortran_compiler:
@@ -78,7 +78,7 @@ class ArpackNgConan(ConanFile):
         tc.cache_variables["ICB"] = self.options.icb
         tc.cache_variables["EIGEN"] = self.options.with_eigen
         tc.cache_variables["PYTHON3"] = False
-        tc.cache_variables["INTERFACE64"] = self.dependencies["openblas"].options.interface == "ilp64"
+        tc.cache_variables["INTERFACE64"] = self.dependencies["blas"].options.interface == "ilp64"
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

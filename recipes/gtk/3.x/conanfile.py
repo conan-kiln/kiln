@@ -107,7 +107,7 @@ class GtkConan(ConanFile):
         # https://gitlab.gnome.org/GNOME/gtk/-/blob/3.24.37/gtk/gtkwidget.h?ref_type=tags#L36
         self.requires("at-spi2-core/[^2.53.1]", transitive_headers=True, transitive_libs=True)
         self.requires("libepoxy/1.5.10")
-        self.requires("fribidi/1.0.13")
+        self.requires("fribidi/[^1.0.13]")
         self.requires("harfbuzz/[*]")
         if self.options.get_safe("with_wayland"):
             self.requires("wayland/[^1.22.0]")

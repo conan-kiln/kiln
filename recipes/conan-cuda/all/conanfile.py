@@ -4,10 +4,7 @@ CUDA support functions.
 You can use them by adding
 ```
   python_requires = "conan-cuda/latest"
-
-  @cached_property
-  def cuda(self):
-      return self.python_requires["conan-cuda"].module.Interface(self)
+  python_requires_extend = "conan-cuda.Cuda"
 
   def requires(self):
         self.cuda.requires("cudart")

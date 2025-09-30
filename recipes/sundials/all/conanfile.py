@@ -1,7 +1,6 @@
 import glob
 import os
 import shutil
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -63,10 +62,7 @@ class SundialsConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -101,7 +97,7 @@ class SundialsConan(ConanFile):
         if self.options.with_klu:
             self.requires("suitesparse-klu/[^2.3.5]", transitive_headers=True, transitive_libs=True)
         if self.options.with_lapack:
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("lapack/latest")
         if self.options.with_mpi:
             self.requires("openmpi/[^4.1.6]", transitive_headers=True, transitive_libs=True, options={"enable_cxx": True})
         if self.options.with_openmp:
@@ -132,7 +128,7 @@ class SundialsConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -341,7 +337,7 @@ class SundialsConan(ConanFile):
                 if self.options.with_klu:
                     component.requires.append("suitesparse-klu::suitesparse-klu")
                 if self.options.with_lapack:
-                    component.requires.append("openblas::openblas")
+                    component.requires.append("lapack::lapack")
                 if self.options.with_superlumt:
                     component.requires.append("superlu_mt::superlu_mt")
             return
@@ -365,8 +361,8 @@ class SundialsConan(ConanFile):
         if self.options.with_klu:
             _add_lib("sunlinsolklu", requires=["sunmatrixsparse", "suitesparse-klu::suitesparse-klu"])
         if self.options.with_lapack:
-            _add_lib("sunlinsollapackband", requires=["sunmatrixband", "openblas::openblas"])
-            _add_lib("sunlinsollapackdense", requires=["sunmatrixdense", "openblas::openblas"])
+            _add_lib("sunlinsollapackband", requires=["sunmatrixband", "lapack::lapack"])
+            _add_lib("sunlinsollapackdense", requires=["sunmatrixdense", "lapack::lapack"])
         if self.options.with_superlumt:
             _add_lib("sunlinsolsuperlumt", requires=["sunmatrixsparse", "superlu_mt::superlu_mt"])
 

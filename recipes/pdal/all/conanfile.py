@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -19,7 +18,6 @@ class PdalConan(ConanFile):
     license = "BSD-3-Clause"
     homepage = "https://pdal.io"
     topics = ("gdal", "point-cloud-data", "lidar")
-
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -47,13 +45,13 @@ class PdalConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("gdal/[^3.10.0]", transitive_headers=True, transitive_libs=True)
         self.requires("h3/4.1.0")
         self.requires("json-schema-validator/2.3.0")
         self.requires("libcurl/[>=7.78 <9]") # for arbiter
         self.requires("libgeotiff/[^1.7.1]")
-        self.requires("nanoflann/1.6.0", transitive_headers=True, transitive_libs=True)
+        self.requires("nanoflann/[^1.6.0]", transitive_headers=True, transitive_libs=True)
         self.requires("nlohmann_json/[^3]", transitive_headers=True, transitive_libs=True)
         self.requires("openssl/[>=1.1 <4]") # for arbiter
         self.requires("proj/[^9.3.1]", transitive_headers=True, transitive_libs=True)

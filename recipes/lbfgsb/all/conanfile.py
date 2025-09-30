@@ -38,9 +38,6 @@ class LbfgsbConan(ConanFile):
     def layout(self):
         cmake_layout(self, src_folder="src")
 
-    # def requirements(self):
-    #     self.requires("openblas/[>=0.3 <1]")
-
     def validate_build(self):
         if not self._fortran_compiler:
             raise ConanInvalidConfiguration(

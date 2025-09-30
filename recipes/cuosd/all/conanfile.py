@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -33,10 +32,7 @@ class CuOSDConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src/libraries/cuOSD"))
@@ -67,7 +63,7 @@ class CuOSDConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
 

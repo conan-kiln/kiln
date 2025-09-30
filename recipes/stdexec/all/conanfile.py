@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -45,10 +44,7 @@ class StdexecConan(ConanFile):
     no_copy_source = True
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     @property
     def _sender_receiver_revision(self):
@@ -97,7 +93,7 @@ class StdexecConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.25.0 <5]")
         if self.options.enable_cuda and not self.options.header_only:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

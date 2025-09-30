@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -35,10 +34,7 @@ class RaftConan(ConanFile):
     }
     implements = ["auto_shared_fpic", "auto_header_only"]
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -66,7 +62,7 @@ class RaftConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.30.4]")
         self.tool_requires("rapids-cmake/25.08.00")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -33,10 +32,7 @@ class GtsamPointsPackage(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def configure(self):
         if not self.options.cuda:
@@ -49,8 +45,8 @@ class GtsamPointsPackage(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
-        self.requires("gtsam/4.2", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
+        self.requires("gtsam/[^4.2]", transitive_headers=True, transitive_libs=True)
         self.requires("nanoflann/[~1.3]", transitive_headers=True, transitive_libs=True)
         self.requires("boost/[^1.71.0]", transitive_headers=True, transitive_libs=True)
         if self.options.openmp:
@@ -73,7 +69,7 @@ class GtsamPointsPackage(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.24 <5]")
         if self.options.cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

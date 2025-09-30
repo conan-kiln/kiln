@@ -15,9 +15,8 @@ class FclConan(ConanFile):
     description = "C++11 library for performing three types of proximity " \
                   "queries on a pair of geometric models composed of triangles."
     license = "BSD-3-Clause"
-    topics = ("geometry", "collision")
     homepage = "https://github.com/flexible-collision-library/fcl"
-
+    topics = ("geometry", "collision")
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -40,7 +39,7 @@ class FclConan(ConanFile):
 
     def requirements(self):
         # Used in fcl/common/types.h public header
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         # Used in fcl/narrowphase/detail/convexity_based_algorithm/support.h
         self.requires("libccd/2.1", transitive_headers=True)
         if self.options.with_octomap:
@@ -55,6 +54,10 @@ class FclConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        replace_in_file(self, "include/fcl/narrowphase/detail/convexity_based_algorithm/gjk_libccd-inl.h",
+                        "#include <array>", "#include <array>\n#include <cassert>")
+        replace_in_file(self, "include/fcl/geometry/collision_geometry.h",
+                        "#include <memory>", "#include <cassert>\n#include <memory>")
 
     def generate(self):
         tc = CMakeToolchain(self)

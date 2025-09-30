@@ -84,11 +84,11 @@ class METISConan(ConanFile):
         tc.variables["GKREGEX"] = self.settings.os == "Windows" or self.options.enable_gkregex
         tc.variables["GKRAND"] = self.options.enable_gkrand
         if self.settings.build_type == "Debug":
-            tc.preprocessor_definitions["DEBUG"] = ""
+            tc.preprocessor_definitions["DEBUG"] = None
         else:
             # NDEBUG is defined by default by CMake
-            # tc.preprocessor_definitions["NDEBUG"] = ""
-            tc.preprocessor_definitions["NDEBUG2"] = ""
+            # tc.preprocessor_definitions["NDEBUG"] = None
+            tc.preprocessor_definitions["NDEBUG2"] = None
         bits = 64 if self.options.with_64bit_types else 32
         tc.preprocessor_definitions["IDXTYPEWIDTH"] = str(bits)
         tc.preprocessor_definitions["REALTYPEWIDTH"] = str(bits)

@@ -31,7 +31,7 @@ class IgnitionMathConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("pybind11/[^2]", visible=False)
 
     def validate(self):

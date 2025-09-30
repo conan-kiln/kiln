@@ -52,8 +52,7 @@ class UnivalueConan(ConanFile):
             tc.extra_cxxflags.append("-EHsc")
         env = tc.environment()
         if is_msvc(self):
-            automake_conf = self.dependencies.build["automake"].conf_info
-            ar_wrapper = unix_path(self, automake_conf.get("user.automake:lib-wrapper", check_type=str))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", "cl -nologo")
             env.define("CXX", "cl -nologo")
             env.define("CPP", "cl -nologo -EP")

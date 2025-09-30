@@ -63,7 +63,7 @@ class AligatorConan(ConanFile):
             self.requires("suitesparse-cholmod/[^5]", transitive_headers=True, transitive_libs=True)
         if self.options.with_openmp:
             self.requires("openmp/system")
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("fmt/[>=10 <12]", transitive_headers=True, transitive_libs=True)
         self.requires("boost/[^1.71]", transitive_headers=True, transitive_libs=True)
 
@@ -80,6 +80,9 @@ class AligatorConan(ConanFile):
         replace_in_file(self, "CMakeLists.txt", "${JRL_CMAKE_MODULES}/find-external", "# ")
         # Breaks with CMakeDeps
         replace_in_file(self, "CMakeLists.txt", "PKG_CONFIG_APPEND_BOOST_LIBS(", "# ")
+        replace_in_file(self, "include/aligator/core/manifold-base.hpp",
+                        '#include "aligator/fwd.hpp"',
+                        '#include "aligator/fwd.hpp"\n\n#include<cassert>')
 
     def generate(self):
         tc = CMakeToolchain(self)

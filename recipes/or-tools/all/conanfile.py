@@ -55,9 +55,9 @@ class OrToolsConan(ConanFile):
     def requirements(self):
         self.requires("zlib-ng/[^2.0]")
         self.requires("bzip2/[^1.0.8]")
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
         self.requires("protobuf/[>=3.29.4]", transitive_headers=True, transitive_libs=True)
-        self.requires("abseil/[>=20240116.2]", transitive_headers=True, transitive_libs=True)
+        self.requires("abseil/[>=20240116.2 <20250814.0]", transitive_headers=True, transitive_libs=True)
         self.requires("re2/[>=20220601]")
         if self.options.with_coinor:
             self.requires("coin-clp/[^1]", transitive_headers=True, transitive_libs=True)

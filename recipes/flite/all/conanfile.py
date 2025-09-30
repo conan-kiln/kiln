@@ -58,9 +58,8 @@ class FliteConan(ConanFile):
 
         if is_msvc(self):
             env = Environment()
-            automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, automake_conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("LD", "link -nologo")
             env.define("AR", f"{ar_wrapper} lib")
@@ -69,7 +68,7 @@ class FliteConan(ConanFile):
 
         if is_msvc(self):
             cpp_info = CppInfo(self)
-            for dependency in self.dependencies.values():
+            for dependency in reversed(self.dependencies.host.topological_sort.values()):
                 cpp_info.merge(dependency.cpp_info.aggregated_components())
             env = Environment()
             env.append("CPPFLAGS", [f"-I{unix_path(self, p)}" for p in cpp_info.includedirs] + [f"-D{d}" for d in cpp_info.defines])

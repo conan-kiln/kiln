@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
@@ -39,10 +38,7 @@ class CCTagConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -67,7 +63,7 @@ class CCTagConan(ConanFile):
     def requirements(self):
         self.requires("boost/[^1.71.0]", transitive_headers=True, transitive_libs=True,
                       options={f"with_{comp.replace('_c99', '')}": True for comp in self._boost_components + ["stacktrace"]})
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("onetbb/[>=2021 <2023]")
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True,
                       options={comp: True for comp in self._apps_opencv_components} if self.options.apps else {})
@@ -81,7 +77,7 @@ class CCTagConan(ConanFile):
 
     def build_requirements(self):
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
             self.tool_requires("cmake/[>=3.18]")
 
     def source(self):

@@ -281,7 +281,7 @@ class wxWidgetsConan(ConanFile):
 
         # Fix for strcpy_s on Apple platforms (fix upstream?)
         if is_apple_os(self):
-            tc.preprocessor_definitions["__STDC_WANT_LIB_EXT1__"] = ""
+            tc.preprocessor_definitions["__STDC_WANT_LIB_EXT1__"] = None
 
         for item in str(self.options.custom_enables).split(","):
             item = item.strip()
@@ -294,7 +294,7 @@ class wxWidgetsConan(ConanFile):
 
         if is_apple_os(self):
             # Fix for strcpy_s (fix upstream?)
-            tc.preprocessor_definitions["__STDC_WANT_LIB_EXT1__"] = ""
+            tc.preprocessor_definitions["__STDC_WANT_LIB_EXT1__"] = None
 
         # Disable auto-detection of dependencies
         for pkg in [

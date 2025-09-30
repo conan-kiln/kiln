@@ -13,7 +13,6 @@ class ArucoConan(ConanFile):
     topics = ("augmented-reality", "robotics", "markers")
     homepage = "https://www.uco.es/investiga/grupos/ava/node/26"
     license = "GPL-3.0-only"
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -23,6 +22,12 @@ class ArucoConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
+
+        "opencv/*:calib3d": True,
+        "opencv/*:highgui": True,
+        "opencv/*:imgcodecs": True,
+        "opencv/*:imgproc": True,
+        "opencv/*:ml": True,
     }
     implements = ["auto_shared_fpic"]
 
@@ -34,10 +39,14 @@ class ArucoConan(ConanFile):
         # cv::FileStorage::FileStorage used by aruco::CameraParameters::saveToFile
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True)
         # Header used in levmarq.h
-        self.requires("eigen/3.4.0", transitive_headers=False)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=False)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 3.0)",
+                        "cmake_minimum_required(VERSION 3.5)")
+        replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 11)", "")
 
     def generate(self):
         tc = CMakeToolchain(self)

@@ -46,7 +46,7 @@ class DaqpConan(ConanFile):
 
     def requirements(self):
         if self.options.get_safe("with_eigen"):
-            self.requires("eigen/3.4.0", transitive_headers=True)
+            self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

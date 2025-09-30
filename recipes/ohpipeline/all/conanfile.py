@@ -56,7 +56,7 @@ class OhPipelineConan(ConanFile):
         self.requires("faac/1.30")
         self.requires("flac/[^1.4.3]")
         self.requires("ogg/[^1.3.5]")
-        self.requires("vorbis/1.3.7")
+        self.requires("vorbis/[^1.3.7]")
 
     def layout(self):
         cmake_layout(self, src_folder="src")

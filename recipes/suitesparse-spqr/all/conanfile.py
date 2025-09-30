@@ -1,10 +1,10 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -32,15 +32,11 @@ class SuiteSparseSpqrConan(ConanFile):
     languages = ["C"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def configure(self):
         if self.options.shared:
             self.options.rm_safe("fPIC")
-        self.options["openblas"].build_lapack = True
         self.options["suitesparse-cholmod"].build_supernodal = True
         self.options["suitesparse-cholmod"].build_matrixops = True
         if self.options.cuda:
@@ -62,8 +58,6 @@ class SuiteSparseSpqrConan(ConanFile):
             self.cuda.requires("nvrtc")
 
     def validate(self):
-        if not self.dependencies["openblas"].options.build_lapack:
-            raise ConanInvalidConfiguration("-o openblas/*:build_lapack=True is required")
         if self.options.cuda:
             if not self.dependencies["suitesparse-cholmod"].options.cuda:
                 raise ConanInvalidConfiguration("suitesparse-spqr/*:cuda=True option requires suitesparse-cholmod/*:cuda=True")
@@ -72,7 +66,7 @@ class SuiteSparseSpqrConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.22 <5]")
         if self.options.cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -90,10 +84,6 @@ class SuiteSparseSpqrConan(ConanFile):
         tc.variables["SPQR_USE_CUDA"] = self.options.cuda
         tc.variables["SUITESPARSE_DEMOS"] = False
         tc.variables["SUITESPARSE_USE_FORTRAN"] = False  # Fortran sources are translated to C instead
-        # FIXME: Find a way to not hardcode this. The system BLAS gets used otherwise.
-        tc.variables["BLAS_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_LIBRARIES"] = "OpenBLAS::OpenBLAS"
-        tc.variables["LAPACK_FOUND"] = True
         tc.variables["BUILD_TESTING"] = False
         if self.options.cuda:
             tc.variables["CMAKE_CUDA_ARCHITECTURES"] = str(self.settings.cuda.architectures).replace(",", ";")
@@ -127,8 +117,9 @@ class SuiteSparseSpqrConan(ConanFile):
             self.cpp_info.set_property("cmake_target_aliases", ["SuiteSparse::SPQR_static"])
         self.cpp_info.set_property("pkg_config_name", "SPQR")
 
-        self.cpp_info.libs = ["spqr"]
-        self.cpp_info.includedirs.append(os.path.join("include", "suitesparse"))
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+        self.cpp_info.libs = ["spqr" + suffix]
+        self.cpp_info.includedirs.append("include/suitesparse")
         self.cpp_info.requires = [
             "suitesparse-config::suitesparse-config",
             "suitesparse-cholmod::suitesparse-cholmod",

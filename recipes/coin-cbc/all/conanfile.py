@@ -32,7 +32,7 @@ class CoinCbcConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "parallel": True,
-        "with_asl": True,
+        "with_asl": False,
         "with_nauty": True,
         "with_dylp": False,
         "with_vol": False,
@@ -41,6 +41,12 @@ class CoinCbcConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+            del self.options.shared
+            self.package_type = "static-library"
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -75,6 +81,8 @@ class CoinCbcConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/latest")
+            if is_msvc(self):
+                self.tool_requires("automake/[^1.18.1]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -122,9 +130,8 @@ class CoinCbcConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
-            automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, automake_conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", "link -nologo")
@@ -145,6 +152,8 @@ class CoinCbcConan(ConanFile):
             shutil.copy(gnu_config, os.path.join(self.source_folder, "Cbc"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Cbc")
+        # Fix a failure on Windows. The am data is not needed anyway.
+        replace_in_file(self, os.path.join(self.source_folder, "Cbc", "Makefile.in"), " install-data-am", "")
         autotools.configure(build_script_folder="Cbc")
         autotools.make()
 
@@ -154,12 +163,6 @@ class CoinCbcConan(ConanFile):
         mkdir(self, os.path.join(self.package_folder, "include", "coin"))
         autotools = Autotools(self)
         autotools.install()
-
-        for l in ("CbcSolver", "Cbc", "OsiCbc"):
-            os.unlink(f"{self.package_folder}/lib/lib{l}.la")
-            if is_msvc(self):
-                rename(self, f"{self.package_folder}/lib/lib{l}.a", f"{self.package_folder}/lib/{l}.lib")
-
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
 

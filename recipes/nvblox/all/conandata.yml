@@ -5,3 +5,4 @@ sources:
 patches:
   "0.0.8":
     - patch_file: "patches/cmake-fixes.patch"
+    - patch_file: "patches/fix-missing-includes.patch"

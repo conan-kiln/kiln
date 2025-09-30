@@ -33,6 +33,12 @@ class CoinCglConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+            del self.options.shared
+            self.package_type = "static-library"
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -53,6 +59,8 @@ class CoinCglConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/latest")
+            if is_msvc(self):
+                self.tool_requires("automake/[^1.18.1]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -82,8 +90,8 @@ class CoinCglConan(ConanFile):
         env = tc.environment()
         env.define("PKG_CONFIG_PATH", self.generators_folder)
         if is_msvc(self):
-            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", f"{compile_wrapper} link -nologo")
@@ -102,6 +110,8 @@ class CoinCglConan(ConanFile):
             shutil.copy(gnu_config, os.path.join(self.source_folder, "Cgl"))
         autotools = Autotools(self)
         autotools.autoreconf(build_script_folder="Cgl")
+        # Fix a failure on Windows. The am data is not needed anyway.
+        replace_in_file(self, os.path.join(self.source_folder, "Cgl", "Makefile.in"), " install-data-am", "")
         autotools.configure(build_script_folder="Cgl")
         autotools.make()
 
@@ -113,10 +123,6 @@ class CoinCglConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
-        if is_msvc(self):
-            rename(self,
-                   os.path.join(self.package_folder, "lib", "libCgl.a"),
-                   os.path.join(self.package_folder, "lib", "Cgl.lib"))
 
     def package_info(self):
         self.cpp_info.set_property("pkg_config_name", "cgl")

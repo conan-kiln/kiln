@@ -36,7 +36,7 @@ class CppADConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("boost/[^1.71.0]", libs=False)
         # Used in a cppad/utility/omp_alloc.hpp public header
         self.requires("openmp/system", transitive_headers=True)

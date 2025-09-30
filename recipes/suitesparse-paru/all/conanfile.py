@@ -4,6 +4,7 @@ from conan import ConanFile
 from conan.tools.build import stdcpp_library
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.1"
 
@@ -46,7 +47,8 @@ class SuiteSparseParuConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["BUILD_STATIC_LIBS"] = not self.options.shared
-        tc.variables["SUITESPARSE_USE_OPENMP"] = True
+        # MSVC fails with error C3001: 'taskloop': expected an OpenMP directive name
+        tc.variables["SUITESPARSE_USE_OPENMP"] = not is_msvc(self)
         tc.variables["SUITESPARSE_USE_CUDA"] = False
         tc.variables["SUITESPARSE_DEMOS"] = False
         tc.variables["SUITESPARSE_USE_FORTRAN"] = False  # Fortran sources are translated to C instead
@@ -77,8 +79,9 @@ class SuiteSparseParuConan(ConanFile):
             self.cpp_info.set_property("cmake_target_aliases", ["SuiteSparse::ParU_static"])
         self.cpp_info.set_property("pkg_config_name", "ParU")
 
-        self.cpp_info.libs = ["paru"]
-        self.cpp_info.includedirs.append(os.path.join("include", "suitesparse"))
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+        self.cpp_info.libs = ["paru" + suffix]
+        self.cpp_info.includedirs.append("include/suitesparse")
 
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.append("m")

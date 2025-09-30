@@ -13,14 +13,13 @@ required_conan_version = ">=2.1"
 
 class LielabConan(ConanFile):
     name = "lielab"
-    homepage = "https://github.com/sandialabs/Lielab"
     description = "Lielab is a C++ library for numerical Lie-theory: Lie groups," \
                   " Lie algebras, homogeneous manifolds, and various functions and algorithms" \
                   " on these spaces."
+    license = "MIT"
+    homepage = "https://github.com/sandialabs/Lielab"
     topics = ("Lie-theory", "Lie-group", "Lie-algebra", "numerical", "header-only")
     package_type = "header-library"
-    license = "MIT"
-
     settings = "os", "arch", "compiler", "build_type"
 
     no_copy_source = True
@@ -29,7 +28,7 @@ class LielabConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
 
     @property
     def _min_cppstd(self):
@@ -54,8 +53,8 @@ class LielabConan(ConanFile):
         self.tool_requires("cmake/[>=3.23 <5]")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        replace_in_file(self, "Lielab/utils.hpp", "#include <exception>", "#include <cassert>\n#include <exception>")
 
     def generate(self):
         tc = CMakeToolchain(self)

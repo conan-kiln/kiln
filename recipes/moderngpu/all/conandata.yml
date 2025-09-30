@@ -1,0 +1,4 @@
+sources:
+  "2.13.0":
+    url: "https://github.com/moderngpu/moderngpu/archive/refs/tags/v2.13.0.tar.gz"
+    sha256: "9e81cc38867dacdb26101b3ed92cacd790eca89a4ed517cf796fd4a75d41ed8b"

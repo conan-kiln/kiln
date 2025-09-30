@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd, cross_building
@@ -45,10 +44,7 @@ class NvImageCodecConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -81,7 +77,7 @@ class NvImageCodecConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.18 <5]")
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

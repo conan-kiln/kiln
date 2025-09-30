@@ -22,7 +22,7 @@ class CppADCodeGenConan(ConanFile):
 
     def requirements(self):
         self.requires("cppad/[>=20240000.4]")
-        self.requires("eigen/3.4.0")
+        self.requires("eigen/[>=3.3 <6]")
         self.requires("openmp/system")
         # self.requires("adolc/[^2.7.2]")
 

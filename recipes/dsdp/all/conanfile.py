@@ -36,7 +36,7 @@ class DsdpConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -47,8 +47,6 @@ class DsdpConan(ConanFile):
         tc.cache_variables["DSDPTIMER"] = str(self.options.timing).upper()
         tc.generate()
         deps = CMakeDeps(self)
-        deps.set_property("openblas", "cmake_file_name", "LAPACK")
-        deps.set_property("openblas", "cmake_target_name", "LAPACK::LAPACK")
         deps.generate()
 
     def build(self):

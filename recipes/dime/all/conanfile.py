@@ -44,9 +44,9 @@ class DimeConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["DIME_BUILD_SHARED_LIBS"] = self.options.shared
         if self.options.fixbig:
-            tc.preprocessor_definitions["DIME_FIXBIG"] = ""
+            tc.preprocessor_definitions["DIME_FIXBIG"] = None
         # Remove register keyword for C++17
-        tc.preprocessor_definitions["register"] = ""
+        tc.preprocessor_definitions["register"] = None
         tc.generate()
 
     def _patch_sources(self):

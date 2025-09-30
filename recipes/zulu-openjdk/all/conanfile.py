@@ -17,11 +17,6 @@ class ZuluOpenJDK(ConanFile):
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
 
-    @property
-    def _jni_folder(self):
-        folder = {"Linux": "linux", "Macos": "darwin", "Windows": "win32"}.get(str(self.settings_build.os))
-        return os.path.join("include", folder)
-
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -31,16 +26,16 @@ class ZuluOpenJDK(ConanFile):
 
     def validate(self):
         supported_archs = ["x86_64", "armv8"]
-        if self.settings_build.arch not in supported_archs:
-            raise ConanInvalidConfiguration(f"Unsupported Architecture ({self.settings_build.arch}). "
+        if self.settings.arch not in supported_archs:
+            raise ConanInvalidConfiguration(f"Unsupported Architecture ({self.settings.arch}). "
                                             f"This version {self.version} currently only supports {supported_archs}.")
         supported_os = ["Windows", "Macos", "Linux"]
-        if self.settings_build.os not in supported_os:
-            raise ConanInvalidConfiguration(f"Unsupported os ({self.settings_build.os}). "
+        if self.settings.os not in supported_os:
+            raise ConanInvalidConfiguration(f"Unsupported os ({self.settings.os}). "
                                             f"This package currently only support {supported_os}.")
 
     def build(self):
-        get(self, **self.conan_data["sources"][self.version][str(self.settings_build.os)][str(self.settings_build.arch)], strip_root=True)
+        get(self, **self.conan_data["sources"][self.version][str(self.settings.os)][str(self.settings.arch)], strip_root=True)
 
     def package(self):
         copy(self, pattern="*", dst=os.path.join(self.package_folder, "bin"),
@@ -63,7 +58,8 @@ class ZuluOpenJDK(ConanFile):
              src=os.path.join(self.source_folder, "jmods"))
 
     def package_info(self):
-        self.cpp_info.includedirs.append(self._jni_folder)
+        include_folder = {"Linux": "linux", "Macos": "darwin", "Windows": "win32"}[str(self.settings.os)]
+        self.cpp_info.includedirs.append(os.path.join("include", include_folder))
         self.cpp_info.libdirs = []
         self.buildenv_info.define_path("JAVA_HOME", self.package_folder)
         self.runenv_info.define_path("JAVA_HOME", self.package_folder)

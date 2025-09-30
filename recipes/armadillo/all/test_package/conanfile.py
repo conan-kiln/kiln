@@ -2,30 +2,15 @@ import os
 
 from conan import ConanFile
 from conan.tools.build import cross_building
-from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
-from conan.tools.scm import Version
+from conan.tools.cmake import CMake, cmake_layout
 
 
 class FooTestConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
-    # VirtualBuildEnv and VirtualRunEnv can be avoided if "tools.env.virtualenv:auto_use" is defined
-    # (it will be defined in Conan 2.0)
-    generators = "CMakeDeps"
-    apply_env = False
+    generators = "CMakeToolchain", "CMakeDeps"
 
     def requirements(self):
         self.requires(self.tested_reference_str)
-        tested_version = self.tested_reference_str.split('/')[1].split('@')[0]
-        # using armadillo > 12.x requires the consumer to explicitly depend on hdf5
-        if Version(tested_version) > "12":
-            self.requires("hdf5/[^1.8]")
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        # using armadillo > 12.x requires explicit consumer linkage against hdf5
-        explicit_link_condition = Version(self.dependencies["armadillo"].ref.version) > "12"
-        tc.variables["LINK_HDF5"] = explicit_link_condition
-        tc.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -37,5 +22,5 @@ class FooTestConan(ConanFile):
 
     def test(self):
         if not cross_building(self):
-            cmd = os.path.join(self.cpp.build.bindir, "example")
+            cmd = os.path.join(self.cpp.build.bindir, "test_package")
             self.run(cmd, env="conanrun")

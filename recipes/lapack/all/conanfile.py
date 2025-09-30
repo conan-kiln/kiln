@@ -1,125 +1,90 @@
-import os
+from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import *
 
 required_conan_version = ">=2.1"
 
 
 class LapackConan(ConanFile):
     name = "lapack"
-    description = "LAPACK is a library of Fortran subroutines for solving the most commonly occurring problems in numerical linear algebra"
-    license = "BSD-3-Clause-Open-MPI"
-    homepage = "https://github.com/Reference-LAPACK/lapack"
-    topics = ("linear-algebra", "matrix-factorization", "linear-equations", "svd", "singular-values", "eigenvectors", "eigenvalues")
-
-    package_type = "library"
+    version = "latest"
+    description = "LAPACK meta-package for Conan"
+    license = "MIT"
+    homepage = "https://www.netlib.org/lapack/"
+    topics = ("blas", "linear-algebra", "meta-package")
+    package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
-        "fPIC": [True, False],
-        "build_deprecated": [True, False],
-        "single": [True, False],
-        "double": [True, False],
-        "complex": [True, False],
-        "complex16": [True, False],
+        "provider": [
+            "reference",
+            "openblas",
+            "mkl",
+            "accelerate",
+            "armpl",
+            "nvpl",
+            # TODO:
+            # libblastrampoline
+            # flexiblas
+        ],
     }
     default_options = {
         "shared": False,
-        "fPIC": True,
-        "build_deprecated": False,
-        "single": True,
-        "double": True,
-        "complex": True,
-        "complex16": True,
+        "provider": "openblas",
     }
-    options_description = {
-        "build_deprecated": "Build deprecated routines",
-        "single": "Build single precision real",
-        "double": "Build double precision real",
-        "complex": "Build single precision complex",
-        "complex16": "Build double precision complex",
-    }
-    implements = ["auto_shared_fpic"]
-    languages = ["C"]
 
-    @property
-    def _fortran_compiler(self):
-        executables = self.conf.get("tools.build:compiler_executables", default={}, check_type=dict)
-        return executables.get("fortran")
+    @cached_property
+    def _dep_name(self):
+        provider = str(self.options.provider)
+        return {
+            "reference": "lapack-reference",
+            "mkl": "onemkl",
+            "nvpl": "nvpl_blas",
+        }.get(provider, provider)
 
-    def layout(self):
-        cmake_layout(self, src_folder="src")
+    def configure(self):
+        if self.options.provider != "reference":
+            self.options["blas"].provider = self.options.provider
+        if self.options.provider in ["mkl", "nvpl", "accelerate"]:
+            self.options.shared.value = True
+        else:
+            self.options[self._dep_name].shared = self.options.shared
+        self.options["openblas"].build_lapack = self.options.provider == "openblas"
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.28 <1]")
-        if not self._fortran_compiler:
-            self.requires("gfortran/[*]")
+        self.requires("blas/latest")
+        if self.options.provider == "reference":
+            self.requires("lapack-reference/[^3.12]")
+        elif self.options.provider == "nvpl":
+            self.requires("nvpl_lapack/[<1]")
+
+    def package_id(self):
+        self.info.clear()
+
+    @cached_property
+    def _dependency(self):
+        return self.dependencies[self._dep_name]
 
     def validate(self):
-        if self.settings.os == "Windows":
-            # Can probably use GFortran from MinGW or MSYS2 for this.
-            # Another alternative might be to use the Intel Fortran compiler.
-            raise ConanInvalidConfiguration("No Fortran compiler currently available for Windows")
-
-    def build_requirements(self):
-        if not self._fortran_compiler:
-            self.tool_requires("gfortran/<host_version>")
-
-    def source(self):
-        get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.variables["BUILD_TESTING"] = False
-        tc.variables["BUILD_DEPRECATED"] = self.options.build_deprecated
-        tc.variables["BUILD_SINGLE"] = self.options.single
-        tc.variables["BUILD_DOUBLE"] = self.options.double
-        tc.variables["BUILD_COMPLEX"] = self.options.complex
-        tc.variables["BUILD_COMPLEX16"] = self.options.complex16
-        tc.variables["USE_OPTIMIZED_BLAS"] = True
-        tc.variables["USE_OPTIMIZED_LAPACK"] = False
-        tc.variables["CBLAS"] = False
-        tc.variables["LAPACKE"] = True
-        # VerifyFortranC module in CMake fails to build a test executable otherwise.
-        tc.variables["CMAKE_Fortran_FLAGS"] = "-fPIC"
-        tc.variables["CMAKE_POSITION_INDEPENDENT_CODE"] = True
-        tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
-        tc.generate()
-
-        tc = CMakeDeps(self)
-        tc.generate()
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-
-    def package(self):
-        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
-        cmake = CMake(self)
-        cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        rm(self, "*.pdb", self.package_folder, recursive=True)
+        if self.options.provider != "reference":
+            if self.dependencies["blas"].options.provider != self.options.provider:
+                raise ConanInvalidConfiguration(
+                    "-o blas/latest:provider and -o lapack/latest:provider must match "
+                    f"({self.dependencies['blas'].options.provider} != {self.options.provider})")
+        if self.options.provider == "openblas" and not self.dependencies["openblas"].options.build_lapack:
+            raise ConanInvalidConfiguration("-o openblas/*:build_lapack must be enabled")
+        if self.options.provider not in ["mkl", "nvpl", "accelerate"]:
+            if self._dependency.options.shared != self.options.shared:
+                raise ConanInvalidConfiguration(f"-o {self._dependency.ref}:shared != {self.options.shared} value from -o {self.ref}:shared")
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_find_mode", "module")
+        self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "LAPACK")
         self.cpp_info.set_property("cmake_target_name", "LAPACK::LAPACK")
+        if self.options.provider != "reference":
+            self.cpp_info.set_property("pkg_config_name", "lapack")
 
-        self.cpp_info.components["lapack"].set_property("cmake_target_name", "lapack")
-        self.cpp_info.components["lapack"].set_property("pkg_config_name", "lapack")
-        self.cpp_info.components["lapack"].libs = ["lapack"]
-        self.cpp_info.components["lapack"].requires = ["openblas::openblas"]
-        if not self._fortran_compiler:
-            self.cpp_info.components["lapack"].requires.append("gfortran::libgfortran")
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.components["lapack"].system_libs.append("m")
-
-        self.cpp_info.components["lapacke"].set_property("cmake_target_name", "lapacke")
-        self.cpp_info.components["lapacke"].set_property("pkg_config_name", "lapacke")
-        self.cpp_info.components["lapacke"].libs = ["lapacke"]
-        self.cpp_info.components["lapacke"].requires = ["lapack"]
+        self.cpp_info.bindirs = []
+        self.cpp_info.libdirs = []
+        self.cpp_info.includedirs = []

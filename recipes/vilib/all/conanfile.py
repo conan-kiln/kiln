@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -29,10 +28,7 @@ class VilibConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -41,7 +37,7 @@ class VilibConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("opencv/[^4.5]", transitive_headers=True, transitive_libs=True, options={"highgui": True})
         self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
 
@@ -52,7 +48,7 @@ class VilibConan(ConanFile):
         self.cuda.validate_settings()
 
     def build_requirements(self):
-        self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+        self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -61,6 +57,7 @@ class VilibConan(ConanFile):
         rmdir(self, os.path.join("visual_lib", "test"))
         apply_conandata_patches(self)
         replace_in_file(self, "CMakeLists.txt", " -Werror", "")
+        replace_in_file(self, "CMakeLists.txt", "CXX_STANDARD 11", "")
 
     def generate(self):
         tc = CMakeToolchain(self)

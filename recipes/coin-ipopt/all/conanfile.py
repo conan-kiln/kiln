@@ -38,7 +38,7 @@ class CoinClpConan(ConanFile):
         "build_sipopt": True,
         "precision": "double",
         "enable_inexact_solver": False,
-        "with_asl": True,
+        "with_asl": False,
         "with_mumps": False,
         "with_hsl": False,
         "with_spral": True,
@@ -48,8 +48,9 @@ class CoinClpConan(ConanFile):
     def layout(self):
         basic_layout(self, src_folder="src")
 
+
     def requirements(self):
-        self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("lapack/latest")
         if self.options.with_asl:
             self.requires("ampl-asl/[^1]")
         if self.options.with_mumps:
@@ -62,7 +63,7 @@ class CoinClpConan(ConanFile):
 
     @property
     def _int_size(self):
-        return 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
+        return 32 if self.dependencies["blas"].options.interface == "lp64" else 64
 
     def validate(self):
         if self.settings.os == "Windows" and self.options.shared:
@@ -71,15 +72,6 @@ class CoinClpConan(ConanFile):
             raise ConanInvalidConfiguration("ASL solver requires double precision")
         if self.options.with_spral and (self.options.precision != "double" or self._int_size != 32):
             raise ConanInvalidConfiguration("SPRAL solver requires double precision and 32-bit integers")
-
-    def _flags_from_pc(self, name):
-        pc = PkgConfig(self, name, self.generators_folder)
-        cflags = list(pc.cflags)
-        cflags += [f"-I{inc}" for inc in pc.includedirs]
-        ldflags = list(pc.linkflags)
-        ldflags += [f"-L{libdir}" for libdir in pc.libdirs]
-        ldflags += [f"-l{lib}" for lib in pc.libs]
-        return " ".join(cflags), " ".join(ldflags)
 
     def build_requirements(self):
         self.tool_requires("coin-buildtools/[*]")
@@ -96,6 +88,15 @@ class CoinClpConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
+    def _flags_from_pc(self, name):
+        pc = PkgConfig(self, name, self.generators_folder)
+        cflags = list(pc.cflags)
+        cflags += [f"-I{inc}" for inc in pc.includedirs]
+        ldflags = list(pc.linkflags)
+        ldflags += [f"-L{libdir}" for libdir in pc.libdirs]
+        ldflags += [f"-l{lib}" for lib in pc.libs]
+        return " ".join(cflags), " ".join(ldflags)
+
     def generate(self):
         deps = PkgConfigDeps(self)
         deps.set_property("ampl-asl::asl2-mt", "pkg_config_aliases", ["coinasl"])
@@ -103,7 +104,7 @@ class CoinClpConan(ConanFile):
 
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
-        int_size = 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
+        int_size = 32 if self.dependencies["blas"].options.interface == "lp64" else 64
         tc.configure_args += [
             "--with-lapack=yes",
             f"--with-intsize={int_size}",
@@ -124,14 +125,14 @@ class CoinClpConan(ConanFile):
             tc.configure_args.append(f"--with-spral-cflags={cflags}")
             tc.configure_args.append(f"--with-spral-lflags={ldflags}")
 
-        cflags, ldflags = self._flags_from_pc("openblas")
+        cflags, ldflags = self._flags_from_pc("lapack")
         tc.configure_args.append(f"--with-lapack-cflags={cflags}")
         tc.configure_args.append(f"--with-lapack-lflags={ldflags}")
 
         env = tc.environment()
         if is_msvc(self):
-            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", f"{compile_wrapper} link -nologo")
@@ -165,7 +166,7 @@ class CoinClpConan(ConanFile):
         self.cpp_info.components["ipopt"].set_property("pkg_config_name", "ipopt")
         self.cpp_info.components["ipopt"].libs = ["ipopt"]
         self.cpp_info.components["ipopt"].includedirs.append("include/coin-or")
-        self.cpp_info.components["ipopt"].requires = ["openblas::openblas"]
+        self.cpp_info.components["ipopt"].requires = ["lapack::lapack"]
         if self.options.with_mumps:
             self.cpp_info.components["ipopt"].requires.append("coin-mumps::coin-mumps")
         if self.options.with_hsl:

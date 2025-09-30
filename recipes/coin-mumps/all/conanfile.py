@@ -9,6 +9,7 @@ from conan.tools.env import VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps, PkgConfig
 from conan.tools.layout import basic_layout
+from conan.tools.microsoft import unix_path
 
 required_conan_version = ">=2.4"
 
@@ -46,14 +47,10 @@ class CoinMumpsConan(ConanFile):
 
     def requirements(self):
         self.requires("openmpi/[>=4 <6]", transitive_headers=True, transitive_libs=True)
-        self.requires("openblas/[>=0.3.28 <1]")
+        self.requires("lapack/latest")
         self.requires("metis/[^5.2.1]")
         if self.options.with_openmp:
             self.requires("openmp/system")
-
-    def validate(self):
-        if not self.dependencies["openblas"].options.build_lapack:
-            raise ConanInvalidConfiguration("MUMPS requires openblas with build_lapack=True")
 
     def build_requirements(self):
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
@@ -76,9 +73,9 @@ class CoinMumpsConan(ConanFile):
     def _flags_from_pc(self, name):
         pc = PkgConfig(self, name, self.generators_folder)
         cflags = list(pc.cflags)
-        cflags += [f"-I{inc}" for inc in pc.includedirs]
+        cflags += [f"-I{unix_path(self, inc)}" for inc in pc.includedirs]
         ldflags = list(pc.linkflags)
-        ldflags += [f"-L{libdir}" for libdir in pc.libdirs]
+        ldflags += [f"-L{unix_path(self, libdir)}" for libdir in pc.libdirs]
         ldflags += [f"-l{lib}" for lib in pc.libs]
         return " ".join(cflags), " ".join(ldflags)
 
@@ -92,7 +89,7 @@ class CoinMumpsConan(ConanFile):
 
         tc = AutotoolsToolchain(self)
         yes_no = lambda v: "yes" if v else "no"
-        int_size = 32 if self.dependencies["openblas"].options.interface == "lp64" else 64
+        int_size = 32 if self.dependencies["blas"].options.interface == "lp64" else 64
         tc.configure_args.extend([
             "--with-lapack=yes",
             "--with-metis=yes",
@@ -102,7 +99,7 @@ class CoinMumpsConan(ConanFile):
             f"--with-intsize={int_size}",
             f"F77={self._fortran_compiler}",
         ])
-        cflags, ldflags = self._flags_from_pc("openblas")
+        cflags, ldflags = self._flags_from_pc("lapack")
         tc.configure_args.append(f"--with-lapack-cflags={cflags}")
         tc.configure_args.append(f"--with-lapack-lflags={ldflags}")
         tc.generate()
@@ -139,7 +136,7 @@ class CoinMumpsConan(ConanFile):
 
         self.cpp_info.requires = [
             "openmpi::ompi-c",
-            "openblas::openblas",
+            "lapack::lapack",
             "metis::metis",
         ]
         if self.options.with_openmp:

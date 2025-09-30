@@ -66,7 +66,7 @@ class Libssh2Conan(ConanFile):
         # Ensure DLL symbols are exported correctly
         tc.cache_variables["HIDE_SYMBOLS"] = True # sets -DLIBSSH2_EXPORTS
         if Version(self.version) < "1.11" and self.options.shared:
-            tc.preprocessor_definitions["LIBSSH2_EXPORTS"] = ""
+            tc.preprocessor_definitions["LIBSSH2_EXPORTS"] = None
         # To install relocatable shared lib on Macos by default
         tc.variables["CMAKE_POLICY_DEFAULT_CMP0042"] = "NEW"
         if Version(self.version) < "1.11.1":

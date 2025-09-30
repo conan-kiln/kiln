@@ -31,7 +31,7 @@ class OoqpConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3.0]")
+        self.requires("lapack/latest")
         self.requires("coin-hsl/[*]")
 
     def build_requirements(self):
@@ -47,7 +47,7 @@ class OoqpConan(ConanFile):
         if not cross_building(self):
             VirtualRunEnv(self).generate(scope="build")
         tc = AutotoolsToolchain(self)
-        tc.configure_args.append("BLAS=-lopenblas")
+        tc.configure_args.append("BLAS= ")
         tc.configure_args.append("MA27LIB=-lcoinhsl")
         tc.configure_args.append("MA57LIB=-lcoinhsl")
         tc.make_args.append(f"prefix={unix_path(self, self.package_folder)}")
@@ -73,7 +73,7 @@ class OoqpConan(ConanFile):
     def package_info(self):
         # Base OOQP library
         self.cpp_info.components["ooqpbase"].libs = ["ooqpbase"]
-        self.cpp_info.components["ooqpbase"].requires.append("openblas::openblas")
+        self.cpp_info.components["ooqpbase"].requires.append("lapack::lapack")
         self.cpp_info.components["ooqpbase"].requires.append("coin-hsl::coin-hsl")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["ooqpbase"].system_libs = ["m", "pthread"]

@@ -11,7 +11,7 @@ class LibgeotiffConan(ConanFile):
     name = "libgeotiff"
     description = "Libgeotiff is an open source library normally hosted on top " \
                   "of libtiff for reading, and writing GeoTIFF information tags."
-    license = ["MIT", "BSD-3-Clause"]
+    license = "MIT"
     topics = ("geotiff", "tiff")
     homepage = "https://github.com/OSGeo/libgeotiff"
     package_type = "library"
@@ -41,10 +41,6 @@ class LibgeotiffConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        # CMake v4 support
-        replace_in_file(self, "CMakeLists.txt",
-                        "CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0)",
-                        "CMAKE_MINIMUM_REQUIRED(VERSION 3.5)")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -60,7 +56,7 @@ class LibgeotiffConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "cmake"))
@@ -76,6 +72,6 @@ class LibgeotiffConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "geotiff_library")
 
         self.cpp_info.libs = collect_libs(self)
-        self.cpp_info.builddirs = [os.path.join("lib", "cmake")]
+        self.cpp_info.builddirs = ["lib/cmake"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.append("m")
+            self.cpp_info.system_libs = ["m"]

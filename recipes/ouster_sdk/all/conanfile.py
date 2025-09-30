@@ -50,7 +50,7 @@ class OusterSdkConan(ConanFile):
 
     def requirements(self):
         # Used in ouster/types.h
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         # Used in ouster/sensor_http.h
         self.requires("jsoncpp/[^1.9.5]", transitive_headers=True, transitive_libs=True)
         self.requires("spdlog/[^1.8]")
@@ -99,6 +99,8 @@ class OusterSdkConan(ConanFile):
         replace_in_file(self, "ouster_osf/CMakeLists.txt",
                         "add_library(ouster_osf STATIC",
                         "add_library(ouster_osf")
+        # Add a missing include
+        replace_in_file(self, "ouster_client/include/ouster/impl/lidar_scan_impl.h", "#include <cstdint>", "#include <cassert>\n#include <cstdint>")
 
     def generate(self):
         tc = CMakeToolchain(self)

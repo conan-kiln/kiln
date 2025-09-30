@@ -2,12 +2,10 @@ import os
 from functools import cached_property
 
 from conan import ConanFile
-from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.build import cross_building
-from conan.tools.env import Environment, VirtualRunEnv
+from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+from conan.tools.env import Environment
 from conan.tools.files import *
 from conan.tools.gnu import Autotools, AutotoolsToolchain
-from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
 
 required_conan_version = ">=2.1"
@@ -23,20 +21,17 @@ class NautyConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "fPIC": [True, False],
-        "tools": [True, False],
         "tls": [True, False],
         "wordsize": [16, 32, 64, 128],
         "small": [True, False],
     }
     default_options = {
         "fPIC": True,
-        "tools": False,
         "tls": True,
         "wordsize": 64,
         "small": False,
     }
     options_description = {
-        "tools": "Build executables",
         "tls": "Enable thread-local storage. Makes the library thread-safe,"
                " but may slow it down slightly if you aren’t using threads.",
         "wordsize": "The size of a single 'setword' in bits."
@@ -45,6 +40,10 @@ class NautyConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
     languages = ["C"]
+
+    def export_sources(self):
+        export_conandata_patches(self)
+        copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -65,11 +64,9 @@ class NautyConan(ConanFile):
         return libname
 
     def layout(self):
-        basic_layout(self, src_folder="src")
+        cmake_layout(self, src_folder="src")
 
     def build_requirements(self):
-        if not self.conf.get("tools.gnu:pkg_config", check_type=str):
-            self.tool_requires("pkgconf/[^2.2]")
         if self.settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -79,62 +76,53 @@ class NautyConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
+        replace_in_file(self, "nauty.h",
+                        "#pragma instrinsic",
+                        "#pragma intrinsic")
 
     def generate(self):
-        if not cross_building(self):
-            VirtualRunEnv(self).generate(scope="build")
         tc = AutotoolsToolchain(self)
-        tc.configure_args.extend([
-            "--enable-generic",  # no -march=native
-            "--enable-tls" if self.options.tls else "--disable-tls",
-        ])
-        if not self.options.tools:
-            tc.make_args.append("GTOOLS=")
-        if self.options.tls:
-            tc.make_args.append("GLIBS=")
-            tc.make_args.append(f"TLSLIBS=lib{self._libname}.la")
-        else:
-            tc.make_args.append(f"GLIBS=lib{self._libname}.la")
-            tc.make_args.append("TLSLIBS=")
+        tc.configure_args.append("--enable-tls")
         tc.generate()
 
         if is_msvc(self):
             env = Environment()
-            automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
-            ar_wrapper = unix_path(self, automake_conf.get("user.automake:lib-wrapper", check_type=str))
+            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
-            env.define("CXX", f"{compile_wrapper} cl -nologo")
-            env.define("LD", "link -nologo")
-            env.define("AR", f"{ar_wrapper} lib")
-            env.define("NM", "dumpbin -symbols")
             env.vars(self).save_script("conanbuild_msvc")
 
-    def build(self):
-        if not self.options.tools:
-            replace_in_file(self, os.path.join(self.source_folder, "makefile.in"),
-                            "${INSTALL} ${GTOOLS} ${DESTDIR}${bindir}", "")
+        tc = CMakeToolchain(self)
+        tc.cache_variables["NAUTY_OUTPUT_NAME"] = self._libname
+        tc.preprocessor_definitions["WORDSIZE"] = self.options.wordsize
+        if self.options.small:
+            tc.preprocessor_definitions["MAXN"] = "WORDSIZE"
         if self.options.tls:
-            replace_in_file(self, os.path.join(self.source_folder, "makefile.in"),
-                            "${LIBTOOL} --mode=install ${INSTALL} ${GLIBS}", "# ")
+            tc.preprocessor_definitions["USE_TLS"] = None
+        tc.generate()
+
+    def build(self):
+        # Let Autotools generate the config header
         with chdir(self, self.source_folder):
             autotools = Autotools(self)
             autotools.configure()
-            autotools.make()
-            if self.options.tls:
-                autotools.make(target="TLSlibs")
+
+        if is_msvc(self):
+            # Match the Windows convention and typedef for booleans
+            replace_in_file(self, os.path.join(self.source_folder, "nauty.h"),
+                            "typedef int boolean;",
+                            "typedef unsigned char boolean;")
+
+        # Build with CMake for MSVC and shared library output support
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def package(self):
         copy(self, "COPYRIGHT", self.source_folder, os.path.join(self.package_folder, "licenses"))
         copy(self, "LICENSE-2.0.txt", self.source_folder, os.path.join(self.package_folder, "licenses"))
-        with chdir(self, self.source_folder):
-            autotools = Autotools(self)
-            autotools.install()
-            if self.options.tls:
-                autotools.install(target="TLSinstall")
-        rm(self, "*.la", os.path.join(self.package_folder, "lib"))
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        fix_apple_shared_install_name(self)
+        cmake = CMake(self)
+        cmake.install()
 
     def package_info(self):
         self.cpp_info.set_property("cmake_target_aliases", ["nauty", self._libname])

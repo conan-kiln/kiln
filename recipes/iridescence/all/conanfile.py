@@ -18,7 +18,6 @@ class IridescenceConan(ConanFile):
     license = "MIT"
     homepage = "https://koide3.github.io/iridescence"
     topics = ("visualization", "imgui", "opengl", "localization", "mapping", "point-cloud", "slam")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -40,7 +39,7 @@ class IridescenceConan(ConanFile):
     def requirements(self):
         self.requires("assimp/[^5.1.6]")
         self.requires("boost/[^1.71.0]", transitive_headers=True, libs=False)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         self.requires("glm/1.0.1")
         self.requires("libjpeg-meta/latest")
         self.requires("libpng/[~1.6]")
@@ -87,8 +86,8 @@ class IridescenceConan(ConanFile):
             tc.preprocessor_definitions["ImGuiConfigFlags_DockingEnable"] = "0"
         if self.settings.os == "Windows":
             # TODO: submit a patch upstream
-            tc.preprocessor_definitions["_USE_MATH_DEFINES"] = ""
-            tc.preprocessor_definitions["NOMINMAX"] = ""
+            tc.preprocessor_definitions["_USE_MATH_DEFINES"] = None
+            tc.preprocessor_definitions["NOMINMAX"] = None
         tc.generate()
 
         deps = CMakeDeps(self)

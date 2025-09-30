@@ -57,7 +57,7 @@ class LibmodbusConan(ConanFile):
         env = tc.environment()
         if is_msvc(self):
             compile_wrapper = unix_path(self, os.path.join(self.source_folder, "build-aux", "compile"))
-            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
+            ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper"))
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.define("LD", "link -nologo")

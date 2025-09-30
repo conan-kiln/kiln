@@ -3,6 +3,7 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
+from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
@@ -80,12 +81,14 @@ class SuiteSparseKluConan(ConanFile):
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "KLU")
 
-        self.cpp_info.components["KLU"].libs = ["klu"]
+        suffix = "_static" if is_msvc(self) and not self.options.shared else ""
+
+        self.cpp_info.components["KLU"].libs = ["klu" + suffix]
         self.cpp_info.components["KLU"].set_property("cmake_target_name", "SuiteSparse::KLU")
         if not self.options.shared:
             self.cpp_info.components["KLU"].set_property("cmake_target_aliases", ["SuiteSparse::KLU_static"])
         self.cpp_info.components["KLU"].set_property("pkg_config_name", "KLU")
-        self.cpp_info.components["KLU"].includedirs.append(os.path.join("include", "suitesparse"))
+        self.cpp_info.components["KLU"].includedirs.append("include/suitesparse")
         self.cpp_info.components["KLU"].requires = [
             "suitesparse-config::suitesparse-config",
             "suitesparse-amd::suitesparse-amd",
@@ -96,12 +99,12 @@ class SuiteSparseKluConan(ConanFile):
             self.cpp_info.components["KLU"].system_libs.append("m")
 
         if self.options.with_cholmod:
-            self.cpp_info.components["KLU_CHOLMOD"].libs = ["klu_cholmod"]
+            self.cpp_info.components["KLU_CHOLMOD"].libs = ["klu_cholmod" + suffix]
             self.cpp_info.components["KLU_CHOLMOD"].set_property("cmake_target_name", "SuiteSparse::KLU_CHOLMOD")
             if not self.options.shared:
                 self.cpp_info.components["KLU"].set_property("cmake_target_aliases", ["SuiteSparse::KLU_CHOLMOD_static"])
             self.cpp_info.components["KLU_CHOLMOD"].set_property("pkg_config_name", "KLU_CHOLMOD")
-            self.cpp_info.components["KLU_CHOLMOD"].includedirs.append(os.path.join("include", "suitesparse"))
+            self.cpp_info.components["KLU_CHOLMOD"].includedirs.append("include/suitesparse")
             self.cpp_info.components["KLU_CHOLMOD"].requires = [
                 "KLU",
                 "suitesparse-cholmod::suitesparse-cholmod",

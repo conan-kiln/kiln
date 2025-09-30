@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 from pathlib import Path
 
 from conan import ConanFile
@@ -45,10 +44,7 @@ class ColmapConan(ConanFile):
     implements = ["auto_shared_fpic"]
 
     python_requires = "conan-cuda/latest", "conan-utils/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     @property
     def _utils(self):
@@ -79,7 +75,7 @@ class ColmapConan(ConanFile):
     def requirements(self):
         self.requires("boost/[^1.71.0 <1.88]", transitive_headers=True, transitive_libs=True)
         self.requires("ceres-solver/[^2.2.0, include_prerelease]", transitive_headers=True, transitive_libs=True)
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("poselib/[^2.0.5]")
         self.requires("faiss/[^1.12.0]")
         self.requires("freeimage/3.18.0")
@@ -116,12 +112,14 @@ class ColmapConan(ConanFile):
         if self.options.gui:
             self.tool_requires("qt/<host_version>")
         if self.options.cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 17)", "")
         replace_in_file(self, "CMakeLists.txt", "set(CMAKE_CUDA_STANDARD 17)", "")
+        # Eigen v5 compatibility
+        replace_in_file(self, "src/colmap/util/misc.h", "#include <algorithm>", "#include <algorithm>\n#include <cassert>")
 
     def generate(self):
         tc = CMakeToolchain(self)

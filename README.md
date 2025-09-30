@@ -21,27 +21,32 @@ As a result, the packages here are always at least as new, and generally much mo
 ## Highlights
 
 The most notable additions in this repository are:
-- Full CUDA support at both the language and Toolkit level. All of Nvidia's binary packages are available as well as most of their open-source projects. CUDA support has been added to all recipes that support it.
+- Full CUDA support at both the language and Toolkit level. All of Nvidia's binary packages are available as well as nearly all of their open-source projects.
+  Optional CUDA support has been added to all capable recipes.
 - TensorRT, plus CUDA-capable ONNX Runtime and PyTorch recipes.
 - Full Intel oneAPI support (oneMKL, oneDNN, oneMath, etc). Intel oneAPI DPC++/C++ Compiler toolchain is provided for SYCL support.
 - The full suite of GStreamer and its 250+ plugins is supported.
-- SuiteSparse, Ceres, GTSAM, g2o, COLMAP, GLOMAP.
-- Comprehensive collection of solvers:
+- SuiteSparse, Ceres, GTSAM, g2o, COLMAP, GLOMAP, OpenMVG, Faiss, BASALT, stella_vslam, GLIM.
+- A comprehensive collection of solvers:
     - most COIN-OR libraries with all optional features,
     - SCIP Optimization Suite,
     - Google's OR-Tools,
     - cuOPT,
-    - all major commercial solvers (GUROBI, CPLEX, XPRESS, MOSEK, etc).
+    - all major commercial solvers (GUROBI, CPLEX, XPRESS, MOSEK, etc),
+    - fully-featured CasADi and acados.
+- BLAS and LAPACK meta-packages with easily-swappable choice of implementation:
+    - OpenBLAS, oneMKL and BLIS for x86_64;
+    - BLIS, OpenBLAS, ArmPL, NVPL for armv8.
 - Versions of LLVM and Clang that actually work and are used by a few compiler toolchains (e.g. for shaders and other domain-specific IR compilation).
 - Complete recipes for Python, Rust and Go to allow building of bindings in either direction.
-    - A PythonVenv generator is also provided to streamline the installation of Python buld-time dependencies.
-- A better-maintained Vulkan SDK suite.
-- Fortran is supported for LAPACK and other numerical libraries.
+    - A PythonVenv generator is also provided to streamline the installation of Python build-time dependencies.
+- Better-maintained Vulkan SDK and other graphics suites.
+- Fortran is supported for reference LAPACK and other numerical libraries.
 - All libraries have been tested and fixed as necessary to support for cross-compilation to linux-aarch64.
 - libjpeg and zlib have been swapped out for libjpeg-turbo and zlib-ng everywhere for improved performance, matching the behavior of most mainstream distros.
 - and much, much more...
 
-In total, 400 additional recipes and 7,500 commits on top of ConanCenter as of 2025-09.
+In total, 440 additional recipes and 8,000 commits on top of ConanCenter as of 2025-09.
 
 ## Setup
 
@@ -49,31 +54,39 @@ You can add this repo as a Conan remote with the following commands:
 
 ```
 git clone https://github.com/conan-kiln/kiln.git
-conan remote add kiln "$PWD/kiln" --type local-recipes-index
+conan remote add kiln "$PWD/kiln"
 ```
 
 Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not on ConanCenter as of <date>:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-30:
 
 - 7zip/25.01
+- acados-qpoases/3.1+git.20240910
+- acados/0.5.1
 - acl/2.3.2
 - adaptivecpp/24.10.0
 - adaptivecpp/25.02.0
 - aeron/1.43.0
 - aerospike-client-c/7.0.4
+- aligator/0.15.0
+- alpaqa/1.0.0-casadi.20230731
+- alpaqa/1.1.0a1
 - ampl-asl/1.0.1
 - ampl-mp/4.0.3
 - antlr4/4.13.2
 - apr-util/1.6.3
 - apr/1.7.6
+- apriltag/3.4.5
 - arbiter/cci.20231122
 - arm-compute-library/52.2.0
-- armadillo/12.6.7
-- armadillo/12.8.1
+- armadillo/12.8.3
+- armadillo/14.6.2
+- armadillo/15.0.3
 - armpl/25.07.0
+- arpack-ng/3.9.1
 - asio-grpc/1.7.0
 - asio-grpc/2.0.0
 - asio-grpc/2.1.0
@@ -85,29 +98,37 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - asio-grpc/2.7.0
 - asio-grpc/2.9.2
 - asio-grpc/3.4.1
-- au/0.4.1
 - autoconf-archive/2024.10.16
 - automake/1.18.1
 - aws-cdi-sdk/2.4.1
 - azure-sdk-for-cpp/1.13.0
+- basalt/git.20240831
+- bazel/7.6.1
+- bazel/8.4.1
 - bear/3.1.6
 - binutils/2.41
 - binutils/2.44
 - bison/3.5.3
+- blas/latest
+- blasfeo/0.1.4.2
+- blasfeo/0.1.4.2+git.20250704
 - blis/0.9.0
+- blis/1.2
+- blis/2.0
 - bluez/5.83
 - boost/1.71.0
 - boost/1.74.0
 - boostdep/1.88.0
 - boxfort/0.1.4
+- bqpd_jll/1.0.0
 - cairo/1.18.4
 - capnproto/1.0.1.1
 - cargo-c/0.10.12
 - cargo-c/0.10.8
-- casadi/3.6.6
-- casadi/3.7.0
+- casadi/3.7.2
 - catalyst/2.0.0
 - ccache/4.11.3
+- cello/2.1.0+git.20241201
 - ceres-solver/2.3.0-git.20250817
 - cgltf/1.15
 - cgns/4.4.0
@@ -116,7 +137,13 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cimg/3.5.5
 - clang/19.1.7
 - clang/20.1.7
+- clarabel/0.11.1
+- clblas/2.13.0+git.20181110
+- clfft/2.15.0+git.20180404
+- cliquer/1.23
 - cloudini/0.3.0
+- clrng/1.0.0+git.20150923
+- clsparse/0.11.2+git.20170213
 - cmake/3.19.8
 - cmake/3.20.6
 - cmake/3.21.7
@@ -130,18 +157,23 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cmake/3.29.7
 - cmake/3.30.5
 - cmake/4.0.3
+- cmrc/2.0.1+git.20230724
 - cnmem/1.0.0+git.20181128
 - cocoapi/0.0.0+git.20200220
+- coin-alps/1.5.12
+- coin-alps/2.0.2
 - coin-bonmin/1.8.9
 - coin-buildtools/0.8.11
 - coin-cbc/2.10.12
 - coin-cgl/0.60.9
 - coin-clp/1.17.10
 - coin-couenne/0.5.8
+- coin-csdp/0.95.1
+- coin-dip/0.95.1
 - coin-dylp/1.10.4
 - coin-hsl/2024.05.15
 - coin-ipopt/3.14.19
-- coin-mumps/3.0.5
+- coin-mumps/3.0.10
 - coin-osi/0.108.11
 - coin-symphony/5.7.2
 - coin-utils/2.11.12
@@ -150,6 +182,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - conan-cuda/latest
 - conan-gnu-triplet/latest
 - conan-utils/latest
+- conopt/4.38.1
 - cose-c/cci.20200603
 - cplex/22.1.2
 - cpp-validator/2.1.1
@@ -165,6 +198,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cpython/3.9.23
 - crashpad/cci.20231107
 - criterion/2.4.2
+- crocoddyl/3.0.1
 - crow/1.1.0
 - crow/1.2.0
 - crow/1.2.1
@@ -197,10 +231,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cublasmp/0.3.1.663
 - cublasmp/0.4.0.789
 - cublasmp/0.5.1.65
+- cublasmp/0.6.0.84
+- cucim/25.08.00
 - cucollections/0.0.1+git.20250529
 - cucollections/0.0.1+git.20250822
 - cuda-api-wrappers/0.6.9
-- cuda-api-wrappers/0.8.1
 - cuda-cal/0.4.3.36
 - cuda-cal/0.4.4.50
 - cuda-cccl/1.8.1
@@ -326,6 +361,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cudnn/9.10.2.21
 - cudnn/9.11.1.4
 - cudnn/9.12.0.46
+- cudnn/9.13.0.50
 - cudnn/9.2.1.18
 - cudnn/9.3.0.75
 - cudnn/9.4.0.58
@@ -360,6 +396,8 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cufile/1.7.2.10
 - cufile/1.8.1.2
 - cufile/1.9.1.3
+- cugraph-gnn/25.08.00
+- cugraph/25.08.00
 - culibos/11.4.148
 - culibos/11.5.117
 - culibos/11.6.55
@@ -375,7 +413,10 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - culibos/12.8.90
 - culibos/12.9.79
 - culibos/13.0.85
+- cuml/25.08.00
+- cumlprims_mg/25.08.00
 - cuobjdump/13.0.85
+- cuopt/25.08.00
 - cuosd/0.0.0+git.20250627
 - cupcl/1.0+jp4
 - cupcl/1.0+jp5
@@ -399,6 +440,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cupti/13.0.85
 - cuquantum/25.03.0.11
 - cuquantum/25.06.0.10
+- cuquantum/25.09.0.7
 - curand/10.2.10.91
 - curand/10.3.10.19
 - curand/10.4.0.35
@@ -412,7 +454,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cusolvermp/0.4.3.549
 - cusolvermp/0.5.1.690
 - cusolvermp/0.6.0.712
-- cusolvermp/0.7.0.833
+- cusolvermp/0.7.1.851
 - cusparse/11.6.0.120
 - cusparse/11.7.5.86
 - cusparse/12.0.2.55
@@ -426,21 +468,28 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - cusparselt/0.5.2.1
 - cusparselt/0.6.3.2
 - cusparselt/0.7.1.0
-- cusparselt/0.8.0.4
+- cusparselt/0.8.1.1
 - cutensor/1.7.0.1
 - cutensor/2.0.2.5
 - cutensor/2.1.0.9
 - cutensor/2.2.0.0
-- cutensor/2.3.0.6
+- cutensor/2.3.1.0
+- cutensornet/2.7.0
+- cutensornet/2.8.0
+- cutensornet/2.9.0
+- cutest/2.5.8
 - cutlass/2.11.0
 - cutlass/3.9.2
-- cutlass/4.1.0
+- cutlass/4.2.1
 - cuvs/25.08.00
 - cuxxfilt/13.0.85
 - cv-cuda/0.15.0
 - daggy/2.1.3
 - daggy/2.2.3
 - dali/1.51.0
+- daqp/0.4.2-acados
+- daqp/0.7.2
+- darts-clone/0.32h
 - dav1d/1.5.1
 - dawn/cci.20240726
 - dbus/1.16.2
@@ -456,30 +505,37 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - dotconf/1.4.1
 - double-conversion/3.3.1
 - dpdk/24.07
+- dsdp/5.8
+- dynamic-graph/4.4.3
 - dynolog/0.5.0
 - dynolog/0.5.1-git.20250624
+- easyexif/1.0+openmvg.20200322
 - egl-headers/20220525
 - egl-headers/20250527
 - eigen/3.3.7
 - eigen/3.3.8
 - eigen/3.3.9
-- eigen/4.0.0-cci.20250815
+- eigen/5.0.0
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
+- embag/0.0.43
 - embree/3.12.0
 - embree/3.13.1
 - embree/3.13.3
 - embree/3.13.5
 - emsdk/4.0.6
+- ensmallen/2.22.1
 - f2c/20240312
-- faiss/1.12.0
+- faac/1.31.1
 - fast_double_parser/0.8.1
+- fatrop/0.0.4+git.20250805
 - fbgemm/1.3.0
 - fenster/0.1.0
-- ffmpeg/4.4.6
 - ffmpeg/5.1.7
 - ffmpeg/6.1.3
+- ffmpeg/7.1.2
+- ffmpeg/8.0.0
 - ffnvcodec/10.0.26.2
 - ffnvcodec/11.1.5.3
 - ffnvcodec/12.2.72.0
@@ -489,11 +545,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - firebird/5.0.0
 - flite/2.2
 - fltk/1.4.3
-- fmi/1.0.1
-- fmi/2.0.5
-- fmi/3.0.2
+- fmi2/2.0.5
 - fontconfig/2.16.2
 - fortran/cci.latest
+- foxglove-sdk-c/0.14.2
+- foxglove-sdk-cpp/0.14.2
 - freeglut/3.6.0
 - freertos-kernel/11.1.0
 - fribidi/1.0.16
@@ -522,12 +578,16 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - gcc/14.3.0
 - gcc/8.5.0
 - gcc/9.5.0
+- gcg/3.7.2
 - gch-small-vector/0.10.2
 - gdalcpp/1.3.0
 - gdk-pixbuf/2.42.12
 - gdrcopy/2.5
+- gecode/6.2.0
+- gecode/6.3.0-git.20211013
 - gettext/0.24
 - gfortran/13.2.0
+- ggml/0.9.3
 - gici/cci.20250127
 - gl2ps/1.4.2
 - glfw/3.3.10
@@ -558,12 +618,12 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - google-cloud-cpp/1.42.2
 - googleapis/cci.20250506
 - gpu.cpp/0.1.0
+- gputreehsap/22.02.00
 - grass/8.5.0-cci.20240507
 - grpc/1.72.2
 - grpc/1.74.1
 - gsettings-desktop-schemas/48.0
-- gsl-lite/0.43.0
-- gsl-lite/1.0.1
+- gsi-hpc-simd/0.0.0+git.20250901
 - gsl/2.8
 - gst-libav/1.24.12
 - gst-libav/1.26.0
@@ -591,7 +651,9 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - gtsam/4.3-a0
 - gtsam_gnss/0.0.0.cci.20250213
 - gtsam_points/1.1.0
+- guanaqo/1.0.0-alpha.17
 - gumbo-parser/0.13.0
+- gunrock/2.1.0
 - gurobi/10.0.3
 - gurobi/11.0.3
 - gurobi/12.0.3
@@ -614,21 +676,52 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - hdf5/1.14.4.3
 - hdf5/1.14.5
 - hdf5/1.8.21
+- highfive/2.10.1
 - hlslpp/3.5.3
 - hnswlib/0.8.0
 - hnswlib/0.8.0-cuvs
+- hpipm/0.1.3+git.20250801
+- hpipm/0.1.3+git.20250822
+- hpmpc/0.2+git.20250628
 - hscpp/1.0.0-alpha
 - hwloc/2.12.1
+- hyhound/1.0.1
 - icu4x/1.4.1
 - icu4x/1.5.1
 - ideep/3.9.0.4
 - ifcopenshell/0.8.0.cci.20250501
+- ignition-cmake/2.17.2
+- ignition-math/6.15.1
+- ignition-tools/1.5.0
+- ignition-utils/1.5.1
 - imagemagick/7.1.1.38
 - imgui/1.91.9
 - imgui/1.91.9b
 - imlib2/1.12.3
 - implot/0.17.cci.20250319
-- intel-oneapi-dpcpp-cpp/2025.1.1
+- intel-dpcpp-sycl/2025.1.1
+- intel-dpcpp-sycl/2025.2.1
+- intel-dpcpp/2025.1.1
+- intel-dpcpp/2025.2.1
+- intel-opencl/2024.0.3
+- intel-opencl/2024.1.2
+- intel-opencl/2024.2.1
+- intel-opencl/2025.0.5
+- intel-opencl/2025.1.1
+- intel-opencl/2025.2.1
+- intel-openmp/2024.0.3
+- intel-openmp/2024.1.2
+- intel-openmp/2024.2.1
+- intel-openmp/2025.0.5
+- intel-openmp/2025.1.1
+- intel-openmp/2025.2.1
+- intel-tcmlib/1.2.0
+- intel-tcmlib/1.3.0
+- intel-tcmlib/1.4.0
+- intel-ur/2024.2.1
+- intel-ur/2025.0.5
+- intel-ur/2025.1.1
+- intel-ur/2025.2.1
 - ios-cmake/4.4.1
 - iridescence/0.1.6
 - isl/0.27
@@ -638,26 +731,31 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - jrl-cmakemodules/cci.20250623
 - json-glib/1.10.6
 - jsonifier/0.9.98
+- julia/1.11.6
 - kdsingleapplication/1.1.0
 - kineto/0.4.0+git.20250826
 - kleidiai/1.9.0
 - klib/cci.20250205
+- knitro/15.0.1
 - kokkos/4.7.00
 - kvikio/25.08.00
-- lapack/3.12.0
+- ladel/0.0.4
+- lapack-reference/3.12.1
+- lapack/latest
 - laszip/2.0.2
+- lbfgsb/3.0
+- lbfgspp/0.4.0
 - ldns/1.8.4
 - lessmsi/2.8.1
-- level-zero/1.22.4
+- level-zero/1.24.3
 - libalsa/1.2.14
-- libavif/1.3.0
 - libbasisu/1.16.4
 - libbpf/1.4.6
 - libbsd/0.12.2
 - libcaca/0.99.beta20
 - libclc/19.1.7
 - libclc/20.1.7
-- libcmaes/0.10.0
+- libcmaes/0.10.2
 - libcroco/0.6.13
 - libcudacxx/1.8.1
 - libcudacxx/1.9.2
@@ -690,6 +788,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - libheif/1.18.2
 - libiberty/15.1.0
 - libice/1.1.1
+- libigl/2.6.0
 - libjpeg-meta/latest
 - libjwt/3.2.1
 - liblas/1.8.1.cci.20240916
@@ -703,7 +802,8 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - libnop/cci.20211103
 - libosmium/2.20.0
 - libpciaccess/0.18.1
-- libpng/1.6.49
+- libphonenumber/8.13.55
+- libphonenumber/9.0.15
 - libpq/17.0
 - libprotobuf-mutator/1.5
 - libproxy/0.5.9
@@ -730,12 +830,12 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - libudev/255.18
 - libunistring/1.3
 - libusb/1.0.29
-- libuv/1.51.0
 - libv4l/1.28.1
 - libva/2.22.0
 - libwacom/2.15.0
 - libwebp/1.6.0
 - libx11/1.8.10
+- libx264/git.20240224
 - libx265/3.6
 - libx265/4.1
 - libxau/1.0.11
@@ -768,9 +868,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - linux-headers-generic/6.14.2
 - linux-pam/1.6.1
 - litehtml/0.9
+- llama-cpp/b6638
 - lld/19.1.7
 - lld/20.1.7
 - lldpd/1.0.19
+- llguidance/1.2.0
 - llvm-core/20.1.7
 - llvm-libunwind/19.1.7
 - llvm-libunwind/20.1.7
@@ -782,7 +884,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
+- madnlp-mockup/89
+- marchingcubecpp/git.20230911
+- marisa/0.3.1
 - mathdx/25.06.0
+- matlab-mockup/89
 - matplotlib-cpp/cci.20210423
 - matplotplusplus/1.2.0
 - matx/0.9.2
@@ -790,17 +896,19 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - mavlink/1.0.12.cci.20241205
 - mavsdk/2.13.0
 - mdspan/0.7.0-git.20250826
-- meshoptimizer/0.25
+- memkind/1.14.0+git.20240523
 - meson/1.6.1
-- meson/1.9.0
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
 - miniz/3.0.2-pytorch
 - minizip-ng/4.0.10
+- minja/1.0.0+git.20250922
 - minmea/0.3.0+git.20250828
 - mkfontscale/1.2.3
 - mlir/19.1.7
 - mlir/20.1.7
+- mlpack/4.6.2
+- moderngpu/2.13.0
 - mold/2.40.4
 - moltenvk/1.2.11
 - moltenvk/1.2.7
@@ -813,10 +921,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - mrcal/2.4.1
 - msys2/latest
 - mtdev/1.1.7
+- mujoco/3.3.6
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
-- nanobind/2.4.0
-- nanobind/2.7.0
+- nanobind/2.9.2
+- nanoeigenpy/0.4.0
 - nanoflann/1.2.3
 - nanoflann/1.5.5
 - nanoflann/1.6.3
@@ -824,7 +933,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - nasm/2.16.03
 - nauty/2.9.1
 - ncbi-cxx-toolkit/29.0.0
-- nccl/2.27.7.1
+- nccl/2.28.3.1
 - netcdf/4.9.3
 - netpbm/11.6.0
 - ng-log/0.8.2
@@ -847,6 +956,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - nss/3.110
 - numpy/2.3.1
 - nvbench/0.1.0+git.20250806
+- nvblox/0.0.8
 - nvcc/11.4.152
 - nvcc/11.5.119
 - nvcc/11.6.124
@@ -971,7 +1081,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - nvrtc/12.8.93
 - nvrtc/12.9.86
 - nvrtc/13.0.88
-- nvshmem/3.3.20
+- nvshmem/3.4.5
 - nvtiff/0.3.1.56
 - nvtiff/0.4.0.62
 - nvtiff/0.5.1.75
@@ -992,18 +1102,36 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - nvvm/12.8.93
 - nvvm/12.9.86
 - nvvm/13.0.88
+- oatpp-libressl/1.3.0+latest
+- oatpp-openssl/1.3.0+latest
+- oatpp-postgresql/1.3.0+latest
+- oatpp-sqlite/1.3.0+latest
+- oatpp-swagger/1.3.0+latest
+- oatpp-websocket/1.3.0+latest
+- oatpp/1.3.0+latest
 - ocl-icd/2.3.3
+- octave-mockup/89
+- octave/10.2.0
 - odbc/2.3.12
 - ogg/1.3.6
 - ogre/14.3.4
 - onednn-openvino/3.6.2.cci.20250514
 - onednn/3.8.1
 - onednn/3.9.0
-- onemath/0.7
+- onemath/0.8
+- onemkl/2024.0.0
+- onemkl/2024.1.0
+- onemkl/2024.2.2
+- onemkl/2025.0.1
+- onemkl/2025.1.0
 - onemkl/2025.2.0
 - oniguruma/6.9.10
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
+- ooqp/0.99.27
+- ooura-fft/cci.20061228
+- openapv/0.2.0.3
+- opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
 - opencl-clhpp-headers/2025.07.22
 - opencl-headers/2024.10.24
@@ -1031,8 +1159,10 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - openpmix/6.0.0
 - openrng/25.04
 - openspecfun/0.5.7
+- openssl/3.1.8
 - openucx/1.19.0
-- openusd/25.02
+- openusd/25.08
+- openvino/2025.2.0
 - openxr/1.1.47
 - optix-headers/7.7.0
 - optix-headers/8.1.0
@@ -1040,6 +1170,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - or-tools/9.14
 - osgearth/3.7
 - osqp-eigen/0.10.1
+- osqp/0.5.0-casadi.20211016
 - osqp/1.0.0
 - osrm/5.27.1
 - ozz-animation/0.14.3
@@ -1052,6 +1183,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - partio/1.19.0
 - patchelf/0.12
 - patchelf/0.13
+- pcg-cpp/0.98.1+git.20220409
 - pcl/1.14.1
 - pcl/1.15.1
 - pcre2/10.45
@@ -1060,10 +1192,11 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - pdfio/1.5.2
 - perf/6.11
 - piex/0.27
-- pinocchio/3.7.0
+- pinocchio/3.8.0
 - pipewire/1.4.2
+- piqp/0.6.2
 - pistache/0.4.26
-- pkgconf/2.4.3
+- pkgconf/2.5.1
 - plf_list/2.77
 - pocketfft/0.0.0+git.20241130
 - podofo/0.10.5
@@ -1081,14 +1214,22 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - protobuf/5.29.5
 - protobuf/6.31.1
 - protobuf/6.32.0
+- proxsuite/0.7.2
 - prrte/4.0.0
 - pthreadpool/cci.20250723
 - qcoro/0.10.0
 - qcustomplot/2.1.0
+- qdldl/0.1.9
 - qhull/7.3.2
 - qhull/8.1.alpha4
 - qnnpack/0.0.0+git.20190828
+- qpalm/1.2.6
+- qpdunes/git.20171214
+- qpmad/1.4.0
 - qpoases/3.2.2
+- qpoases/3.2.2-casadi
+- qpswift/0.0.2
+- qrupdate-ng/1.1.5
 - qscintilla/2.14.1
 - qsopt/1.01
 - qtawesome/6.5.1
@@ -1103,13 +1244,18 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - readline/8.3.1
 - reduct-cpp/1.14.0
 - renderdoc/1.37
+- rerun-c/0.25.1
+- rerun-cpp/0.25.1
 - rmlui/5.1
 - rmm/25.06.00
 - rmm/25.08.00
+- rocksdb/8.8.1
+- rocksdb/9.10.0
 - rosx_introspection/1.0.2
 - roundingsat/0.0.0+git.20240602
 - roundingsat/0.0.0+git.20250909
 - rsync/3.4.1
+- rumoca/0.5.0
 - rust-bindgen/0.71.1
 - rust/1.72.1
 - rust/1.75.0
@@ -1117,12 +1263,16 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - rust/1.81.0
 - rust/1.84.0
 - rust/1.85.1
+- rust/1.90.0
+- sassy/git.20250312
 - sbepp/1.4.2
 - sbepp/1.5.1
 - sbepp/1.6.0
+- scalapack/2.2.2
 - scdoc/1.11.3
+- scs/3.2.8
+- sdl/2.28.5
 - sdl/2.30.9
-- sdl/2.32.8
 - sdl_image/2.8.8
 - sdl_mixer/2.8.1
 - sdl_ttf/2.0.15
@@ -1131,20 +1281,25 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - sdl_ttf/2.20.2
 - sdl_ttf/2.22.0
 - secsipidx/1.3.2
+- sentencepiece/0.2.1
 - serf/1.3.10
 - sfcgal/1.5.0
+- sfl/1.9.0
 - shader-conductor/0.3.0-post.20221128
 - shader-slang/2024.11.1
 - shaderc/2025.2
-- shaderc/2025.3
 - skarupke-flat-hash-map/git.20180716
 - skia/132
 - sleef/3.9.0
+- sleqp/1.0.2
+- slicot/5.9
 - small_gicp/0.1.2
 - smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
+- snopt-mockup/89
 - soplex/3.1.1
 - spectra/1.1.0
+- spectra/1.2.0
 - speech-dispatcher/0.12
 - spirv-cross/1.3.290.0
 - spirv-headers/1.3.250.1
@@ -1165,14 +1320,15 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - spirv-tools/1.3.296.0
 - spirv-tools/1.4.321.0
 - splinter/3.0
-- spral/2025.05.20
+- spral/2025.09.18
 - stablehlo/1.10.0
 - stablehlo/1.6.3
 - stablehlo/1.8.11
 - stablehlo/1.9.7
 - stb/cci.20250314
 - stdexec/24.09
-- stdgpu/1.3.0-git.20250210
+- stdgpu/1.3.0+git.20250210
+- stdgpu/1.3.0-nvblox.20240211
 - steamworks_sdk/1.60
 - stella_vslam/0.5.0
 - stk/5.0.1
@@ -1218,11 +1374,15 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - suitesparse-spqr/4.3.5
 - suitesparse-umfpack/6.3.5
 - suitesparse-umfpack/6.3.6
+- sundials/2.7.0
 - sundials/5.8.0
 - sundials/6.7.0
 - sundials/7.4.0
 - superlu/6.0.1
 - superlu/7.0.1
+- superlu_mt/4.0.1
+- superscs/1.3.3+git.20210825
+- swig-matlab/3.0.11+git.20250327
 - swig/4.3.1
 - tcl/8.6.16
 - tcl/9.0.1
@@ -1238,21 +1398,28 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - thrust/2.7.0
 - thrust/2.8.5
 - thrust/3.0.2
+- tiny-cuda-nn/2.0
 - tinyexr/1.0.12
 - tinyobjloader/2.0.0-rc13
 - tk/8.6.16
+- tl-expected/1.3.1
 - torch-mlir/cci.20250203
 - tpl/cci.20210302
 - tracy/0.11.1
+- treelite/4.4.1
+- trianglemeshdistance/1.0.0+git.20240817
+- trlib/0.4+git.20240730
 - tsid/1.8.0
 - tz/2024b
 - ucc/1.5.0
 - ucxx/0.45.01
 - ufbx/0.18.2
+- umf/0.11.2
+- umf/1.0.3
+- uno/2.0.3
 - usearch/2.9.1
 - userspace-rcu/0.15.3
 - utf8proc/2.10.0
-- utfcpp/4.0.6
 - util-linux-libuuid/2.39.3
 - util-linux-libuuid/2.41
 - valijson/1.0.5
@@ -1302,6 +1469,7 @@ Package versions that are available here but not on ConanCenter as of <date>:
 - vulkan-validationlayers/1.4.321.0
 - wayland/1.24.0
 - worhp/1.16.3
+- workflow/0.11.10
 - wuffs/0.3.4
 - x86simdsortcpp/7.0
 - xbyak/7.26

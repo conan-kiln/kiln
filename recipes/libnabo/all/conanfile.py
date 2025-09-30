@@ -36,7 +36,7 @@ class LibnaboConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self.options.with_openmp:
             # Only used in .cpp files
             self.requires("openmp/system")
@@ -47,6 +47,8 @@ class LibnaboConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt", "set (CMAKE_CXX_STANDARD 11)", "")
+        replace_in_file(self, "nabo/kdtree_cpu.cpp", "#include <utility>", "#include <utility>\n#include <cassert>")
 
     def generate(self):
         tc = CMakeToolchain(self)

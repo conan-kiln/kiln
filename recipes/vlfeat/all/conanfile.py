@@ -16,7 +16,6 @@ class VlfeatConan(ConanFile):
     license = "BSD 2-Clause"
     homepage = "https://www.vlfeat.org"
     topics = ("computer-vision", "image-features")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -35,6 +34,8 @@ class VlfeatConan(ConanFile):
         "sse2": True,
         "avx": False,
     }
+    implements = ["auto_shared_fpic"]
+    languages = ["C"]
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -47,12 +48,6 @@ class VlfeatConan(ConanFile):
             del self.options.sse2
             del self.options.avx
 
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        self.settings.rm_safe("compiler.cppstd")
-        self.settings.rm_safe("compiler.libcxx")
-
     def layout(self):
         cmake_layout(self, src_folder="src")
 
@@ -60,11 +55,6 @@ class VlfeatConan(ConanFile):
         if self.options.openmp:
             # Used only in .c files
             self.requires("openmp/system")
-
-    def validate(self):
-        if is_msvc(self) and not self.options.shared:
-            # vlfeat function calls crash with STATUS_ACCESS_VIOLATION in test_package
-            raise ConanInvalidConfiguration("vlfeat does not support static linkage with MSVC")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -98,6 +88,8 @@ class VlfeatConan(ConanFile):
             if self.options.threads:
                 self.cpp_info.system_libs.append("pthread")
 
+        if self.settings.os == "Windows" and not self.options.shared:
+            self.cpp_info.defines.append("VL_STATIC")
         if not self.options.get_safe("sse2"):
             self.cpp_info.defines.append("VL_DISABLE_SSE2")
         if not self.options.get_safe("avx"):

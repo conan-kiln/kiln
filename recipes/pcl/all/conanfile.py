@@ -155,10 +155,7 @@ class PclConan(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     # The component details have been extracted from their CMakeLists.txt files using
     # https://gist.github.com/valgur/e54e39b6a8931b58cc1776515104c828
@@ -366,7 +363,7 @@ class PclConan(ConanFile):
         else:
             # asio on 1.87 is not compatible
             self.requires("boost/[^1.71.0 <1.87]", transitive_headers=True)
-        self.requires("eigen/3.4.0", transitive_headers=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self._is_enabled("flann"):
             self.requires("flann/1.9.2", transitive_headers=True)
         if self._is_enabled("png"):
@@ -489,7 +486,7 @@ class PclConan(ConanFile):
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
             self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.options.with_cuda:
-            self.tool_requires(f"nvcc/[~{self.settings.cuda.version}]")
+            self.cuda.tool_requires("nvcc")
             self.tool_requires("cmake/[>=3.18]")
 
     def source(self):

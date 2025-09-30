@@ -14,14 +14,12 @@ class LusolConan(ConanFile):
     license = "MIT OR BSD-3-Clause"
     homepage = "http://web.stanford.edu/group/SOL/software/lusol/"
     topics = ("linear-algebra", "sparse-matrix", "lu-factorization", "numerical")
-    package_type = "library"
+    package_type = "static-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": False,
         "fPIC": True,
     }
     implements = ["auto_shared_fpic"]
@@ -38,8 +36,7 @@ class LusolConan(ConanFile):
         return self.conf.get("tools.build:compiler_executables", default={}, check_type=dict).get("fortran", None)
 
     def requirements(self):
-        # Not used during the build, but required when linking the library.
-        self.requires("openblas/[*]", headers=False, libs=True)
+        self.requires("lapack/latest")
 
     def validate_build(self):
         if not self._fortran_compiler:
@@ -69,5 +66,5 @@ class LusolConan(ConanFile):
         self.cpp_info.libs = ["clusol"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m"]
-        if not self.options.shared and "gfortran" in self._fortran_compiler:
+        if "gfortran" in self._fortran_compiler:
             self.cpp_info.system_libs.append("gfortran")

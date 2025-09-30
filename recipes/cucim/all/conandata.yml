@@ -1,0 +1,8 @@
+sources:
+  "25.08.00":
+    url: "https://github.com/rapidsai/cucim/archive/refs/tags/v25.08.00.tar.gz"
+    sha256: "f7de634639067388cd6660ecd8646ad36ec97a7421b1ba4a34884fdb01fc2098"
+patches:
+  "25.08.00":
+    - patch_file: "patches/use-cudatoolkit-for-gds.patch"
+      patch_source: "https://github.com/rapidsai/cucim/commit/b738d2cfcc902dac0b824ab84197e4e8c57160f6"

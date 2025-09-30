@@ -112,7 +112,7 @@ class PangolinConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("eigen/3.4.0", transitive_headers=True, transitive_libs=True)
+        self.requires("eigen/[>=3.3 <6]", transitive_headers=True, transitive_libs=True)
         self.requires("glew/2.2.0", transitive_headers=True, transitive_libs=True)
         self.requires("opengl/system", transitive_headers=True, transitive_libs=True)
         if self.settings.os in ["Linux", "FreeBSD"]:
@@ -129,7 +129,7 @@ class PangolinConan(ConanFile):
             self.requires("libdc1394/2.2.7", transitive_headers=True, transitive_libs=True)
         if self.options.with_ffmpeg:
             # https://github.com/stevenlovegrove/Pangolin/blob/v0.9.1/components/pango_video/include/pangolin/video/drivers/ffmpeg_common.h#L15-L19
-            self.requires("ffmpeg/[>=6 <8]", transitive_headers=True, transitive_libs=True)
+            self.requires("ffmpeg/[>=6]", transitive_headers=True, transitive_libs=True)
         if self.options.with_jpeg:
             self.requires("libjpeg-meta/latest")
         if self.options.with_lz4:
@@ -163,7 +163,7 @@ class PangolinConan(ConanFile):
         # Unvendored
         # https://github.com/stevenlovegrove/Pangolin/blob/v0.9.1/components/pango_core/include/pangolin/utils/signal_slot.h
         self.requires("sigslot/1.2.2", transitive_headers=True, transitive_libs=True)
-        self.requires("tinyobjloader/2.0.0-rc10")
+        self.requires("tinyobjloader/[^2.0.0, include_prerelease]")
         # TODO: dynalo, NaturalSort
 
     def validate(self):

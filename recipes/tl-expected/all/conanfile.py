@@ -10,10 +10,10 @@ required_conan_version = ">=2.1"
 
 class TlExpectedConan(ConanFile):
     name = "tl-expected"
-    homepage = "https://tl.tartanllama.xyz"
     description = "C++11/14/17 std::expected with functional-style extensions"
-    topics = ("cpp11", "cpp14", "cpp17", "expected")
     license = "CC0-1.0"
+    homepage = "https://tl.tartanllama.xyz"
+    topics = ("cpp11", "cpp14", "cpp17", "expected")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
@@ -28,15 +28,11 @@ class TlExpectedConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
-
-    def build(self):
-        pass
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, "*", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
+        copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "tl-expected")

@@ -4,7 +4,6 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
-from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -37,7 +36,7 @@ class ScalapackConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[<1]", transitive_headers=True)
+        self.requires("lapack/latest", transitive_headers=True)
         self.requires("openmpi/[>=4 <6]", transitive_headers=True, transitive_libs=True)
 
     def build_requirements(self):
@@ -94,4 +93,4 @@ class ScalapackConan(ConanFile):
                 self.cpp_info.system_libs = ["m", "dl"]
             if "gfortran" in self._fortran_compiler:
                 self.cpp_info.system_libs.append("gfortran")
-        self.cpp_info.requires = ["openblas::openblas", "openmpi::ompi-c"]
+        self.cpp_info.requires = ["lapack::lapack", "openmpi::ompi-c"]

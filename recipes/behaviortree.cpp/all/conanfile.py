@@ -9,6 +9,7 @@ from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
+
 class BehaviorTreeCPPConan(ConanFile):
     name = "behaviortree.cpp"
     description = "This C++ library provides a framework to create BehaviorTrees"

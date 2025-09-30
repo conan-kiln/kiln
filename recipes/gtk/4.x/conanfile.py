@@ -121,7 +121,7 @@ class GtkConan(ConanFile):
         # INFO: https://gitlab.gnome.org/GNOME/gtk/-/blob/4.10.0/gsk/gsktypes.h#L25
         self.requires("graphene/1.10.8", transitive_headers=True, transitive_libs=True)
         self.requires("libepoxy/1.5.10")
-        self.requires("fribidi/1.0.13")
+        self.requires("fribidi/[^1.0.13]")
         self.requires("harfbuzz/[*]")
         self.requires("libpng/[~1.6]")
         self.requires("libtiff/[>=4.5 <5]")
@@ -142,7 +142,7 @@ class GtkConan(ConanFile):
         if self.options.with_vulkan:
             self.requires("vulkan-loader/[^1.3.239.0]")
         if self.options.get_safe("with_ffmpeg"):
-            self.requires("ffmpeg/[>=6 <8]")
+            self.requires("ffmpeg/[>=6]")
 
         if self.options.with_gstreamer:
             self.requires("gst-plugins-base/[^1.24]")

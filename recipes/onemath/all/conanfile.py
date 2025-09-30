@@ -1,5 +1,4 @@
 import os
-from functools import cached_property
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -64,10 +63,7 @@ class OneMathConan(ConanFile):
     }
 
     python_requires = "conan-cuda/latest"
-
-    @cached_property
-    def cuda(self):
-        return self.python_requires["conan-cuda"].module.Interface(self)
+    python_requires_extend = "conan-cuda.Cuda"
 
     @property
     def _all_backends(self):
@@ -95,10 +91,12 @@ class OneMathConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
+        self.requires(f"intel-dpcpp-sycl/[~{self.settings.compiler.version}]")
+
         if self.options.mklcpu or self.options.mklgpu:
             self.requires("onemkl/[*]", transitive_headers=True, transitive_libs=True)
         if self.options.netlib_blas:
-            self.requires("openblas/[>=0.3.28 <1]")
+            self.requires("blas/latest")
         if self.options.portfft:
             self.requires("portfft/[*]")
 
@@ -178,12 +176,14 @@ class OneMathConan(ConanFile):
             tc.cache_variables["HIP_TARGETS"] = self.options.hip_targets
         tc.cache_variables["BUILD_FUNCTIONAL_TESTS"] = False
         tc.cache_variables["BUILD_EXAMPLES"] = False
+        if self.options.mklcpu or self.options.mklgpu:
+            tc.cache_variables["MKL_INCLUDE"] = self.dependencies["onemkl"].package_folder.replace("\\", "/") + "/include"
         tc.generate()
 
         deps = CMakeDeps(self)
         if self.options.netlib_blas:
-            deps.set_property("openblas", "cmake_file_name", "NETLIB")
-            deps.set_property("openblas", "cmake_target_name", "ONEMATH::NETLIB::NETLIB")
+            deps.set_property("blas", "cmake_file_name", "NETLIB")
+            deps.set_property("blas", "cmake_target_name", "ONEMATH::NETLIB::NETLIB")
         if self.options.cublas:
             deps.set_property("cublas", "cmake_target_name", "ONEMATH::cuBLAS::cuBLAS")
         if self.options.curand:
@@ -252,7 +252,7 @@ class OneMathConan(ConanFile):
         if self.options.netlib_blas:
             self.cpp_info.components["onemath_blas_netlib"].set_property("cmake_target_name", "ONEMATH::onemath_blas_netlib")
             self.cpp_info.components["onemath_blas_netlib"].libs = ["onemath_blas_netlib"]
-            self.cpp_info.components["onemath_blas_netlib"].requires = ["openblas::openblas"]
+            self.cpp_info.components["onemath_blas_netlib"].requires = ["blas::blas"]
 
         if self.options.generic_sycl_blas:
             self.cpp_info.components["onemath_blas_generic"].set_property("cmake_target_name", "ONEMATH::onemath_blas_generic")
@@ -313,7 +313,7 @@ class OneMathConan(ConanFile):
 
         sycl = self.cpp_info.components["onemath_sycl"]
         sycl.set_property("cmake_target_name", "ONEMATH::SYCL::SYCL")
-        sycl.system_libs = ["sycl"]
+        sycl.requires = ["intel-dpcpp-sycl::intel-dpcpp-sycl"]
         sycl.cxxflags = ["-fsycl"]
         if self.settings.os != "Windows":
             ldflags = ["-fsycl"]

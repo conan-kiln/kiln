@@ -47,7 +47,7 @@ class UnoConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[<1]")
+        self.requires("blas/latest")
         if self.options.with_asl:
             self.requires("ampl-asl/[^1]")
         if self.options.with_bqpd:

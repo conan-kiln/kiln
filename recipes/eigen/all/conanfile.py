@@ -1,6 +1,7 @@
 import os
 
 from conan import ConanFile
+from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
 from conan.tools.files import *
 from conan.tools.scm import Version
@@ -12,44 +13,33 @@ class EigenConan(ConanFile):
     name = "eigen"
     description = ("Eigen is a C++ template library for linear algebra: matrices, vectors,"
                    " numerical solvers, and related algorithms.")
-    license = "MPL-2.0 AND BSD-3-Clause AND LGPL-2.1-or-later"
+    license = "MPL-2.0 AND BSD-3-Clause AND Minpack AND Apache-2.0"
     topics = ("algebra", "linear-algebra", "matrix", "vector", "numerical", "header-only")
     homepage = "http://eigen.tuxfamily.org"
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "MPL2_only": [True, False],
-        # TODO: add use_blas, use_lapack for Eigen 3.3+: https://eigen.tuxfamily.org/dox-devel/TopicUsingBlasLapack.html
     }
     default_options = {
-        # No longer applicable in Eigen 4.x.
-        # As of Eigen 3.4.0, only the following are LGPL:
+        # No longer applicable in Eigen 5.x.
+        # As of Eigen 3.4.0, only the following were LGPL:
         #   Eigen/src/SparseCholesky/SimplicialCholesky.h
         #   Eigen/src/OrderingMethods/Amd.h
         #   unsupported/Eigen/src/IterativeSolvers/*
         "MPL2_only": True,
     }
 
-    @property
-    def _is_v4(self):
-        return Version(self.version).major >= 4
-
     def export_sources(self):
         export_conandata_patches(self)
 
-    def config_options(self):
-        if self._is_v4:
-            del self.options.MPL2_only
-
     def configure(self):
-        if not self._is_v4:
+        if Version(self.version) < "5.0":
             # Based on https://salsa.debian.org/science-team/eigen3/-/blob/debian/3.4.0-5/debian/copyright
             if self.options.MPL2_only:
                 self.license = "MPL-2.0 AND BSD-3-Clause"
             else:
                 self.license = "MPL-2.0 AND BSD-3-Clause AND LGPL-2.1-or-later"
-        else:
-            self.license = "MPL-2.0 AND BSD-3-Clause AND Minpack AND Apache-2.0"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -57,10 +47,20 @@ class EigenConan(ConanFile):
     def package_id(self):
         self.info.clear()
 
+    def validate(self):
+        if Version(self.version) >= "5.0":
+            check_min_cppstd(self, "14")
+        else:
+            check_min_cppstd(self, "03")
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
-        if not self._is_v4:
+        if Version(self.version) < "3.4.0":
+            replace_in_file(self, "CMakeLists.txt",
+                            "cmake_minimum_required(VERSION 2.8.5)",
+                            "cmake_minimum_required(VERSION 3.5)")
+        if Version(self.version) < "5.0":
             self.output.info("Patching DisableStupidWarnings.h to the latest version to avoid warnings from newer compiler versions")
             path = "Eigen/src/Core/util/DisableStupidWarnings.h"
             assert os.path.isfile(path)
@@ -68,7 +68,7 @@ class EigenConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["EIGEN_BUILD_BLAS"] = False
+        tc.cache_variables["EIGEN_BUILD_BLAS"] = False  # only used in tests and benchmarks
         tc.cache_variables["EIGEN_BUILD_LAPACK"] = False
         tc.cache_variables["BUILD_TESTING"] = not self.conf.get("tools.build:skip_test", default=True, check_type=bool)
         tc.cache_variables["EIGEN_TEST_NOQT"] = True

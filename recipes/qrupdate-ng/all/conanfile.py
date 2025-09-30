@@ -32,7 +32,7 @@ class QrupdateNgConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("openblas/[>=0.3 <1]")
+        self.requires("lapack/latest")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -43,7 +43,7 @@ class QrupdateNgConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["BUILD_SHARED_LIBS"] = self.options.shared
-        tc.cache_variables["INTEGER8"] = self.dependencies["openblas"].options.interface == "ilp64"
+        tc.cache_variables["INTEGER8"] = self.dependencies["blas"].options.interface == "ilp64"
         tc.cache_variables["ENABLE_TESTING"] = False
         tc.generate()
         deps = CMakeDeps(self)

@@ -19,6 +19,10 @@ find_package(nlohmann_json REQUIRED CONFIG)
 find_package(ONNX REQUIRED CONFIG)
 find_package(pocketfft REQUIRED CONFIG)
 
+if(NOT BLAS STREQUAL Eigen)
+    find_package(LAPACK REQUIRED)
+endif()
+
 list(APPEND Caffe2_DEPENDENCY_LIBS
     cpuinfo
     fmt::fmt-header-only
