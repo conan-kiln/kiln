@@ -108,7 +108,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/3.28.6
 - cmake/3.29.7
 - cmake/3.30.5
-- cmake/3.31.8
 - cmake/4.0.3
 - cmrc/2.0.1+git.20230724
 - cnmem/1.0.0+git.20181128
@@ -481,7 +480,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ensmallen/2.22.1
 - f2c/20240312
 - faac/1.31.1
-- faiss/1.12.0
 - fast_double_parser/0.8.1
 - fatrop/0.0.4+git.20250805
 - fbgemm/1.3.0
@@ -541,7 +539,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - gecode/6.3.0-git.20211013
 - gettext/0.24
 - gfortran/13.2.0
-- ggml/0.9.1
+- ggml/0.9.3
 - gici/cci.20250127
 - gl2ps/1.4.2
 - glfw/3.3.10
@@ -756,6 +754,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libnop/cci.20211103
 - libosmium/2.20.0
 - libpciaccess/0.18.1
+- libphonenumber/8.13.55
+- libphonenumber/9.0.15
 - libpq/17.0
 - libprotobuf-mutator/1.5
 - libproxy/0.5.9
@@ -820,7 +820,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - linux-headers-generic/6.14.2
 - linux-pam/1.6.1
 - litehtml/0.9
-- llama-cpp/b6558
+- llama-cpp/b6638
 - lld/19.1.7
 - lld/20.1.7
 - lldpd/1.0.19
@@ -850,7 +850,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - mdspan/0.7.0-git.20250826
 - memkind/1.14.0+git.20240523
 - meson/1.6.1
-- meson/1.9.0
 - metavision-sdk/4.6.2
 - metavision-sdk/5.1.1
 - miniz/3.0.2-pytorch
@@ -1055,6 +1054,13 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - nvvm/12.8.93
 - nvvm/12.9.86
 - nvvm/13.0.88
+- oatpp-libressl/1.3.0+latest
+- oatpp-openssl/1.3.0+latest
+- oatpp-postgresql/1.3.0+latest
+- oatpp-sqlite/1.3.0+latest
+- oatpp-swagger/1.3.0+latest
+- oatpp-websocket/1.3.0+latest
+- oatpp/1.3.0+latest
 - ocl-icd/2.3.3
 - octave-mockup/89
 - octave/10.2.0
@@ -1105,6 +1111,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openpmix/6.0.0
 - openrng/25.04
 - openspecfun/0.5.7
+- openssl/3.1.8
 - openucx/1.19.0
 - openusd/25.08
 - openvino/2025.2.0
@@ -1227,10 +1234,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sdl_ttf/2.22.0
 - secsipidx/1.3.2
 - sentencepiece/0.2.1
-- sentry-native/0.6.6
-- sentry-native/0.7.20
-- sentry-native/0.8.1
-- sentry-native/0.8.3
 - serf/1.3.10
 - sfcgal/1.5.0
 - sfl/1.9.0
@@ -1281,7 +1284,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - steamworks_sdk/1.60
 - stella_vslam/0.5.0
 - stk/5.0.1
-- subunit/1.4.0
 - suitesparse-amd/3.3.3
 - suitesparse-amd/3.3.4
 - suitesparse-btf/2.3.2
