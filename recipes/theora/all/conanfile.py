@@ -7,13 +7,14 @@ from conan.tools.microsoft import is_msvc
 
 required_conan_version = ">=2.4"
 
+
 class TheoraConan(ConanFile):
     name = "theora"
     license = "BSD-3-Clause"
     homepage = "https://github.com/xiph/theora"
     description = "Theora is a free and open video compression format from the Xiph.org Foundation"
     topics = "video", "video-compressor", "video-format"
-
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
@@ -23,8 +24,8 @@ class TheoraConan(ConanFile):
         "shared": False,
         "fPIC": True,
     }
+    implements = ["auto_shared_fpic"]
     languages = ["C"]
-    implements = ["auto_header_only"]
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder,"src"))
