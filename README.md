@@ -13,7 +13,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-29:
+Package versions that are available here but not yet on the main CCI repo as of 2025-09-30:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -468,7 +468,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigen/3.3.7
 - eigen/3.3.8
 - eigen/3.3.9
-- eigen/4.0.0-cci.20250815
+- eigen/5.0.0
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
@@ -630,6 +630,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - hdf5/1.14.4.3
 - hdf5/1.14.5
 - hdf5/1.8.21
+- highfive/2.10.1
 - hlslpp/3.5.3
 - hnswlib/0.8.0
 - hnswlib/0.8.0-cuvs
@@ -708,7 +709,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libcaca/0.99.beta20
 - libclc/19.1.7
 - libclc/20.1.7
-- libcmaes/0.10.0
+- libcmaes/0.10.2
 - libcroco/0.6.13
 - libcudacxx/1.8.1
 - libcudacxx/1.9.2
@@ -741,6 +742,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libheif/1.18.2
 - libiberty/15.1.0
 - libice/1.1.1
+- libigl/2.6.0
 - libjpeg-meta/latest
 - libjwt/3.2.1
 - liblas/1.8.1.cci.20240916
@@ -1073,6 +1075,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - onnxruntime/1.18.2
 - onnxruntime/1.22.2
 - ooqp/0.99.27
+- ooura-fft/cci.20061228
 - openapv/0.2.0.3
 - opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
@@ -1136,7 +1139,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - piex/0.27
 - pinocchio/3.8.0
 - pipewire/1.4.2
-- piqp/0.6.1
+- piqp/0.6.2
 - pistache/0.4.26
 - pkgconf/2.5.1
 - plf_list/2.77
@@ -1224,6 +1227,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - sdl_ttf/2.22.0
 - secsipidx/1.3.2
 - sentencepiece/0.2.1
+- sentry-native/0.6.6
+- sentry-native/0.7.20
+- sentry-native/0.8.1
+- sentry-native/0.8.3
 - serf/1.3.10
 - sfcgal/1.5.0
 - sfl/1.9.0
