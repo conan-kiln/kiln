@@ -54,18 +54,19 @@ class LlamaCppConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("ggml/[>=0.1 <1]", transitive_headers=True, transitive_libs=True)
+        self.requires("ggml/[>=0.9.3 <1]", transitive_headers=True, transitive_libs=True)
         self.requires("nlohmann_json/[^3]", transitive_headers=True)
         self.requires("minja/[^1]")
+        if not self.options.with_curl or self.options.server:
+            self.requires("cpp-httplib/[<1]")
         if self.options.with_curl:
             self.requires("libcurl/[>=7.78 <9]")
+            self.requires("openssl/[>=1.1 <4]")
         if self.options.with_llguidance:
             self.requires("llguidance/[^1]")
         if self.options.tools:
             self.requires("stb/[*]")
             self.requires("miniaudio/[>=0.11 <1]")
-        if self.options.server:
-            self.requires("cpp-httplib/[*]")
 
     def validate_build(self):
         if self.settings.compiler == "msvc" and "arm" in self.settings.arch:
@@ -82,6 +83,7 @@ class LlamaCppConan(ConanFile):
         replace_in_file(self, "tools/mtmd/mtmd-helper.cpp", "miniaudio/miniaudio.h", "miniaudio.h")
         replace_in_file(self, "tools/mtmd/mtmd-helper.cpp", "stb/stb_image.h", "stb_image.h")
         replace_in_file(self, "tools/server/utils.hpp", "cpp-httplib/httplib.h", "httplib.h")
+        replace_in_file(self, "common/arg.cpp", "cpp-httplib/httplib.h", "httplib.h")
         # Fix `common` not being installed for a static build and give it a less clashing name.
         save(self, "common/CMakeLists.txt", textwrap.dedent("""\
             if(NOT BUILD_SHARED_LIBS)
@@ -110,6 +112,7 @@ class LlamaCppConan(ConanFile):
         tc.cache_variables["LLAMA_TOOLS_INSTALL"] = self.options.tools
         tc.cache_variables["LLAMA_BUILD_SERVER"] = self.options.server
         tc.cache_variables["LLAMA_CURL"] = self.options.with_curl
+        tc.cache_variables["LLAMA_OPENSSL"] = self.options.with_curl
         tc.cache_variables["LLAMA_LLGUIDANCE"] = self.options.with_llguidance
         tc.generate()
 
@@ -148,8 +151,10 @@ class LlamaCppConan(ConanFile):
         if self.options.shared:
             self.cpp_info.components["llama"].defines.append("LLAMA_SHARED")
         if self.options.with_curl:
-            self.cpp_info.components["common"].requires.append("libcurl::libcurl")
+            self.cpp_info.components["common"].requires.extend(["libcurl::libcurl", "openssl::openssl"])
             self.cpp_info.components["common"].defines.append("LLAMA_USE_CURL")
+        else:
+            self.cpp_info.components["common"].requires.append("cpp-httplib::cpp-httplib")
         if self.options.with_llguidance:
             self.cpp_info.components["common"].requires.append("llguidance::llguidance")
             self.cpp_info.components["common"].defines.append("LLAMA_USE_LLGUIDANCE")
