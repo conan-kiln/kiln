@@ -136,7 +136,7 @@ class GrpcConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["CMAKE_PROJECT_grpc_INCLUDE"] = os.path.join(self.source_folder, "conan_cmake_project_include.cmake")
+        tc.cache_variables["CMAKE_PROJECT_grpc_INCLUDE"] = "conan_cmake_project_include.cmake"
         tc.cache_variables["gRPC_BUILD_CODEGEN"] = self.options.codegen
         tc.cache_variables["gRPC_BUILD_CSHARP_EXT"] = self.options.csharp_ext
         tc.cache_variables["gRPC_BUILD_TESTS"] = False

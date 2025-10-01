@@ -62,7 +62,7 @@ class MysqlConnectorCppConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["CMAKE_PROJECT_MySQL_CONCPP_INCLUDE"] = os.path.join(self.source_folder, "conan_project_include.cmake")
+        tc.cache_variables["CMAKE_PROJECT_MySQL_CONCPP_INCLUDE"] = "conan_project_include.cmake"
         tc.cache_variables["BUNDLE_DEPENDENCIES"] = False
         tc.cache_variables["BUILD_STATIC"] = not self.options.shared
         tc.cache_variables["STATIC_MSVCRT"] = is_msvc_static_runtime(self)

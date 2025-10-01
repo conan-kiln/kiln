@@ -54,7 +54,7 @@ class NodeEditorConan(ConanFile):
         tc.cache_variables["USE_QT6"] = self._qt_version_major == "6"
         # INFO: In order to execute the moc tool and avoid failing to find its dependencies
         qt_tools_rootdir = self.conf.get("user.qt:tools_directory", None)
-        tc.cache_variables["CMAKE_PROJECT_QtNodesLibrary_INCLUDE"] = os.path.join(self.source_folder, "conan_cmake_project_include.cmake")
+        tc.cache_variables["CMAKE_PROJECT_QtNodesLibrary_INCLUDE"] = "conan_cmake_project_include.cmake"
         tc.cache_variables["CMAKE_AUTOMOC_EXECUTABLE"] = os.path.join(qt_tools_rootdir, "moc.exe" if self.settings_build.os == "Windows" else "moc")
         tc.cache_variables["CMAKE_AUTORCC_EXECUTABLE"] = os.path.join(qt_tools_rootdir, "rcc.exe" if self.settings_build.os == "Windows" else "rcc")
         tc.generate()
