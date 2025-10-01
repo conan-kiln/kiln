@@ -1,0 +1,8 @@
+sources:
+  "3.20":
+    sources:
+      url: "https://github.com/microsoft/DirectXMath/archive/refs/tags/apr2025.tar.gz"
+      sha256: "8ac7f060d7fcc971d77c5a9f3ff98548ecf119c144a7c2dd9d21f4b66ba94cd4"
+    sal.h:
+      url: "https://raw.githubusercontent.com/dotnet/runtime/refs/tags/v9.0.9/src/coreclr/pal/inc/rt/sal.h"
+      sha256: "e26ee611231a859b5a800eb2e1606e7ca03b8e3981d7c98cf1ca20c89b658b68"
