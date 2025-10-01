@@ -1,0 +1,8 @@
+sources:
+  "3.20.1":
+    "tinyfiledialogs.c":
+      url: "https://sourceforge.net/p/tinyfiledialogs/code/ci/d8aabf20ff0b0b9ef5d6ff6f4da1d50f64a90448/tree/tinyfiledialogs.c?format=raw"
+      sha256: "7216fefb55d11e834324552853864c6c8afad189c2e1dfab5762221e392cab38"
+    "tinyfiledialogs.h":
+      url: "https://sourceforge.net/p/tinyfiledialogs/code/ci/d8aabf20ff0b0b9ef5d6ff6f4da1d50f64a90448/tree/tinyfiledialogs.h?format=raw"
+      sha256: "20861b46050f41c55757055ecdf0b097ed5a098ef5f3b8d12e8361643fef27a0"
