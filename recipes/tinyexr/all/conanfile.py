@@ -15,7 +15,7 @@ class TinyExrConan(ConanFile):
     license = "BSD-3-Clause"
     homepage = "https://github.com/syoyo/tinyexr"
     topics = ("exr", "header-only")
-    package_type = "header-library"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "header_only": [True, False],
