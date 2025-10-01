@@ -47,8 +47,8 @@ class EmbreeConan(ConanFile):
             self.requires("onetbb/[>=2021]")
 
     def validate(self):
-        check_min_cppstd(self, 14)
-        # See https://github.com/RenderKit/embree/blob/master/CMakeLists.txt#L538
+        check_min_cppstd(self, 11)
+        # See https://github.com/RenderKit/embree/blob/v4.4.0/CMakeLists.txt#L533
         if (
             self.settings.compiler == "apple-clang"
             and not self.options.shared
@@ -58,9 +58,24 @@ class EmbreeConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Don't force C++11
+        replace_in_file(self, "common/cmake/gnu.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/clang.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/intel.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-std=c++14", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-std=c++17", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-Qstd=c++11", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-Qstd=c++14", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-Qstd=c++17", "")
+        # Don't force libcxx to libc++
+        replace_in_file(self, "common/cmake/gnu.cmake", "-stdlib=libc++", "")
+        replace_in_file(self, "common/cmake/clang.cmake", "-stdlib=libc++", "")
+        replace_in_file(self, "common/cmake/intel.cmake", "-stdlib=libc++", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.variables["EMBREE_IGNORE_CMAKE_CXX_FLAGS"] = False
         tc.variables["EMBREE_STATIC_LIB"] = not self.options.shared
         tc.variables["BUILD_TESTING"] = False
         tc.variables["EMBREE_INSTALL_DEPENDENCIES"] = False
@@ -98,14 +113,14 @@ class EmbreeConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "cmake"))
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         rmdir(self, os.path.join(self.package_folder, "share"))
-        rm(self, "*.command", os.path.join(self.package_folder))
-        rm(self, "*.cmake", os.path.join(self.package_folder))
-        rm(self, "embree-vars.sh", os.path.join(self.package_folder))
-        rm(self, "embree-vars.csh", os.path.join(self.package_folder))
+        rm(self, "*.command", self.package_folder)
+        rm(self, "*.cmake", self.package_folder)
+        rm(self, "embree-vars.sh", self.package_folder)
+        rm(self, "embree-vars.csh", self.package_folder)
 
         # Remove MS runtime files
         for dll_pattern_to_remove in ["concrt*.dll", "msvcp*.dll", "vcruntime*.dll"]:
-            rm(self, pattern=dll_pattern_to_remove, folder=os.path.join(self.package_folder, "bin"), recursive=True)
+            rm(self, dll_pattern_to_remove, os.path.join(self.package_folder, "bin"), recursive=True)
 
     def package_info(self):
         self.cpp_info.libs = ["embree4"]
