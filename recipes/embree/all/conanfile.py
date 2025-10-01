@@ -44,7 +44,7 @@ class EmbreeConan(ConanFile):
 
     def requirements(self):
         if self.settings.os != "Emscripten":
-            self.requires("onetbb/[>=2021 <2023]")
+            self.requires("onetbb/[>=2021]")
 
     def validate(self):
         check_min_cppstd(self, 14)
@@ -119,4 +119,4 @@ class EmbreeConan(ConanFile):
                 self.cpp_info.libs.extend(["embree_avx2"])
 
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs.extend(["dl", "m", "pthread"])
+            self.cpp_info.system_libs = ["dl", "m", "pthread"]
