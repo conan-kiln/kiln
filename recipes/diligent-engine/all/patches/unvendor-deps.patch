@@ -73,7 +73,7 @@ diff --git a/DiligentTools/AssetLoader/CMakeLists.txt b/DiligentTools/AssetLoade
      Diligent-GraphicsTools
      Diligent-TextureLoader
      Diligent-JSON
-+    TinyGLTF::TinyGLTF
++    tinygltf::tinygltf
  )
  
  if (TARGET draco OR TARGET draco_static)
