@@ -1,0 +1,4 @@
+sources:
+  "1.9.1":
+    url: "https://github.com/microsoft/UVAtlas/archive/refs/tags/jul2025.tar.gz"
+    sha256: "156827c1d8029901b9bbf55ad7a1f9f5862e3895ce9e384a92b3bb55bcc55c81"
