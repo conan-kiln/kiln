@@ -1,0 +1,19 @@
+--- a/src/stdgpu/cuda/impl/device.cpp
++++ b/src/stdgpu/cuda/impl/device.cpp
+@@ -71,13 +71,15 @@
+     int gpu_name_size = static_cast<int>(gpu_name.size());
+     int gpu_name_space_left = std::max<int>(1, (gpu_name_total_width - gpu_name_size) / 2);
+     int gpu_name_space_right = std::max<int>(1, gpu_name_total_width - gpu_name_size - gpu_name_space_left);
++    int clockRateKHz;
++    cudaDeviceGetAttribute(&clockRateKHz, cudaDevAttrClockRate, 0);
+ 
+     printf("+---------------------------------------------------------+\n");
+     printf("|%*s%*s%*s|\n", gpu_name_space_left, " ", gpu_name_size, gpu_name.c_str(), gpu_name_space_right, " ");
+     printf("+---------------------------------------------------------+\n");
+     printf("| Compute Capability        :   %1d.%1d                       |\n", properties.major, properties.minor);
+     printf("| Clock rate                :   %-6.0f MHz                |\n",
+-           static_cast<double>(detail::kilo_to_mega_hertz(static_cast<float>(properties.clockRate))));
++           static_cast<double>(detail::kilo_to_mega_hertz(static_cast<float>(clockRateKHz))));
+     printf("| Global Memory             :   %-6.3f GiB / %-6.3f GiB   |\n",
+            static_cast<double>(detail::byte_to_gibi_byte(static_cast<float>(free_memory))),
+            static_cast<double>(detail::byte_to_gibi_byte(static_cast<float>(total_memory))));
