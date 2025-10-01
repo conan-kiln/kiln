@@ -11,7 +11,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-09-30:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-01:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -465,6 +465,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigen/3.3.7
 - eigen/3.3.8
 - eigen/3.3.9
+- eigen/3.4.1
 - eigen/5.0.0
 - eigenpy/3.11.0
 - elfutils/0.192
@@ -645,8 +646,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ignition-tools/1.5.0
 - ignition-utils/1.5.1
 - imagemagick/7.1.1.38
-- imgui/1.91.9
+- imgui/1.91.4
 - imgui/1.91.9b
+- imgui/1.92.3
 - imlib2/1.12.3
 - implot/0.17.cci.20250319
 - intel-dpcpp-sycl/2025.1.1
@@ -1193,6 +1195,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - re2/20220601
 - readline/8.3.1
 - reduct-cpp/1.14.0
+- refx/0.2.1
 - renderdoc/1.37
 - rerun-c/0.25.1
 - rerun-cpp/0.25.1
