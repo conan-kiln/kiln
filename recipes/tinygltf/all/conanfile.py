@@ -1,7 +1,7 @@
 import os
 
 from conan import ConanFile
-from conan.tools.build import check_min_cppstd
+from conan.tools.build import check_min_cppstd, valid_min_cppstd
 from conan.tools.files import *
 from conan.tools.layout import basic_layout
 
@@ -18,11 +18,13 @@ class TinygltfConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "draco": [True, False],
+        "json": ["nlohmann", "rapidjson"],
         "stb_image": [True, False],
         "stb_image_write": [True, False],
     }
     default_options = {
         "draco": False,
+        "json": "nlohmann",
         "stb_image": True,
         "stb_image_write": True,
     }
@@ -34,9 +36,12 @@ class TinygltfConan(ConanFile):
         self.info.clear()
 
     def requirements(self):
-        self.requires("nlohmann_json/[^3]")
+        if self.options.json == "nlohmann":
+            self.requires("nlohmann_json/[^3]")
+        elif self.options.json == "rapidjson":
+            self.requires("rapidjson/[*]")
         if self.options.draco:
-            self.requires("draco/1.5.6")
+            self.requires("draco/[^1.5.6]")
         if self.options.stb_image or self.options.stb_image_write:
             self.requires("stb/[*]")
 
@@ -45,11 +50,9 @@ class TinygltfConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
-    def build(self):
-        replace_in_file(self, os.path.join(self.source_folder, "tiny_gltf.h"),
-                              "#include \"json.hpp\"",
-                              "#include <nlohmann/json.hpp>")
+        replace_in_file(self, "tiny_gltf.h", '#include "json.hpp"', "#include <nlohmann/json.hpp>")
+        for include in ["document.h", "prettywriter.h", "rapidjson.h", "stringbuffer.h", "writer.h"]:
+            replace_in_file(self, "tiny_gltf.h", f'#include "{include}"', f'#include <rapidjson/{include}>')
 
     def package(self):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
@@ -62,7 +65,11 @@ class TinygltfConan(ConanFile):
         self.cpp_info.libdirs = []
         if self.options.draco:
             self.cpp_info.defines.append("TINYGLTF_ENABLE_DRACO")
+        if self.options.json == "rapidjson":
+            self.cpp_info.defines.append("TINYGLTF_USE_RAPIDJSON")
         if not self.options.stb_image:
             self.cpp_info.defines.append("TINYGLTF_NO_STB_IMAGE")
         if not self.options.stb_image_write:
             self.cpp_info.defines.append("TINYGLTF_NO_STB_IMAGE_WRITE")
+        if valid_min_cppstd(self, 14):
+            self.cpp_info.defines.append("TINYGLTF_USE_CPP14")
