@@ -28,8 +28,8 @@ The most notable additions in this repository are:
   Optional CUDA support has been added to all capable recipes.
 - TensorRT, plus CUDA-capable ONNX Runtime and PyTorch recipes.
 - Full Intel oneAPI support (oneMKL, oneDNN, oneMath, etc). Intel oneAPI DPC++/C++ Compiler toolchain is provided for SYCL support.
-- The full suite of GStreamer and its 250+ plugins is supported.
-- SuiteSparse, Ceres, GTSAM, g2o, COLMAP, GLOMAP, OpenMVG, Faiss, BASALT, stella_vslam, GLIM.
+- SuiteSparse, Ceres, GTSAM, g2o, COLMAP, GLOMAP, OpenMVG, Faiss, Open3D, PCL, BASALT, stella_vslam, GLIM, ReRun, Foxglove.
+- Both Eigen 5.0.0 and 3.4.1 are supported in all recipes that rely on it.
 - A comprehensive collection of solvers:
     - most COIN-OR libraries with all optional features,
     - SCIP Optimization Suite,
@@ -40,10 +40,11 @@ The most notable additions in this repository are:
 - BLAS and LAPACK meta-packages with easily-swappable choice of implementation:
     - OpenBLAS, oneMKL and BLIS for x86_64;
     - BLIS, OpenBLAS, ArmPL, NVPL for armv8.
+- The full suite of GStreamer and its 250+ plugins is supported.
 - Versions of LLVM and Clang that actually work and are used by a few compiler toolchains (e.g. for shaders and other domain-specific IR compilation).
-- Complete recipes for Python, Rust and Go to allow building of bindings in either direction.
+- Complete recipes for Python, Rust, Go, Julia and Octave to allow building of bindings in either direction.
     - A PythonVenv generator is also provided to streamline the installation of Python build-time dependencies.
-- Better-maintained Vulkan SDK and other graphics suites.
+- Better-maintained Vulkan SDK and other graphics suites. Recipes for Filament, Skia, Dawn and Embree are available.
 - Fortran is supported for reference LAPACK and other numerical libraries.
 - All libraries have been tested and fixed as necessary to support for cross-compilation to linux-aarch64.
 - libjpeg and zlib have been swapped out for libjpeg-turbo and zlib-ng everywhere for improved performance, matching the behavior of most mainstream distros.
