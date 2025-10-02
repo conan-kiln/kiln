@@ -3,7 +3,8 @@ import os
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
-from conan.tools.env import Environment
+from conan.tools.build import can_run
+from conan.tools.env import Environment, VirtualRunEnv
 from conan.tools.files import *
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -105,6 +106,11 @@ class XkbcommonConan(ConanFile):
             env.define_path("PKG_CONFIG_FOR_BUILD", self.conf.get("tools.gnu:pkg_config", default="pkgconf", check_type=str))
             env.define_path("PKG_CONFIG_PATH_FOR_BUILD", os.path.join(self.generators_folder, "build"))
             env.vars(self).save_script("pkg_config_for_build_env")
+
+            # workaround for wayland-scanner not finding libxml.so
+            # FIXME: this should not be necessary.
+            if can_run(self):
+                VirtualRunEnv(self).generate(scope="build")
 
     def build(self):
         meson = Meson(self)

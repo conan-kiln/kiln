@@ -76,7 +76,7 @@ class MariadbConnectorCppRecipe (ConanFile):
         deps.generate()
 
         tc = CMakeToolchain(self)
-        tc.cache_variables["CMAKE_PROJECT_mariadb_connector_cpp_INCLUDE"] = os.path.join(self.source_folder, "conan_cmake_project_include.cmake")
+        tc.cache_variables["CMAKE_PROJECT_mariadb_connector_cpp_INCLUDE"] = "conan_cmake_project_include.cmake"
         tc.cache_variables["WITH_UNIT_TESTS"] = False
         tc.cache_variables["INSTALL_BINDIR"] = "bin"
         tc.cache_variables["INSTALL_LIBDIR"] = "lib"

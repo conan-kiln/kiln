@@ -75,7 +75,7 @@ class ITKConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         #call find_package on top level
-        tc.cache_variables["CMAKE_PROJECT_ITK_INCLUDE"] = os.path.join(self.source_folder, "conan_cmake_project_include.cmake")
+        tc.cache_variables["CMAKE_PROJECT_ITK_INCLUDE"] = "conan_cmake_project_include.cmake"
         tc.variables["BUILD_EXAMPLES"] = False
         tc.variables["BUILD_TESTING"] = False
         tc.variables["BUILD_DOCUMENTATION"] = False

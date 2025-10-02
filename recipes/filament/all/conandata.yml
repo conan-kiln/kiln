@@ -1,4 +1,10 @@
 sources:
-  "1.53.1":
-    url: "https://github.com/google/filament/archive/refs/tags/v1.53.1.tar.gz"
-    sha256: "0eee389276f48666f86d234363cf3ac9bb9638fc0d5d1c5d54f79c6c7c2002d7"
+  # Using a fork with `git filter-repo --path third_party --path docs --path docs_src --invert-paths` applied
+  # for a 30 MB download instead of a 700 MB one.
+  "1.65.3":
+    url: "https://github.com/valgur/filament/archive/refs/tags/v1.65.3.tar.gz"
+    sha256: "0311dbb1165098e827198c57d657ac46619b76da87ff32a569678d668f81bc83"
+patches:
+  "1.65.3":
+    - patch_file: "patches/1.65.3/cmake-fixes.patch"
+    - patch_file: "patches/1.65.3/fix-unvendored-includes.patch"

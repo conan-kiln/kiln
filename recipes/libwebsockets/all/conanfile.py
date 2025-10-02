@@ -290,7 +290,7 @@ class LibwebsocketsConan(ConanFile):
 
         if self.options.with_ssl == "openssl":
             # Ensure find_package(OpenSSL) is called early
-            tc.variables["CMAKE_PROJECT_libwebsockets_INCLUDE"] = os.path.join(self.source_folder, "project_include.cmake").replace('\\','/')
+            tc.variables["CMAKE_PROJECT_libwebsockets_INCLUDE"] = "project_include.cmake"
 
         if self.options.with_ssl == "mbedtls":
             tc.variables["LWS_WITH_MBEDTLS"] = True

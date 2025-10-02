@@ -1,0 +1,46 @@
+--- a/src/misc/getopt.c
++++ b/src/misc/getopt.c
+@@ -1,11 +1,18 @@
+-#define _BSD_SOURCE
+-#include <unistd.h>
+ #include <wchar.h>
+ #include <string.h>
+ #include <limits.h>
+ #include <stdlib.h>
+-#include "locale_impl.h"
+-#include "stdio_impl.h"
++#include <stdio.h>
++
++#if defined(_MSC_VER)
++  #define FLOCK(f) _lock_file(f)
++  #define FUNLOCK(f) _unlock_file(f)
++  #define weak_alias(old, new)
++#else
++  #define FLOCK(f) flockfile(f)
++  #define FUNLOCK(f) funlockfile(f)
++  #define weak_alias(old, new) extern __typeof(old) new __attribute__((__weak__, __alias__(#old)))
++#endif
+ 
+ char *optarg;
+ int optind=1, opterr=1, optopt, __optpos, __optreset=0;
+@@ -16,7 +23,6 @@
+ void __getopt_msg(const char *a, const char *b, const char *c, size_t l)
+ {
+ 	FILE *f = stderr;
+-	b = __lctrans_cur(b);
+ 	FLOCK(f);
+ 	fputs(a, f)>=0
+ 	&& fwrite(b, strlen(b), 1, f)
+
+--- a/src/misc/getopt_long.c
++++ b/src/misc/getopt_long.c
+@@ -5,7 +5,8 @@
+ #include <getopt.h>
+ #include <stdio.h>
+ #include <string.h>
+-#include "stdio_impl.h"
++
++void __getopt_msg(const char *a, const char *b, const char *c, size_t l);
+ 
+ extern int __optpos, __optreset;
+ 

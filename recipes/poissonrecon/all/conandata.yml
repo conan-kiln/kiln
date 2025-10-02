@@ -1,0 +1,10 @@
+sources:
+  "18.74":
+    url: "https://github.com/mkazhdan/PoissonRecon/archive/eea22ab701d0067e36a2de33f0251c0d0511ac69.tar.gz"
+    sha256: "e99dce856505865f20145a58a162a1e2aa057a6d0808d21d98c3843c39b97422"
+  "12.00":
+    url: "https://github.com/mkazhdan/PoissonRecon/archive/03f73754e994eb388de63285d3a2772493168e8a.tar.gz"
+    sha256: "9214e761c9c61ef5ad2a7ffe6a5c19e112842382cab87829bdf0bf63f9f14396"
+patches:
+  "12.00":
+    - patch_file: "patches/12.00-open3d-fixes.patch"

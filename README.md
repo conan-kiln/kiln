@@ -64,7 +64,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-01:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-02:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -501,7 +501,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - directfb/1.7.7
 - directx-headers/1.602.0
 - directx-headers/1.615.0
+- directx-headers/1.618.1
 - directx-shader-compiler/1.8.2502
+- directxmath/3.20
 - dlib/19.24.9
 - dlib/20.0
 - dlpack/1.1
@@ -524,10 +526,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - elfutils/0.192
 - elfutils/0.193
 - embag/0.0.43
-- embree/3.12.0
-- embree/3.13.1
-- embree/3.13.3
 - embree/3.13.5
+- embree/4.4.0
 - emsdk/4.0.6
 - ensmallen/2.22.1
 - f2c/20240312
@@ -545,7 +545,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ffnvcodec/12.2.72.0
 - ffnvcodec/13.0.19.0
 - ffts/0.9.0+git.20240906
-- filament/1.5.3
+- filament/1.65.3
 - firebird/5.0.0
 - flite/2.2
 - fltk/1.4.3
@@ -927,6 +927,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - msys2/latest
 - mtdev/1.1.7
 - mujoco/3.3.6
+- musl-getopt/1.2.5
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
 - nanobind/2.9.2
@@ -1135,6 +1136,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - onnxruntime/1.22.2
 - ooqp/0.99.27
 - ooura-fft/cci.20061228
+- open3d/0.19
 - openapv/0.2.0.3
 - opencc/1.1.9
 - opencl-clhpp-headers/2024.10.24
@@ -1153,6 +1155,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openiap/0.0.33
 - openimageio/3.0.8.0
 - openjph/0.21.5
+- openjph/0.23.1
 - openldap/2.6.10
 - openmp/system
 - openmpi/4.1.8
@@ -1205,6 +1208,8 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - plf_list/2.77
 - pocketfft/0.0.0+git.20241130
 - podofo/0.10.5
+- poissonrecon/12.00
+- poissonrecon/18.74
 - polyscope/2.3.0
 - poppler-data/0.4.12
 - poppler/25.01.0
@@ -1406,6 +1411,9 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - thrust/3.0.2
 - tiny-cuda-nn/2.0
 - tinyexr/1.0.12
+- tinyfiledialogs/3.20.1
+- tinygltf/2.8.21
+- tinygltf/2.9.6
 - tinyobjloader/2.0.0-rc13
 - tk/8.6.16
 - tl-expected/1.3.1
@@ -1428,6 +1436,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - utf8proc/2.10.0
 - util-linux-libuuid/2.39.3
 - util-linux-libuuid/2.41
+- uvatlas/1.9.1
 - valijson/1.0.5
 - vc/1.4.5
 - vilib/cci.20210625

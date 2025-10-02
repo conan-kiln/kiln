@@ -156,9 +156,19 @@ class EmbreeConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        # Don't force C++11
+        replace_in_file(self, "common/cmake/gnu.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/clang.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/intel.cmake", "-std=c++11", "")
+        replace_in_file(self, "common/cmake/dpcpp.cmake", "-std=c++11", "")
+        # Don't force libcxx to libc++
+        replace_in_file(self, "common/cmake/gnu.cmake", "-stdlib=libc++", "")
+        replace_in_file(self, "common/cmake/clang.cmake", "-stdlib=libc++", "")
+        replace_in_file(self, "common/cmake/intel.cmake", "-stdlib=libc++", "")
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.variables["EMBREE_IGNORE_CMAKE_CXX_FLAGS"] = False
         tc.variables["EMBREE_STATIC_LIB"] = not self.options.shared
         tc.variables["BUILD_TESTING"] = False
         tc.variables["EMBREE_TUTORIALS"] = False
