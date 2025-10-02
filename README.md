@@ -11,7 +11,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-01:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-02:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -492,7 +492,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - ffnvcodec/12.2.72.0
 - ffnvcodec/13.0.19.0
 - ffts/0.9.0+git.20240906
-- filament/1.5.3
+- filament/1.65.3
 - firebird/5.0.0
 - flite/2.2
 - fltk/1.4.3
@@ -874,6 +874,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - msys2/latest
 - mtdev/1.1.7
 - mujoco/3.3.6
+- musl-getopt/1.2.5
 - mysql-connector-cpp/9.3.0
 - nanoarrow/0.7.0
 - nanobind/2.9.2
@@ -1100,6 +1101,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openiap/0.0.33
 - openimageio/3.0.8.0
 - openjph/0.21.5
+- openjph/0.23.1
 - openldap/2.6.10
 - openmp/system
 - openmpi/4.1.8
