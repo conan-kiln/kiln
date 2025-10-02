@@ -1,0 +1,9 @@
+sources:
+  "0.19":
+    url: "https://github.com/isl-org/Open3D/archive/refs/tags/v0.19.0.tar.gz"
+    sha256: "5cedb0e093c6baceab801b903eb8e2558bc2b3999ac57762bf78a39d5e15394a"
+patches:
+  "0.19":
+    - patch_file: "patches/0.19/0001-cmake-fixes.patch"
+    - patch_file: "patches/0.19/0002-update-unvendored-includes.patch"
+    - patch_file: "patches/0.19/0003-filament-and-imgui-compatibility-fixes.patch"

@@ -1,0 +1,77 @@
+From d408b00f39b99e107ba51cd873c2082fad0e303d Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Thu, 2 Oct 2025 01:04:53 +0300
+Subject: [PATCH 2/3] update unvendored includes
+
+---
+ cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp | 12 ++++++------
+ cpp/open3d/io/file_format/FilePCD.cpp                |  2 +-
+ cpp/open3d/t/io/file_format/FilePCD.cpp              |  2 +-
+ cpp/open3d/visualization/visualizer/Visualizer.cpp   |  2 ++
+ 4 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp b/cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp
+index 719516670..25792c78a 100644
+--- a/cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp
++++ b/cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp
+@@ -26,12 +26,12 @@
+ // 4245: signed/unsigned mismatch
+ // 4189: local variable is initialized but not referenced
+ #endif
+-#include "PoissonRecon/Src/PreProcessor.h"
+-#include "PoissonRecon/Src/MyMiscellany.h"
+-#include "PoissonRecon/Src/CmdLineParser.h"
+-#include "PoissonRecon/Src/FEMTree.h"
+-#include "PoissonRecon/Src/PPolynomial.h"
+-#include "PoissonRecon/Src/PointStreamData.h"
++#include "PoissonRecon/PreProcessor.h"
++#include "PoissonRecon/MyMiscellany.h"
++#include "PoissonRecon/CmdLineParser.h"
++#include "PoissonRecon/FEMTree.h"
++#include "PoissonRecon/PPolynomial.h"
++#include "PoissonRecon/PointStreamData.h"
+ #ifdef _MSC_VER
+ #pragma warning(pop)
+ #endif
+diff --git a/cpp/open3d/io/file_format/FilePCD.cpp b/cpp/open3d/io/file_format/FilePCD.cpp
+index 950d51ead..39acce744 100644
+--- a/cpp/open3d/io/file_format/FilePCD.cpp
++++ b/cpp/open3d/io/file_format/FilePCD.cpp
+@@ -5,7 +5,7 @@
+ // SPDX-License-Identifier: MIT
+ // ----------------------------------------------------------------------------
+ 
+-#include <liblzf/lzf.h>
++#include <lzf.h>
+ 
+ #include <cstdint>
+ #include <cstdio>
+diff --git a/cpp/open3d/t/io/file_format/FilePCD.cpp b/cpp/open3d/t/io/file_format/FilePCD.cpp
+index b61d3f34a..a9f16f1fb 100644
+--- a/cpp/open3d/t/io/file_format/FilePCD.cpp
++++ b/cpp/open3d/t/io/file_format/FilePCD.cpp
+@@ -5,7 +5,7 @@
+ // SPDX-License-Identifier: MIT
+ // ----------------------------------------------------------------------------
+ 
+-#include <liblzf/lzf.h>
++#include <lzf.h>
+ 
+ #include <cinttypes>
+ #include <cstdint>
+diff --git a/cpp/open3d/visualization/visualizer/Visualizer.cpp b/cpp/open3d/visualization/visualizer/Visualizer.cpp
+index 85c87fb02..34415e9f4 100644
+--- a/cpp/open3d/visualization/visualizer/Visualizer.cpp
++++ b/cpp/open3d/visualization/visualizer/Visualizer.cpp
+@@ -7,6 +7,8 @@
+ 
+ #include "open3d/visualization/visualizer/Visualizer.h"
+ 
++#include <GLFW/glfw3.h>
++
+ #include <memory>
+ 
+ #include "open3d/geometry/TriangleMesh.h"
+-- 
+2.43.0
+

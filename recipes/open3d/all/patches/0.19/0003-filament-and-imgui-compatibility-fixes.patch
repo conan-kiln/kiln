@@ -1,0 +1,219 @@
+From 39a24c0ba417f9a016036484e4851d39f506dca7 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Thu, 2 Oct 2025 01:05:09 +0300
+Subject: [PATCH 3/3] filament and imgui compatibility fixes
+
+---
+ cpp/open3d/visualization/gui/Button.cpp          |  4 ++--
+ cpp/open3d/visualization/gui/ImageWidget.cpp     |  2 +-
+ .../visualization/gui/ImguiFilamentBridge.cpp    |  2 +-
+ cpp/open3d/visualization/gui/SceneWidget.cpp     |  2 +-
+ .../rendering/filament/FilamentCamera.cpp        |  4 ++--
+ .../rendering/filament/FilamentEngine.cpp        |  2 +-
+ .../filament/FilamentResourceManager.cpp         | 16 ++++++++--------
+ .../rendering/filament/FilamentScene.cpp         |  3 +++
+ .../rendering/filament/FilamentView.cpp          | 16 ++++++++--------
+ 9 files changed, 27 insertions(+), 24 deletions(-)
+
+diff --git a/cpp/open3d/visualization/gui/Button.cpp b/cpp/open3d/visualization/gui/Button.cpp
+index f87a3456d..50d0a2886 100644
+--- a/cpp/open3d/visualization/gui/Button.cpp
++++ b/cpp/open3d/visualization/gui/Button.cpp
+@@ -142,9 +142,9 @@ Widget::DrawResult Button::Draw(const DrawContext& context) {
+     if (impl_->image_) {
+         auto params = impl_->image_->CalcDrawParams(context.renderer, frame);
+         ImTextureID image_id =
+-                reinterpret_cast<ImTextureID>(params.texture.GetId());
++                static_cast<ImTextureID>(params.texture.GetId());
+         pressed = ImGui::ImageButton(
+-                image_id, ImVec2(params.width, params.height),
++                impl_->id_.c_str(), image_id, ImVec2(params.width, params.height),
+                 ImVec2(params.u0, params.v0), ImVec2(params.u1, params.v1));
+     } else {
+         pressed = ImGui::Button(
+diff --git a/cpp/open3d/visualization/gui/ImageWidget.cpp b/cpp/open3d/visualization/gui/ImageWidget.cpp
+index 5287791e8..bf60d9483 100644
+--- a/cpp/open3d/visualization/gui/ImageWidget.cpp
++++ b/cpp/open3d/visualization/gui/ImageWidget.cpp
+@@ -100,7 +100,7 @@ Widget::DrawResult ImageWidget::Draw(const DrawContext& context) {
+ 
+     if (params.texture != visualization::rendering::TextureHandle::kBad) {
+         ImTextureID image_id =
+-                reinterpret_cast<ImTextureID>(params.texture.GetId());
++                static_cast<ImTextureID>(params.texture.GetId());
+         ImGui::SetCursorScreenPos(
+                 ImVec2(params.pos_x, params.pos_y - ImGui::GetScrollY()));
+         ImGui::Image(image_id, ImVec2(params.width, params.height),
+diff --git a/cpp/open3d/visualization/gui/ImguiFilamentBridge.cpp b/cpp/open3d/visualization/gui/ImguiFilamentBridge.cpp
+index 21a81a77b..5e7630fbf 100644
+--- a/cpp/open3d/visualization/gui/ImguiFilamentBridge.cpp
++++ b/cpp/open3d/visualization/gui/ImguiFilamentBridge.cpp
+@@ -312,7 +312,7 @@ void ImguiFilamentBridge::Update(ImDrawData* imgui_data) {
+             // as the default when we created this material.
+         } else {
+             pair.second = impl_->image_pool_.pull();
+-            auto tex_id_long = reinterpret_cast<uintptr_t>(pair.first.id_);
++            auto tex_id_long = static_cast<uintptr_t>(pair.first.id_);
+             auto tex_id = std::uint16_t(tex_id_long);
+             auto tex_handle = visualization::rendering::TextureHandle(tex_id);
+             auto tex = visualization::rendering::EngineInstance::
+diff --git a/cpp/open3d/visualization/gui/SceneWidget.cpp b/cpp/open3d/visualization/gui/SceneWidget.cpp
+index d0df7af86..179e854e0 100644
+--- a/cpp/open3d/visualization/gui/SceneWidget.cpp
++++ b/cpp/open3d/visualization/gui/SceneWidget.cpp
+@@ -1125,7 +1125,7 @@ Widget::DrawResult SceneWidget::Draw(const DrawContext& context) {
+                          ImGuiWindowFlags_NoBackground);
+ 
+     auto render_tex = impl_->scene_->GetView()->GetColorBuffer();
+-    ImTextureID image_id = reinterpret_cast<ImTextureID>(render_tex.GetId());
++    ImTextureID image_id = static_cast<ImTextureID>(render_tex.GetId());
+     ImGui::Image(image_id, ImVec2(f.width, f.height), ImVec2(0.0f, 1.0f),
+                  ImVec2(1.0f, 0.0f));
+ 
+diff --git a/cpp/open3d/visualization/rendering/filament/FilamentCamera.cpp b/cpp/open3d/visualization/rendering/filament/FilamentCamera.cpp
+index 553bfe918..10b31ee90 100644
+--- a/cpp/open3d/visualization/rendering/filament/FilamentCamera.cpp
++++ b/cpp/open3d/visualization/rendering/filament/FilamentCamera.cpp
+@@ -240,7 +240,7 @@ void FilamentCamera::LookAt(const Eigen::Vector3f& center,
+ 
+ Eigen::Vector3f FilamentCamera::GetPosition() const {
+     auto cam_pos = camera_->getPosition();
+-    return {cam_pos.x, cam_pos.y, cam_pos.z};
++    return {static_cast<float>(cam_pos.x), static_cast<float>(cam_pos.y), static_cast<float>(cam_pos.z)};
+ }
+ 
+ Eigen::Vector3f FilamentCamera::GetForwardVector() const {
+@@ -314,7 +314,7 @@ void FilamentCamera::SetModelMatrix(const Eigen::Vector3f& forward,
+                                     const Eigen::Vector3f& up) {
+     using namespace filament;
+ 
+-    math::mat4f ftransform = camera_->getModelMatrix();
++    math::mat4 ftransform = camera_->getModelMatrix();
+     ftransform[0].xyz = math::float3(left.x(), left.y(), left.z());
+     ftransform[1].xyz = math::float3(up.x(), up.y(), up.z());
+     ftransform[2].xyz = math::float3(forward.x(), forward.y(), forward.z());
+diff --git a/cpp/open3d/visualization/rendering/filament/FilamentEngine.cpp b/cpp/open3d/visualization/rendering/filament/FilamentEngine.cpp
+index f90b00d5a..8de1fcfc1 100644
+--- a/cpp/open3d/visualization/rendering/filament/FilamentEngine.cpp
++++ b/cpp/open3d/visualization/rendering/filament/FilamentEngine.cpp
+@@ -97,7 +97,7 @@ EngineInstance::EngineInstance() {
+ 
+     filament::backend::Platform* custom_platform = nullptr;
+     if (is_headless_) {
+-#ifdef __linux__
++#if 0 // __linux__
+         utility::LogInfo("EGL headless mode enabled.");
+         custom_platform = CreateEGLHeadlessPlatform();
+ #else
+diff --git a/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.cpp b/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.cpp
+index baee308e9..946eb43cf 100644
+--- a/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.cpp
++++ b/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.cpp
+@@ -33,8 +33,8 @@
+ #include <filament/Skybox.h>
+ #include <filament/Texture.h>
+ #include <filament/TextureSampler.h>
+-#include <image/KtxBundle.h>
+-#include <image/KtxUtility.h>
++#include <image/Ktx1Bundle.h>
++#include <ktxreader/Ktx1Reader.h>
+ 
+ #ifdef _MSC_VER
+ #pragma warning(pop)
+@@ -594,8 +594,8 @@ RenderTargetHandle FilamentResourceManager::CreateRenderTarget(
+     }
+ 
+     auto rt = RenderTarget::Builder()
+-                      .texture(RenderTarget::COLOR, color_tex.get())
+-                      .texture(RenderTarget::DEPTH, depth_tex.get())
++                      .texture(RenderTarget::AttachmentPoint::COLOR, color_tex.get())
++                      .texture(RenderTarget::AttachmentPoint::DEPTH, depth_tex.get())
+                       .build(engine_);
+     handle = RegisterResource<RenderTargetHandle>(engine_, rt, render_targets_);
+     return handle;
+@@ -613,11 +613,11 @@ IndirectLightHandle FilamentResourceManager::CreateIndirectLight(
+                                                &error_str)) {
+             using namespace filament;
+             // will be destroyed later by image::ktx::createTexture
+-            auto* ibl_ktx = new image::KtxBundle(
++            auto* ibl_ktx = new image::Ktx1Bundle(
+                     reinterpret_cast<std::uint8_t*>(ibl_data.data()),
+                     std::uint32_t(ibl_data.size()));
+             auto* ibl_texture =
+-                    image::ktx::createTexture(&engine_, ibl_ktx, false);
++                    ktxreader::Ktx1Reader::createTexture(&engine_, ibl_ktx, false);
+ 
+             filament::math::float3 bands[9] = {};
+             if (!ibl_ktx->getSphericalHarmonics(bands)) {
+@@ -682,11 +682,11 @@ SkyboxHandle FilamentResourceManager::CreateSkybox(
+                                                &error_str)) {
+             using namespace filament;
+             // will be destroyed later by image::ktx::createTexture
+-            auto* sky_ktx = new image::KtxBundle(
++            auto* sky_ktx = new image::Ktx1Bundle(
+                     reinterpret_cast<std::uint8_t*>(sky_data.data()),
+                     std::uint32_t(sky_data.size()));
+             auto* sky_texture =
+-                    image::ktx::createTexture(&engine_, sky_ktx, false);
++                    ktxreader::Ktx1Reader::createTexture(&engine_, sky_ktx, false);
+ 
+             auto skybox = Skybox::Builder()
+                                   .environment(sky_texture)
+diff --git a/cpp/open3d/visualization/rendering/filament/FilamentScene.cpp b/cpp/open3d/visualization/rendering/filament/FilamentScene.cpp
+index ecb6c5c89..44dc1eb93 100644
+--- a/cpp/open3d/visualization/rendering/filament/FilamentScene.cpp
++++ b/cpp/open3d/visualization/rendering/filament/FilamentScene.cpp
+@@ -543,6 +543,8 @@ void FilamentScene::UpdateGeometry(const std::string& object_name,
+         auto* g = geoms[0];
+         auto vbuf_ptr = resource_mgr_.GetVertexBuffer(g->vb).lock();
+         auto vbuf = vbuf_ptr.get();
++        auto ibuf_ptr = resource_mgr_.GetIndexBuffer(g->ib).lock();
++        auto ibuf = ibuf_ptr.get();
+ 
+         const auto& points = point_cloud.GetPointPositions();
+         const size_t n_vertices = points.GetLength();
+@@ -663,6 +665,7 @@ void FilamentScene::UpdateGeometry(const std::string& object_name,
+             auto inst = renderable_mgr.getInstance(g->filament_entity);
+             renderable_mgr.setGeometryAt(
+                     inst, 0, filament::RenderableManager::PrimitiveType::POINTS,
++                    vbuf, ibuf,
+                     0, n_vertices);
+         }
+     }
+diff --git a/cpp/open3d/visualization/rendering/filament/FilamentView.cpp b/cpp/open3d/visualization/rendering/filament/FilamentView.cpp
+index 1f8656bf6..d11c3c62e 100644
+--- a/cpp/open3d/visualization/rendering/filament/FilamentView.cpp
++++ b/cpp/open3d/visualization/rendering/filament/FilamentView.cpp
+@@ -239,12 +239,12 @@ void FilamentView::SetColorGrading(const ColorGradingParams& color_grading) {
+         case ColorGradingParams::ToneMapping::kFilmic:
+             tm = filament::ColorGrading::ToneMapping::FILMIC;
+             break;
+-        case ColorGradingParams::ToneMapping::kUchimura:
+-            tm = filament::ColorGrading::ToneMapping::UCHIMURA;
+-            break;
+-        case ColorGradingParams::ToneMapping::kReinhard:
+-            tm = filament::ColorGrading::ToneMapping::REINHARD;
+-            break;
++        // case ColorGradingParams::ToneMapping::kUchimura:
++        //     tm = filament::ColorGrading::ToneMapping::UCHIMURA;
++        //     break;
++        // case ColorGradingParams::ToneMapping::kReinhard:
++        //     tm = filament::ColorGrading::ToneMapping::REINHARD;
++        //     break;
+         case ColorGradingParams::ToneMapping::kDisplayRange:
+             tm = filament::ColorGrading::ToneMapping::DISPLAY_RANGE;
+             break;
+@@ -382,8 +382,8 @@ void FilamentView::PreRender() {
+         selected_material =
+                 resource_mgr_.GetMaterialInstance(material_handle).lock();
+         if (selected_material) {
+-            const auto f = camera_->GetNativeCamera()->getCullingFar();
+-            const auto n = camera_->GetNativeCamera()->getNear();
++            const float f = camera_->GetNativeCamera()->getCullingFar();
++            const float n = camera_->GetNativeCamera()->getNear();
+ 
+             FilamentMaterialModifier(selected_material, material_handle)
+                     .SetParameter("cameraNear", n)
+-- 
+2.43.0
+
