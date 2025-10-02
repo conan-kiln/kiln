@@ -19,7 +19,8 @@ While this repository is not compatible with ConanCenter, we continuously sync c
 As a result, the packages here are always at least as new, and generally much more up to date, than those on ConanCenter.
 
 Note: this repository is currently a placeholder while active development takes place at https://github.com/valgur/conan-center-index <br>
-You can expect a migration to this repo to be finalized once the work in progress on the necessary build pipelines and a landing page (in the vein of https://vcpkg.link/) has been completed.
+You can expect a migration to this repo to be finalized once the work in progress on the necessary CI validation pipelines and a landing page with an active recipe index (in the vein of https://vcpkg.link/) has been completed.
+
 ## Highlights
 
 The most notable additions in this repository are:
