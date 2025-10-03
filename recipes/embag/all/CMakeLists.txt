@@ -4,6 +4,7 @@ project(embag LANGUAGES CXX)
 find_package(Boost REQUIRED COMPONENTS iostreams headers)
 find_package(lz4 REQUIRED CONFIG)
 find_package(BZip2 REQUIRED CONFIG)
+find_package(span-lite REQUIRED CONFIG)
 
 file(GLOB_RECURSE embag_SOURCES "lib/*.cc")
 add_library(embag ${embag_SOURCES})
@@ -17,6 +18,7 @@ target_link_libraries(embag PUBLIC
     Boost::headers
     lz4::lz4
     BZip2::BZip2
+    nonstd::span-lite
 )
 
 if (MSVC)

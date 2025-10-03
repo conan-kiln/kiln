@@ -37,12 +37,20 @@ class EmbagConan(ConanFile):
         self.requires("boost/[^1.74.0]", transitive_headers=True, options={"with_iostreams": True})
         self.requires("lz4/[^1.9.4]", transitive_headers=True)
         self.requires("bzip2/[^1.0.8]", transitive_headers=True)
+        self.requires("span-lite/[*]", transitive_headers=True)
 
     def validate(self):
         check_min_cppstd(self, 14)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        os.unlink("lib/span.hpp")
+        for f in [
+            "lib/ros_message.h",
+            "lib/message_parser.h",
+            "lib/ros_value.h",
+        ]:
+            replace_in_file(self, f, "span.hpp", "nonstd/span.hpp")
 
     def generate(self):
         tc = CMakeToolchain(self)
