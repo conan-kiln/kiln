@@ -1,4 +1,4 @@
 sources:
-  "2.4.125":
-    url: "https://dri.freedesktop.org/libdrm/libdrm-2.4.125.tar.xz"
-    sha256: "ac36293f61ca4aafaf4b16a2a7afff312aa4f5c37c9fbd797de9e3c0863ca379"
+  "2.4.126":
+    url: "https://dri.freedesktop.org/libdrm/libdrm-2.4.126.tar.xz"
+    sha256: "6cab16d4d259b6abc9f485233863454114a3c307eca806679aad3edbe967bf42"
