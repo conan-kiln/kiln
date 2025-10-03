@@ -1510,12 +1510,13 @@ class OpenCVConan(ConanFile):
              "endif()\n",
              append=True)
         # Let CudaToolchain manage CUDA architecture flags
-        replace_in_file(self, "cmake/OpenCVDetectCUDA.cmake",
-                        "ocv_set_cuda_arch_bin_and_ptx(",
-                        "# ocv_set_cuda_arch_bin_and_ptx(")
-        replace_in_file(self, "cmake/OpenCVDetectCUDALanguage.cmake",
-                        "ocv_set_cuda_arch_bin_and_ptx(",
-                        "# ocv_set_cuda_arch_bin_and_ptx(")
+        if Version(self.version) >= "4.9.0":
+            replace_in_file(self, "cmake/OpenCVDetectCUDA.cmake",
+                            "ocv_set_cuda_arch_bin_and_ptx(",
+                            "# ocv_set_cuda_arch_bin_and_ptx(")
+            replace_in_file(self, "cmake/OpenCVDetectCUDALanguage.cmake",
+                            "ocv_set_cuda_arch_bin_and_ptx(",
+                            "# ocv_set_cuda_arch_bin_and_ptx(")
 
     def generate(self):
         tc = CMakeToolchain(self)
