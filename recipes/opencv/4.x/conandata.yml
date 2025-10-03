@@ -41,6 +41,8 @@ patches:
     - patch_file: "patches/4.11.0-0001-fix-zlib-static-android.patch"
     - patch_file: "patches/4.12.0-0002-fix-eigen-version-uses.patch"
       patch_source: "https://github.com/opencv/opencv/pull/27536"
+    - patch_file: "patches/4.12.0-0003-ffmpeg-8-support.patch"
+      patch_source: "https://github.com/opencv/opencv/pull/27691"
   "4.11.0":
     - patch_file: "patches/4.1.2-0006-hdf.patch"
     - patch_file: "patches/4.1.2-0007-android-install-layout.patch"
