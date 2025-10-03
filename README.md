@@ -11,7 +11,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-02:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-03:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -468,7 +468,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigen/3.3.8
 - eigen/3.3.9
 - eigen/3.4.1
-- eigen/5.0.0
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
@@ -764,6 +763,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - librsvg/2.40.21
 - librsvg/2.60.0
 - libsecret/0.21.7
+- libsgm/3.1.0+git.20240708
 - libsigcpp/2.12.1
 - libsm/1.2.4
 - libsolv/0.7.29
@@ -828,9 +828,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - llvm-core/20.1.7
 - llvm-libunwind/19.1.7
 - llvm-libunwind/20.1.7
-- llvm-openmp/10.1.6
 - llvm-openmp/18.1.8
 - llvm-openmp/19.1.7
+- llvm-openmp/20.1.8
+- llvm-openmp/21.1.2
 - lmdb/0.9.33
 - lttng-ust/2.13.9
 - lusol/0.0.0+git.20160215
@@ -1114,7 +1115,12 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openpmix/6.0.0
 - openrng/25.04
 - openspecfun/0.5.7
+- openssl/3.0.17
 - openssl/3.1.8
+- openssl/3.2.5
+- openssl/3.3.4
+- openssl/3.4.2
+- openssl/3.5.3
 - openucx/1.19.0
 - openusd/25.08
 - openvino/2025.2.0
