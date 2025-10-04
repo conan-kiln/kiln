@@ -11,7 +11,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-03:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-04:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -471,7 +471,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
-- embag/0.0.43
+- embag/0.0.43+git.20230120
 - embree/3.13.5
 - embree/4.4.0
 - emsdk/4.0.6
@@ -723,7 +723,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libcups/3.0-rc4
 - libde265/1.0.16
 - libdecor/0.2.2
-- libdrm/2.4.125
+- libdrm/2.4.126
 - libecwj2/3.3
 - libelas/cci.20150630
 - libell/0.76
@@ -1115,12 +1115,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openpmix/6.0.0
 - openrng/25.04
 - openspecfun/0.5.7
-- openssl/3.0.17
 - openssl/3.1.8
-- openssl/3.2.5
-- openssl/3.3.4
-- openssl/3.4.2
-- openssl/3.5.3
 - openucx/1.19.0
 - openusd/25.08
 - openvino/2025.2.0
