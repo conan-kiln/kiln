@@ -1793,14 +1793,17 @@ class BoostConan(ConanFile):
                     self.cpp_info.components["stacktrace"].defines.append("BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED")
 
             if self.options.with_python:
-                pyversion = Version(self._python_version)
-                self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["python"]
+                v = Version(self._python_version)
+                self.cpp_info.components["python"].requires = ["python"]
+                self.cpp_info.components["python"].set_property("cmake_target_name", f"Boost::python{v.major}{v.minor}")
+                self.cpp_info.components["python"].set_property("cmake_target_aliases", ["Boost::python"])
                 if not self.options.shared:
                     self.cpp_info.components["python"].defines.append("BOOST_PYTHON_STATIC_LIB")
 
                 if self.options.numpy:
                     self.cpp_info.components["numpy"].requires.append("numpy::numpy")
-                    self.cpp_info.components[f"numpy{pyversion.major}{pyversion.minor}"].requires = ["numpy"]
+                    self.cpp_info.components["numpy"].set_property("cmake_target_name", f"Boost::numpy{v.major}{v.minor}")
+                    self.cpp_info.components["numpy"].set_property("cmake_target_aliases", ["Boost::numpy"])
 
             if self.options.get_safe("with_process"):
                 if self.settings.os == "Windows":
