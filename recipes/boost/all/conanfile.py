@@ -833,7 +833,9 @@ class BoostConan(ConanFile):
     def _build_bcp(self):
         folder = os.path.join(self.source_folder, "tools", "bcp")
         with chdir(self, folder):
-            command = f"{self._b2_exe} -j{build_jobs(self)} --abbreviate-paths toolset={self._toolset}"
+            njobs = build_jobs(self)
+            njobs = f"-j{njobs}" if njobs else ""  # boost.build doesn't take -j0 as valid
+            command = f"{self._b2_exe} {njobs} --abbreviate-paths toolset={self._toolset}"
             command += f" -d{self.options.debug_level}"
             self.output.warning(command)
             self.run(command)
@@ -1203,10 +1205,12 @@ class BoostConan(ConanFile):
         if self.options.extra_b2_flags:
             flags.extend(shlex.split(str(self.options.extra_b2_flags)))
 
+        njobs = build_jobs(self)
+        njobs = f"-j{njobs}" if njobs else ""  # boost.build doesn't take -j0 as valid
         flags.extend([
             "install",
             f"--prefix={self.package_folder}",
-            f"-j{build_jobs(self)}",
+            njobs,
             "--abbreviate-paths",
             f"-d{self.options.debug_level}",
         ])
@@ -1793,14 +1797,17 @@ class BoostConan(ConanFile):
                     self.cpp_info.components["stacktrace"].defines.append("BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED")
 
             if self.options.with_python:
-                pyversion = Version(self._python_version)
-                self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["python"]
+                v = Version(self._python_version)
+                self.cpp_info.components["python"].requires = ["python"]
+                self.cpp_info.components["python"].set_property("cmake_target_name", f"Boost::python{v.major}{v.minor}")
+                self.cpp_info.components["python"].set_property("cmake_target_aliases", ["Boost::python"])
                 if not self.options.shared:
                     self.cpp_info.components["python"].defines.append("BOOST_PYTHON_STATIC_LIB")
 
                 if self.options.numpy:
                     self.cpp_info.components["numpy"].requires.append("numpy::numpy")
-                    self.cpp_info.components[f"numpy{pyversion.major}{pyversion.minor}"].requires = ["numpy"]
+                    self.cpp_info.components["numpy"].set_property("cmake_target_name", f"Boost::numpy{v.major}{v.minor}")
+                    self.cpp_info.components["numpy"].set_property("cmake_target_aliases", ["Boost::numpy"])
 
             if self.options.get_safe("with_process"):
                 if self.settings.os == "Windows":

@@ -3,6 +3,7 @@ from functools import cached_property
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.layout import basic_layout
+from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
 
@@ -13,8 +14,6 @@ class PackageConan(ConanFile):
     license = "MIT"
     homepage = "https://www.openmp.org/"
     topics = ("parallelism", "multiprocessing")
-
-    # package_type = "meta-package"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "provider": ["auto", "native", "llvm"],
@@ -27,38 +26,56 @@ class PackageConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def config_options(self):
-        if self.settings.compiler == "clang" and self.settings.os == "Linux":
+        if self.settings.compiler == "apple-clang" or self.settings.os == "Linux" and self.settings.compiler == "clang":
             # The Clang toolchain on Linux distros typically ships without libomp.
-            # FreeBSD includes it, though.
-            self.options.provider = "llvm"
-        elif self.settings.compiler == "apple-clang":
             self.options.provider = "llvm"
         else:
             self.options.provider = "native"
 
+    @cached_property
+    def _llvm_version(self):
+        if self.settings.compiler == "clang":
+            return f"[~{self.settings.compiler.version}]"
+        elif self.settings.compiler == "apple-clang":
+            # https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
+            xcode_version = Version(self.settings.compiler.version)
+            if xcode_version >= "26.0":
+                return "[^19.1]"
+            if xcode_version >= "16.3":
+                return "[^19.1]"
+            if xcode_version >= "16.0":
+                return "[^17]"
+            if xcode_version >= "15.0":
+                return "[^16]"
+            if xcode_version >= "14.3":
+                return "[^15]"
+            if xcode_version >= "14.0":
+                return "[^14]"
+            if xcode_version >= "13.3":
+                return "[^13]"
+            if xcode_version >= "13.0":
+                return "[^12]"
+            if xcode_version >= "12.5":
+                return "[^11]"
+        elif self.settings.compiler == "msvc":
+            return "[*]"
+        return None
+
     def requirements(self):
         if self.options.provider == "llvm":
-            # Note: MSVC ships with an optional LLVM OpenMP implementation, but it would require reliably setting
-            # `OpenMP_RUNTIME_MSVC=llvm` in CMake for all consumers of this recipe, which is not possible in a meta-package.
-            # Always use the latest llvm-openmp version, since the library is ABI-compatible across versions.
-            self.requires("llvm-openmp/[*]", transitive_headers=True, transitive_libs=True)
+            version_range = self._llvm_version
+            if version_range is None:
+                raise ConanInvalidConfiguration(
+                    f"No valid LLVM version could be determined for {self.settings.compiler} v{self.settings.compiler.version}"
+                )
+            self.requires(f"llvm-openmp/{version_range}", transitive_headers=True, transitive_libs=True)
 
     def package_id(self):
         self.info.clear()
 
     def validate(self):
         if self.options.provider == "native" and self._openmp_flags is None:
-            raise ConanInvalidConfiguration(
-                f"{self.settings.compiler} is not supported by this recipe. Contributions are welcome!"
-            )
-
-        if self.options.provider == "llvm":
-            if self.settings.compiler not in ["clang", "apple-clang", "msvc"]:
-                # More info: https://cpufun.substack.com/p/is-mixing-openmp-runtimes-safe
-                self.output.warning(
-                    "Warning: Using a non-native OpenMP implementation can be bug-prone. "
-                    "Make sure you avoid accidental linking against the native implementation through external libraries."
-                )
+            raise ConanInvalidConfiguration(f"{self.settings.compiler} is not supported by this recipe.")
 
     @cached_property
     def _openmp_flags(self):
@@ -112,8 +129,6 @@ class PackageConan(ConanFile):
         return None
 
     def package_info(self):
-        # Can't use cmake_find_mode=none because Conan tries to find_package() it internally,
-        # when used transitively.
         self.cpp_info.set_property("cmake_file_name", "_openmp_")
 
         self.cpp_info.bindirs = []

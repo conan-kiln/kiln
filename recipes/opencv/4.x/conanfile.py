@@ -1330,7 +1330,10 @@ class OpenCVConan(ConanFile):
             self.requires("quirc/1.2")
         # videoio module dependencies
         if self.options.get_safe("with_ffmpeg"):
-            self.requires("ffmpeg/[>=6]")
+            if Version(self.version) >= "4.12":
+                self.requires("ffmpeg/[*]")
+            else:
+                self.requires("ffmpeg/[<8]")
         if self.options.get_safe("with_gstreamer"):
             self.requires("gst-plugins-base/[^1.16]")
             self.requires("gstreamer/[^1.16]")
@@ -1510,12 +1513,13 @@ class OpenCVConan(ConanFile):
              "endif()\n",
              append=True)
         # Let CudaToolchain manage CUDA architecture flags
-        replace_in_file(self, "cmake/OpenCVDetectCUDA.cmake",
-                        "ocv_set_cuda_arch_bin_and_ptx(",
-                        "# ocv_set_cuda_arch_bin_and_ptx(")
-        replace_in_file(self, "cmake/OpenCVDetectCUDALanguage.cmake",
-                        "ocv_set_cuda_arch_bin_and_ptx(",
-                        "# ocv_set_cuda_arch_bin_and_ptx(")
+        if Version(self.version) >= "4.9.0":
+            replace_in_file(self, "cmake/OpenCVDetectCUDA.cmake",
+                            "ocv_set_cuda_arch_bin_and_ptx(",
+                            "# ocv_set_cuda_arch_bin_and_ptx(")
+            replace_in_file(self, "cmake/OpenCVDetectCUDALanguage.cmake",
+                            "ocv_set_cuda_arch_bin_and_ptx(",
+                            "# ocv_set_cuda_arch_bin_and_ptx(")
 
     def generate(self):
         tc = CMakeToolchain(self)

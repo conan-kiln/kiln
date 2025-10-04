@@ -1,0 +1,4 @@
+sources:
+  "3.1.0+git.20240708":
+    url: "https://github.com/fixstars/libSGM/archive/e4c669bb9e039b60f04178b080ac7d6077a4d4bd.tar.gz"
+    sha256: "4213b066098f8f44c1a10a0f30746d12661f15a079bd57cc3f1d391aee3c52e9"

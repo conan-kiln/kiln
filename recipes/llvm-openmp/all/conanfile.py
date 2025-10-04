@@ -22,16 +22,13 @@ class LLVMOpenMpConan(ConanFile):
     license = "Apache-2.0 WITH LLVM-exception"
     homepage = "https://github.com/llvm/llvm-project/blob/main/openmp"
     topics = ("llvm", "openmp", "parallelism")
-
-    package_type = "library"
+    package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
         "fPIC": [True, False],
         "build_libomptarget": [True, False],
     }
     default_options = {
-        "shared": False,
         "fPIC": True,
         "build_libomptarget": False,
     }
@@ -42,15 +39,7 @@ class LLVMOpenMpConan(ConanFile):
         )
     }
 
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "gcc": "7",
-            "clang": "6",
-            "apple-clang": "10",
-        }
-
-    @property
+    @cached_property
     def _version_major(self):
         return Version(self.version).major
 
@@ -59,23 +48,10 @@ class LLVMOpenMpConan(ConanFile):
         copy(self, "*.cmake.in", self.recipe_folder, self.export_sources_folder)
 
     def config_options(self):
-        # OpenMP is generally linked as a shared library by default.
-        # It's also slightly safer when mixing OpenMP runtimes by accident and
-        # leaves the user an option to swap out runtime implementations, if necessary.
-        # https://cpufun.substack.com/p/is-mixing-openmp-runtimes-safe
-        self.options.shared = True
-
         if self.settings.os == "Windows":
             del self.options.fPIC
         if is_apple_os(self) or self.settings.os == "Windows":
             del self.options.build_libomptarget
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-        if self.settings.os == "Windows":
-            del self.options.shared
-            self.package_type = "shared-library"
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -89,17 +65,11 @@ class LLVMOpenMpConan(ConanFile):
             if self._version_major < 17:
                 #  fatal error LNK1181: cannot open input file 'build\runtime\src\omp.dll.lib'
                 raise ConanInvalidConfiguration(f"{self.ref} build is broken on MSVC for versions < 17")
-
-        if not self._openmp_flags:
-            raise ConanInvalidConfiguration(
-                f"{self.settings.compiler} is not supported by this recipe. Contributions are welcome!"
-            )
+        if self.settings.compiler not in ["clang", "apple-clang", "msvc"]:
+            raise ConanInvalidConfiguration("llvm-openmp can only safely be used with Clang, AppleClang and MSVC")
 
         if self._version_major >= 17:
             check_min_cppstd(self, 17)
-            minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-            if minimum_version and Version(self.settings.compiler.version) < minimum_version:
-                raise ConanInvalidConfiguration(f"{self.ref} requires C++17, which your compiler does not support.")
 
         if is_apple_os(self) and self.settings.arch == "armv8":
             if self._version_major >= 12 and self.settings.build_type == "Debug":
@@ -161,7 +131,7 @@ class LLVMOpenMpConan(ConanFile):
         env.generate()
         tc = CMakeToolchain(self)
         tc.variables["OPENMP_STANDALONE_BUILD"] = True
-        tc.variables["LIBOMP_ENABLE_SHARED"] = self.options.get_safe("shared", True)
+        tc.variables["LIBOMP_ENABLE_SHARED"] = True
         tc.variables["OPENMP_ENABLE_LIBOMPTARGET"] = self.options.get_safe("build_libomptarget", False)
         # Do not build OpenMP Tools Interface (OMPT)
         tc.variables["LIBOMP_OMPT_SUPPORT"] = False
@@ -186,25 +156,12 @@ class LLVMOpenMpConan(ConanFile):
     def _openmp_flags(self):
         # Based on https://github.com/Kitware/CMake/blob/v3.28.1/Modules/FindOpenMP.cmake#L104-L135
         compiler = str(self.settings.compiler)
-        if compiler in {"gcc", "clang"}:
+        if compiler in ["clang"]:
             return ["-fopenmp"]
         elif compiler == "apple-clang":
             return ["-Xpreprocessor", "-fopenmp"]
         elif compiler == "msvc":
             return ["-openmp:llvm"]
-        elif compiler == "intel-cc":
-            if self.settings.compiler.mode == "classic":
-                if self.settings.os == "Windows":
-                    return ["-Qopenmp"]
-                else:
-                    return ["-qopenmp"]
-            else:
-                if self.settings.get_safe("compiler.frontend") == "msvc":
-                    return ["-Qopenmp"]
-                else:
-                    return ["-fopenmp"]
-        elif compiler == "sun-cc":
-            return ["-xopenmp"]
         return None
 
     @cached_property
@@ -255,5 +212,5 @@ class LLVMOpenMpConan(ConanFile):
         self.cpp_info.cflags = self._openmp_flags
         self.cpp_info.cxxflags = self._openmp_flags
 
-        self.cpp_info.builddirs.append(os.path.join(self.package_folder, "lib", "cmake", "openmp"))
+        self.cpp_info.builddirs = ["lib/cmake/openmp"]
         self.cpp_info.set_property("cmake_build_modules", [self._module_file_rel_path])

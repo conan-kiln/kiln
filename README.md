@@ -65,7 +65,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-02:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-04:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -522,11 +522,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - eigen/3.3.8
 - eigen/3.3.9
 - eigen/3.4.1
-- eigen/5.0.0
 - eigenpy/3.11.0
 - elfutils/0.192
 - elfutils/0.193
-- embag/0.0.43
+- embag/0.0.43+git.20230120
 - embree/3.13.5
 - embree/4.4.0
 - emsdk/4.0.6
@@ -778,7 +777,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libcups/3.0-rc4
 - libde265/1.0.16
 - libdecor/0.2.2
-- libdrm/2.4.125
+- libdrm/2.4.126
 - libecwj2/3.3
 - libelas/cci.20150630
 - libell/0.76
@@ -818,6 +817,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - librsvg/2.40.21
 - librsvg/2.60.0
 - libsecret/0.21.7
+- libsgm/3.1.0+git.20240708
 - libsigcpp/2.12.1
 - libsm/1.2.4
 - libsolv/0.7.29
@@ -882,9 +882,10 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - llvm-core/20.1.7
 - llvm-libunwind/19.1.7
 - llvm-libunwind/20.1.7
-- llvm-openmp/10.1.6
 - llvm-openmp/18.1.8
 - llvm-openmp/19.1.7
+- llvm-openmp/20.1.8
+- llvm-openmp/21.1.2
 - lmdb/0.9.33
 - lttng-ust/2.13.9
 - lusol/0.0.0+git.20160215
