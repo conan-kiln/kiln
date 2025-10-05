@@ -365,7 +365,7 @@ class PclConan(ConanFile):
             self.requires("boost/[^1.71.0 <1.87]", transitive_headers=True)
         self.requires("eigen/[>=3.3 <6]", transitive_headers=True)
         if self._is_enabled("flann"):
-            self.requires("flann/1.9.2", transitive_headers=True)
+            self.requires("flann/[^1.9.2]", transitive_headers=True)
         if self._is_enabled("png"):
             self.requires("libpng/[~1.6]")
         if self._is_enabled("qhull"):
