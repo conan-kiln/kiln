@@ -1,0 +1,7 @@
+sources:
+  "0.6.0+git.20250914":
+    url: "https://github.com/facontidavide/Bonxai/archive/02d401b1ce38bce870c6704bcd4e35a56a641411.tar.gz"
+    sha256: "ac4fe321693df27b7b304289d8c40343db6c99c6ff586f21b72429bffa9814ce"
+patches:
+  "0.6.0+git.20250914":
+    - patch_file: "patches/cmake-fixes.patch"

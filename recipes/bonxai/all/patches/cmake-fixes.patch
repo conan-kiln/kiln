@@ -1,0 +1,54 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.10)
++cmake_minimum_required(VERSION 3.15)
+ project(Bonxai)
+ 
+ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+@@ -12,18 +12,9 @@
+     "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+ endif()
+ 
+-set(CMAKE_CXX_STANDARD 17)
+-
+ #---- Add the subdirectory cmake ----
+ set(CMAKE_CONFIG_PATH ${CMAKE_MODULE_PATH}  "${CMAKE_CURRENT_LIST_DIR}/cmake")
+ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
+-
+-find_package(PCL QUIET COMPONENTS common filters io)
+-
+-find_package(benchmark QUIET)
+-find_package(octomap QUIET)
+-find_package(LZ4 QUIET)
+-find_package(Eigen3 QUIET)
+ 
+ #---- Use Address sanitizer if compiled in Debug mode ----
+ option(BONXAI_SANITIZE "Add address sanitizer when compiling in Debug mode" OFF)
+@@ -41,16 +32,21 @@
+ 
+ ####################################################
+ add_subdirectory(bonxai_core)
+-add_subdirectory(examples)
+ 
+-if(Eigen3_FOUND AND PCL_FOUND )
++if(BUILD_MAP)
++    find_package(Eigen3 REQUIRED)
++    find_package(PCL REQUIRED COMPONENTS common filters io)
++    link_libraries(${PCL_LIBRARIES} Eigen3::Eigen)
+     add_subdirectory(bonxai_map)
+ endif()
+ 
+-# Default behavior
+-find_package(ament_cmake QUIET)
++install(DIRECTORY bonxai_core/include/ DESTINATION include)
++if(BUILD_MAP)
++    install(TARGETS bonxai_map ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
++    install(DIRECTORY bonxai_map/include/ DESTINATION include)
++endif()
+ 
+-if ( ament_cmake_FOUND )
++if ( 0 )
+ 
+     project(bonxai_ros)
+ 
