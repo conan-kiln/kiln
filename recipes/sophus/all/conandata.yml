@@ -1,7 +1,4 @@
 sources:
-  "1.22.10":
-    url: "https://github.com/strasdat/Sophus/archive/refs/tags/1.22.10.tar.gz"
-    sha256: "eb1da440e6250c5efc7637a0611a5b8888875ce6ac22bf7ff6b6769bbc958082"
-  "1.22.4":
-    url: "https://github.com/strasdat/Sophus/archive/refs/tags/1.22.4.tar.gz"
-    sha256: "13597381636c5a0757bb89451bf3c98a0978e49b89739b66571a4bdd950caa81"
+  "1.24.6":
+    url: "https://github.com/strasdat/Sophus/archive/refs/tags/1.24.6.tar.gz"
+    sha256: "3f3098bdac2c74d42a921dbfb0e5e4b23601739e35a1c1236c2807c399da960c"

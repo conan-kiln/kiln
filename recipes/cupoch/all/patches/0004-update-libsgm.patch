@@ -1,0 +1,33 @@
+From 58a4b8554ee276d84101422a0232b134a230cc47 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Sat, 4 Oct 2025 20:59:54 +0300
+Subject: [PATCH 4/9] update libsgm
+
+---
+ src/cupoch/imageproc/sgm.cpp | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/cupoch/imageproc/sgm.cpp b/src/cupoch/imageproc/sgm.cpp
+index 586ed43..2dc00f9 100644
+--- a/src/cupoch/imageproc/sgm.cpp
++++ b/src/cupoch/imageproc/sgm.cpp
+@@ -46,11 +46,11 @@ SemiGlobalMatching::SemiGlobalMatching(const SGMOption& option)
+ std::shared_ptr<geometry::Image> SemiGlobalMatching::ProcessFrame(
+         const geometry::Image& left, const geometry::Image& right) {
+     auto output = std::make_shared<geometry::Image>();
+-    if (sgm_.width_ == 0 || sgm_.height_ == 0) {
+-        utility::LogError(
+-                "[SemiGlobalMatching::ProcessFrame] Invalid SGM parameters.");
+-        return output;
+-    }
++    // if (sgm_.width_ == 0 || sgm_.height_ == 0) {
++    //     utility::LogError(
++    //             "[SemiGlobalMatching::ProcessFrame] Invalid SGM parameters.");
++    //     return output;
++    // }
+     if (left.width_ != right.width_ || left.height_ != right.height_ ||
+         left.num_of_channels_ != 1 || right.num_of_channels_ != 1 ||
+         left.bytes_per_channel_ != 1 || right.bytes_per_channel_ != 1) {
+-- 
+2.43.0
+

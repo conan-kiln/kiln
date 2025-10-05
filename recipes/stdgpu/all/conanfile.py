@@ -1,6 +1,7 @@
 import os
 
 from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
@@ -69,6 +70,10 @@ class StdgpuConan(ConanFile):
         check_min_cppstd(self, 17 if self.version != "1.3.0" else 14)
         if self.options.backend == "cuda":
             self.cuda.validate_settings()
+            if self.cuda.major >= 13:
+                # Thrust 3.x in CUDA 13+ has breaking iterator reference semantics changes
+                # that fail to compile for many structures using device memory.
+                raise ConanInvalidConfiguration("CUDA 13 and newer are not yet supported")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

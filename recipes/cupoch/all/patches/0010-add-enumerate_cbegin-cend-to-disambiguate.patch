@@ -1,0 +1,862 @@
+From d6a839c468f3140effcbd630ccb21685ab4cb132 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Sun, 5 Oct 2025 16:22:55 +0300
+Subject: add enumerate_cbegin/cend to disambiguate
+
+---
+ src/cupoch/collision/collision.cu             | 20 ++++++-------
+ src/cupoch/geometry/boundingvolume.cu         |  6 ++--
+ src/cupoch/geometry/down_sample.cu            | 25 +++++++++-------
+ src/cupoch/geometry/estimate_normals.cu       |  6 ++--
+ src/cupoch/geometry/graph.cu                  | 20 ++++++-------
+ src/cupoch/geometry/iss_keypoints.cu          |  4 +--
+ src/cupoch/geometry/occupancygrid.cu          |  6 ++--
+ src/cupoch/geometry/pointcloud_factory.cu     |  4 +--
+ src/cupoch/geometry/segmentation.cu           |  2 +-
+ src/cupoch/geometry/trianglemesh.cu           | 18 ++++++------
+ src/cupoch/geometry/voxelgrid.cu              |  6 ++--
+ src/cupoch/integration/uniform_tsdfvolume.cu  | 10 +++----
+ src/cupoch/io/ros/pointcloud_msg.cu           |  4 +--
+ src/cupoch/knn/lbvh_knn.cu                    |  2 +-
+ src/cupoch/registration/filterreg.cu          |  4 +--
+ src/cupoch/registration/kabsch.cu             | 29 ++++++++++++-------
+ src/cupoch/registration/permutohedral.inl     |  4 +--
+ src/cupoch/registration/registration.cu       |  2 +-
+ src/cupoch/utility/eigen.inl                  |  8 ++---
+ src/cupoch/utility/helper.h                   | 29 +++++++------------
+ src/cupoch/utility/range.h                    |  9 +++---
+ .../visualization/shader/phong_shader.cu      |  8 ++---
+ .../visualization/shader/simple_shader.cu     | 12 ++++----
+ 23 files changed, 121 insertions(+), 117 deletions(-)
+
+diff --git a/src/cupoch/collision/collision.cu b/src/cupoch/collision/collision.cu
+index 5cc82ee..c55beb5 100644
+--- a/src/cupoch/collision/collision.cu
++++ b/src/cupoch/collision/collision.cu
+@@ -809,8 +809,8 @@ Intersection<geometry::VoxelGrid>::Compute<geometry::VoxelGrid>(
+     intersect_voxel_voxel_functor<decltype(bvh_dev)> func(
+             bvh_dev, query.voxel_size_, query.origin_, margin);
+     out->collision_index_pairs_.resize(query.voxels_keys_.size());
+-    thrust::transform(enumerate_begin(query.voxels_keys_),
+-                      enumerate_end(query.voxels_keys_),
++    thrust::transform(enumerate_cbegin(query.voxels_keys_),
++                      enumerate_cend(query.voxels_keys_),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -883,7 +883,7 @@ Intersection<geometry::VoxelGrid>::Compute<geometry::OccupancyGrid>(
+             bvh_dev, query.voxel_size_, query.origin_, margin);
+     auto occ_voxels = query.ExtractOccupiedVoxels();
+     out->collision_index_pairs_.resize(occ_voxels->size());
+-    thrust::transform(enumerate_begin(*occ_voxels), enumerate_end(*occ_voxels),
++    thrust::transform(enumerate_cbegin(*occ_voxels), enumerate_cend(*occ_voxels),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -924,8 +924,8 @@ Intersection<geometry::OccupancyGrid>::Compute<geometry::VoxelGrid>(
+     out->collision_index_pairs_.resize(query.voxels_keys_.size());
+     intersect_voxel_voxel_functor<decltype(bvh_dev)> func(
+             bvh_dev, query.voxel_size_, query.origin_, margin);
+-    thrust::transform(enumerate_begin(query.voxels_keys_),
+-                      enumerate_end(query.voxels_keys_),
++    thrust::transform(enumerate_cbegin(query.voxels_keys_),
++                      enumerate_cend(query.voxels_keys_),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -1034,7 +1034,7 @@ Intersection<geometry::VoxelGrid>::Compute<PrimitiveArray>(
+     out->collision_index_pairs_.resize(query.size());
+     intersect_voxel_primitive_functor<decltype(bvh_dev)> func(
+             bvh_dev, target_.voxel_size_, target_.origin_, margin);
+-    thrust::transform(enumerate_begin(query), enumerate_end(query),
++    thrust::transform(enumerate_cbegin(query), enumerate_cend(query),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -1058,8 +1058,8 @@ Intersection<PrimitiveArray>::Compute<geometry::VoxelGrid>(
+     intersect_primitive_voxel_functor<decltype(bvh_dev)> func(
+             bvh_dev, query.voxel_size_, query.origin_, margin);
+     out->collision_index_pairs_.resize(query.voxels_keys_.size());
+-    thrust::transform(enumerate_begin(query.voxels_keys_),
+-                      enumerate_end(query.voxels_keys_),
++    thrust::transform(enumerate_cbegin(query.voxels_keys_),
++                      enumerate_cend(query.voxels_keys_),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -1084,7 +1084,7 @@ Intersection<geometry::OccupancyGrid>::Compute<PrimitiveArray>(
+     auto occ_voxels = target_.ExtractOccupiedVoxels();
+     intersect_occvoxel_primitive_functor<decltype(bvh_dev)> func(
+             bvh_dev, target_.voxel_size_, target_.origin_, margin);
+-    thrust::transform(enumerate_begin(query), enumerate_end(query),
++    thrust::transform(enumerate_cbegin(query), enumerate_cend(query),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+@@ -1109,7 +1109,7 @@ Intersection<PrimitiveArray>::Compute<geometry::OccupancyGrid>(
+             bvh_dev, query.voxel_size_, query.origin_, margin);
+     auto occ_voxels = query.ExtractOccupiedVoxels();
+     out->collision_index_pairs_.resize(occ_voxels->size());
+-    thrust::transform(enumerate_begin(*occ_voxels), enumerate_end(*occ_voxels),
++    thrust::transform(enumerate_cbegin(*occ_voxels), enumerate_cend(*occ_voxels),
+                       out->collision_index_pairs_.begin(), func);
+     remove_negative(utility::exec_policy(0),
+                     out->collision_index_pairs_);
+diff --git a/src/cupoch/geometry/boundingvolume.cu b/src/cupoch/geometry/boundingvolume.cu
+index f3f9a4c..4664b70 100644
+--- a/src/cupoch/geometry/boundingvolume.cu
++++ b/src/cupoch/geometry/boundingvolume.cu
+@@ -201,7 +201,7 @@ OrientedBoundingBox::GetPointIndicesWithinBoundingBox(
+     utility::device_vector<size_t> indices(points.size());
+     auto begin = make_tuple_iterator(indices.begin(),
+                                      thrust::make_discard_iterator());
+-    auto end = thrust::copy_if(enumerate_begin(points), enumerate_end(points),
++    auto end = thrust::copy_if(enumerate_cbegin(points), enumerate_cend(points),
+                                begin, func);
+     indices.resize(thrust::distance(begin, end));
+     return indices;
+@@ -383,10 +383,10 @@ AxisAlignedBoundingBox<Dim> AxisAlignedBoundingBox<Dim>::CreateFromPoints(
+         box.max_bound_ = Eigen::Matrix<float, Dim, 1>::Zero();
+     } else {
+         box.min_bound_ = utility::ComputeBound<
+-                Dim, float, thrust::elementwise_minimum<Eigen::Matrix<float, Dim, 1>>>(
++                Dim, float, cuda::std::elementwise_minimum<Eigen::Matrix<float, Dim, 1>>>(
+                 utility::GetStream(0), points);
+         box.max_bound_ = utility::ComputeBound<
+-                Dim, float, thrust::elementwise_maximum<Eigen::Matrix<float, Dim, 1>>>(
++                Dim, float, cuda::std::elementwise_maximum<Eigen::Matrix<float, Dim, 1>>>(
+                 utility::GetStream(1), points);
+     }
+     return box;
+diff --git a/src/cupoch/geometry/down_sample.cu b/src/cupoch/geometry/down_sample.cu
+index 65874b6..ae7639d 100644
+--- a/src/cupoch/geometry/down_sample.cu
++++ b/src/cupoch/geometry/down_sample.cu
+@@ -24,9 +24,12 @@
+ #include <thrust/sort.h>
+ #include <thrust/async/copy.h>
+ 
+-#include "cupoch/knn/kdtree_flann.h"
++#include <functional>
++#include <thrust/system/cuda/detail/future.inl>
++
+ #include "cupoch/geometry/geometry_utils.h"
+ #include "cupoch/geometry/pointcloud.h"
++#include "cupoch/knn/kdtree_flann.h"
+ #include "cupoch/utility/console.h"
+ #include "cupoch/utility/helper.h"
+ #include "cupoch/utility/platform.h"
+@@ -76,7 +79,7 @@ struct compute_key_functor {
+ 
+ template <int Index, class... Args>
+ struct normalize_and_divide_tuple_functor
+-    : public thrust::binary_function<const thrust::tuple<Args...>,
++    : public std::binary_function<const thrust::tuple<Args...>,
+                                      const int,
+                                      thrust::tuple<Args...>> {
+     __host__ __device__ thrust::tuple<Args...> operator()(
+@@ -149,14 +152,14 @@ std::shared_ptr<PointCloud> PointCloud::SelectByMask(
+         resize_all(thrust::distance(begin, end), output->points_, output->normals_, output->colors_);
+     } else if (has_colors) {
+         auto begin = make_tuple_begin(output->points_, output->colors_);
+-        auto end = thrust::copy_if(make_tuple_begin(points_, colors_),
+-                make_tuple_end(points_, colors_),
++        auto end = thrust::copy_if(make_tuple_cbegin(points_, colors_),
++                make_tuple_cend(points_, colors_),
+                 mask.begin(), begin, fn);
+         resize_all(thrust::distance(begin, end), output->points_, output->colors_);
+     } else if (has_normals) {
+         auto begin = make_tuple_begin(output->points_, output->normals_);
+-        auto end = thrust::copy_if(make_tuple_begin(points_, normals_),
+-                make_tuple_end(points_, normals_),
++        auto end = thrust::copy_if(make_tuple_cbegin(points_, normals_),
++                make_tuple_cend(points_, normals_),
+                 mask.begin(), begin, fn);
+         resize_all(thrust::distance(begin, end), output->points_, output->normals_);
+     } else {
+@@ -217,7 +220,7 @@ std::shared_ptr<PointCloud> PointCloud::VoxelDownSample(
+         add_tuple_functor<Eigen::Vector3f, int> add_func;
+         auto end = thrust::reduce_by_key(
+             utility::exec_policy(0), keys.begin(), keys.end(),
+-            make_tuple_iterator(sorted_points.begin(),
++            make_tuple_iterator(sorted_points.cbegin(),
+                                 thrust::make_constant_iterator(1)),
+             thrust::make_discard_iterator(), begin, binary_pred, add_func);
+         int n_out = thrust::distance(begin, end.second);
+@@ -343,7 +346,7 @@ PointCloud::RemoveRadiusOutliers(size_t nb_points, float search_radius) const {
+     auto begin = make_tuple_iterator(indices.begin(),
+                                      thrust::make_discard_iterator());
+     auto end = thrust::copy_if(
+-            enumerate_begin(counts), enumerate_end(counts), begin,
++            enumerate_cbegin(counts), enumerate_cend(counts), begin,
+             [nb_points] __device__(const thrust::tuple<size_t, size_t> &x) {
+                 return thrust::get<1>(x) > nb_points;
+             });
+@@ -431,8 +434,8 @@ PointCloud::RemoveStatisticalOutliers(size_t nb_neighbors,
+     check_distance_threshold_functor th_func(distance_threshold);
+     auto begin = make_tuple_iterator(indices.begin(),
+                                      thrust::make_discard_iterator());
+-    auto end = thrust::copy_if(enumerate_begin(avg_distances),
+-                               enumerate_end(avg_distances), begin, th_func);
++    auto end = thrust::copy_if(enumerate_cbegin(avg_distances),
++                               enumerate_cend(avg_distances), begin, th_func);
+     indices.resize(thrust::distance(begin, end));
+     return std::make_tuple(SelectByIndex(indices), indices);
+-}
++}
+\ No newline at end of file
+diff --git a/src/cupoch/geometry/estimate_normals.cu b/src/cupoch/geometry/estimate_normals.cu
+index 42e5f87..92acbee 100644
+--- a/src/cupoch/geometry/estimate_normals.cu
++++ b/src/cupoch/geometry/estimate_normals.cu
+@@ -120,8 +120,8 @@ bool PointCloud::EstimateNormals(const knn::KDTreeSearchParam &search_param) {
+             thrust::make_discard_iterator(),
+             make_tuple_begin(cumulants, counts), thrust::equal_to<size_t>(),
+             add_tuple_functor<Eigen::Matrix<float, 9, 1>, int>());
+-    thrust::transform(make_tuple_begin(cumulants, counts),
+-                      make_tuple_end(cumulants, counts), normals_.begin(),
++    thrust::transform(make_tuple_cbegin(cumulants, counts),
++                      make_tuple_cend(cumulants, counts), normals_.begin(),
+                       compute_normal_functor());
+     return true;
+ }
+diff --git a/src/cupoch/geometry/graph.cu b/src/cupoch/geometry/graph.cu
+index 1598f36..e92355e 100644
+--- a/src/cupoch/geometry/graph.cu
++++ b/src/cupoch/geometry/graph.cu
+@@ -308,8 +308,8 @@ Graph<Dim> &Graph<Dim>::AddNodeAndConnect(
+     utility::device_vector<Eigen::Vector2i> new_edges(n_points);
+     utility::device_vector<float> new_weights(n_points);
+     extract_near_edges_functor<Dim> func(point, n_points, max_edge_distance);
+-    thrust::transform(enumerate_begin(this->points_),
+-                      enumerate_end(this->points_),
++    thrust::transform(enumerate_cbegin(this->points_),
++                      enumerate_cend(this->points_),
+                       make_tuple_begin(new_edges, new_weights), func);
+     auto remove_fn =
+             [] __device__(const thrust::tuple<Eigen::Vector2i, float> &x) {
+@@ -456,8 +456,8 @@ Graph<Dim> &Graph<Dim>::RemoveEdges(
+         auto func = tuple_element_compare_functor<
+                 EdgeWeightColor, 0, thrust::less<Eigen::Vector2i>>();
+         runs(func,
+-             make_tuple_begin(this->lines_, edge_weights_, this->colors_),
+-             make_tuple_end(this->lines_, edge_weights_, this->colors_),
++             make_tuple_cbegin(this->lines_, edge_weights_, this->colors_),
++             make_tuple_cend(this->lines_, edge_weights_, this->colors_),
+              make_tuple_iterator(sorted_edges.begin(), cnst_w, cnst_c),
+              make_tuple_iterator(sorted_edges.end(), cnst_w, cnst_c),
+              make_tuple_iterator(sorted_swap_edges.begin(), cnst_w, cnst_c),
+@@ -467,8 +467,8 @@ Graph<Dim> &Graph<Dim>::RemoveEdges(
+         auto func = tuple_element_compare_functor<
+                 EdgeColor, 0, thrust::less<Eigen::Vector2i>>();
+         runs(func,
+-             make_tuple_begin(this->lines_, this->colors_),
+-             make_tuple_end(this->lines_, this->colors_),
++             make_tuple_cbegin(this->lines_, this->colors_),
++             make_tuple_cend(this->lines_, this->colors_),
+              make_tuple_iterator(sorted_edges.begin(), cnst_c),
+              make_tuple_iterator(sorted_edges.end(), cnst_c),
+              make_tuple_iterator(sorted_swap_edges.begin(), cnst_c),
+@@ -478,8 +478,8 @@ Graph<Dim> &Graph<Dim>::RemoveEdges(
+         auto func = tuple_element_compare_functor<
+                 EdgeWeight, 0, thrust::less<Eigen::Vector2i>>();
+         runs(func,
+-             make_tuple_begin(this->lines_, edge_weights_),
+-             make_tuple_end(this->lines_, edge_weights_),
++             make_tuple_cbegin(this->lines_, edge_weights_),
++             make_tuple_cend(this->lines_, edge_weights_),
+              make_tuple_iterator(sorted_edges.begin(), cnst_w),
+              make_tuple_iterator(sorted_edges.end(), cnst_w),
+              make_tuple_iterator(sorted_swap_edges.begin(), cnst_w),
+@@ -489,8 +489,8 @@ Graph<Dim> &Graph<Dim>::RemoveEdges(
+         auto func = tuple_element_compare_functor<
+                 thrust::tuple<Eigen::Vector2i>, 0, thrust::less<Eigen::Vector2i>>();
+         runs(func,
+-             make_tuple_begin(this->lines_),
+-             make_tuple_end(this->lines_),
++             make_tuple_cbegin(this->lines_),
++             make_tuple_cend(this->lines_),
+              make_tuple_iterator(sorted_edges.begin()),
+              make_tuple_iterator(sorted_edges.end()),
+              make_tuple_iterator(sorted_swap_edges.begin()),
+diff --git a/src/cupoch/geometry/iss_keypoints.cu b/src/cupoch/geometry/iss_keypoints.cu
+index 7757c34..f76f9e4 100644
+--- a/src/cupoch/geometry/iss_keypoints.cu
++++ b/src/cupoch/geometry/iss_keypoints.cu
+@@ -151,8 +151,8 @@ ComputeISSKeypoints(
+             thrust::make_discard_iterator(),
+             make_tuple_begin(cumulants, counts), thrust::equal_to<size_t>(),
+             add_tuple_functor<Eigen::Matrix<float, 9, 1>, int>());
+-    thrust::transform(make_tuple_begin(cumulants, counts),
+-                      make_tuple_end(cumulants, counts), third_eigen_values.begin(),
++    thrust::transform(make_tuple_cbegin(cumulants, counts),
++                      make_tuple_cend(cumulants, counts), third_eigen_values.begin(),
+                       compute_third_eigen_values_functor(min_neighbors, gamma_21, gamma_32));
+ 
+     auto mask = std::make_shared<utility::device_vector<bool>>(n_pt);
+diff --git a/src/cupoch/geometry/occupancygrid.cu b/src/cupoch/geometry/occupancygrid.cu
+index de19ee9..dffa6b7 100644
+--- a/src/cupoch/geometry/occupancygrid.cu
++++ b/src/cupoch/geometry/occupancygrid.cu
+@@ -176,7 +176,7 @@ void ComputeFreeVoxels(const utility::device_vector<Eigen::Vector3f>& points,
+     compute_voxel_traversal_functor func(
+             thrust::raw_pointer_cast(free_voxels.data()), n_div * 3,
+             viewpoint - origin, half_resolution, voxel_size, origin);
+-    thrust::for_each(enumerate_begin(points), enumerate_end(points), func);
++    thrust::for_each(enumerate_cbegin(points), enumerate_cend(points), func);
+     auto end1 = thrust::remove_if(
+             free_voxels.begin(), free_voxels.end(),
+             [resolution] __device__(const Eigen::Vector3i& idx) -> bool {
+@@ -227,8 +227,8 @@ void ComputeOccupiedVoxels(
+     occupied_voxels.resize(points.size());
+     Eigen::Vector3i half_resolution = Eigen::Vector3i::Constant(resolution / 2);
+     create_occupancy_voxels_functor func(origin, half_resolution, voxel_size);
+-    thrust::transform(make_tuple_begin(points, hit_flags),
+-                      make_tuple_end(points, hit_flags),
++    thrust::transform(make_tuple_cbegin(points, hit_flags),
++                      make_tuple_cend(points, hit_flags),
+                       occupied_voxels.begin(), func);
+     auto end1 = thrust::remove_if(
+             occupied_voxels.begin(), occupied_voxels.end(),
+diff --git a/src/cupoch/geometry/pointcloud_factory.cu b/src/cupoch/geometry/pointcloud_factory.cu
+index 8713694..b9a7fc2 100644
+--- a/src/cupoch/geometry/pointcloud_factory.cu
++++ b/src/cupoch/geometry/pointcloud_factory.cu
+@@ -393,8 +393,8 @@ std::shared_ptr<PointCloud> PointCloud::CreateFromLaserScanBuffer(
+     if (scan.HasIntensities()) {
+         pointcloud->colors_.resize(scan.ranges_.size());
+         thrust::transform(
+-                enumerate_begin(scan.ranges_, range, scan.intensities_),
+-                enumerate_end(scan.ranges_, range, scan.intensities_),
++                enumerate_cbegin(scan.ranges_, range, scan.intensities_),
++                enumerate_cend(scan.ranges_, range, scan.intensities_),
+                 make_tuple_begin(pointcloud->points_, pointcloud->colors_),
+                 func);
+ 
+diff --git a/src/cupoch/geometry/segmentation.cu b/src/cupoch/geometry/segmentation.cu
+index 42e5692..81b421f 100644
+--- a/src/cupoch/geometry/segmentation.cu
++++ b/src/cupoch/geometry/segmentation.cu
+@@ -114,7 +114,7 @@ RANSACResult EvaluateRANSACBasedOnDistance(
+             });
+     resize_all(thrust::distance(begin, end), inliers, errors);
+     error = thrust::reduce(utility::exec_policy(0), errors.begin(),
+-                           errors.end(), 0.0);
++                           errors.end(), 0.0f);
+ 
+     size_t inlier_num = inliers.size();
+     if (inlier_num == 0) {
+diff --git a/src/cupoch/geometry/trianglemesh.cu b/src/cupoch/geometry/trianglemesh.cu
+index 27ea7e9..b61eb8d 100644
+--- a/src/cupoch/geometry/trianglemesh.cu
++++ b/src/cupoch/geometry/trianglemesh.cu
+@@ -165,8 +165,8 @@ void FilterSmoothLaplacianHelper(
+                 thrust::make_discard_iterator(), sums.begin(),
+                 edge_first_eq_functor());
+         thrust::transform(
+-                make_tuple_begin(prev, total_weights, sums),
+-                make_tuple_end(prev, total_weights, sums),
++                make_tuple_cbegin(prev, total_weights, sums),
++                make_tuple_cend(prev, total_weights, sums),
+                 res.begin(), filter_fn);
+     };
+     if (filter_vertex) {
+@@ -574,8 +574,8 @@ std::shared_ptr<TriangleMesh> TriangleMesh::FilterSharpen(
+                               thrust::make_discard_iterator(),
+                               sums.begin(), edge_first_eq_functor());
+         thrust::transform(
+-                make_tuple_begin(prev, counts, sums),
+-                make_tuple_end(prev, counts, sums),
++                make_tuple_cbegin(prev, counts, sums),
++                make_tuple_cend(prev, counts, sums),
+                 res.begin(), filter_fn);
+     };
+     for (int iter = 0; iter < number_of_iterations; ++iter) {
+@@ -654,8 +654,8 @@ std::shared_ptr<TriangleMesh> TriangleMesh::FilterSmoothSimple(
+                               thrust::make_discard_iterator(),
+                               sums.begin(), edge_first_eq_functor());
+         thrust::transform(
+-                make_tuple_begin(prev, counts, sums),
+-                make_tuple_end(prev, counts, sums),
++                make_tuple_cbegin(prev, counts, sums),
++                make_tuple_cend(prev, counts, sums),
+                 res.begin(), filter_fn);
+     };
+     for (int iter = 0; iter < number_of_iterations; ++iter) {
+@@ -929,13 +929,13 @@ TriangleMesh &TriangleMesh::RemoveDuplicatedVertices() {
+     if (has_vert_normal && has_vert_color) {
+         k = runs(vertex_normals_, vertex_colors_);
+     } else if (has_vert_normal) {
+-        thrust::discard_iterable dummy;
++        cuda::std::discard_iterable dummy;
+         k = runs(vertex_normals_, dummy);
+     } else if (has_vert_color) {
+-        thrust::discard_iterable dummy;
++        cuda::std::discard_iterable dummy;
+         k = runs(vertex_colors_, dummy);
+     } else {
+-        thrust::discard_iterable dummy;
++        cuda::std::discard_iterable dummy;
+         k = runs(dummy, dummy);
+     }
+     vertices_.resize(k);
+diff --git a/src/cupoch/geometry/voxelgrid.cu b/src/cupoch/geometry/voxelgrid.cu
+index 5d13ed2..e611c6a 100644
+--- a/src/cupoch/geometry/voxelgrid.cu
++++ b/src/cupoch/geometry/voxelgrid.cu
+@@ -166,7 +166,7 @@ Eigen::Vector3f VoxelGrid::GetMinBound() const {
+         Eigen::Vector3i min_grid_index =
+                 thrust::reduce(utility::exec_policy(0),
+                                voxels_keys_.begin(), voxels_keys_.end(), init,
+-                               thrust::elementwise_minimum<Eigen::Vector3i>());
++                               cuda::std::elementwise_minimum<Eigen::Vector3i>());
+         return min_grid_index.cast<float>() * voxel_size_ + origin_;
+     }
+ }
+@@ -179,7 +179,7 @@ Eigen::Vector3f VoxelGrid::GetMaxBound() const {
+         Eigen::Vector3i max_grid_index =
+                 thrust::reduce(utility::exec_policy(0),
+                                voxels_keys_.begin(), voxels_keys_.end(), init,
+-                               thrust::elementwise_maximum<Eigen::Vector3i>());
++                               cuda::std::elementwise_maximum<Eigen::Vector3i>());
+         return (max_grid_index.cast<float>() + Eigen::Vector3f::Ones()) *
+                        voxel_size_ +
+                origin_;
+@@ -472,4 +472,4 @@ std::shared_ptr<VoxelGrid> VoxelGrid::SelectByIndex(
+         cudaSafeCall(cudaDeviceSynchronize());
+     }
+     return dst;
+-}
++}
+\ No newline at end of file
+diff --git a/src/cupoch/integration/uniform_tsdfvolume.cu b/src/cupoch/integration/uniform_tsdfvolume.cu
+index 2e2c28f..9cfa223 100644
+--- a/src/cupoch/integration/uniform_tsdfvolume.cu
++++ b/src/cupoch/integration/uniform_tsdfvolume.cu
+@@ -742,7 +742,7 @@ UniformTSDFVolume::ExtractTriangleMesh() {
+     // http://paulbourke.net/geometry/polygonise/
+     auto mesh = std::make_shared<geometry::TriangleMesh>();
+     size_t n_valid_voxels = thrust::count_if(
+-            enumerate_begin(voxels_), enumerate_end(voxels_),
++            enumerate_cbegin(voxels_), enumerate_cend(voxels_),
+             count_valid_voxels_functor(thrust::raw_pointer_cast(voxels_.data()),
+                                        resolution_));
+     size_t res3 = (resolution_ - 1) * (resolution_ - 1) * (resolution_ - 1);
+@@ -852,8 +852,8 @@ UniformTSDFVolume::ExtractVoxelPointCloud() const {
+     extract_voxel_pointcloud_functor func(origin_, resolution_, voxel_length_);
+     resize_all(n_valid_voxels, voxel->points_, voxel->colors_);
+     thrust::copy_if(
+-            thrust::make_transform_iterator(enumerate_begin(voxels_), func),
+-            thrust::make_transform_iterator(enumerate_end(voxels_), func),
++            thrust::make_transform_iterator(enumerate_cbegin(voxels_), func),
++            thrust::make_transform_iterator(enumerate_cend(voxels_), func),
+             make_tuple_begin(voxel->points_, voxel->colors_),
+             [] __device__(
+                     const thrust::tuple<Eigen::Vector3f, Eigen::Vector3f> &x) {
+@@ -880,8 +880,8 @@ std::shared_ptr<geometry::VoxelGrid> UniformTSDFVolume::ExtractVoxelGrid()
+                voxel_grid->voxels_values_);
+     extract_voxel_grid_functor func(resolution_);
+     thrust::copy_if(
+-            thrust::make_transform_iterator(enumerate_begin(voxels_), func),
+-            thrust::make_transform_iterator(enumerate_end(voxels_), func),
++            thrust::make_transform_iterator(enumerate_cbegin(voxels_), func),
++            thrust::make_transform_iterator(enumerate_cend(voxels_), func),
+             make_tuple_begin(voxel_grid->voxels_keys_,
+                              voxel_grid->voxels_values_),
+             [] __device__(
+diff --git a/src/cupoch/io/ros/pointcloud_msg.cu b/src/cupoch/io/ros/pointcloud_msg.cu
+index 41e440b..967e182 100644
+--- a/src/cupoch/io/ros/pointcloud_msg.cu
++++ b/src/cupoch/io/ros/pointcloud_msg.cu
+@@ -147,8 +147,8 @@ void CreateToPointCloud2Msg(uint8_t* data, const PointCloud2MsgInfo& info, const
+     }
+     utility::device_vector<uint8_t> dv_data(info.row_step_);
+     convert_to_pointcloud2_msg_functor func(thrust::raw_pointer_cast(dv_data.data()), info.point_step_);
+-    thrust::for_each(enumerate_begin(pointcloud.points_, pointcloud.colors_),
+-                     enumerate_end(pointcloud.points_, pointcloud.colors_), func);
++    thrust::for_each(enumerate_cbegin(pointcloud.points_, pointcloud.colors_),
++                     enumerate_cend(pointcloud.points_, pointcloud.colors_), func);
+     cudaSafeCall(cudaMemcpy(data, thrust::raw_pointer_cast(dv_data.data()), info.row_step_, cudaMemcpyDeviceToHost));
+ }
+ 
+diff --git a/src/cupoch/knn/lbvh_knn.cu b/src/cupoch/knn/lbvh_knn.cu
+index 4414bbb..3ffb95c 100644
+--- a/src/cupoch/knn/lbvh_knn.cu
++++ b/src/cupoch/knn/lbvh_knn.cu
+@@ -170,7 +170,7 @@ bool LinearBoundingVolumeHierarchyKNN::SetRawData(const utility::device_vector<T
+             utility::device_vector<unsigned int> valid_sums_aligned(valid_sums.begin(), valid_sums.end() - 1);
+             utility::device_vector<unsigned int> isum(n_nodes_);
+             thrust::transform(
+-                enumerate_begin(valid_sums_aligned), enumerate_end(valid_sums_aligned), isum.begin(),
++                enumerate_cbegin(valid_sums_aligned), enumerate_cend(valid_sums_aligned), isum.begin(),
+                 [] __device__ (const thrust::tuple<unsigned int, unsigned int>& x) { return thrust::get<0>(x) - thrust::get<1>(x); });
+             unsigned int free_indices_size = isum[new_node_count];
+             utility::device_vector<unsigned int> free(valid_sums);
+diff --git a/src/cupoch/registration/filterreg.cu b/src/cupoch/registration/filterreg.cu
+index a2a6658..8edbf4c 100644
+--- a/src/cupoch/registration/filterreg.cu
++++ b/src/cupoch/registration/filterreg.cu
+@@ -45,8 +45,8 @@ FilterRegResult GetRegistrationResult(
+     FilterRegResult result(transformation);
+     result.likelihood_ = thrust::transform_reduce(
+             utility::exec_policy(0),
+-            make_tuple_begin(model, target, weights),
+-            make_tuple_end(model, target, weights), weighted_residual_functor(),
++            make_tuple_cbegin(model, target, weights),
++            make_tuple_cend(model, target, weights), weighted_residual_functor(),
+             0.0f, thrust::plus<float>());
+     return result;
+ }
+diff --git a/src/cupoch/registration/kabsch.cu b/src/cupoch/registration/kabsch.cu
+index 36fee1d..d7caf3d 100644
+--- a/src/cupoch/registration/kabsch.cu
++++ b/src/cupoch/registration/kabsch.cu
+@@ -97,10 +97,15 @@ Eigen::Matrix4f_u cupoch::registration::Kabsch(
+                     thrust::make_transform_iterator(
+                             corres.begin(),
+                             element_get_functor<Eigen::Vector2i, 1>())),
+-            init, thrust::plus<Eigen::Matrix3f>(),
++            init,
++            [] __device__(const Eigen::Matrix3f &a, const Eigen::Matrix3f &b)
++                    -> Eigen::Matrix3f { return (a + b).eval(); },
+             [model_center, target_center] __device__(
+-                    const Eigen::Vector3f &lhs, const Eigen::Vector3f &rhs) {
+-                return (lhs - model_center) * (rhs - target_center).transpose();
++                    const Eigen::Vector3f &lhs,
++                    const Eigen::Vector3f &rhs) -> Eigen::Matrix3f {
++                const Eigen::Vector3f lm = lhs - model_center;
++                const Eigen::Vector3f rm = rhs - target_center;
++                return (lm * rm.transpose()).eval();
+             });
+ 
+     // Do svd
+@@ -144,16 +149,18 @@ Eigen::Matrix4f_u cupoch::registration::KabschWeighted(
+             thrust::async::reduce(utility::exec_policy(utility::GetStream(0)),
+                                   weight.begin(), weight.end(), 0.0f);
+     Eigen::Vector3f model_center = thrust::transform_reduce(
+-            utility::exec_policy(0), make_tuple_begin(model, weight),
+-            make_tuple_end(model, weight),
+-            [] __device__(const thrust::tuple<Eigen::Vector3f, float> &x) -> Eigen::Vector3f {
++            utility::exec_policy(0), make_tuple_cbegin(model, weight),
++            make_tuple_cend(model, weight),
++            [] __device__(const thrust::tuple<Eigen::Vector3f, float> &x)
++                    -> Eigen::Vector3f {
+                 return thrust::get<0>(x) * thrust::get<1>(x);
+             },
+             Eigen::Vector3f(0.0, 0.0, 0.0), thrust::plus<Eigen::Vector3f>());
+     Eigen::Vector3f target_center = thrust::transform_reduce(
+-            utility::exec_policy(0), make_tuple_begin(target, weight),
+-            make_tuple_end(target, weight),
+-            [] __device__(const thrust::tuple<Eigen::Vector3f, float> &x) -> Eigen::Vector3f {
++            utility::exec_policy(0), make_tuple_cbegin(target, weight),
++            make_tuple_cend(target, weight),
++            [] __device__(const thrust::tuple<Eigen::Vector3f, float> &x)
++                    -> Eigen::Vector3f {
+                 return thrust::get<0>(x) * thrust::get<1>(x);
+             },
+             Eigen::Vector3f(0.0, 0.0, 0.0), thrust::plus<Eigen::Vector3f>());
+@@ -171,8 +178,8 @@ Eigen::Matrix4f_u cupoch::registration::KabschWeighted(
+     const Eigen::Matrix3f init = Eigen::Matrix3f::Zero();
+     Eigen::Matrix3f hh = thrust::transform_reduce(
+             utility::exec_policy(0),
+-            make_tuple_begin(model, target, weight),
+-            make_tuple_end(model, target, weight),
++            make_tuple_cbegin(model, target, weight),
++            make_tuple_cend(model, target, weight),
+             [model_center, target_center] __device__(
+                     const thrust::tuple<Eigen::Vector3f, Eigen::Vector3f, float>
+                             &x) -> Eigen::Matrix3f {
+diff --git a/src/cupoch/registration/permutohedral.inl b/src/cupoch/registration/permutohedral.inl
+index 86645fe..7c9178c 100644
+--- a/src/cupoch/registration/permutohedral.inl
++++ b/src/cupoch/registration/permutohedral.inl
+@@ -251,8 +251,8 @@ float Permutohedral<Dim>::ComputeSigma(
+ 
+     compute_sigma_vlue_functor func_tf;
+     thrust::tuple<float, float> ud = thrust::transform_reduce(
+-            make_tuple_begin(model, target, weights, m2),
+-            make_tuple_end(model, target, weights, m2), func_tf,
++            make_tuple_cbegin(model, target, weights, m2),
++            make_tuple_cend(model, target, weights, m2), func_tf,
+             thrust::make_tuple(0.0f, 0.0f), add_tuple_functor<float, float>());
+     return std::sqrt(
+             thrust::get<0>(ud) /
+diff --git a/src/cupoch/registration/registration.cu b/src/cupoch/registration/registration.cu
+index 6da1908..3a5ad1b 100644
+--- a/src/cupoch/registration/registration.cu
++++ b/src/cupoch/registration/registration.cu
+@@ -51,7 +51,7 @@ RegistrationResult GetRegistrationResultAndCorrespondences(
+             utility::exec_policy(0), dists.begin(), dists.end(),
+             [] __device__(float d) -> float { return (isinf(d)) ? 0.0f : d; }, 0.0f,
+             thrust::plus<float>());
+-    thrust::transform(enumerate_begin(indices), enumerate_end(indices),
++    thrust::transform(enumerate_cbegin(indices), enumerate_cend(indices),
+                       result.correspondence_set_.begin(),
+                       [] __device__(const thrust::tuple<int, int> &idxs) {
+                           int j = thrust::get<1>(idxs);
+diff --git a/src/cupoch/utility/eigen.inl b/src/cupoch/utility/eigen.inl
+index e198833..0c6eb02 100644
+--- a/src/cupoch/utility/eigen.inl
++++ b/src/cupoch/utility/eigen.inl
+@@ -174,8 +174,8 @@ thrust::tuple<MatType, VecType, float, float> ComputeWeightedJTJandJTr(
+     wrapped_calc_weights_functor<FuncW2Type> funcw(fw_trans, w_sum);
+     thrust::transform(r2s.begin(), r2s.end(), ws.begin(), funcw);
+     auto jtj_jtr_r2 = thrust::transform_reduce(
+-            make_tuple_begin(JTJs, JTrs, r2s, ws),
+-            make_tuple_end(JTJs, JTrs, r2s, ws),
++            make_tuple_cbegin(JTJs, JTrs, r2s, ws),
++            make_tuple_cend(JTJs, JTrs, r2s, ws),
+             [] __device__(
+                     const thrust::tuple<MatType, VecType, float, float> &x) -> thrust::tuple<MatType, VecType, float> {
+                 float w = thrust::get<3>(x);
+@@ -208,7 +208,7 @@ template <int Dim, typename T>
+ Eigen::Matrix<T, Dim, 1> ComputeMinBound(
+         const utility::device_vector<Eigen::Matrix<T, Dim, 1>> &points) {
+     return ComputeBound<
+-            Dim, T, thrust::elementwise_minimum<Eigen::Matrix<T, Dim, 1>>>(
++            Dim, T, cuda::std::elementwise_minimum<Eigen::Matrix<T, Dim, 1>>>(
+             0, points);
+ }
+ 
+@@ -216,7 +216,7 @@ template <int Dim, typename T>
+ Eigen::Matrix<T, Dim, 1> ComputeMaxBound(
+         const utility::device_vector<Eigen::Matrix<T, Dim, 1>> &points) {
+     return ComputeBound<
+-            Dim, T, thrust::elementwise_maximum<Eigen::Matrix<T, Dim, 1>>>(
++            Dim, T, cuda::std::elementwise_maximum<Eigen::Matrix<T, Dim, 1>>>(
+             0, points);
+ }
+ 
+diff --git a/src/cupoch/utility/helper.h b/src/cupoch/utility/helper.h
+index f37e989..b299635 100644
+--- a/src/cupoch/utility/helper.h
++++ b/src/cupoch/utility/helper.h
+@@ -20,7 +20,6 @@
+  **/
+ #pragma once
+ #include <thrust/execution_policy.h>
+-#include <thrust/functional.h>
+ #include <thrust/host_vector.h>
+ #include <thrust/iterator/discard_iterator.h>
+ #include <thrust/iterator/zip_iterator.h>
+@@ -43,7 +42,7 @@ using make_index_sequence = std::make_index_sequence<N>;
+ #include "cupoch/utility/device_vector.h"
+ #include "cupoch/utility/platform.h"
+ 
+-namespace thrust {
++namespace cuda::std {
+ 
+ template <int Dim>
+ struct equal_to<Eigen::Matrix<int, Dim, 1>> {
+@@ -106,7 +105,7 @@ struct discard_iterable {
+     discard_iterable operator++(int) { return *this; };
+ };
+ 
+-}  // namespace thrust
++}  // namespace cuda::std
+ 
+ namespace Eigen {
+ 
+@@ -213,7 +212,7 @@ __host__ __device__ void add_tuple_impl(T &t,
+ 
+ template <class... Args>
+ struct add_tuple_functor
+-    : public thrust::binary_function<const thrust::tuple<Args...>,
++    : public std::binary_function<const thrust::tuple<Args...>,
+                                      const thrust::tuple<Args...>,
+                                      thrust::tuple<Args...>> {
+     __host__ __device__ thrust::tuple<Args...> operator()(
+@@ -239,7 +238,7 @@ __host__ __device__ void divide_tuple_impl(T &t,
+ 
+ template <class... Args>
+ struct divide_tuple_functor
+-    : public thrust::binary_function<const thrust::tuple<Args...>,
++    : public std::binary_function<const thrust::tuple<Args...>,
+                                      const int,
+                                      thrust::tuple<Args...>> {
+     __host__ __device__ thrust::tuple<Args...> operator()(
+@@ -264,7 +263,7 @@ thrust::zip_iterator<thrust::tuple<Args...>> make_tuple_iterator(
+ }
+ 
+ template <class... Args>
+-auto make_tuple_begin(const Args &... args) {
++auto make_tuple_cbegin(const Args &... args) {
+     return make_tuple_iterator(std::begin(args)...);
+ }
+ 
+@@ -274,7 +273,7 @@ auto make_tuple_begin(Args &... args) {
+ }
+ 
+ template <class... Args>
+-auto make_tuple_end(const Args &... args) {
++auto make_tuple_cend(const Args &... args) {
+     return make_tuple_iterator(std::end(args)...);
+ }
+ 
+@@ -283,12 +282,6 @@ auto make_tuple_end(Args &... args) {
+     return make_tuple_iterator(std::end(args)...);
+ }
+ 
+-template <class... Args>
+-auto enumerate_iterator(size_t n, Args &... args) {
+-    return make_tuple_iterator(thrust::make_counting_iterator<size_t>(n),
+-                               args...);
+-}
+-
+ template <class... Args>
+ auto enumerate_iterator(size_t n, const Args &... args) {
+     return make_tuple_iterator(thrust::make_counting_iterator<size_t>(n),
+@@ -302,7 +295,7 @@ auto enumerate_begin(Args &... args) {
+ }
+ 
+ template <class... Args>
+-auto enumerate_begin(const Args &... args) {
++auto enumerate_cbegin(const Args &... args) {
+     return make_tuple_iterator(thrust::make_counting_iterator<size_t>(0),
+                                std::begin(args)...);
+ }
+@@ -314,7 +307,7 @@ auto enumerate_end(T &first, Args &... args) {
+ }
+ 
+ template <class T, class... Args>
+-auto enumerate_end(const T &first, const Args &... args) {
++auto enumerate_cend(const T &first, const Args &... args) {
+     return make_tuple_iterator(thrust::make_counting_iterator(first.size()),
+                                std::end(first), std::end(args)...);
+ }
+@@ -486,8 +479,8 @@ void SplitString(std::vector<std::string> &tokens,
+                  bool trim_empty_str = true);
+ 
+ /// String util: find length of current word staring from a position
+-/// By default, alpha numeric chars and chars in valid_chars are considered
+-/// as valid charactors in a word
++/// By default, alphanumeric chars and chars in valid_chars are considered
++/// as valid characters in a word
+ size_t WordLength(const std::string &doc,
+                   size_t start_pos,
+                   const std::string &valid_chars = "_");
+@@ -498,7 +491,7 @@ std::string &LeftStripString(std::string &str,
+ std::string &RightStripString(std::string &str,
+                               const std::string &chars = "\t\n\v\f\r ");
+ 
+-/// Strip empty charactors in front and after string. Similar to Python's
++/// Strip empty characters in front and after string. Similar to Python's
+ /// str.strip()
+ std::string &StripString(std::string &str,
+                          const std::string &chars = "\t\n\v\f\r ");
+diff --git a/src/cupoch/utility/range.h b/src/cupoch/utility/range.h
+index e6666b8..11711c7 100644
+--- a/src/cupoch/utility/range.h
++++ b/src/cupoch/utility/range.h
+@@ -18,11 +18,12 @@
+  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  * IN THE SOFTWARE.
+  **/
+-#include <thrust/functional.h>
+ #include <thrust/iterator/counting_iterator.h>
+ #include <thrust/iterator/permutation_iterator.h>
+ #include <thrust/iterator/transform_iterator.h>
+ 
++#include <functional>
++
+ namespace thrust {
+ 
+ // examples:
+@@ -38,7 +39,7 @@ public:
+             difference_type;
+ 
+     struct repeat_functor
+-        : public thrust::unary_function<difference_type, difference_type> {
++        : public std::unary_function<difference_type, difference_type> {
+         difference_type repeats;
+ 
+         repeat_functor(difference_type repeats) : repeats(repeats) {}
+@@ -92,7 +93,7 @@ public:
+             difference_type;
+ 
+     struct stride_functor
+-        : public thrust::unary_function<difference_type, difference_type> {
++        : public std::unary_function<difference_type, difference_type> {
+         difference_type stride;
+ 
+         stride_functor(difference_type stride) : stride(stride) {}
+@@ -147,7 +148,7 @@ public:
+             difference_type;
+ 
+     struct tile_functor
+-        : public thrust::unary_function<difference_type, difference_type> {
++        : public std::unary_function<difference_type, difference_type> {
+         difference_type size;
+ 
+         tile_functor(difference_type size) : size(size) {}
+diff --git a/src/cupoch/visualization/shader/phong_shader.cu b/src/cupoch/visualization/shader/phong_shader.cu
+index a2182fd..12440df 100644
+--- a/src/cupoch/visualization/shader/phong_shader.cu
++++ b/src/cupoch/visualization/shader/phong_shader.cu
+@@ -507,9 +507,9 @@ bool PhongShaderForPointCloud::PrepareBinding(
+                                  option.point_color_option_, view);
+     if (pointcloud.HasColors()) {
+         thrust::transform(
+-                make_tuple_begin(pointcloud.points_, pointcloud.normals_,
++                make_tuple_cbegin(pointcloud.points_, pointcloud.normals_,
+                                  pointcloud.colors_),
+-                make_tuple_end(pointcloud.points_, pointcloud.normals_,
++                make_tuple_cend(pointcloud.points_, pointcloud.normals_,
+                                pointcloud.colors_),
+                 make_tuple_iterator(points, normals, colors), func);
+     } else {
+@@ -659,7 +659,7 @@ bool PhongShaderForVoxelGridFace::PrepareBinding(
+     thrust::repeated_range<decltype(begin)>
+             vrange(begin, thrust::make_transform_iterator(voxel_grid.voxels_values_.end(), gfunc), 8);
+     geometry::compute_voxel_vertices_functor<Eigen::Vector3i> func1(voxel_grid.origin_, voxel_grid.voxel_size_);
+-    thrust::transform(make_tuple_begin(irange, vrange), make_tuple_end(irange, vrange),
++    thrust::transform(make_tuple_cbegin(irange, vrange), make_tuple_cend(irange, vrange),
+                       vertices.begin(), func1);
+ 
+     size_t n_out = voxel_grid.voxels_values_.size() * 12 * 3;
+@@ -750,7 +750,7 @@ bool PhongShaderForOccupancyGrid::PrepareBinding(
+             vrange(begin, thrust::make_transform_iterator(voxels->end(), gfunc), 8);
+     geometry::compute_voxel_vertices_functor<Eigen::Vector3ui16> func1(origin, occupancy_grid.voxel_size_);
+     thrust::transform(
+-            make_tuple_begin(irange, vrange), make_tuple_end(irange, vrange),
++            make_tuple_cbegin(irange, vrange), make_tuple_cend(irange, vrange),
+             vertices.begin(), func1);
+ 
+     size_t n_out = voxels->size() * 12 * 3;
+diff --git a/src/cupoch/visualization/shader/simple_shader.cu b/src/cupoch/visualization/shader/simple_shader.cu
+index 3d6f97b..0a97355 100644
+--- a/src/cupoch/visualization/shader/simple_shader.cu
++++ b/src/cupoch/visualization/shader/simple_shader.cu
+@@ -474,8 +474,8 @@ bool SimpleShaderForPointCloud::PrepareBinding(
+                                     option.point_color_option_, view);
+     if (pointcloud.HasColors()) {
+         thrust::transform(
+-                make_tuple_begin(pointcloud.points_, pointcloud.colors_),
+-                make_tuple_end(pointcloud.points_, pointcloud.colors_),
++                make_tuple_cbegin(pointcloud.points_, pointcloud.colors_),
++                make_tuple_cend(pointcloud.points_, pointcloud.colors_),
+                 make_tuple_iterator(points, colors), func);
+     } else {
+         thrust::transform(
+@@ -586,8 +586,8 @@ bool SimpleShaderForGraphNode<Dim>::PrepareBinding(
+     copy_pointcloud_functor<Dim> func(graph.HasColors(), option.point_color_option_,
+                                       view);
+     if (graph.HasNodeColors()) {
+-        thrust::transform(make_tuple_begin(graph.points_, graph.node_colors_),
+-                          make_tuple_end(graph.points_, graph.node_colors_),
++        thrust::transform(make_tuple_cbegin(graph.points_, graph.node_colors_),
++                          make_tuple_cend(graph.points_, graph.node_colors_),
+                           make_tuple_iterator(points, colors), func);
+     } else {
+         thrust::transform(
+@@ -834,7 +834,7 @@ bool SimpleShaderForVoxelGridLine::PrepareBinding(
+     thrust::repeated_range<decltype(begin)>
+             vrange(begin, thrust::make_transform_iterator(voxel_grid.voxels_values_.end(), gfunc), 8);
+     geometry::compute_voxel_vertices_functor<Eigen::Vector3i> func1(voxel_grid.origin_, voxel_grid.voxel_size_);
+-    thrust::transform(make_tuple_begin(irange, vrange), make_tuple_end(irange, vrange),
++    thrust::transform(make_tuple_cbegin(irange, vrange), make_tuple_cend(irange, vrange),
+                       vertices.begin(), func1);
+ 
+     size_t n_out = voxel_grid.voxels_values_.size() * 12 * 2;
+-- 
+2.43.0

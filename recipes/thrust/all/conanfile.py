@@ -74,6 +74,7 @@ class ThrustConan(ConanFile):
         # https://github.com/NVIDIA/cccl/blob/main/lib/cmake/thrust/thrust-config.cmake
         self.cpp_info.set_property("cmake_target_name", "_thrust_do_not_use")
         self.cpp_info.set_property("cmake_build_modules", ["lib/cmake/thrust-config-official.cmake"])
+        self.cpp_info.set_property("system_package_version", self.version.split("-")[0])
 
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []

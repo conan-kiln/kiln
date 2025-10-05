@@ -1,7 +1,6 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanException
 from conan.tools.build import check_min_cppstd, stdcpp_library
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
@@ -55,8 +54,7 @@ class FlannConan(ConanFile):
             self.cuda.requires("cudart", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
-        if Version(self.version) >= "1.9.2":
-            check_min_cppstd(self, 11)
+        check_min_cppstd(self, 11)
         if self.options.with_cuda:
             self.cuda.validate_settings()
 
@@ -67,18 +65,12 @@ class FlannConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        replace_in_file(self, "CMakeLists.txt",
+                        "cmake_minimum_required(VERSION 2.6)",
+                        "cmake_minimum_required(VERSION 3.5)")
         # remove embedded lz4
         rmdir(self, "src/cpp/flann/ext")
         rmdir(self, "src/test")
-        if Version(self.version) < "1.9.2":
-            # Workaround issue with empty sources for a CMake target
-            save(self, "src/cpp/empty.cpp", "\n")
-            replace_in_file(self, "src/cpp/CMakeLists.txt",
-                            'add_library(flann_cpp SHARED "")',
-                            "add_library(flann_cpp SHARED empty.cpp)")
-            replace_in_file(self, "src/cpp/CMakeLists.txt",
-                            'add_library(flann SHARED "")',
-                            "add_library(flann SHARED empty.cpp)")
         if Version(self.version) > "1.9.2":
             # Don't set CUDA arch flags, let CudaToolchain handle it
             replace_in_file(self, "src/cpp/CMakeLists.txt", " ;-gencode=", '") #')
@@ -96,9 +88,6 @@ class FlannConan(ConanFile):
         tc.variables["USE_OPENMP"] = True
         # Generate a relocatable shared lib on Macos
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0042"] = "NEW"
-        tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
-        if Version(self.version) > "1.9.2":
-            raise ConanException("CMAKE_POLICY_VERSION_MINIMUM hardcoded to 3.5, check if new version supports CMake 4")
         tc.generate()
 
         cd = CMakeDeps(self)

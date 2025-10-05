@@ -1,0 +1,4 @@
+sources:
+  "2.0.2":
+    url: "https://github.com/PRBonn/MapClosures/archive/refs/tags/v2.0.2.tar.gz"
+    sha256: "0f55720e00db25910a76fbf21c0809d28f5a3fddda1323f6635bd97bcf1773cf"

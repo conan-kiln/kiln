@@ -65,7 +65,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-04:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-05:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -120,6 +120,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - blis/1.2
 - blis/2.0
 - bluez/5.83
+- bonxai/0.6.0+git.20250914
 - boost/1.71.0
 - boost/1.74.0
 - boostdep/1.88.0
@@ -215,6 +216,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cub/2.7.0
 - cub/2.8.5
 - cub/3.0.2
+- cub/3.1.0-rc9
 - cublas/11.10.3.66
 - cublas/11.11.3.6
 - cublas/11.6.5.2
@@ -253,6 +255,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-cccl/2.7.0
 - cuda-cccl/2.8.5
 - cuda-cccl/3.0.2
+- cuda-cccl/3.1.0-rc9
 - cuda-crt/11.4.152
 - cuda-crt/11.5.119
 - cuda-crt/11.6.124
@@ -347,6 +350,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudax/2.7.0
 - cudax/2.8.5
 - cudax/3.0.2
+- cudax/3.1.0-rc9
 - cudf/25.10.00+git.20250816
 - cudla/11.8.86
 - cudla/12.0.140
@@ -365,7 +369,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudnn/9.10.2.21
 - cudnn/9.11.1.4
 - cudnn/9.12.0.46
-- cudnn/9.13.0.50
+- cudnn/9.13.1.26
 - cudnn/9.2.1.18
 - cudnn/9.3.0.75
 - cudnn/9.4.0.58
@@ -378,6 +382,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudss/0.4.0.2
 - cudss/0.5.0.16
 - cudss/0.6.0.5
+- cudss/0.7.0.20
 - cufft/10.5.2.100
 - cufft/10.6.0.107
 - cufft/10.7.2.124
@@ -427,6 +432,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cupcl/1.0+jp6
 - cupcl/1.1+armv8
 - cupcl/1.1+x86_64
+- cupoch/0.2.11.0+git.20250709
 - cupqc/0.4.0
 - cupti/11.5.114
 - cupti/11.6.124
@@ -548,7 +554,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - filament/1.65.3
 - firebird/5.0.0
 - flite/2.2
-- fltk/1.4.3
 - fmi2/2.0.5
 - fontconfig/2.16.2
 - fortran/cci.latest
@@ -739,6 +744,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - julia/1.11.6
 - kdsingleapplication/1.1.0
 - kineto/0.4.0+git.20250826
+- kiss-icp/1.2.3
 - kleidiai/1.9.0
 - klib/cci.20250205
 - knitro/15.0.1
@@ -773,6 +779,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libcudacxx/2.7.0
 - libcudacxx/2.8.5
 - libcudacxx/3.0.2
+- libcudacxx/3.1.0-rc9
 - libcups/2.2.12
 - libcups/3.0-rc4
 - libde265/1.0.16
@@ -892,6 +899,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - lzip/1.25
 - m4/1.4.20
 - madnlp-mockup/89
+- map_closures/2.0.2
 - marchingcubecpp/git.20230911
 - marisa/0.3.1
 - mathdx/25.06.0
@@ -1156,8 +1164,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - opengl-registry/20250604
 - openiap/0.0.33
 - openimageio/3.0.8.0
-- openjph/0.21.5
-- openjph/0.23.1
 - openldap/2.6.10
 - openmp/system
 - openmpi/4.1.8
@@ -1170,6 +1176,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openrng/25.04
 - openspecfun/0.5.7
 - openssl/3.1.8
+- openssl/3.6.0
 - openucx/1.19.0
 - openusd/25.08
 - openvino/2025.2.0
@@ -1259,6 +1266,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - renderdoc/1.37
 - rerun-c/0.25.1
 - rerun-cpp/0.25.1
+- rko_lio/0.1.4
 - rmlui/5.1
 - rmm/25.06.00
 - rmm/25.08.00
@@ -1310,6 +1318,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - smol-v/0.0.0+git.20240926
 - smtpclient/1.1.10
 - snopt-mockup/89
+- sophus/1.24.6
 - soplex/3.1.1
 - spectra/1.1.0
 - spectra/1.2.0
@@ -1334,6 +1343,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - spirv-tools/1.4.321.0
 - splinter/3.0
 - spral/2025.09.18
+- srrg_hbst/0.0.0+git.20250530
 - stablehlo/1.10.0
 - stablehlo/1.6.3
 - stablehlo/1.8.11
@@ -1411,6 +1421,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - thrust/2.7.0
 - thrust/2.8.5
 - thrust/3.0.2
+- thrust/3.1.0-rc9
 - tiny-cuda-nn/2.0
 - tinyexr/1.0.12
 - tinyfiledialogs/3.20.1
