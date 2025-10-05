@@ -1,0 +1,37 @@
+From c5bc33666514073ee34deff34693aa17fbd0e167 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Sat, 4 Oct 2025 20:57:40 +0300
+Subject: [PATCH 1/9] upgrade to dlpack v0.8
+
+---
+ src/cupoch/utility/dl_converter.cu | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/cupoch/utility/dl_converter.cu b/src/cupoch/utility/dl_converter.cu
+index e95c0cf..639a57b 100644
+--- a/src/cupoch/utility/dl_converter.cu
++++ b/src/cupoch/utility/dl_converter.cu
+@@ -68,9 +68,9 @@ DLManagedTensor *ToDLPack(
+     dvdl->tensor.dl_tensor.data = const_cast<void *>(
+             (const void *)(thrust::raw_pointer_cast(src.data())));
+     int64_t device_id = GetDevice();
+-    DLContext device;
++    DLDevice device;
+     device.device_id = device_id;
+-    device.device_type = DLDeviceType::kDLGPU;
++    device.device_type = DLDeviceType::kDLCUDA;
+     dvdl->tensor.dl_tensor.device = device;
+     dvdl->tensor.dl_tensor.ndim = 2;
+     DLDataType dtype;
+@@ -110,7 +110,7 @@ void FromDLPack(const DLManagedTensor *src,
+                 thrust::raw_pointer_cast(base_ptr),
+                 src->dl_tensor.shape[0] * sizeof(Eigen::Matrix<T, Dim, 1>),
+                 cudaMemcpyHostToDevice));
+-    } else if (src->dl_tensor.device.device_type == DLDeviceType::kDLGPU) {
++    } else if (src->dl_tensor.device.device_type == DLDeviceType::kDLCUDA) {
+         thrust::copy(base_ptr, base_ptr + src->dl_tensor.shape[0], dst.begin());
+     } else {
+         utility::LogError("[FromDLPack] Unsupported device type.");
+-- 
+2.43.0
+

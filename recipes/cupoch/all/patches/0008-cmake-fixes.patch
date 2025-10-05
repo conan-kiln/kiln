@@ -1,0 +1,98 @@
+From 1501b7d38c4269ce8c813ad4c2140e9071d1b9e4 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Sat, 4 Oct 2025 21:01:30 +0300
+Subject: [PATCH 8/9] cmake fixes
+
+---
+ CMakeLists.txt | 37 +------------------------------------
+ 1 file changed, 1 insertion(+), 36 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 791114b..8d438be 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -50,13 +50,6 @@ set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
+     "Installation directory for CMake files")
+ 
+ option(BUILD_UNIT_TESTS          "Build the Cupoch unit tests"              ON)
+-option(BUILD_EIGEN3              "Use the Eigen3 that comes with Cupoch"    ON)
+-option(BUILD_GLEW                "Build glew from source"                   OFF)
+-option(BUILD_GLFW                "Build glfw from source"                   OFF)
+-option(BUILD_JSONCPP             "Build json from source"                   OFF)
+-option(BUILD_PNG                 "Build png from source"                    OFF)
+-option(BUILD_JPEG                "Build jpeg-turbo from source"             ON)
+-option(BUILD_PYBIND11            "Build pybind11 from source"               ON)
+ option(BUILD_PYTHON_MODULE       "Build the python module"                  ON)
+ option(USE_RMM                   "Use rmm library(fast memory allocator)"   ON)
+ option(STATIC_WINDOWS_RUNTIME    "Use static (MT/MTd) Windows runtime"      OFF)
+@@ -95,7 +88,7 @@ if (WIN32)
+         message(STATUS "Compiling with MSVC")
+         add_definitions(-DNOMINMAX)
+         add_definitions(-D_USE_MATH_DEFINES)
+-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /Zc:__cplusplus /bigobj /std:c++17")
++        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /Zc:__cplusplus /bigobj")
+         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D _ENABLE_EXTENDED_ALIGNED_STORAGE")
+         set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MP")
+         set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /MP")
+@@ -125,36 +118,23 @@ if (WIN32)
+ elseif (CYGWIN)
+     SET(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+     message(STATUS "Compiling on Cygwin")
+-    # enable c++17
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+     add_definitions(-DCYGWIN)
+ elseif (APPLE)
+     add_definitions(-DUNIX)
+-    # enable c++17
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+     add_compile_options(-Wno-deprecated-declarations)
+     if (NOT BUILD_SHARED_LIBS)
+         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+     endif (NOT BUILD_SHARED_LIBS)
+     # In Release build -O3 will be added automatically by CMake
+     # We still enable -O3 at Debug build to optimize performance
+-    if (uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+-        add_definitions(-O3)
+-    endif()
+ elseif (UNIX)
+     add_definitions(-DUNIX)
+-    # enable c++17
+-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC")
+     if (NOT BUILD_SHARED_LIBS)
+         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden")
+     endif (NOT BUILD_SHARED_LIBS)
+     add_compile_options(-Wno-deprecated-declarations)
+     # In Release build -O3 will be added automatically by CMake
+     # We still enable -O3 at debug build to optimize performance
+-    if (uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+-        add_definitions(-O3)
+-    endif()
+     # disable BUILD_LIBREALSENSE since it is not fully supported on Linux
+     message(STATUS "Compiling on Unix")
+ endif ()
+@@ -176,20 +156,5 @@ if (USE_RMM)
+     add_definitions(-DUSE_RMM)
+ endif ()
+ 
+-# 3rd-party projects that are added with external_project_add will be installed
+-# with this prefix. E.g.
+-# - 3RDPARTY_INSTALL_PREFIX: cupoch/build/3rdparty_install
+-# - Headers: cupoch/build/3rdparty_install/include/extern_lib.h
+-# - Libraries: cupoch/build/3rdparty_install/lib/extern_lib.a
+-set(3RDPARTY_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/3rdparty_install")
+-
+-add_subdirectory(third_party)
+-
+-include_directories(
+-    SYSTEM
+-    ${3RDPARTY_INCLUDE_DIRS}
+-)
+-
+ include_directories(src)
+ add_subdirectory(src)
+-add_subdirectory(examples)
+\ No newline at end of file
+-- 
+2.43.0
+

@@ -1,0 +1,47 @@
+From 3bb5b57b2f26f6973c8b70ab261ce0dcde3f44b3 Mon Sep 17 00:00:00 2001
+From: Martin Valgur <martin.valgur@gmail.com>
+Date: Sat, 4 Oct 2025 20:57:46 +0300
+Subject: [PATCH 2/9] unvendor imgui
+
+---
+ src/cupoch/visualization/visualizer/visualizer.cpp          | 6 +++---
+ src/cupoch/visualization/visualizer/visualizer_renderer.cpp | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/cupoch/visualization/visualizer/visualizer.cpp b/src/cupoch/visualization/visualizer/visualizer.cpp
+index 11c6bd8..d2e0074 100644
+--- a/src/cupoch/visualization/visualizer/visualizer.cpp
++++ b/src/cupoch/visualization/visualizer/visualizer.cpp
+@@ -20,9 +20,9 @@
+ **/
+ #include "cupoch/visualization/visualizer/visualizer.h"
+ 
+-#include <imgui/imgui.h>
+-#include <imgui/backends/imgui_impl_glfw.h>
+-#include <imgui/backends/imgui_impl_opengl3.h>
++#include <imgui.h>
++#include <imgui_impl_glfw.h>
++#include <imgui_impl_opengl3.h>
+ 
+ #include "cupoch/geometry/lineset.h"
+ #include "cupoch/geometry/trianglemesh.h"
+diff --git a/src/cupoch/visualization/visualizer/visualizer_renderer.cpp b/src/cupoch/visualization/visualizer/visualizer_renderer.cpp
+index 943cb1f..85c1ebf 100644
+--- a/src/cupoch/visualization/visualizer/visualizer_renderer.cpp
++++ b/src/cupoch/visualization/visualizer/visualizer_renderer.cpp
+@@ -18,9 +18,9 @@
+  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  * IN THE SOFTWARE.
+ **/
+-#include <imgui/imgui.h>
+-#include <imgui/backends/imgui_impl_glfw.h>
+-#include <imgui/backends/imgui_impl_opengl3.h>
++#include <imgui.h>
++#include <imgui_impl_glfw.h>
++#include <imgui_impl_opengl3.h>
+ 
+ #include "cupoch/geometry/trianglemesh.h"
+ #include "cupoch/io/class_io/ijson_convertible_io.h"
+-- 
+2.43.0
+

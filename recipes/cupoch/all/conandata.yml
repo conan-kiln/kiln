@@ -1,0 +1,16 @@
+sources:
+  "0.2.11.0+git.20250709":
+    url: "https://github.com/neka-nat/cupoch/archive/3726d6ec245eed4447a95d8560a57c558c0da776.tar.gz"
+    sha256: "63dd5f38d8328f0b546cbbba174482618ab40e9a69279dc242e8db2c4f32886b"
+patches:
+  "0.2.11.0+git.20250709":
+    - patch_file: "patches/0001-upgrade-to-dlpack-v0.8.patch"
+    - patch_file: "patches/0002-unvendor-imgui.patch"
+    - patch_file: "patches/0003-libjpeg-compatibility.patch"
+    - patch_file: "patches/0004-update-libsgm.patch"
+    - patch_file: "patches/0005-remove-redundant-flann-defines.patch"
+    - patch_file: "patches/0006-add-missing-installation-targets.patch"
+    - patch_file: "patches/0007-modernize-cmake-cuda-integration.patch"
+    - patch_file: "patches/0008-cmake-fixes.patch"
+    - patch_file: "patches/0009-avoid-overlinking.patch"
+    - patch_file: "patches/0010-add-enumerate_cbegin-cend-to-disambiguate.patch"
