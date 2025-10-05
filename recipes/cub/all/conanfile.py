@@ -75,6 +75,7 @@ class CubConan(ConanFile):
         # The CMake module ensures that the include dir is exported as a non-SYSTEM include in CMake
         # https://github.com/NVIDIA/cccl/blob/v2.2.0/cub/lib/cmake/cub/cub-config.cmake#L11-L29
         self.cpp_info.set_property("cmake_build_modules", ["lib/cmake/cub-config-official.cmake"])
+        self.cpp_info.set_property("system_package_version", self.version.split("-")[0])
 
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []

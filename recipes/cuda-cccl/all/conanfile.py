@@ -50,6 +50,7 @@ class CudaCcclConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "CCCL")
         self.cpp_info.set_property("cmake_target_name", "CCCL::CCCL")
         self.cpp_info.set_property("cmake_additional_variables_prefixes", ["CCCL"])
+        self.cpp_info.set_property("system_package_version", self.version.split("-")[0])
 
         self.cpp_info.components["libcudacxx"].set_property("cmake_target_name", "CCCL::libcudacxx")
         self.cpp_info.components["libcudacxx"].requires = ["libcudacxx::libcudacxx"]

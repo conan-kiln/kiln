@@ -1,4 +1,7 @@
 sources:
+  "3.1.0-rc9":
+    url: "https://github.com/NVIDIA/cccl/archive/refs/tags/v3.1.0-rc9.tar.gz"
+    sha256: "ae4c161145aa8eae704d929930bb2d9e8d7ae09d60b938f8e03949c72ab186ba"
   "3.0.2":
     url: "https://github.com/NVIDIA/cccl/archive/refs/tags/v3.0.2.tar.gz"
     sha256: "3ded63682f94071685cd6492cee70ad2a1feae02abfb3fbcce50e2d2f22edf4e"
@@ -33,6 +36,8 @@ sources:
     url: "https://github.com/NVIDIA/libcudacxx/archive/refs/tags/1.8.1.tar.gz"
     sha256: "15444734798a5337c6cfac0c0d7c1eb33c70db1d79efde38ae0f17c1cc184dd5"
 patches:
+  "3.1.0-rc9":
+    - patch_file: "patches/2.8.0-001-adjust-libcudacxx-config.cmake.patch"
   "3.0.2":
     - patch_file: "patches/2.8.0-001-adjust-libcudacxx-config.cmake.patch"
   "2.8.5":

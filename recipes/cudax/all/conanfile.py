@@ -40,6 +40,7 @@ class CudaxConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "cudax")
         self.cpp_info.set_property("cmake_additional_variables_prefixes", ["CUDAX"])
         self.cpp_info.set_property("cmake_target_name", "cudax::cudax")
+        self.cpp_info.set_property("system_package_version", self.version.split("-")[0])
 
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
