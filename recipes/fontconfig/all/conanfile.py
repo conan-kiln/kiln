@@ -22,12 +22,14 @@ class FontconfigConan(ConanFile):
         "fPIC": [True, False],
         "i18n": [True, False],
         "xml_backend": ["expat", "libxml2"],
+        "use_system_fonts": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "i18n": False,
         "xml_backend": "libxml2",
+        "use_system_fonts": True,
     }
     implements = ["auto_shared_fpic"]
     languages = ["C"]
@@ -36,6 +38,9 @@ class FontconfigConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
+
+    def package_id(self):
+        del self.info.options.use_system_fonts
 
     def requirements(self):
         self.requires("freetype/[^2.13.2]")
@@ -93,5 +98,6 @@ class FontconfigConan(ConanFile):
         if self.settings.os in ("Linux", "FreeBSD"):
             self.cpp_info.system_libs.extend(["m", "pthread"])
 
-        fontconfig_path = os.path.join(self.package_folder, "etc", "fonts")
-        self.runenv_info.append_path("FONTCONFIG_PATH", fontconfig_path)
+        if not self.options.use_system_fonts:
+            fontconfig_path = os.path.join(self.package_folder, "etc", "fonts")
+            self.runenv_info.append_path("FONTCONFIG_PATH", fontconfig_path)
