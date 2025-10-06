@@ -50,8 +50,6 @@ class SpdlogConan(ConanFile):
             del self.options.wchar_support
             del self.options.wchar_filenames
             del self.options.wchar_console
-        if Version(self.version) < "1.10.0":
-            del self.options.use_std_fmt
         if Version(self.version) < "1.15.0":
             self.options.rm_safe("wchar_console")
 
@@ -60,12 +58,14 @@ class SpdlogConan(ConanFile):
             self.options.rm_safe("fPIC")
         if self.options.header_only:
             self.options.rm_safe("shared")
+        if Version(self.version) < "1.10.0":
+            self.options.use_std_fmt.value = False
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if not self.options.get_safe("use_std_fmt"):
+        if not self.options.use_std_fmt:
             fmt_version = self.conan_data["fmt_version_mapping"][self.version]
             self.requires(f"fmt/{fmt_version}", transitive_headers=True, transitive_libs=True)
 
@@ -74,7 +74,7 @@ class SpdlogConan(ConanFile):
             self.info.clear()
 
     def validate(self):
-        check_min_cppstd(self, 20 if self.options.get_safe("use_std_fmt") else 11)
+        check_min_cppstd(self, 20 if self.options.use_std_fmt else 11)
         if self.options.get_safe("shared") and is_msvc_static_runtime(self):
             raise ConanInvalidConfiguration("Visual Studio build for shared library with MT runtime is not supported")
 
@@ -91,7 +91,7 @@ class SpdlogConan(ConanFile):
             tc.variables["SPDLOG_BUILD_TESTS"] = False
             tc.variables["SPDLOG_BUILD_TESTS_HO"] = False
             tc.variables["SPDLOG_BUILD_BENCH"] = False
-            if not self.options.get_safe("use_std_fmt"):
+            if not self.options.use_std_fmt:
                 fmt = self.dependencies["fmt"]
                 tc.variables["SPDLOG_FMT_EXTERNAL"] = True
                 tc.variables["SPDLOG_FMT_EXTERNAL_HO"] = fmt.options.header_only
@@ -102,7 +102,7 @@ class SpdlogConan(ConanFile):
                 tc.variables["SDPLOG_WCHAR_CONSOLE"] = self.options.get_safe("wchar_console", False)
             tc.variables["SPDLOG_INSTALL"] = True
             tc.variables["SPDLOG_NO_EXCEPTIONS"] = self.options.no_exceptions
-            tc.variables["SPDLOG_USE_STD_FORMAT"] = self.options.get_safe("use_std_fmt")
+            tc.variables["SPDLOG_USE_STD_FORMAT"] = self.options.use_std_fmt
             if self.settings.os in ("iOS", "tvOS", "watchOS"):
                 tc.variables["SPDLOG_NO_TLS"] = True
             tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0091"] = "NEW"
@@ -113,7 +113,7 @@ class SpdlogConan(ConanFile):
 
     def _patch_sources(self):
         # This is properly set in later versions
-        if self.options.get_safe("use_std_fmt") and Version(self.version) < "1.12":
+        if self.options.use_std_fmt and Version(self.version) < "1.12":
             replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
                             "CMAKE_CXX_STANDARD 11", "CMAKE_CXX_STANDARD 20")
 
@@ -131,7 +131,7 @@ class SpdlogConan(ConanFile):
                  src=os.path.join(self.source_folder, "include"),
                  pattern="*.h", dst=os.path.join(self.package_folder, "include"),
                  # Unvendor bundled dependencies https://github.com/gabime/spdlog/commit/18495bf25dad3a4e8c2fe3777a5f79acecde27e3
-                 excludes=("spdlog/fmt/bundled/*"))
+                 excludes="spdlog/fmt/bundled/*")
         else:
             cmake = CMake(self)
             cmake.install()
@@ -145,11 +145,11 @@ class SpdlogConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", f"spdlog::{target}")
         self.cpp_info.set_property("pkg_config_name", "spdlog")
 
-        if self.options.get_safe("use_std_fmt"):
+        if self.options.use_std_fmt:
             self.cpp_info.defines.append("SPDLOG_USE_STD_FORMAT")
         else:
-            self.cpp_info.requires = ["fmt::fmt"]
             self.cpp_info.defines.append("SPDLOG_FMT_EXTERNAL")
+            self.cpp_info.requires = ["fmt::fmt"]
 
         if self.options.header_only:
             self.cpp_info.libdirs = []
