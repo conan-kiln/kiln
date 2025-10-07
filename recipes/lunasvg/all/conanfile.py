@@ -1,13 +1,13 @@
 import os
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import *
 from conan.tools.scm import Version
 
 required_conan_version = ">=2.1"
+
 
 class LunaSVGConan(ConanFile):
     name = "lunasvg"
@@ -27,33 +27,6 @@ class LunaSVGConan(ConanFile):
     }
     implements = ["auto_shared_fpic"]
 
-    @property
-    def _min_cppstd(self):
-        if Version(self.version) <= "2.3.2":
-            return "14"
-        if Version(self.version) <= "2.3.8":
-            return "17"
-        if Version(self.version) >= "3.0.0":
-            return "17"
-        return "11"
-
-    @property
-    def _compilers_minimum_version(self):
-        return {
-            "14": {
-                "gcc": "5",
-                "clang": "3.5",
-                "apple-clang": "10",
-                "msvc": "191",
-            },
-            "17": {
-                "gcc": "7.1",
-                "clang": "7",
-                "apple-clang": "12.0",
-                "msvc": "192",
-            },
-        }.get(self._min_cppstd, {})
-
     def export_sources(self):
         export_conandata_patches(self)
 
@@ -61,32 +34,24 @@ class LunaSVGConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        if Version(self.version) < "2.3.5":
-            self.requires("plutovg/cci.20220103")
-        elif Version(self.version) < "3.0.0":
-            self.requires("plutovg/cci.20221030")
+        if Version(self.version) >= "3.0":
+            self.requires("plutovg/[^1.3.0]")
         else:
-            self.requires("plutovg/0.0.7")
+            self.requires("plutovg/0.0.0+git.20230103")
 
     def validate(self):
-        check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(str(self.info.settings.compiler), False)
-        if minimum_version and Version(self.info.settings.compiler.version) < minimum_version:
-            raise ConanInvalidConfiguration(
-                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
-            )
+        check_min_cppstd(self, 17 if Version(self.version) >= "3.0" else 11)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
         apply_conandata_patches(self)
+        rmdir(self, "plutovg")
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["BUILD_SHARED_LIBS"] = self.options.shared
-        if Version(self.version) < "2.4.1":
-            tc.variables["CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS"] = True
-            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
-        tc.variables["LUNASVG_BUILD_EXAMPLES"] = False
+        tc.cache_variables["BUILD_SHARED_LIBS"] = self.options.shared
+        tc.cache_variables["USE_SYSTEM_PLUTOVG"] = True
+        tc.cache_variables["LUNASVG_BUILD_EXAMPLES"] = False
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
@@ -97,15 +62,17 @@ class LunaSVGConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, pattern="LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-
         rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "lunasvg")
+        self.cpp_info.set_property("cmake_target_name", "lunasvg::lunasvg")
         self.cpp_info.libs = ["lunasvg"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m"]
-        if Version(self.version) >= "2.4.1" and not self.options.shared:
+        if not self.options.shared:
             self.cpp_info.defines = ["LUNASVG_BUILD_STATIC"]
