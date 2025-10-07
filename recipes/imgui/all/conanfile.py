@@ -190,7 +190,10 @@ class ImguiConan(ConanFile):
         if self.options.enable_freetype:
             self.requires("freetype/[^2.13.2]")
             if self.options.get_safe("enable_freetype_lunasvg"):
-                self.requires("lunasvg/2.4.1")
+                if Version(self.version) >= "1.92":
+                    self.requires("lunasvg/[^3]")
+                else:
+                    self.requires("lunasvg/[^2]")
         if self.options.get_safe("enable_metal_cpp"):
             self.requires("metal-cpp/14.2", transitive_headers=bool(self.options.get_safe("backend_metal")))
         if self.options.get_safe("enable_test_engine"):
@@ -240,12 +243,15 @@ class ImguiConan(ConanFile):
         deps.generate()
 
     def _source(self):
-        kind = "docking" if self.options.docking else "regular"
-        get(self, **self.conan_data["sources"][self._base_version][kind], destination=self.source_folder, strip_root=True)
-        if self.options.get_safe("enable_test_engine"):
-            test_engine = self.conan_data["sources"][self._base_version]["test-engine"]
-            get(self, **test_engine, destination=os.path.join(self.source_folder, "test-engine"), strip_root=True)
-            rmdir(self, os.path.join(self.source_folder, "test-engine", "imgui_test_engine", "thirdparty", "stb"))
+        with chdir(self, self.source_folder):
+            kind = "docking" if self.options.docking else "regular"
+            get(self, **self.conan_data["sources"][self._base_version][kind], strip_root=True)
+            if self.options.get_safe("enable_test_engine"):
+                test_engine = self.conan_data["sources"][self._base_version]["test-engine"]
+                get(self, **test_engine, destination="test-engine", strip_root=True)
+                rmdir(self, "test-engine/imgui_test_engine/thirdparty/stb")
+            if Version(self.version) >= "1.92":
+                replace_in_file(self, "misc/freetype/imgui_freetype.cpp", "lunasvg.h", "lunasvg/lunasvg.h")
 
     def _configure_header(self):
         defines = {}
