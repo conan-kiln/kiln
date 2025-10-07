@@ -2,26 +2,10 @@ sources:
   "3.0.4":
     url: "https://github.com/HowardHinnant/date/archive/refs/tags/v3.0.4.tar.gz"
     sha256: "56e05531ee8994124eeb498d0e6a5e1c3b9d4fccbecdf555fe266631368fb55f"
-  "3.0.3":
-    url: "https://github.com/HowardHinnant/date/archive/refs/tags/v3.0.3.tar.gz"
-    sha256: "30de45a34a2605cca33a993a9ea54e8f140f23b1caf1acf3c2fd436c42c7d942"
-  "3.0.2":
-    url: "https://github.com/HowardHinnant/date/archive/refs/tags/v3.0.2.tar.gz"
-    sha256: "0449667ea85c5b411c28d08a53f1e420c73416caa5b693c249dac9763eb97b7c"
   "2.4.1":
     url: "https://github.com/HowardHinnant/date/archive/refs/tags/v2.4.1.tar.gz"
     sha256: "98907d243397483bd7ad889bf6c66746db0d7d2a39cc9aacc041834c40b65b98"
 patches:
-  "3.0.3":
-    - patch_file: "patches/load-tzdb-from-envvar-3.0.2.patch"
-      patch_description: "Allow TZDB to be loaded from the TZDATA environment variable"
-      patch_type: "portability"
-      patch_source: "https://github.com/HowardHinnant/date/pull/807"
-  "3.0.2":
-    - patch_file: "patches/load-tzdb-from-envvar-3.0.2.patch"
-      patch_description: "Allow TZDB to be loaded from the TZDATA environment variable"
-      patch_type: "portability"
-      patch_source: "https://github.com/HowardHinnant/date/pull/807"
   "2.4.1":
     - patch_file: "patches/0001-fix-uwp.patch"
       patch_description: "Fix Universal Windows Platform (UWP) unhandled exception support. See https://github.com/microsoft/vcpkg/pull/8151#issuecomment-531175393."

@@ -976,14 +976,22 @@ class QtConan(ConanFile):
         copy(self, "cmake/*", self.export_sources_folder, package_path.joinpath("lib", "cmake", "Qt6Core"), keep_path=False)
 
         # Generate lib/cmake/Qt6Core/conan_qt_executables_variables.cmake
-        filecontents = 'get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)\n'
-        filecontents += "set(QT_CMAKE_EXPORT_NAMESPACE Qt6)\n"
         ver = Version(self.version)
+        filecontents = textwrap.dedent("""\
+            get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
+            set(QT_CMAKE_EXPORT_NAMESPACE Qt6)
+            # Prefer executables from a tool_requires on Qt for cross-compilation support, if available.
+            if(DEFINED ENV{QT_TOOLS_PREFIX_DIR})
+                set(QT_TOOLS_PREFIX_DIR "$ENV{QT_TOOLS_PREFIX_DIR}")
+            else()
+                set(QT_TOOLS_PREFIX_DIR "${PACKAGE_PREFIX_DIR}")
+            endif()
+        """)
         filecontents += f"set(QT_VERSION_MAJOR {ver.major})\n"
         filecontents += f"set(QT_VERSION_MINOR {ver.minor})\n"
         filecontents += f"set(QT_VERSION_PATCH {ver.patch})\n"
         if self.settings.os == "Macos":
-            filecontents += 'set(__qt_internal_cmake_apple_support_files_path "${PACKAGE_PREFIX_DIR}/lib/cmake/Qt6/macos")\n'
+            filecontents += 'set(__qt_internal_cmake_apple_support_files_path "${QT_TOOLS_PREFIX_DIR}/lib/cmake/Qt6/macos")\n'
         extension = ".exe" if self.settings.os == "Windows" else ""
         for target in self._built_tools:
             for subdir in ["bin", "lib", "libexec"]:
@@ -995,7 +1003,7 @@ class QtConan(ConanFile):
             filecontents += textwrap.dedent(f"""\
                 if(NOT TARGET ${{QT_CMAKE_EXPORT_NAMESPACE}}::{target})
                     add_executable(${{QT_CMAKE_EXPORT_NAMESPACE}}::{target} IMPORTED)
-                    set_target_properties(${{QT_CMAKE_EXPORT_NAMESPACE}}::{target} PROPERTIES IMPORTED_LOCATION ${{PACKAGE_PREFIX_DIR}}/{exe_path})
+                    set_target_properties(${{QT_CMAKE_EXPORT_NAMESPACE}}::{target} PROPERTIES IMPORTED_LOCATION ${{QT_TOOLS_PREFIX_DIR}}/{exe_path})
                 endif()
             """)
         filecontents += textwrap.dedent(f"""\
@@ -1051,6 +1059,11 @@ class QtConan(ConanFile):
         if not cross_building(self):
             self.buildenv_info.define_path("QT_HOST_PATH", self.package_folder)
             self.buildenv_info.define_path("QT_HOST_PATH_CMAKE_DIR", os.path.join(self.package_folder, "lib", "cmake"))
+
+        # For separate tool_requires on Qt support with Conan.
+        # Used in conan_qt_executables_variables.cmake
+        if self.context == "build":
+            self.buildenv_info.define_path("QT_TOOLS_PREFIX_DIR", self.package_folder.replace("\\", "/"))
 
         build_modules = {}
         def _add_build_module(component, module):

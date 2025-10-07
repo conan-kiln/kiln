@@ -198,8 +198,8 @@ class OpenCVConan(ConanFile):
         # highgui module options
         "with_framebuffer": False,
         "with_gtk": False,
-        "with_qt": False,
-        "with_wayland": True,
+        "with_qt": True,
+        "with_wayland": False,
         # imgcodecs module options
         "with_avif": False,
         "with_jpeg": True,

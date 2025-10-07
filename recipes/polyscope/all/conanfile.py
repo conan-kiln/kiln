@@ -15,7 +15,6 @@ class PolyscopeConan(ConanFile):
     license = "MIT"
     homepage = "https://polyscope.run"
     topics = ("3d", "visualization", "meshes", "point-clouds")
-
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -38,15 +37,15 @@ class PolyscopeConan(ConanFile):
         copy(self, "conan_deps.cmake", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
 
     def config_options(self):
+        if self.settings.os == "Windows":
+            # The project does not export the necessary symbols for a shared build
+            self.package_type = "static-library"
+            del self.options.shared
+            del self.options.fPIC
         if self.settings.os != "Linux":
             del self.options.backend_egl
 
     def configure(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-            # The project does not export the necessary symbols for a shared build
-            self.package_type = "static-library"
-            del self.options.shared
         if self.options.get_safe("shared"):
             self.options.rm_safe("fPIC")
 
@@ -61,7 +60,9 @@ class PolyscopeConan(ConanFile):
         if self.options.backend_glfw or self.options.get_safe("backend_egl"):
             self.requires("glad/0.1.36")
         self.requires("glm/1.0.1", transitive_headers=True, transitive_libs=True)
-        self.requires("imgui/[^1]", transitive_headers=True, transitive_libs=True)
+        # 1.92 removes ImGui_ImplOpenGL3_DestroyFontsTexture()
+        self.requires("imgui/[^1 <1.92]", transitive_headers=True, transitive_libs=True)
+        self.requires("implot/[<1]", transitive_headers=True, transitive_libs=True)
         self.requires("nlohmann_json/[^3]")
         # Using a newer unvendored stb causes "undefined symbol" errors on Windows
         # self.requires("stb/[*]")

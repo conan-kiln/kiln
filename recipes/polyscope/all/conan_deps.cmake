@@ -10,4 +10,7 @@ endif()
 
 find_package(glm REQUIRED CONFIG)
 find_package(imgui REQUIRED CONFIG)
+find_package(implot REQUIRED CONFIG)
 find_package(nlohmann_json REQUIRED CONFIG)
+
+link_libraries(implot::implot)

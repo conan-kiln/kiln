@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 
 from conan import ConanFile
-from conan.errors import ConanException
+from conan.errors import ConanException, ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
@@ -45,7 +45,9 @@ class ImguiConan(ConanFile):
         "backend_osx": [True, False],
         "backend_sdl2": [True, False],
         "backend_sdlrenderer2": [True, False],
-        # "backend_sdlrenderer3": [True, False],
+        "backend_sdl3": [True, False],
+        "backend_sdlgpu3": [True, False],
+        "backend_sdlrenderer3": [True, False],
         "backend_vulkan": [True, False],
         "backend_win32": [True, False],
         # "backend_wgpu": [True, False],
@@ -81,6 +83,9 @@ class ImguiConan(ConanFile):
         "backend_osx": True,
         "backend_sdl2": False,
         "backend_sdlrenderer2": False,
+        "backend_sdl3": False,
+        "backend_sdlgpu3": False,
+        "backend_sdlrenderer3": False,
         "backend_vulkan": False,
         "backend_win32": True,
         # Other options
@@ -96,8 +101,12 @@ class ImguiConan(ConanFile):
     }
 
     @property
-    def _base_version(self):
-        return self.version.replace("-docking", "")
+    def _using_sdl2(self):
+        return any(self.options.get_safe(f"backend_{x}") for x in ["sdl2", "sdlrenderer2"])
+
+    @property
+    def _using_sdl3(self):
+        return any(self.options.get_safe(f"backend_{x}") for x in ["sdl3", "sdlrenderer3", "sdlgpu3"])
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, os.path.join(self.export_sources_folder, "src"))
@@ -121,11 +130,16 @@ class ImguiConan(ConanFile):
             del self.options.backend_osx
             del self.options.enable_metal_cpp
             del self.options.enable_osx_clipboard
+        if Version(self.version) < "1.91.7":
+            del self.options.backend_sdlgpu3
         if Version(self.version) < "1.90":
             del self.options.enable_freetype_lunasvg
         if Version(self.version) < "1.89.6":
-            del self.options.backend_sdl2
             del self.options.backend_sdlrenderer2
+            del self.options.backend_sdlrenderer3
+        if Version(self.version) < "1.89.3":
+            del self.options.backend_sdl2
+            del self.options.backend_sdl3
         if Version(self.version) < "1.87":
             self.options.rm_safe("enable_metal_cpp")
 
@@ -158,7 +172,7 @@ class ImguiConan(ConanFile):
         if not self.options.get_safe("backend_osx") and not self.options.get_safe("backend_metal"):
             self.options.rm_safe("enable_metal_cpp")
 
-        if "test-engine" not in self.conan_data["sources"][self._base_version]:
+        if "test-engine" not in self.conan_data["sources"][self.version]:
             self.output.warning("No test engine found for this version, removing enable_test_engine option")
             del self.options.enable_test_engine
 
@@ -176,10 +190,10 @@ class ImguiConan(ConanFile):
             self.requires("opengl/system")
         if self.options.get_safe("backend_glut") and self.settings.os != "Emscripten":
             self.requires("freeglut/[^3.4.0]")
-        if self.options.get_safe("backend_sdl2") or self.options.get_safe("backend_sdlrenderer2"):
-            self.requires("sdl/[^2.30.7]")
-        # elif self.options.get_safe("backend_sdlrenderer3"):
-        #     self.requires("sdl/[^3.x]")
+        if self._using_sdl3:
+            self.requires("sdl/[^3.1.8]", transitive_headers=self.options.get_safe("backend_sdlgpu3", False))
+        elif self._using_sdl2:
+            self.requires("sdl/[^2.0.17")
         if self.options.get_safe("backend_vulkan"):
             self.requires("vulkan-headers/[^1.3.239.0]", transitive_headers=True)
             self.requires("vulkan-loader/[^1.3.239.0]")
@@ -190,7 +204,10 @@ class ImguiConan(ConanFile):
         if self.options.enable_freetype:
             self.requires("freetype/[^2.13.2]")
             if self.options.get_safe("enable_freetype_lunasvg"):
-                self.requires("lunasvg/2.4.1")
+                if Version(self.version) >= "1.92":
+                    self.requires("lunasvg/[^3]")
+                else:
+                    self.requires("lunasvg/[^2]")
         if self.options.get_safe("enable_metal_cpp"):
             self.requires("metal-cpp/14.2", transitive_headers=bool(self.options.get_safe("backend_metal")))
         if self.options.get_safe("enable_test_engine"):
@@ -200,8 +217,8 @@ class ImguiConan(ConanFile):
         check_min_cppstd(self, 11)
         if Version(self.version) < "1.89" and self.options.docking:
             raise ConanException("Docking support requires version 1.89 or newer.")
-        if self.version.endswith("-docking"):
-            self.output.warning("The -docking versions of imgui are deprecated. Use -o imgui/*:docking=True instead.")
+        if self._using_sdl2 and self._using_sdl3:
+            raise ConanInvalidConfiguration("SDL2 and SDL3 backends cannot be enabled simultaneously")
 
     def source(self):
         # Handled in build() instead to support self.options.docking.
@@ -224,6 +241,8 @@ class ImguiConan(ConanFile):
         tc.cache_variables["IMGUI_IMPL_OSX"] = self.options.get_safe("backend_osx", False)
         tc.cache_variables["IMGUI_IMPL_SDL2"] = self.options.get_safe("backend_sdl2", False)
         tc.cache_variables["IMGUI_IMPL_SDLRENDERER2"] = self.options.get_safe("backend_sdlrenderer2", False)
+        tc.cache_variables["IMGUI_IMPL_SDL3"] = self.options.get_safe("backend_sdl3", False)
+        tc.cache_variables["IMGUI_IMPL_SDLGPU3"] = self.options.get_safe("backend_sdlgpu3", False)
         tc.cache_variables["IMGUI_IMPL_SDLRENDERER3"] = self.options.get_safe("backend_sdlrenderer3", False)
         tc.cache_variables["IMGUI_IMPL_VULKAN"] = self.options.get_safe("backend_vulkan", False)
         tc.cache_variables["IMGUI_IMPL_WIN32"] = self.options.get_safe("backend_win32", False)
@@ -240,12 +259,19 @@ class ImguiConan(ConanFile):
         deps.generate()
 
     def _source(self):
-        kind = "docking" if self.options.docking else "regular"
-        get(self, **self.conan_data["sources"][self._base_version][kind], destination=self.source_folder, strip_root=True)
-        if self.options.get_safe("enable_test_engine"):
-            test_engine = self.conan_data["sources"][self._base_version]["test-engine"]
-            get(self, **test_engine, destination=os.path.join(self.source_folder, "test-engine"), strip_root=True)
-            rmdir(self, os.path.join(self.source_folder, "test-engine", "imgui_test_engine", "thirdparty", "stb"))
+        with chdir(self, self.source_folder):
+            kind = "docking" if self.options.docking else "regular"
+            get(self, **self.conan_data["sources"][self.version][kind], strip_root=True)
+            if self.options.get_safe("enable_test_engine"):
+                test_engine = self.conan_data["sources"][self.version]["test-engine"]
+                get(self, **test_engine, destination="test-engine", strip_root=True)
+                rmdir(self, "test-engine/imgui_test_engine/thirdparty/stb")
+            # Ensure the generated imgui_export.h is always included
+            replace_in_file(self, "imgui.h",
+                            '#include "imconfig.h"',
+                            '#include "imconfig.h"\n\n#include "imgui_export.h"')
+            if Version(self.version) >= "1.92":
+                replace_in_file(self, "misc/freetype/imgui_freetype.cpp", "lunasvg.h", "lunasvg/lunasvg.h")
 
     def _configure_header(self):
         defines = {}
@@ -275,16 +301,9 @@ class ImguiConan(ConanFile):
             content += "#define IMGUI_IMPL_METAL_CPP_EXTENSIONS\n"
         imconfig_path.write_text(content, "utf8")
 
-    def _patch_sources(self):
-        # Ensure the generated imgui_export.h is always included
-        replace_in_file(self, os.path.join(self.source_folder, "imgui.h"),
-                        '#include "imconfig.h"',
-                        '#include "imconfig.h"\n\n#include "imgui_export.h"')
-
     def build(self):
         self._source()
         self._configure_header()
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -298,8 +317,7 @@ class ImguiConan(ConanFile):
         cmake.install()
 
         # Package ImGui sources for users that need more fine-grained control
-        version = Version(self.version.replace("-docking", ""))
-        backends_folder = os.path.join(self.source_folder, "backends" if version >= "1.80" else "examples")
+        backends_folder = os.path.join(self.source_folder, "backends")
         res_folder = os.path.join(self.package_folder, "share", "imgui")
         copy(self, "imgui_impl_*", backends_folder, os.path.join(res_folder, "bindings"))
         copy(self, "imgui*.cpp", self.source_folder, os.path.join(res_folder, "src"))
@@ -332,6 +350,7 @@ class ImguiConan(ConanFile):
         def _add_binding(name, requires=None, system_libs=None, frameworks=None):
             if self.options.get_safe(f"backend_{name}"):
                 self.cpp_info.components[name].libs = [f"imgui-{name}"]
+                self.cpp_info.components[name].defines = [f"IMGUI_IMPL_{name.upper()}"]  # unofficial
                 self.cpp_info.components[name].requires = ["core"]
                 self.cpp_info.components[name].requires = requires or []
                 self.cpp_info.components[name].system_libs = system_libs or []
@@ -340,12 +359,7 @@ class ImguiConan(ConanFile):
         def _metal_cpp():
             return ["metal-cpp::metal-cpp"] if self.options.get_safe("enable_metal_cpp") else []
 
-        # _add_binding("allegro5", requires=[
-        #     "allegro::allegro",
-        #     "allegro::allegro_ttf",
-        #     "allegro::allegro_font",
-        #     "allegro::allegro_main",
-        # ])
+        # _add_binding("allegro5", requires=["allegro::allegro"])
         _add_binding("android", system_libs=["android", "log", "EGL", "GLESv3"])
         _add_binding("dx9", system_libs=["d3d9"])
         _add_binding("dx10", system_libs=["d3d10"])
@@ -359,7 +373,9 @@ class ImguiConan(ConanFile):
         _add_binding("osx", frameworks=["AppKit", "Carbon", "Cocoa", "Foundation", "GameController"], requires=_metal_cpp())
         _add_binding("sdl2", requires=["sdl::sdl"])
         _add_binding("sdlrenderer2", requires=["sdl::sdl"])
-        # _add_binding("sdlrenderer3", requires=["sdl::sdl"])
+        _add_binding("sdl3", requires=["sdl::sdl"])
+        _add_binding("sdlgpu3", requires=["sdl::sdl"])
+        _add_binding("sdlrenderer3", requires=["sdl::sdl"])
         _add_binding("vulkan", requires=["vulkan-headers::vulkan-headers", "vulkan-loader::vulkan-loader"])
         _add_binding("win32", system_libs=["dwmapi", "xinput"])
         # _add_binding("wgpu", requires=["dawn::dawn"])

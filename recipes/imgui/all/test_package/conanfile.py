@@ -16,29 +16,6 @@ class TestPackageConan(ConanFile):
     def layout(self):
         cmake_layout(self)
 
-    @property
-    def _backends(self):
-        return [
-            "allegro5",
-            "android",
-            "dx9",
-            "dx10",
-            "dx11",
-            "dx12",
-            "glfw",
-            "glut",
-            "metal",
-            "opengl2",
-            "opengl3",
-            "osx",
-            "sdl2",
-            "sdlrenderer2",
-            "sdlrenderer3",
-            "vulkan",
-            "win32",
-            "wgpu",
-        ]
-
     def generate(self):
         opts = self.dependencies[self.tested_reference_str].options
         tc = CMakeToolchain(self)
@@ -46,9 +23,6 @@ class TestPackageConan(ConanFile):
             tc.preprocessor_definitions["DOCKING"] = None
         if str(opts.get_safe("enable_test_engine")) == "True":
             tc.preprocessor_definitions["ENABLE_TEST_ENGINE"] = None
-        for backend in self._backends:
-            if str(opts.get_safe(f"backend_{backend}", False)) == "True":
-                tc.preprocessor_definitions[f"IMGUI_IMPL_{backend.upper()}"] = ""
         tc.generate()
 
     def build(self):
