@@ -11,7 +11,7 @@ Requires Conan v2.2 or newer.
 
 ## Added recipes and versions
 
-Package versions that are available here but not yet on the main CCI repo as of 2025-10-06:
+Package versions that are available here but not yet on the main CCI repo as of 2025-10-07:
 
 - 7zip/25.01
 - acados-qpoases/3.1+git.20240910
@@ -108,6 +108,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cmake/3.29.7
 - cmake/3.30.5
 - cmake/4.0.3
+- cmake/4.1.1
 - cmrc/2.0.1+git.20230724
 - cnmem/1.0.0+git.20181128
 - cocoapi/0.0.0+git.20200220
@@ -1122,7 +1123,6 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - openrng/25.04
 - openspecfun/0.5.7
 - openssl/3.1.8
-- openssl/3.6.0
 - openucx/1.19.0
 - openusd/25.08
 - openvino/2025.2.0
@@ -1266,6 +1266,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - snopt-mockup/89
 - sophus/1.24.6
 - soplex/3.1.1
+- sparrow/1.2.0
 - spectra/1.1.0
 - spectra/1.2.0
 - speech-dispatcher/0.12
