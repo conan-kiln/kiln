@@ -44,6 +44,13 @@
 #ifdef IMGUI_IMPL_SDLRENDERER2
     #include <imgui_impl_sdlrenderer2.h>
 #endif
+#ifdef IMGUI_IMPL_SDLGPU3
+    #include <imgui_impl_sdlgpu3.h>
+    #include <imgui_impl_sdlgpu3_shaders.h>
+#endif
+#ifdef IMGUI_IMPL_SDL3
+    #include <imgui_impl_sdl3.h>
+#endif
 #ifdef IMGUI_IMPL_SDLRENDERER3
     #include <imgui_impl_sdlrenderer3.h>
 #endif
@@ -96,6 +103,12 @@ void test_backends() {
 #ifdef IMGUI_IMPL_SDLRENDERER2
     ImGui_ImplSDLRenderer2_Shutdown();
 #endif
+#ifdef IMGUI_IMPL_SDL3
+    ImGui_ImplSDL3_Shutdown();
+#endif
+#ifdef IMGUI_IMPL_SDLGPU3
+    ImGui_ImplSDLGPU3_Shutdown();
+#endif
 #ifdef IMGUI_IMPL_SDLRENDERER3
     ImGui_ImplSDLRenderer3_Shutdown();
 #endif
@@ -128,4 +141,61 @@ int main() {
 #else
     ImGui::DestroyContext();
 #endif
+
+    puts("Enabled backends:");
+#ifdef IMGUI_IMPL_ALLEGRO5
+    puts("- allegro5");
+#endif
+#ifdef IMGUI_IMPL_ANDROID
+    puts("- android");
+#endif
+#ifdef IMGUI_IMPL_DX9
+    puts("- dx9");
+#endif
+#ifdef IMGUI_IMPL_DX10
+    puts("- dx10");
+#endif
+#ifdef IMGUI_IMPL_DX11
+    puts("- dx11");
+#endif
+#ifdef IMGUI_IMPL_DX12
+    puts("- dx12");
+#endif
+#ifdef IMGUI_IMPL_GLFW
+    puts("- glfw");
+#endif
+#ifdef IMGUI_IMPL_GLUT
+    puts("- glut");
+#endif
+#ifdef IMGUI_IMPL_OPENGL2
+    puts("- opengl2");
+#endif
+#ifdef IMGUI_IMPL_OPENGL3
+    puts("- opengl3");
+#endif
+#ifdef IMGUI_IMPL_SDL2
+    puts("- sdl2");
+#endif
+#ifdef IMGUI_IMPL_SDLRENDERER2
+    puts("- sdlrenderer2");
+#endif
+#ifdef IMGUI_IMPL_SDL3
+    puts("- sdl3");
+#endif
+#ifdef IMGUI_IMPL_SDLGPU3
+    puts("- sdlgpu3");
+#endif
+#ifdef IMGUI_IMPL_SDLRENDERER3
+    puts("- sdlrenderer3");
+#endif
+#ifdef IMGUI_IMPL_VULKAN
+    puts("- vulkan");
+#endif
+#ifdef IMGUI_IMPL_WIN32
+    puts("- win32");
+#endif
+#ifdef IMGUI_IMPL_WGPU
+    puts("- wgpu");
+#endif
+
 }
