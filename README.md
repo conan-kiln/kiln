@@ -162,7 +162,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cub/2.6.1
 - cub/2.7.0
 - cub/2.8.5
-- cub/3.0.2
+- cub/3.0.3
 - cub/3.1.0-rc9
 - cublas/11.10.3.66
 - cublas/11.11.3.6
@@ -201,7 +201,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cuda-cccl/2.6.1
 - cuda-cccl/2.7.0
 - cuda-cccl/2.8.5
-- cuda-cccl/3.0.2
+- cuda-cccl/3.0.3
 - cuda-cccl/3.1.0-rc9
 - cuda-crt/11.4.152
 - cuda-crt/11.5.119
@@ -296,7 +296,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - cudax/2.6.1
 - cudax/2.7.0
 - cudax/2.8.5
-- cudax/3.0.2
+- cudax/3.0.3
 - cudax/3.1.0-rc9
 - cudf/25.10.00+git.20250816
 - cudla/11.8.86
@@ -655,7 +655,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - imgui/1.91.9b
 - imgui/1.92.3
 - imlib2/1.12.3
-- implot/0.17.cci.20250319
+- implot/0.17+git.20250319
 - intel-dpcpp-sycl/2025.1.1
 - intel-dpcpp-sycl/2025.2.1
 - intel-dpcpp/2025.1.1
@@ -725,7 +725,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - libcudacxx/2.6.1
 - libcudacxx/2.7.0
 - libcudacxx/2.8.5
-- libcudacxx/3.0.2
+- libcudacxx/3.0.3
 - libcudacxx/3.1.0-rc9
 - libcups/2.2.12
 - libcups/3.0-rc4
@@ -842,6 +842,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - llvm-openmp/21.1.2
 - lmdb/0.9.33
 - lttng-ust/2.13.9
+- lunasvg/3.5.0
 - lusol/0.0.0+git.20160215
 - lzip/1.25
 - m4/1.4.20
@@ -1161,11 +1162,14 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - pistache/0.4.26
 - pkgconf/2.5.1
 - plf_list/2.77
+- plutovg/0.0.0+git.20230103
+- plutovg/0.0.13
+- plutovg/1.3.1
 - pocketfft/0.0.0+git.20241130
 - podofo/0.10.5
 - poissonrecon/12.00
 - poissonrecon/18.74
-- polyscope/2.3.0
+- polyscope/2.5.0
 - poppler-data/0.4.12
 - poppler/25.01.0
 - popsift/0.10.0-git.20250829
@@ -1367,7 +1371,7 @@ Package versions that are available here but not yet on the main CCI repo as of 
 - thrust/2.6.1
 - thrust/2.7.0
 - thrust/2.8.5
-- thrust/3.0.2
+- thrust/3.0.3
 - thrust/3.1.0-rc9
 - tiny-cuda-nn/2.0
 - tinyexr/1.0.12
